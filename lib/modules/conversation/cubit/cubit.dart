@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:astarar/models/chatModel.dart';
-import 'package:astarar/models/delegate/update_price_model.dart';
 import 'package:astarar/models/get-messages-model.dart';
 import 'package:astarar/modules/conversation/conversation.dart';
 import 'package:astarar/modules/conversation/cubit/states.dart';
@@ -12,7 +9,6 @@ import 'package:astarar/shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:signalr_netcore/hub_connection.dart';
 
 class ConversationCubit extends Cubit<ConversationStates> {
   ConversationCubit() : super(ConversationInitialState());

@@ -1,5 +1,5 @@
 import 'package:astarar/models/forget_password.dart';
-import 'package:astarar/models/register_delegate_model.dart';
+
 
 abstract class ForgetPasswordStates{}
 

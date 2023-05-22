@@ -4,7 +4,7 @@ class ChatModel {
   String? senderId;
   String? text;
   String? receiverId;
-  dynamic? date;
+  dynamic date;
 
   ChatModel.fromJson(Map<String, dynamic> json) {
     senderId = json['senderId'];

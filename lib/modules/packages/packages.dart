@@ -1,5 +1,3 @@
-import 'package:astarar/layout/layout.dart';
-import 'package:astarar/modules/login/login.dart';
 import 'package:astarar/modules/packages/cubit/cubit.dart';
 import 'package:astarar/modules/packages/cubit/states.dart';
 import 'package:astarar/shared/components/components.dart';
@@ -10,8 +8,6 @@ import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
 class PackagesScreen extends StatelessWidget {

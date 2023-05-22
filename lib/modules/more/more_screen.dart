@@ -198,9 +198,7 @@ class MoreScreen extends StatelessWidget {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => UserRegister(
-                                                  delegateId: id,
-                                                )));
+                                            builder: (context) => UserRegister(delegateId: id) ));
                                   }
                                 },
                                 child: DefaultRaw(
@@ -224,11 +222,10 @@ class MoreScreen extends StatelessWidget {
                           SizedBox(
                             height: 2.h,
                           ),
-                          Text(
-                            "معلومات",
-                            style: GoogleFonts.poppins(
-                                fontSize: 13.sp, color: Colors.grey[600]),
+                          Text( "معلومات",
+                            style: GoogleFonts.poppins( fontSize: 13.sp, color: Colors.grey[600]),
                           ),
+                          
                           SizedBox(
                             height: 2.h,
                           ),

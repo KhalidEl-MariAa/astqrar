@@ -11,11 +11,13 @@ List<DataOfPackagesModel> data=[];
   }
 }
 
-class DataOfPackagesModel{
-int?id;
-String?description;
-dynamic?price;
-dynamic?days;
+class DataOfPackagesModel
+{
+  int?id;
+  String?description;
+  dynamic price;
+  dynamic days;
+  
   DataOfPackagesModel.fromJson(Map<String,dynamic>json){
     id=json['id'];
     description=json['description'];

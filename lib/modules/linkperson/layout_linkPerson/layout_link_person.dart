@@ -1,7 +1,5 @@
 import 'package:astarar/modules/chats/chat.dart';
-import 'package:astarar/modules/favourite/favourite_screen.dart';
 import 'package:astarar/modules/home/home.dart';
-import 'package:astarar/modules/linkperson/update_price/cubit/cubit.dart';
 import 'package:astarar/modules/linkperson/update_price/update_price.dart';
 import 'package:astarar/modules/more/more_screen.dart';
 import 'package:astarar/modules/search/result.dart';

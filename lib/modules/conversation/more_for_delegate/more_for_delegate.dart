@@ -6,7 +6,6 @@ import 'package:astarar/modules/more/widgets/default_raw.dart';
 import 'package:astarar/modules/payment/payment_screen.dart';
 import 'package:astarar/modules/specific_delegate_screen/specific_Delegate_screen.dart';
 import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/custom_dialog.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';

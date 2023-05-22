@@ -3,7 +3,6 @@ import 'package:astarar/modules/details_user/details_user.dart';
 import 'package:astarar/modules/favourite/cubit/cubit.dart';
 import 'package:astarar/modules/favourite/cubit/state.dart';
 import 'package:astarar/shared/components/favourite_item.dart';
-import 'package:astarar/shared/components/loading_gif.dart';
 import 'package:astarar/shared/components/logo/normal_logo.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/styles/colors.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../shared/components/nameWithTitleWithRate.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({Key? key}) : super(key: key);

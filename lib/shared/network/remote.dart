@@ -40,8 +40,11 @@ class DioHelper {
     return await dio.get(url);
   }
 
-  static Future<Response> getDataWithQuery(
-      {required String url, String? token, Map<String, dynamic>? query}) async {
+  static Future<Response> getDataWithQuery({
+    required String url, 
+    String? token, 
+    Map<String, dynamic>? query}) async 
+  {
     dio.options.headers = {
       'token': token ?? '',
       'Authorization': "Bearer " + token.toString(),
@@ -73,18 +76,19 @@ class DioHelper {
       "Content-Type": "application/json",
     };
 
+    //TODO: remove prints
     print('-44444444444444444-3-3');    
     print(dio.options.baseUrl + url);
     print(data);
     var res = await dio.post(url, data: data);
-    print(res);
+    // print(res);
     // return await dio.post(url, data: data);
     return res;
   } //end postData
 
   static Future<Response> postDataWithImage(
       {required String url,
-      dynamic? length,
+      dynamic length,
       String? token,
       //  String ?image,
       // Map<String, dynamic>? query,

@@ -1,12 +1,12 @@
-import 'dart:developer';
 
 import 'package:astarar/layout/cubit/cubit.dart';
 import 'package:astarar/models/register_delegate_model.dart';
 import 'package:astarar/modules/register_user/states.dart';
 import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:astarar/shared/components/components.dart';
+
 
 class RegisterClientCubit extends Cubit<RegisterClientStates> 
 {
@@ -73,27 +73,33 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
     var newUser = {
       "userName": name,
       "email": delegateId == null ? email : "nabil12@gmail.com",
-      // "Age":age,
-      // "Gender":gender,
+      "Age":age,
+      "Gender":gender,
       "NationalID": delegateId == null ? natonalityId : "71717171",
-      // "Nationality":nationality,
-      // "City":city,
+      "Nationality":nationality,
+      "City":city,
       "password": delegateId == null ? password : "0000000",
-      // "phone":delegateId==null?phone:"+9665874521",
-      // "Height":height,
-      // "Weight":width,
-      // "SpecialNeeds":specialNeeds,
-      // "Dowry":dowry,
-      // "Terms":terms,
-      // "DelegateId":delegateId,
-      // "IsFakeUser":delegateId!=null?true:false,
-      // "UserSpecifications":specificationsMap,
-      // "ChildrensNumber":childrensNumber!.toInt(),
-      // "Tribe":tribe,
-      // "NameOfJob":nameOfJob,
-      // "KindOfSick":kindOfSick
+      "phone":delegateId==null?phone:"+9665874521",
+      "Height":height,
+      "Weight":width,
+      "SpecialNeeds":specialNeeds,
+      "Dowry":dowry,
+      "Terms":terms,
+      "DelegateId":delegateId,
+      "IsFakeUser":delegateId!=null? true: false,
+      
+      "ChildrensNumber":childrensNumber!.toInt(),
+      "Tribe":tribe,
+      "NameOfJob":nameOfJob,
+      "KindOfSick":kindOfSick,
+      "UserSpecifications":specificationsMap, //can't SAVE
     };
     print(newUser);
+
+    //TODO: just for test
+    AppCubit()..getSpecifications();
+    AppCubit.specificationId;
+
 
     DioHelper.postData(url: REGISTERCLIENT, data: newUser).then((value) {
       print('********************************');
@@ -105,6 +111,7 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
       print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       print(error.toString());
       emit(RegisterClientErrorState(error.toString()));
+      showToast(msg: "حصلت مشكلة من السيرفر", state: ToastStates.ERROR);
       print('--------------------------------------------');
     });
   }

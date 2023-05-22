@@ -19,11 +19,11 @@ class GetInformationUserModel {
 class InformationDetailsModel {
   String? id;
   String? user_Name;
-  dynamic? gender;
+  dynamic gender;
   String? city;
-  dynamic? age;
-  dynamic? height;
-  dynamic? weight;
+  dynamic age;
+  dynamic height;
+  dynamic weight;
   String? dowry;
   String? terms;
   String? email;
@@ -44,36 +44,38 @@ class InformationDetailsModel {
   }
 }
 
-class UserSubSpecificationModel {
-  String? id;
-  String? userName;
-  String? email;
-  int? gender;
-  String? city;
-  dynamic? age;
-  dynamic? height;
-  dynamic? weight;
-  String? dowry;
-  String? terms;
-  String? nationality;
-  bool?specialNeeds;
-List<UserSubSpecificationDtoModel>userSubSpecificationDto=[];
-  UserSubSpecificationModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userName = json['userName'];
-    email = json['email'];
-    nationality = json['nationality'];
-    gender = json['gender'];
-    city = json['city'];
-    age = json['age'];
-    height = json['height'];
-    weight = json['weight'];
-    dowry = json['dowry'];
-    terms = json['terms'];
-    specialNeeds=json['specialNeeds'];
-    json['userSubSpecificationDto'].forEach((element) {
-      userSubSpecificationDto.add(UserSubSpecificationDtoModel.fromJson(element));
-    });
+class UserSubSpecificationModel 
+{
+    String? id;
+    String? userName;
+    String? email;
+    int?    gender;
+    String? city;
+    dynamic age;
+    dynamic height;
+    dynamic weight;
+    String? dowry;
+    String? terms;
+    String? nationality;
+    bool?specialNeeds;
+
+    List<UserSubSpecificationDtoModel>userSubSpecificationDto=[];
+      UserSubSpecificationModel.fromJson(Map<String, dynamic> json) {
+        id = json['id'];
+        userName = json['userName'];
+        email = json['email'];
+        nationality = json['nationality'];
+        gender = json['gender'];
+        city = json['city'];
+        age = json['age'];
+        height = json['height'];
+        weight = json['weight'];
+        dowry = json['dowry'];
+        terms = json['terms'];
+        specialNeeds=json['specialNeeds'];
+        json['userSubSpecificationDto'].forEach((element) {
+          userSubSpecificationDto.add(UserSubSpecificationDtoModel.fromJson(element));
+        });
   }
 }
 

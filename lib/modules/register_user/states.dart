@@ -19,10 +19,7 @@ class RegisterClientErrorState extends RegisterClientStates{
 
 class GetSpecificationsLoadingState extends RegisterClientStates{}
 
-class GetSpecificationsSuccessState extends RegisterClientStates{
-
-
-}
+class GetSpecificationsSuccessState extends RegisterClientStates{}
 
 class GetSpecificationsErrorState extends RegisterClientStates{
   final String error;

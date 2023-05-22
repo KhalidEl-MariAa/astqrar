@@ -9,13 +9,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class ContactUS extends StatelessWidget {
-  final bool isFromLogin;
+class ContactUS extends StatelessWidget 
+{
+  final bool isFromLogin;  
+  final formKey = GlobalKey<FormState>();
+  final phoneController = TextEditingController();
+  final nameController = TextEditingController();
+  final messageController = TextEditingController();
+
   ContactUS({required this.isFromLogin});
-  var formKey = GlobalKey<FormState>();
-  var phoneController = TextEditingController();
-  var nameController = TextEditingController();
-  var messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +64,7 @@ class ContactUS extends StatelessWidget {
                           controller: phoneController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل رقم الجوال";
-                            }
+                            return (value!.isEmpty)?"من فضلك ادخل رقم الجوال": null;
                           },
                           label: "الرجاء ادخل رقم الجوال"),
                       SizedBox(
@@ -81,9 +81,7 @@ class ContactUS extends StatelessWidget {
                           controller: nameController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل الاسم";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل الاسم": null;
                           },
                           label: "الرجاء ادخل الاسم"),
                       SizedBox(
@@ -100,9 +98,7 @@ class ContactUS extends StatelessWidget {
                           controller: messageController,
                           type: TextInputType.multiline,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك قم بتاكيد الرسالة";
-                            }
+                            return (value!.isEmpty)? "من فضلك قم بتاكيد الرسالة": null;
                           },
                           label: "الرجاء ادخل الرسالة"),
                       SizedBox(

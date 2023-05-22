@@ -1,5 +1,4 @@
 import 'package:astarar/models/activate_model.dart';
-import 'package:astarar/modules/home/cubit/cubit.dart';
 import 'package:astarar/modules/payment/cubit/states.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/network/remote.dart';

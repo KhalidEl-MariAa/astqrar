@@ -12,8 +12,8 @@ List<DataAdsModel> data=[];
 class DataAdsModel{
 int?id;
 String?descriptionAr;
-dynamic?price;
-dynamic?days;
+dynamic price;
+dynamic days;
 String?nameAr;
   DataAdsModel.fromJson(Map<String,dynamic>json){
     id=json['id'];

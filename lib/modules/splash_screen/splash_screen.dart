@@ -8,7 +8,6 @@ import 'package:astarar/modules/login/login.dart';
 import 'package:astarar/modules/packages/packages.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';

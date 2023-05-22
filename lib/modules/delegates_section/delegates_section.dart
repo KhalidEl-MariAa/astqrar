@@ -1,4 +1,3 @@
-import 'package:astarar/modules/chats/cubit/cubit.dart';
 import 'package:astarar/modules/delegates_section/cubit/cubit.dart';
 import 'package:astarar/modules/delegates_section/cubit/states.dart';
 import 'package:astarar/modules/specific_delegate_screen/cubit/cubit.dart';
@@ -6,11 +5,9 @@ import 'package:astarar/modules/specific_delegate_screen/specific_Delegate_scree
 import 'package:astarar/shared/components/loading_gif.dart';
 import 'package:astarar/shared/components/logo/appbar_name_image.dart';
 import 'package:astarar/shared/components/nameWithTitleWithRate.dart';
-import 'package:astarar/shared/contants/contants.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../shared/styles/colors.dart';

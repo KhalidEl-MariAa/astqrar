@@ -4,24 +4,23 @@ import 'package:astarar/modules/details_user/cubit/cubit.dart';
 import 'package:astarar/modules/details_user/cubit/states.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:astarar/shared/components/loading_gif.dart';
-import 'package:astarar/shared/components/user/details_item.dart';
 import 'package:astarar/shared/components/user/details_user/details.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../contact_us/contact_us.dart';
 
-class DetailsUserScreen extends StatelessWidget {
+class DetailsUserScreen extends StatelessWidget 
+{
   final bool messageVisibility;
-  String?delegateId;
-  String?delegateName;
- DetailsUserScreen({Key? key,required this.messageVisibility,this.delegateId,this.delegateName}) : super(key: key);
+  final String?delegateId;
+  final String?delegateName;
+
+  DetailsUserScreen({Key? key,required this.messageVisibility,this.delegateId,this.delegateName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +33,7 @@ class DetailsUserScreen extends StatelessWidget {
           }
         }
       },
+
       builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
         child: ConditionalBuilder(
@@ -90,18 +90,19 @@ class DetailsUserScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       InkWell(
-                                        onTap: (){
-                                         showToast(msg: "تم حظر المستخدم", state: ToastStates.SUCCESS);
-                                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
-                                        },
                                         child: Padding(
                                           padding: const EdgeInsets.all(15.0),
-                                          child: Text(
-                                            "حظر المستخدم",
+                                          child: Text("حظر المستخدم",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w300),
                                           ),
                                         ),
+                                        onTap: () {
+                                          //TODO: كتابة الكووود الخاص بعملية الحظر
+                                          showToast(msg: "تم حظر المستخدم", state: ToastStates.SUCCESS);
+                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                                        },
+
                                       ),
                                     ],
                                   ),

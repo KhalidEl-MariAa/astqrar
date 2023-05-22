@@ -6,7 +6,6 @@ import 'package:astarar/modules/favourite/cubit/state.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetFavouritesCubit extends Cubit<GetFavouritesStates> {

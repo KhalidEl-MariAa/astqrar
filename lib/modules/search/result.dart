@@ -5,7 +5,6 @@ import 'package:astarar/modules/search/cubit/cubit.dart';
 import 'package:astarar/modules/search/cubit/states.dart';
 import 'package:astarar/modules/search/filter_search.dart';
 import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/loading_gif.dart';
 import 'package:astarar/shared/components/user/user_item.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/styles/colors.dart';
@@ -60,7 +59,7 @@ class ResultScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: isLogin! ? 2.h : 0,
+                                        height: isLogin!? 2.h : 0,
                                       ),
                                       Text(
                                         isLogin! ? name! : "اهلا بك ",
@@ -387,7 +386,7 @@ class ResultScreen extends StatelessWidget {
                             controller:
                                 SearchCubit.get(context).searchTextController,
                             type: TextInputType.text,
-                            validate: (value) {},
+                            validate: (value) { return null; },
                             label: "البحث"),
                       ),
                       Visibility(

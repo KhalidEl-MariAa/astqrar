@@ -103,9 +103,10 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             validate: (String? value) {
                               if (value!.isEmpty) {
                                 return "من فضلك ادخل البريد الالكتروني";
-                              }
-                              if (!value!.contains("@gmail.com")) {
+                              }else if (!value.contains("@gmail.com")) {
                                 return "من فضلك ادخل البريد الالكتروني بطريقة صحيحة";
+                              }else{
+                                return null;
                               }
                             },
                             labelText: "البريد الالكتروني",
@@ -127,9 +128,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             //   labelTextcolor: white,
                             type: TextInputType.text,
                             validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل الاسم";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل الاسم": null;
                             },
                             labelText: "الاسم",
                             label: "الرجاء ادخال اسمك",
@@ -146,9 +145,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             styleText: Colors.black,
                             borderColor: primary,
                             validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل المدينة";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل المدينة": null;
                             },
                             labelText: "المدينة",
                             label: "الرجاء ادخال المدينة",
@@ -165,9 +162,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             controller: nationalityController,
                             type: TextInputType.text,
                             validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل الجنسية";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل الجنسية": null;
                             },
                             labelText: "الجنسية",
                             //labelTextcolor: white,
@@ -199,8 +194,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     type: TextInputType.text,
                                     labelTextcolor: Colors.black,
                                     validate: (value) {
-                                     /* if (selectedlastName == 0 &&
-                                          value!.isEmpty) {
+                                      return null;
+                                     /* if (selectedlastName == 0 && value!.isEmpty) {
                                         return "من فضلك ادخل اسم القبيلة";
                                       }*/
                                     },
@@ -232,8 +227,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     controller: lastNameFamilyController,
                                     type: TextInputType.text,
                                     validate: (value) {
-                                   /*   if (selectedlastName == 1 &&
-                                          value!.isEmpty) {
+                                      return null;
+                                      /* if (selectedlastName == 1 && value!.isEmpty) {
                                         return "من فضلك ادخل اسم العائلة";
                                       }*/
                                     },
@@ -284,9 +279,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             controller: ageController,
                             type: TextInputType.number,
                             validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل العمر";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل العمر": null;
                             },
                             labelText: "العمر",
                             //  labelTextcolor: white,
@@ -315,9 +308,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             controller: heightController,
                             type: TextInputType.number,
                             validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل الطول";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل الطول": null;
                             },
                             labelText: "الطول",
                             label: "الرجاء ادخال الطول",
@@ -334,9 +325,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             controller: weightController,
                             type: TextInputType.number,
                             validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل الوزن";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل الوزن": null;
                             },
                             labelText: "الوزن",
                             label: "الرجاء ادخال الوزن",
@@ -617,7 +606,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             context: context,
                             controller: jobNameController,
                             type: TextInputType.number,
-                            validate: (String? value) {},
+                            validate: (String? value) { return null; },
                             container: Colors.grey[100],
                             styleText: Colors.black,
                             borderColor: primary,
@@ -707,7 +696,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             styleText: Colors.black,
                             borderColor: primary,
                             type: TextInputType.number,
-                            validate: (String? value) {},
+                            validate: (String? value) { return null; },
                             labelText: "نوع المرض",
                             //  labelTextcolor: white,
                             label: "الرجاء ادخال نوع المرض (ان وجد)",
@@ -875,15 +864,13 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             controller: numberOfKidsController,
                             type: TextInputType.number,
                             validate: (String? value) {
-                          /*    if (UserProfileCubit.get(context)
-                                          .numberOfKidsint !=
-                                      0 &&
+                              return null;
+                            /* if (UserProfileCubit.get(context).numberOfKidsint != 0 &&
                                   value!.isEmpty) {
                                 return "من فضلك اكتب عدد الاطفال";
                               }*/
                             },
                             labelText: "عدد الاطفال",
-                            //  labelTextcolor: white,
                             label: "الرجاء ادخال عدد الاطفال (ان وجد)",
                             prefixIcon: Icons.person),
                         SizedBox(
@@ -1040,9 +1027,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             borderColor: primary,
                             type: TextInputType.number,
                             validate: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل المهر";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل المهر": null;
                             },
                             labelText: "قيمة المهر",
                             //  labelTextcolor: white,
@@ -1054,9 +1039,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         TextFormField(
                           controller: conditionsController,
                           validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل شروطك";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل شروطك": null;
                           },
                           decoration: InputDecoration(
                             hintText: "شروطك",

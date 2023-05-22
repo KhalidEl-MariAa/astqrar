@@ -1,9 +1,6 @@
 import 'package:astarar/modules/ads/cubit/cubit.dart';
-import 'package:astarar/modules/packages/cubit/cubit.dart';
 import 'package:astarar/modules/payment/payment_screen.dart';
 import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/custom_dialog.dart';
-import 'package:astarar/shared/contants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';

@@ -1,3 +1,4 @@
+
 abstract class PaymentStates {}
 
 class PaymentInitialState extends PaymentStates {}
@@ -10,7 +11,6 @@ class AddInvoiceSuccessState extends PaymentStates {}
 
 class AddInvoiceErrorState extends PaymentStates {
   final String error;
-
   AddInvoiceErrorState(this.error);
 }
 
@@ -22,9 +22,9 @@ class SetProgressState extends PaymentStates {}
 
 class GetInvoiceStatusLoadingState extends PaymentStates {}
 
-class GetInvoiceStatusSuccessState extends PaymentStates {
+class GetInvoiceStatusSuccessState extends PaymentStates 
+{
   String? orderStatus;
-
   GetInvoiceStatusSuccessState(this.orderStatus);
 }
 

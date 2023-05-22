@@ -2,6 +2,18 @@
 
 A new Flutter project.
 
+## flutter and Android in $PATH
+```bash
+PATH="$PATH:$HOME/Documents/programs/flutter/bin"
+PATH="$PATH:$HOME/Documents/programs/flutter/dart-sdk/bin"
+PATH="$PATH:$HOME/Documents/programs/flutter/cmake/bin"
+
+export ANDROID_HOME=$HOME/Documents/programs/android_sdk
+PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+PATH="$PATH:$ANDROID_HOME/emulator"
+PATH="$PATH:$ANDROID_HOME/platform-tools"
+```
+
 ## Create AVD
 `avdmanager` can be found in `/path/to/command-tools/bin/latest`
 
@@ -15,6 +27,7 @@ A new Flutter project.
 
 ```bash
 emulator -avd Resizable_API_33
+emulator -avd Resizable_Experimental_API_33
 ```
 
 

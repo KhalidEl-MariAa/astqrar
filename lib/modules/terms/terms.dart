@@ -1,12 +1,8 @@
 import 'package:astarar/modules/terms/cubit/cubit.dart';
 import 'package:astarar/modules/terms/cubit/states.dart';
 import 'package:astarar/shared/components/logo/stack_logo.dart';
-import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../shared/components/header_logo.dart';
 
 class TermsScreen extends StatelessWidget {
   const TermsScreen({Key? key}) : super(key: key);

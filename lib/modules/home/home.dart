@@ -22,7 +22,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:signalr_netcore/hub_connection_builder.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:astarar/notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -182,8 +181,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   EdgeInsetsDirectional.only(end: 3.w, top: 2.h),
                               child: InkWell(
                                   onTap: () async {
-                                    String url =
-                                        "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
+                                    String url = "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
                                     if (await launch(url)) {
                                       await launch(url,
                                           forceWebView: false,
@@ -333,10 +331,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     Expanded(
                       child: InkWell(
                         onTap: () async {
-                          final hubConnection = HubConnectionBuilder()
-                              .withUrl(
-                                  "https://estqrar-001-site1.ctempurl.com/chatHub")
-                              .build();
+                          HubConnectionBuilder()
+                            .withUrl("https://estqrar-001-site1.ctempurl.com/chatHub")
+                            .build();
 
                           SectionMenOrWomen.oneIndexSection=0;
                               SectionMenOrWomen.twoIndexSection=0;

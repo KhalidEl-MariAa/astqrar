@@ -1,7 +1,5 @@
-import 'package:astarar/modules/change_password/cubit/states.dart';
 import 'package:astarar/modules/forgetpassword/cubit/cubit.dart';
 import 'package:astarar/modules/forgetpassword/cubit/states.dart';
-import 'package:astarar/modules/forgetpassword/inputOtp.dart';
 import 'package:astarar/modules/login/login.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:astarar/shared/components/header_logo.dart';
@@ -65,7 +63,7 @@ class ResetPassword extends StatelessWidget {
                         container: white,
                         styleText: Colors.black,
                         type: TextInputType.number,
-                        validate: (String? value) {},
+                        validate: (String? value) { return ''; },
                         //    labelText: "رقم الجوال",
                         label: "الرجاء ادخال كلمة المرور",
                         prefixIcon: Icons.lock_outline_rounded,
@@ -79,7 +77,7 @@ class ResetPassword extends StatelessWidget {
                         container: white,
                         type: TextInputType.number,
                         styleText: Colors.black,
-                        validate: (String? value) {},
+                        validate: (String? value) { return ''; },
                         //    labelText: "رقم الجوال",
                         label: "تاكيد كلمة المرور",
                         prefixIcon: Icons.lock_outline_rounded,

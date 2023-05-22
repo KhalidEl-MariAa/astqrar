@@ -1,8 +1,6 @@
 import 'package:astarar/modules/linkperson/register/cubit/cubit.dart';
 import 'package:astarar/modules/linkperson/register/cubit/states.dart';
-import 'package:astarar/modules/linkperson/register/verificationphone.dart';
 import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/modules/register_user/user_register.dart';
 import 'package:astarar/modules/terms/terms.dart';
 import 'package:astarar/shared/alreadyhaneaccount_text.dart';
 import 'package:astarar/shared/components/checkedbox_register.dart';
@@ -77,9 +75,10 @@ var formkey =GlobalKey<FormState>();
                           validate: (String? value) {
                             if (value!.isEmpty) {
                               return "من فضلك ادخل البريد الالكتروني";
-                            }
-                            if (!value.contains("@")) {
+                            }else if (!value.contains("@")) {
                               return "من فضلك اكتب البريد الالكتروني بصيغة صحيحة";
+                            }else{
+                              return null;
                             }
                           },
                           labelText: "البريد الالكتروني",
@@ -95,9 +94,7 @@ var formkey =GlobalKey<FormState>();
                           labelTextcolor: white,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل الاسم";
-                            }
+                              return (value!.isEmpty)? "من فضلك ادخل الاسم": null;
                           },
                           labelText: "الاسم",
                           label: "الرجاء ادخال اسمك",
@@ -110,9 +107,7 @@ var formkey =GlobalKey<FormState>();
                           controller: personalCardController,
                           type: TextInputType.number,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل رقم الهوية";
-                            }
+                              return (value!.isEmpty)? "من فضلك ادخل رقم الهوية": null;
                           },
                           labelText: "رقم الهوية",
                           labelTextcolor: white,
@@ -128,9 +123,7 @@ var formkey =GlobalKey<FormState>();
                           type: TextInputType.number,
                           labelTextcolor: white,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل رقم الهاتف";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل رقم الهاتف": null;
                           },
                           labelText: "رقم الجوال",
                           label: "الرجاء ادخال رقم الجوال",
@@ -143,9 +136,7 @@ var formkey =GlobalKey<FormState>();
                           controller: cityController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل المدينة";
-                            }
+                              return (value!.isEmpty)? "من فضلك ادخل المدينة": null;
                           },
                           labelText: "المدينة",
                           label: "الرجاء ادخال المدينة",
@@ -159,9 +150,7 @@ var formkey =GlobalKey<FormState>();
                           controller: nationalityController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل الجنسية";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل الجنسية": null;
                           },
                           labelText: "الجنسية",
                           labelTextcolor: white,
@@ -175,9 +164,7 @@ var formkey =GlobalKey<FormState>();
                           controller: ageController,
                           type: TextInputType.number,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل العمر";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل العمر": null;
                           },
                           labelText: "العمر",
                           label: "الرجاء ادخال العمر",
@@ -191,9 +178,7 @@ var formkey =GlobalKey<FormState>();
                           controller: passwordController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل كلمة المرور";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل كلمة المرور": null;
                           },
                           labelText: "كلمة المرور",
                           label: "الرجاء ادخال كلمة المرور",
@@ -207,9 +192,7 @@ var formkey =GlobalKey<FormState>();
                           controller: experienceController,
                           type: TextInputType.number,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل سنين خبرتك";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل سنين خبرتك": null;
                           },
                           labelText: "كم خبرتك في الخطابة ؟",
                           labelTextcolor: white,
@@ -225,9 +208,7 @@ var formkey =GlobalKey<FormState>();
                         maxLines: 5,
                         minLines: 1,
                         validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return "من فضلك ادخل لماذا ترغبي بالعمل مع تطبيق استقرار ";
-                          }
+                          return (value!.isEmpty)? "من فضلك ادخل لماذا ترغبي بالعمل مع تطبيق استقرار ": null;
                         },
                         decoration: InputDecoration(
                           hintText: "سبب رغبتك بالعمل لدينا ؟",
@@ -269,9 +250,7 @@ var formkey =GlobalKey<FormState>();
 
                         controller: moneyController,
                         validator: (String? value) {
-                          if (value!.isEmpty) {
-                            return "من فضلك ادخل اتعابك من كلا الجنسين";
-                          }
+                          return (value!.isEmpty)? "من فضلك ادخل اتعابك من كلا الجنسين": null;
                         },
                         style: TextStyle(color: white),
                         decoration: InputDecoration(

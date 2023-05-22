@@ -13,24 +13,24 @@ class LoginModel
 
 class UserData{
 
-  String?id;
-  String?userName;
-  String?email;
-  String?phone;
-  String?lang;
-  bool?closeNotify;
-  bool?status;
-  String?imgProfile;
-  String?token;
-  int?typeUser;
-  int?gender;
-  int?code;
-  String?nationality;
-  String?nationalID;
-  String?city;
-  dynamic?age;
-  dynamic?height;
-  dynamic?weight;
+  String?   id;
+  String?   userName;
+  String?   email;
+  String?   phone;
+  String?   lang;
+  bool? closeNotify;
+  bool? status;
+  String? imgProfile;
+  String? token;
+  int?    typeUser;
+  int?    gender;
+  int?    code;
+  String? nationality;
+  String? nationalID;
+  String? city;
+  dynamic age;
+  dynamic height;
+  dynamic weight;
   String?dowry;
   String?terms;
   bool?specialNeeds;

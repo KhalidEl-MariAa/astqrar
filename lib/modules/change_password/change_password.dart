@@ -3,14 +3,14 @@ import 'package:astarar/modules/change_password/cubit/cubit.dart';
 import 'package:astarar/modules/change_password/cubit/states.dart';
 import 'package:astarar/modules/more/more_screen.dart';
 import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class ChangePassword extends StatelessWidget {
-  var formkey = GlobalKey<FormState>();
+class ChangePassword extends StatelessWidget 
+{
+  final formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +64,7 @@ class ChangePassword extends StatelessWidget {
                           controller: MoreScreen.oldPasswordController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل كلمة المرور القديمة";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل كلمة المرور القديمة": null;
                           },
                           label: "الرجاء ادخل كلمة المرور"),
                       SizedBox(
@@ -83,9 +81,7 @@ class ChangePassword extends StatelessWidget {
                           controller: MoreScreen.passwordController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if (value!.isEmpty) {
-                              return "من فضلك ادخل كلمة المرور الجديدة";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل كلمة المرور الجديدة": null;
                           },
                           label: "الرجاء ادخل كلمة المرور"),
                       SizedBox(
@@ -104,9 +100,10 @@ class ChangePassword extends StatelessWidget {
                           validate: (String? value) {
                             if(value!.isEmpty){
                               return "من فضلك قم بتاكيد كلمة المرور";
-                            }
-                            if(MoreScreen.passwordController.text !=MoreScreen.confirmPasswordController.text){
+                            }else if(MoreScreen.passwordController.text !=MoreScreen.confirmPasswordController.text){
                               return " كلمة المرور الجديدة و تاكيد كلمة المرور غير متشابهان";
+                            }else{
+                              return null;
                             }
                           },
                           label: "الرجاء ادخل كلمة المرور"),

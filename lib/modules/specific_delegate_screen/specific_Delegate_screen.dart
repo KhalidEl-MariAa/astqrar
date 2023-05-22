@@ -1,7 +1,4 @@
-import 'package:astarar/modules/chats/cubit/cubit.dart';
-import 'package:astarar/modules/chats/cubit/states.dart';
 import 'package:astarar/modules/conversation/conversation.dart';
-import 'package:astarar/modules/details_clients_delegates/details_clients_delegates.dart';
 import 'package:astarar/modules/details_user/cubit/cubit.dart';
 import 'package:astarar/modules/details_user/details_user.dart';
 import 'package:astarar/modules/specific_delegate_screen/cubit/cubit.dart';

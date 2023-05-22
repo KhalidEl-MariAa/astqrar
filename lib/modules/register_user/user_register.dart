@@ -1,7 +1,6 @@
 import 'package:astarar/layout/cubit/cubit.dart';
 import 'package:astarar/layout/cubit/states.dart';
 import 'package:astarar/modules/linkperson/layout_linkPerson/layout_link_person.dart';
-import 'package:astarar/modules/login/login.dart';
 import 'package:astarar/modules/register_user/cubit.dart';
 import 'package:astarar/modules/register_user/states.dart';
 import 'package:astarar/modules/terms/terms.dart';
@@ -25,161 +24,171 @@ class UserRegister extends StatefulWidget
   _UserRegisterState createState() => _UserRegisterState();
 }
 
-var emailController = TextEditingController();
-var nameController = TextEditingController();
-var personalCardController = TextEditingController();
-var cityController = TextEditingController();
-var ageController = TextEditingController();
-var phoneController = TextEditingController();
-var weightController = TextEditingController();
-var heightController = TextEditingController();
-var nationalityController = TextEditingController();
-var jobNameController = TextEditingController();
-var illnessTypeController = TextEditingController();
-var numberOfKidsController = TextEditingController();
-var monyOfPony = TextEditingController();
-var passwordController = TextEditingController();
-var confirmPasswordController = TextEditingController();
-var conditionsController = TextEditingController();
-
-var lastNameFamilyController = TextEditingController();
-var lastNameNotFamilyController = TextEditingController();
-
-bool isSelected2 = false;
-bool termsSelected = false;
-
-int selectedlastName = 0;
-int selectedHairColorName = 0;
-int selectedHairTypeName = 0;
-int selectedSkinColorName = 0;
-int selectedParentSkinColorName = 0;
-int selectedExperience = 0;
-int selectedJobType = 0;
-int selectedIllnessType = 0;
-int selectedMiliirtyType = 0;
-int selectedMiliirtyMaleType = 0;
-int selectedNumberOfKids = 0;
-int selectedPersonality = 0;
-int selectedMoney = 0;
-int kids = 0;
-int selectedMerrageType = 0;
-
-List<String> hairColor = ['اسود', 'اشقر', 'بني', 'ابيض'];
-List<String> hairtype = ['ناعم', 'خشن', 'متجعد'];
-List<String> skinColor = ['بيضاء', 'سمراء', 'سوداء', 'قمحي'];
-List<String> parentSkinColor = ['ابيض', 'اسمر', 'اسود'];
-List<String> experience = [
-  'دكتوراة',
-  'جامعي',
-  'ابتدائي',
-  'ثانوي',
-  'متوسط',
-  'غير متعلم',
-  'دبلوم'
-];
-List<String> jobType = [
-  'موظف قطاعي حكومي',
-  'موظف عسكري',
-  'عاطل عن العمل',
-  'موظف قطاع خاص',
-  'أعمال حرة'
-];
-List<String> jobTypeFemale = [
-  'موظفة قطاعي حكومي',
-  'موظفة عسكري',
-  'عاطلة عن العمل',
-  'موظفة قطاع خاص',
-  'أعمال حرة'
-];
-List<String> illnesstype = [
-  'سليم من الأمراض',
-  'من ذوي الاحتياجات الخاصة',
-  'معي مرض مزمن'
-];
-List<String> illnesstypeFemale = [
-  'سليمة من الأمراض',
-  'من ذوي الاحتياجات الخاصة',
-  'معي مرض مزمن'
-];
-List<String> MilirtyStatus = ['مطلقة بكر', 'مطلقة', 'أرملة', 'عزباء بكر'];
-List<String> MilirtyMaleStatus = ['أعزب', 'أرمل', 'مطلق', 'متزوج'];
-
-List<String> numberOfKids = [
-  'بدون أطفال',
-  'مع والدتهم',
-  'معي أطفال',
-  'معي أطفال وبعد الزواج مع والدتهم'
-];
-List<String> numberOfKidsFemale = [
-  'بدون أطفال',
-  'مع والدهم',
-  'معي أطفال',
-  'معي أطفال وبعد الزواج مع والدهم'
-];
-List<String> personality = ['وسيم', 'غير وسيم', 'مقبول الشكل'];
-List<String> personalityFemale = ['نوعا ما جميلة', 'متوسطة الجمال', 'جميلة'];
-
-List<String> money = [
-  'ثري رجل أعمال',
-  'ميسور الحال',
-  'متوسط الثراء',
-  'ضعف في القدرة المالية'
-];
-List<String> moneyFemale = [
-  'ثرية',
-  'ميسورة الحال',
-  'متوسطة الثراء',
-  'ضعف في القدرة المالية'
-];
-List<String> merrageType = ['تعدد', 'مسيار', 'علني'];
-String gender = "ذكر";
-
-var formkey = GlobalKey<FormState>();
 
 class _UserRegisterState extends State<UserRegister> 
 {
+
+  var emailController = TextEditingController();
+  var nameController = TextEditingController();
+  var personalCardController = TextEditingController();
+  var NationalID = "";
+  var cityController = TextEditingController();
+  var ageController = TextEditingController();
+  var phoneController = TextEditingController();
+  var weightController = TextEditingController();
+  var heightController = TextEditingController();
+  var nationalityController = TextEditingController();
+  var jobNameController = TextEditingController();
+  var illnessTypeController = TextEditingController();
+  var numberOfKidsController = TextEditingController();
+  var monyOfPony = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+  var conditionsController = TextEditingController();
+
+  var lastNameFamilyController = TextEditingController();
+  var lastNameNotFamilyController = TextEditingController();
+
+  bool isSelected2 = false;
+  bool termsSelected = false;
+
+  int selectedlastName = 0;
+  int selectedHairColorName = 0;
+  int selectedHairTypeName = 0;
+  int selectedSkinColorName = 0;
+  int selectedParentSkinColorName = 0;
+  int selectedExperience = 0;
+  int selectedJobType = 0;
+  int selectedIllnessType = 0;
+  int selectedMiliirtyType = 0;
+  int selectedMiliirtyMaleType = 0;
+  int selectedNumberOfKids = 0;
+  int selectedPersonality = 0;
+  int selectedMoney = 0;
+  int kids = 0;
+  int selectedMerrageType = 0;
+  String error_msg = "";
+  String gender = "ذكر";
+
+
+  List<String> hairColor = ['اسود', 'اشقر', 'بني', 'ابيض'];
+  List<String> hairtype = ['ناعم', 'خشن', 'متجعد'];
+  List<String> skinColor = ['بيضاء', 'سمراء', 'سوداء', 'قمحي'];
+  List<String> parentSkinColor = ['ابيض', 'اسمر', 'اسود'];
+  List<String> experience = [
+    'دكتوراة',
+    'جامعي',
+    'ابتدائي',
+    'ثانوي',
+    'متوسط',
+    'غير متعلم',
+    'دبلوم'
+  ];
+  List<String> jobType = [
+    'موظف قطاعي حكومي',
+    'موظف عسكري',
+    'عاطل عن العمل',
+    'موظف قطاع خاص',
+    'أعمال حرة'
+  ];
+  List<String> jobTypeFemale = [
+    'موظفة قطاعي حكومي',
+    'موظفة عسكري',
+    'عاطلة عن العمل',
+    'موظفة قطاع خاص',
+    'أعمال حرة'
+  ];
+  List<String> illnesstype = [
+    'سليم من الأمراض',
+    'من ذوي الاحتياجات الخاصة',
+    'معي مرض مزمن'
+  ];
+  List<String> illnesstypeFemale = [
+    'سليمة من الأمراض',
+    'من ذوي الاحتياجات الخاصة',
+    'معي مرض مزمن'
+  ];
+  List<String> MilirtyStatus = ['مطلقة بكر', 'مطلقة', 'أرملة', 'عزباء بكر'];
+  List<String> MilirtyMaleStatus = ['أعزب', 'أرمل', 'مطلق', 'متزوج'];
+
+  List<String> numberOfKids = [
+    'بدون أطفال',
+    'مع والدتهم',
+    'معي أطفال',
+    'معي أطفال وبعد الزواج مع والدتهم'
+  ];
+  List<String> numberOfKidsFemale = [
+    'بدون أطفال',
+    'مع والدهم',
+    'معي أطفال',
+    'معي أطفال وبعد الزواج مع والدهم'
+  ];
+  List<String> personality = ['وسيم', 'غير وسيم', 'مقبول الشكل'];
+  List<String> personalityFemale = ['نوعا ما جميلة', 'متوسطة الجمال', 'جميلة'];
+
+  List<String> money = [
+    'ثري رجل أعمال',
+    'ميسور الحال',
+    'متوسط الثراء',
+    'ضعف في القدرة المالية'
+  ];
+  List<String> moneyFemale = [
+    'ثرية',
+    'ميسورة الحال',
+    'متوسطة الثراء',
+    'ضعف في القدرة المالية'
+  ];
+  List<String> merrageType = ['تعدد', 'مسيار', 'علني'];
+  
+
+  var formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => RegisterClientCubit(),
       child: BlocConsumer<RegisterClientCubit, RegisterClientStates>(
         listener: (context, state) {
-          if (state is RegisterClientSuccessState) {
-            if (state.registerClientModel.key == 1) {
+          if (state is RegisterClientSuccessState) 
+          {
+            if (state.registerClientModel.key == 1) 
+            {
               showToast(msg: "تم التسجيل بنجاح", state: ToastStates.SUCCESS);
               if (widget.delegateId == null) {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                  (route) => false,
-                );
-              }
-              if (widget.delegateId != null) {
+              //   Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => LoginScreen()),
+              //     (route) => false,
+              //   );
+              }else{
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const LayoutLinkPerson()),
                   (route) => false,
                 );
-                nameController.clear();
-                cityController.clear();
-                nationalityController.clear();
-                ageController.clear();
-                lastNameFamilyController.clear();
-                heightController.clear();
-                weightController.clear();
-                jobNameController.clear();
-                illnessTypeController.clear();
-                numberOfKidsController.clear();
-                monyOfPony.clear();
-                conditionsController.clear();
+                // nameController.clear();
+                // cityController.clear();
+                // nationalityController.clear();
+                // ageController.clear();
+                // lastNameFamilyController.clear();
+                // heightController.clear();
+                // weightController.clear();
+                // jobNameController.clear();
+                // illnessTypeController.clear();
+                // numberOfKidsController.clear();
+                // monyOfPony.clear();
+                // conditionsController.clear();
               }
-            } else {
+            }
+            else 
+            {
               showToast(
                   msg: state.registerClientModel.msg!,
                   state: ToastStates.ERROR);
             }
           }
         },
+
         builder: (context, state) => BlocBuilder<AppCubit, AppStates>(
           builder: (context, state) => Directionality(
             textDirection: TextDirection.rtl,
@@ -190,31 +199,30 @@ class _UserRegisterState extends State<UserRegister>
                   padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
                   child: SingleChildScrollView(
                     child: Form(
-                      key: formkey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                      key: formkey,                      
+                      child: Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        // Set the desired padding value for all children
+                        // padding: EdgeInsets.symmetric(vertical: 40.2.h), 
+                          children: [
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    "رجوع",
-                                    style:
-                                        TextStyle(color: white, fontSize: 12.sp),
-                                  ),
-                                )
-                              ]),
-                          const HeaderLogo(),
-                          SizedBox(
-                            height: 1.h,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: (){ Navigator.pop(context); },
+                                child: Text("رجوع",
+                                  style: TextStyle(color: white, fontSize: 12.sp),
+                                ),
+                              )
+                            ]
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 1.2.w),
-                            child: Material(
+                          
+                          const HeaderLogo(),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          Material(
                               elevation: 5,
                               shadowColor: Colors.grey,
                               borderRadius: BorderRadius.circular(15),
@@ -232,15 +240,12 @@ class _UserRegisterState extends State<UserRegister>
                                   iconDisabledColor: Colors.grey,
                                   iconEnabledColor: primary,
                                   icon: Padding(
-                                    padding: EdgeInsetsDirectional.only(
-                                        end: 2.w, top: 1.h),
-                                    child: const Icon(
-                                        Icons.arrow_circle_down_sharp),
+                                    padding: EdgeInsetsDirectional.only(end: 2.w, top: 1.h),
+                                    child: const Icon(Icons.arrow_circle_down_sharp),
                                   ),
-                                  //   borderRadius: BorderRadius.circular(50),
+
                                   hint: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 2.w, vertical: 0.h),
+                                    padding: EdgeInsets.symmetric( horizontal: 2.w, vertical: 0.h),
                                     child: Text(
                                       gender,
                                       textAlign: TextAlign.start,
@@ -248,21 +253,22 @@ class _UserRegisterState extends State<UserRegister>
                                     ),
                                   ),
                                   items: <String>['انثي', 'ذكر']
-                                      .map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      alignment: Alignment.centerRight,
-                                      child: Material(
-                                        elevation: 5,
-                                        shadowColor: Colors.grey[400],
-                                        child: Container(
-                                            width: double.infinity,
-                                            alignment: Alignment.centerRight,
-                                            child: Text(value,
-                                                textAlign: TextAlign.start)),
-                                      ),
-                                    );
-                                  }).toList(),
+                                    .map((String value) 
+                                    {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        alignment: Alignment.centerRight,
+                                        child: Material(
+                                          elevation: 5,
+                                          shadowColor: Colors.grey[400],
+                                          child: Container(
+                                              width: double.infinity,
+                                              alignment: Alignment.centerRight,
+                                              child: Text(value,
+                                                  textAlign: TextAlign.start)),
+                                        ),
+                                      );
+                                    }).toList(),
                                   onChanged: (String? newValue) {
                                     setState(() { gender = newValue!; });
                                     //print(gender);
@@ -270,9 +276,7 @@ class _UserRegisterState extends State<UserRegister>
                                 ),
                               ),
                             ),
-                          ),
-                          
-                          SizedBox( height: 1.5.h, ),
+                          // SizedBox( height: 1.5.h, ),
                           if (widget.delegateId == null)
                             defaultTextFormField(
                                 context: context,
@@ -282,36 +286,34 @@ class _UserRegisterState extends State<UserRegister>
                                   if (widget.delegateId == null) {
                                     if (value!.isEmpty) {
                                       return "من فضلك ادخل البريد الالكتروني";
-                                    }
-                                    if (!value!.contains("@")) {
+                                    }else if (!value.contains("@")) {
                                       return "من فضلك ادخل البريد الالكتروني بطريقة صحيحة";
+                                    }else{
+                                      return null;
                                     }
+                                  }else{
+                                    return null;
                                   }
                                 },
                                 labelText: "البريد الالكتروني",
                                 //  labelTextcolor: white,
                                 label: "الرجاء ادخال البريد الالكتروني",
                                 prefixIcon: Icons.email_outlined),
-                          if (widget.delegateId == null)
-                            SizedBox(
-                              height: 1.5.h,
-                            ),
+
+                          // if (widget.delegateId == null)
+
                           defaultTextFormField(
                               context: context,
                               controller: nameController,
                               //   labelTextcolor: white,
                               type: TextInputType.text,
                               validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل الاسم";
-                                }
+                                return (value!.isEmpty)? "من فضلك ادخل الاسم": null;
                               },
                               labelText: "الاسم",
                               label: "الرجاء ادخال اسمك",
                               prefixIcon: Icons.person_outline),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           if (widget.delegateId == null)
                             defaultTextFormField(
                                 context: context,
@@ -319,227 +321,152 @@ class _UserRegisterState extends State<UserRegister>
                                 type: TextInputType.number,
                                 validate: (String? value) {
                                   if (widget.delegateId == null) {
-                                    if (value!.isEmpty) {
-                                      return "من فضلك ادخل رقم الهوية";
-                                    }
+                                    return (value!.isEmpty)? "من فضلك ادخل رقم الهوية": null;
+                                  }else{
+                                    return null;
                                   }
                                 },
                                 labelText: "رقم الهوية",
                                 //  labelTextcolor: white,
                                 label: "الرجاء ادخال رقم الهوية",
                                 prefixIcon: Icons.person_outline),
-                          if (widget.delegateId == null)
-                            SizedBox(
-                              height: 1.5.h,
-                            ),
+
                           defaultTextFormField(
                               context: context,
                               controller: cityController,
                               type: TextInputType.text,
                               validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل المدينة";
-                                }
+                                return (value!.isEmpty)? "من فضلك ادخل المدينة": null;
                               },
                               labelText: "المدينة",
                               label: "الرجاء ادخال المدينة",
                               //labelTextcolor: white,
                               prefixIcon: Icons.person_outline),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
                           defaultTextFormField(
                               context: context,
                               controller: nationalityController,
                               type: TextInputType.text,
                               validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل الجنسية";
-                                }
+                                return (value!.isEmpty)?"من فضلك ادخل الجنسية": null;
                               },
                               labelText: "الجنسية",
-                              //labelTextcolor: white,
                               label: "الرجاء ادخال الجنسية",
                               prefixIcon: Icons.person_outline),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           Text(
                             "الاسم ينتهي",
-                            style: TextStyle(color: white, fontSize: 10.sp),
+                            style: TextStyle(color: white),
                           ),
-                          Transform.scale(
-                            scale: 0.8,
-                            child: RadioListTile<int>(
-                                value: 0,
-                                secondary: Container(
-                                  width: 45.w,
-                                  child: defaultTextFormField(
-                                      context: context,
-                                      controller: lastNameNotFamilyController,
-                                      type: TextInputType.text,
-                                      labelTextcolor: white,
-                                      validate: (value) {
-                                        /*  if (selectedlastName == 0 &&
-                                            value!.isEmpty) {
-                                          return "من فضلك ادخل اسم القبيلة";
-                                        }*/
-                                      },
-                                      label: "ادخل اسم"),
-                                ),
-                                title: Text(
-                                  "قبيلة",
-                                  style:
-                                      TextStyle(color: white, fontSize: 12.sp),
-                                ),
-                                groupValue: selectedlastName,
-                                activeColor: primary,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedlastName = 0;
-                                  });
-                                }),
+
+                          RadioListTile<int>(
+                              value: 0,
+                              secondary: Container(
+                                width: 45.w,
+                                child: defaultTextFormField(
+                                    context: context,
+                                    controller: lastNameNotFamilyController,
+                                    type: TextInputType.text,
+                                    labelTextcolor: white,
+                                    validate: (value) {
+                                      return null;
+                                      // return (selectedlastName == 0 && value!.isEmpty)? "من فضلك ادخل اسم القبيلة": null;
+                                    },
+                                    label: "ادخل اسم"),
+                              ),
+                              title: Text("قبيلة",
+                                style: TextStyle(color: white, fontSize: 12.sp),
+                              ),
+                              groupValue: selectedlastName,
+                              activeColor: primary,
+                              onChanged: (value) {
+                                setState(() { selectedlastName = 0; });
+                              }), 
+
+                        RadioListTile<int>(
+                          value: 1,
+                          secondary: Container(
+                            width: 45.w,
+                            child: defaultTextFormField(
+                                context: context,
+                                controller: lastNameFamilyController,
+                                type: TextInputType.text,
+                                validate: (value) {
+                                  return null;
+                                  // return (selectedlastName == 1 && value!.isEmpty) "من فضلك ادخل اسم العائلة": null;
+                                },
+                                label: "ادخل اسم",
+                                labelTextcolor: white),
                           ),
-                          SizedBox(
-                            height: 0.5.h,
+                          title: Text("عائلة", 
+                              style: TextStyle(color: white, fontSize: 12.sp),
                           ),
-                          Transform.scale(
-                            scale: 0.8,
-                            child: RadioListTile<int>(
-                                value: 1,
-                                secondary: Container(
-                                  width: 45.w,
-                                  child: defaultTextFormField(
-                                      context: context,
-                                      controller: lastNameFamilyController,
-                                      type: TextInputType.text,
-                                      validate: (value) {
-                                        /*    if (selectedlastName == 1 &&
-                                            value!.isEmpty) {
-                                          return "من فضلك ادخل اسم العائلة";
-                                        }*/
-                                      },
-                                      label: "ادخل اسم",
-                                      labelTextcolor: white),
-                                ),
-                                title: Text(
-                                  "عائلة",
-                                  style:
-                                      TextStyle(color: white, fontSize: 12.sp),
-                                ),
-                                activeColor: primary,
-                                groupValue: selectedlastName,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedlastName = 1;
-                                  });
-                                }),
-                          ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+                          activeColor: primary,
+                          groupValue: selectedlastName,
+                          onChanged: (value) {
+                            setState(() { selectedlastName = 1; });
+                          }),
+
                           if (widget.delegateId == null)
                             defaultTextFormField(
                                 context: context,
                                 controller: phoneController,
                                 type: TextInputType.number,
                                 validate: (String? value) {
-                                  if (widget.delegateId == null) {
-                                    if (value!.isEmpty) {
-                                      return "من فضلك ادخل الهاتف";
-                                    }
-                                  }
+                                  if (widget.delegateId != null) 
+                                    { return null;}
+                                  return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
                                 },
                                 labelText: "رقم الهاتف",
                                 //  labelTextcolor: white,
                                 label: "الرجاء ادخال رقم الهاتف",
                                 prefixIcon: Icons.phone),
-                          if (widget.delegateId == null)
-                            SizedBox(
-                              height: 1.5.h,
-                            ),
+
                           defaultTextFormField(
                               context: context,
                               controller: ageController,
                               type: TextInputType.number,
                               validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل العمر";
-                                }
+                                return (value!.isEmpty)? "من فضلك ادخل العمر": null;
                               },
                               labelText: "العمر",
                               //  labelTextcolor: white,
                               label: "الرجاء ادخال العمر",
                               prefixIcon: Icons.person_outline),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
 
-                          /*      defaultTextFormField(
-                              context: context,
-                              controller: ageController,
-                              type: TextInputType.number,
-                              validate: (String? value) {},
-                              labelText: "العمر",
-                              label: "الرجاء ادخال العمر",
-                              //labelTextcolor: white,
-                              prefixIcon: Icons.person_outline),
-                          SizedBox(height: 1.5.h,),
-*/
+
                           defaultTextFormField(
                               context: context,
                               controller: heightController,
                               type: TextInputType.number,
                               validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل الطول";
-                                }
+                                return (value!.isEmpty)?"من فضلك ادخل الطول": null;
                               },
                               labelText: "الطول",
                               label: "الرجاء ادخال الطول",
-                              // labelTextcolor: white,
                               prefixIcon: Icons.person_outline),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           defaultTextFormField(
                               context: context,
                               controller: weightController,
                               type: TextInputType.number,
                               validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل الوزن";
-                                }
+                                return (value!.isEmpty)? "من فضلك ادخل الوزن": null;
                               },
                               labelText: "الوزن",
                               label: "الرجاء ادخال الوزن",
-                              //   labelTextcolor: white,
                               prefixIcon: Icons.person_outline),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "لون الشعر",
+
+                          Text("لون الشعر",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           GridView.count(
                             shrinkWrap: true,
                             crossAxisCount:
-                                (MediaQuery.of(context).orientation ==
-                                        Orientation.landscape)
-                                    ? 4
-                                    : 2,
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-                            padding: EdgeInsets.all(0),
-                            mainAxisSpacing: 5,
                             childAspectRatio: 0.6 / 0.015.h,
-                            children: List.generate(
-                                4,
+                            children: List.generate( hairColor.length,
                                 (index1) => RadioButtonRegister(
                                     isRegisterScreen: true,
                                     value: index1,
@@ -549,30 +476,22 @@ class _UserRegisterState extends State<UserRegister>
                                       setState(() {
                                         selectedHairColorName = index1;
                                       });
-                                      print(hairColor[selectedHairColorName!]);
-                                    })),
+                                      print(hairColor[selectedHairColorName]);
+                                    })
+                                  ),
                           ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "نوع الشعر",
+
+                          Text("نوع الشعر",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           GridView.count(
                             shrinkWrap: true,
                             crossAxisCount:
                                 (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-                            //    mainAxisSpacing: .0,
-                            padding: EdgeInsets.all(0),
                             childAspectRatio: 0.6 / 0.015.h,
-                            children: List.generate( 3,
+                            children: List.generate( hairtype.length,
                                 (index1) => RadioButtonRegister(
                                     isRegisterScreen: true,
                                     value: index1,
@@ -584,25 +503,16 @@ class _UserRegisterState extends State<UserRegister>
                                       });
                                     })),
                           ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "لون البشرة",
+
+                          Text("لون البشرة",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           GridView.count(
                             shrinkWrap: true,
                             crossAxisCount:
                                 (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.all(0),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.6 / 0.015.h,
                             children: List.generate( 3,
                                 (index1) => RadioButtonRegister(
@@ -616,66 +526,39 @@ class _UserRegisterState extends State<UserRegister>
                                       });
                                     })),
                           ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "من عرق",
+
+                          Text("من عرق",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           GridView.count(
                             shrinkWrap: true,
                             crossAxisCount:
-                                (MediaQuery.of(context).orientation ==
-                                        Orientation.landscape)
-                                    ? 4
-                                    : 2,
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
                             padding: EdgeInsets.all(0),
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.6 / 0.015.h,
-                            children: List.generate(
-                                3,
+                            children: List.generate( parentSkinColor.length,
                                 (index1) => RadioButtonRegister(
                                     isRegisterScreen: true,
                                     value: index1,
                                     groupvalue: selectedParentSkinColorName,
                                     title: parentSkinColor[index1],
                                     changeFunction: () {
-                                      setState(() {
-                                        selectedParentSkinColorName = index1;
-                                      });
+                                      setState(() { selectedParentSkinColorName = index1; });
                                     })),
                           ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "الموهل العلمي",
+
+                          Text("الموهل العلمي",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           GridView.count(
                             shrinkWrap: true,
                             padding: EdgeInsets.all(0),
                             crossAxisCount:
-                                (MediaQuery.of(context).orientation ==
-                                        Orientation.landscape)
-                                    ? 5
-                                    : 3,
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 3,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.6 / 0.025.h,
                             children: List.generate(
                                 experience.length,
@@ -685,38 +568,24 @@ class _UserRegisterState extends State<UserRegister>
                                     groupvalue: selectedExperience,
                                     title: experience[index1],
                                     changeFunction: () {
-                                      setState(() {
-                                        selectedExperience = index1;
-                                      });
+                                      setState(() { selectedExperience = index1; });
                                     })),
                           ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "الوظيفة",
+
+                          Text("الوظيفة",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           if (gender == "ذكر")
                             GridView.count(
                               shrinkWrap: true,
                               padding: EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //  crossAxisSpacing: 0.0,
-
-                              //    mainAxisSpacing: .0,
                               childAspectRatio: 0.6 / 0.02.h,
                               children: List.generate(
-                                  5,
+                                  jobType.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
@@ -733,17 +602,10 @@ class _UserRegisterState extends State<UserRegister>
                               shrinkWrap: true,
                               padding: EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //  crossAxisSpacing: 0.0,
-
-                              //    mainAxisSpacing: .0,
                               childAspectRatio: 0.6 / 0.02.h,
-                              children: List.generate( 5,
+                              children: List.generate( jobTypeFemale.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
@@ -758,43 +620,32 @@ class _UserRegisterState extends State<UserRegister>
                               context: context,
                               controller: jobNameController,
                               type: TextInputType.text,
-                              validate: (String? value) {},
+                              validate: (String? value) {return null;},
                               labelText: "اسم الوظيفة",
                               //  labelTextcolor: white,
                               label: "الرجاء ادخال اسم الوظيفة (ان وجدت)",
                               prefixIcon: Icons.person),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "الحالة الصحية",
+
+                          Text("الحالة الصحية",
                             style: TextStyle(color: white, fontSize: 14),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           if (gender == "ذكر")
                             GridView.count(
                               padding: EdgeInsets.all(0),
                               shrinkWrap: true,
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)? 5: 1,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              // crossAxisSpacing: 0.0,
-                              // mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.01.h,
-                              children: List.generate( 3,
+                              children: List.generate( illnesstype.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
                                       groupvalue: selectedIllnessType,
                                       title: illnesstype[index1],
                                       changeFunction: () {
-                                        setState(() {
-                                          selectedIllnessType = index1;
-                                        });
+                                        setState(() { selectedIllnessType = index1; });
                                       })),
                             ),
                           if (gender == "انثي")
@@ -802,14 +653,10 @@ class _UserRegisterState extends State<UserRegister>
                               padding: EdgeInsets.all(0),
                               shrinkWrap: true,
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)? 5: 1,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              // crossAxisSpacing: 0.0,
-                              // mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.01.h,
-                              children: List.generate(3,
+                              children: List.generate( illnesstypeFemale.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
@@ -819,41 +666,26 @@ class _UserRegisterState extends State<UserRegister>
                                         setState(() { selectedIllnessType = index1; });
                                       })),
                             ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           defaultTextFormField(
                               context: context,
                               controller: illnessTypeController,
                               type: TextInputType.text,
-                              validate: (String? value) {},
+                              validate: (String? value) { return null;},
                               labelText: "نوع المرض",
-                              //  labelTextcolor: white,
                               label: "الرجاء ادخال نوع المرض (ان وجد)",
                               prefixIcon: Icons.person),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Text(
-                            "الحالة الاجتماعية",
+
+                          Text("الحالة الاجتماعية",
                             style: TextStyle(color: white, fontSize: 14),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           if (gender == "ذكر")
                             GridView.count(
                               shrinkWrap: true,
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //  crossAxisSpacing: 0.0,
-                              padding: EdgeInsets.all(0),
-                              //    mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.02.h,
 
                               children: List.generate(
@@ -864,28 +696,20 @@ class _UserRegisterState extends State<UserRegister>
                                       groupvalue: selectedMiliirtyMaleType,
                                       title: MilirtyMaleStatus[index1],
                                       changeFunction: () {
-                                        setState(() {
-                                          selectedMiliirtyMaleType = index1;
-                                        });
+                                        setState(() { selectedMiliirtyMaleType = index1; });
                                       })),
                             ),
+
                           if (gender == "انثي")
                             GridView.count(
                               shrinkWrap: true,
                               padding: EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //  crossAxisSpacing: 0.0,
-
-                              //    mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.02.h,
                               children: List.generate(
-                                  4,
+                                  MilirtyStatus.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
@@ -897,83 +721,63 @@ class _UserRegisterState extends State<UserRegister>
                                         });
                                       })),
                             ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "هل لديك اطفال",
+
+                          // Spacer(),
+                          Text("هل لديك اطفال",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           if (gender == "ذكر")
                             GridView.count(
                               shrinkWrap: true,
                               padding: EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 1,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //   crossAxisSpacing: ,
-
                               mainAxisSpacing: .05,
                               childAspectRatio: 0.8 / 0.01.h,
                               children: List.generate(
-                                  4,
+                                  numberOfKids.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
                                       groupvalue: selectedNumberOfKids,
                                       title: numberOfKids[index1],
                                       changeFunction: () {
-                                        setState(() {
-                                          selectedNumberOfKids = index1;
-                                        });
+                                        setState(() { selectedNumberOfKids = index1; });
                                       })),
                             ),
+
                           if (gender == "انثي")
                             GridView.count(
                               shrinkWrap: true,
                               padding: EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 1,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //   crossAxisSpacing: ,
-
                               mainAxisSpacing: .05,
                               childAspectRatio: 0.8 / 0.01.h,
                               children: List.generate(
-                                  4,
+                                  numberOfKidsFemale.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
                                       groupvalue: selectedNumberOfKids,
                                       title: numberOfKidsFemale[index1],
                                       changeFunction: () {
-                                        setState(() {
-                                          selectedNumberOfKids = index1;
-                                        });
+                                        setState(() { selectedNumberOfKids = index1; });
                                       })),
                             ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           defaultTextFormField(
                               context: context,
                               controller: numberOfKidsController,
                               type: TextInputType.number,
                               validate: (String? value) {
-                                if (selectedNumberOfKids != 0 &&
-                                    value!.isEmpty) {
+                                if (selectedNumberOfKids != 0 && value!.isEmpty) {
                                   return "من فضلك اكتب عدد الاطفال";
+                                }else{
+                                  return null;
                                 }
                               },
                               onchange: (value) {
@@ -983,41 +787,27 @@ class _UserRegisterState extends State<UserRegister>
                               //  labelTextcolor: white,
                               label: "الرجاء ادخال عدد الاطفال (ان وجد)",
                               prefixIcon: Icons.person),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "نبذة عن مظهرك",
+
+                          Text("نبذة عن مظهرك",
                             style: TextStyle(color: white, fontSize: 11.sp),
-                          ),
-                          SizedBox(
-                            height: 1.h,
                           ),
                           if (gender == "ذكر")
                             GridView.count(
                               shrinkWrap: true,
                               padding: const EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              // crossAxisSpacing: 0.0,
-                              // mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.02.h,
                               children: List.generate(
-                                  3,
+                                  personality.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
                                       groupvalue: selectedPersonality,
                                       title: personality[index1],
                                       changeFunction: () {
-                                        setState(() {
-                                          selectedPersonality = index1;
-                                        });
+                                        setState(() { selectedPersonality = index1; });
                                       })),
                             ),
                           if (gender == "انثي")
@@ -1025,18 +815,11 @@ class _UserRegisterState extends State<UserRegister>
                               shrinkWrap: true,
                               padding: const EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //  crossAxisSpacing: 0.0,
-
-                              //    mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.02.h,
                               children: List.generate(
-                                  3,
+                                  personalityFemale.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
@@ -1048,143 +831,95 @@ class _UserRegisterState extends State<UserRegister>
                                         });
                                       })),
                             ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           Text(
                             "الوضع المالي",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+
                           if (gender == "ذكر")
                             GridView.count(
                               shrinkWrap: true,
                               padding: EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //  crossAxisSpacing: 0.0,
-
-                              //    mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.02.h,
                               children: List.generate(
-                                  4,
+                                  money.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
                                       groupvalue: selectedMoney,
                                       title: money[index1],
                                       changeFunction: () {
-                                        setState(() {
-                                          selectedMoney = index1;
-                                        });
+                                        setState(() { selectedMoney = index1; });
                                       })),
                             ),
+
                           if (gender == "انثي")
                             GridView.count(
                               shrinkWrap: true,
                               padding: EdgeInsets.all(0),
                               crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.landscape)
-                                      ? 5
-                                      : 2,
+                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                               physics: const NeverScrollableScrollPhysics(),
-                              // crossAxisCount: 2,
-                              //  crossAxisSpacing: 0.0,
-
-                              //    mainAxisSpacing: .0,
                               childAspectRatio: 0.8 / 0.02.h,
                               children: List.generate(
-                                  4,
+                                  moneyFemale.length,
                                   (index1) => RadioButtonRegister(
                                       isRegisterScreen: true,
                                       value: index1,
                                       groupvalue: selectedMoney,
                                       title: moneyFemale[index1],
                                       changeFunction: () {
-                                        setState(() {
-                                          selectedMoney = index1;
-                                        });
+                                        setState(() { selectedMoney = index1; });
                                       })),
                             ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                          Text(
-                            "نوع الزواج",
+
+                          Text("نوع الزواج",
                             style: TextStyle(color: white, fontSize: 11.sp),
-                          ),
-                          SizedBox(
-                            height: 1.h,
                           ),
                           GridView.count(
                             shrinkWrap: true,
                             padding: EdgeInsets.all(0),
                             crossAxisCount:
-                                (MediaQuery.of(context).orientation ==
-                                        Orientation.landscape)
-                                    ? 5
-                                    : 2,
+                                (MediaQuery.of(context).orientation ==Orientation.landscape)? 5: 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.8 / 0.02.h,
                             children: List.generate(
-                                3,
+                                merrageType.length,
                                 (index1) => RadioButtonRegister(
                                     isRegisterScreen: true,
                                     value: index1,
                                     groupvalue: selectedMerrageType,
                                     title: merrageType[index1],
                                     changeFunction: () {
-                                      setState(() {
-                                        selectedMerrageType = index1;
-                                      });
+                                      setState(() { selectedMerrageType = index1; });
                                     })),
                           ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           defaultTextFormField(
                               context: context,
+                              labelText: "قيمة المهر",
                               controller: monyOfPony,
                               type: TextInputType.number,
                               validate: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل المهر";
-                                }
+                                return (value!.isEmpty)? "من فضلك ادخل المهر": null;
                               },
-                              labelText: "قيمة المهر",
-                              //  labelTextcolor: white,
                               label: "قيمة المهر(0 الي 100 الف)",
                               prefixIcon: Icons.person),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           TextFormField(
                             controller: conditionsController,
                             validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return "من فضلك ادخل شروطك";
-                              }
+                              return (value!.isEmpty)? "من فضلك ادخل شروطك": null;
                             },
                             decoration: InputDecoration(
                               hintText: "شروطك",
                               hintStyle: TextStyle(color: white, fontSize: 12),
                               hintMaxLines: 5,
                               enabled: true,
-
-                              //   alignLabelWithHint: false,
-                              //   prefixIcon: Icon(Icons.person_outline),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -1202,22 +937,22 @@ class _UserRegisterState extends State<UserRegister>
                             minLines: 1,
                             style: TextStyle(color: white),
                           ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           if (widget.delegateId == null)
                             defaultTextFormField(
                               context: context,
                               controller: passwordController,
                               type: TextInputType.text,
                               validate: (String? value) {
-                                if (widget.delegateId == null) {
-                                  if (value!.isEmpty) {
-                                    return "من فضلك ادخل كلمة السر";
-                                  }
-                                  if (value.length < 7) {
-                                    return " من فضلك ادخل كلمة مرور لا تقل عن 7 حروف";
-                                  }
+                                // return null;
+                                //TODO: change apssword length to 7
+                                if (widget.delegateId != null) {return null;}
+                                if (value!.isEmpty) {
+                                  return "من فضلك ادخل كلمة السر";
+                                }else if (value.length < 3) {
+                                  return " من فضلك ادخل كلمة مرور لا تقل عن 7 حروف";                                
+                                }else{
+                                  return null;
                                 }
                               },
 
@@ -1227,70 +962,56 @@ class _UserRegisterState extends State<UserRegister>
                               prefixIcon: Icons.lock_outline_rounded,
                               // suffix: Icons.visibility_outlined
                             ),
-                          if (widget.delegateId == null)
-                            SizedBox(
-                              height: 1.5.h,
-                            ),
+
                           if (widget.delegateId == null)
                             defaultTextFormField(
                               context: context,
                               controller: confirmPasswordController,
                               type: TextInputType.text,
                               validate: (String? value) {
-                                if (widget.delegateId == null) {
-                                  if (passwordController.text !=
-                                      confirmPasswordController.text) {
-                                    return "كلمة السر و تاكيد كلمة السر غير متطابقان";
-                                  }
-                                  if (value!.isEmpty) {
-                                    return "من فضلك ادخل تاكيد كلمة السر";
-                                  }
+                                if (widget.delegateId != null) {return null;}
+                                if (passwordController.text !=
+                                  confirmPasswordController.text) {
+                                  return "كلمة السر و تاكيد كلمة السر غير متطابقان";
+                                }else if (value!.isEmpty) {
+                                  return "من فضلك ادخل تاكيد كلمة السر";
+                                }else{
+                                  return null;
                                 }
                               },
                               labelText: "تاكيد كلمة السر",
-                              //  labelTextcolor: white,
                               label: "تاكيد كلمة السر",
                               prefixIcon: Icons.lock_outline_rounded,
                               //suffix: Icons.visibility_outlined
                             ),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           CheckedBoxRegister(
                               onchanged: () {
                                 setState(() { isSelected2 = !isSelected2; });
-                                print(isSelected2);
+                                // print(isSelected2);
                               },
                               text:
                                   "اقسم بالله ان المعلومات التي قمت بادخلها صحيحة و التطبيق غير مسئول عن اي معلومات اخري غير صحيحة",
                               isSelected: isSelected2,
                               focusColor: primary,
                               TextColor: white),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
+
                           Row(
                             children: [
                               Checkbox(
                                   value: termsSelected,
                                   onChanged: (bool? value) {
-                                    setState(() {
-                                      termsSelected = !termsSelected;
-                                    });
+                                    setState(() { termsSelected = !termsSelected; });
                                   },
-
-//            fillColor:MaterialStateColor.resolveWith((states) =>Colors.white) ,
                                   focusColor: primary,
                                   autofocus: true),
-                              Text("اوافق علي",
-                                  style: TextStyle(
-                                      color: primary, fontSize: 10.sp)),
+                              Text("اوافق علي  ",
+                                  style: TextStyle( color: primary, fontSize: 10.sp)),
                               InkWell(
                                 onTap: () {
                                   Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) => TermsScreen()));
+                                      MaterialPageRoute( builder: (context) => TermsScreen()));
                                 },
                                 child: Text("الشروط و الاحكام",
                                     style: TextStyle(
@@ -1300,13 +1021,12 @@ class _UserRegisterState extends State<UserRegister>
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: 3.5.h,
-                          ),
+
                           doubleInfinityMaterialButton(
                               text: "تسجيل",
                               onPressed: () {
                                 if (formkey.currentState!.validate() && termsSelected && isSelected2) {
+                                  
                                   if (gender == "ذكر") 
                                   {
                                     RegisterClientCubit.get(context).specifications = [
@@ -1418,19 +1138,26 @@ class _UserRegisterState extends State<UserRegister>
                                     ));
                                   }
                                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
+                                }else{
+                                  setState(() { error_msg = "Errrrro"; });
                                 }
                               }),
+
                           SizedBox(
                             height: 2.5.h,
+                            child: Text(
+                              error_msg, 
+                              style: TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                            
                           ),
+
                           //TODO: remove Delegate
                           if (widget.delegateId == null)                            
                             const AlreadyHaveAccountText(),
-                          SizedBox(
-                            height: 1.5.h,
-                          ),
-                        ],
-                      ),
+
+                        ], ),
+
                     ),
                   ),
                 ),

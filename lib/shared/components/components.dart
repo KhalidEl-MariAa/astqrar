@@ -148,7 +148,8 @@ showToast({required String msg, required ToastStates state}) =>
 
 enum ToastStates { SUCCESS, ERROR, WARNING }
 
-Color chooseToastColor(ToastStates state) {
+Color chooseToastColor(ToastStates state) 
+{
   late Color color;
   switch (state) {
     case ToastStates.SUCCESS:

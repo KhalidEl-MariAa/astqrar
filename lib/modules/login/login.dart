@@ -1,27 +1,19 @@
-import 'dart:developer';
-
-import 'package:astarar/modules/chats/cubit/cubit.dart';
 import 'package:astarar/modules/contact_us/contact_us.dart';
-import 'package:astarar/modules/home/home.dart';
 import 'package:astarar/modules/linkperson/layout_linkPerson/layout_link_person.dart';
-import 'package:astarar/modules/linkperson/register/register_linkperson.dart';
 import 'package:astarar/modules/login/cubit/cubit.dart';
 import 'package:astarar/modules/login/cubit/states.dart';
 import 'package:astarar/modules/login/widgets/forget_password+text.dart';
 import 'package:astarar/modules/main%20screen/main_screen.dart';
-import 'package:astarar/modules/packages/packages.dart';
 import 'package:astarar/modules/register_user/user_register.dart';
 import 'package:astarar/notifications/cubit/cubit.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:astarar/shared/components/header_logo.dart';
-import 'package:astarar/shared/components/text_field.dart';
 import 'package:astarar/shared/network/local.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../layout/layout.dart';
@@ -90,13 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   key: loginkey,
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 4.5.h,
-                      ),
-                      const    HeaderLogo(),
-                      SizedBox(
-                        height: 7.h,
-                      ),
+                      SizedBox( height: 4.5.h, ),
+                      const HeaderLogo(),
+                      SizedBox( height: 7.h, ),
+
                       defaultTextFormField(
                           context: context,
                           borderColor: Colors.white10,
@@ -104,24 +93,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: phoneController,
                           type: TextInputType.number,
                           validate: (value) {
-                            if(value!.isEmpty){
-                              return "من فضلك ادخل رقم الهوية";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل رقم الهوية": null;
                           },
                           labelText: "رقم الهوية",
                           label: "الرجاء ادخال رقم الهوية",
                           prefixIcon: Icons.email_outlined),
-                      SizedBox(
-                        height: 3.5.h,
-                      ),
+
+                      SizedBox( height: 3.5.h, ),
+
                       defaultTextFormField(
                           context: context,
                           controller: passwordController,
                           type: TextInputType.text,
                           validate: (String? value) {
-                            if(value!.isEmpty){
-                              return "من فضلك ادخل كلمة السر";
-                            }
+                            return (value!.isEmpty)? "من فضلك ادخل كلمة السر": null;
                           },
                           isPassword:
                           ShopLoginCubit
@@ -139,10 +124,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               .get(context)
                               .suffix,
                           labelTextcolor: Colors.white54),
+
                       const  ForgetPassword(),
-                      SizedBox(
-                        height: 1.5.h,
-                      ),
+                      SizedBox( height: 1.5.h, ),
+
                       ConditionalBuilder(
                         condition: state is! ShopLoginLoadingState,
                         fallback: (context) => Center(
@@ -152,18 +137,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: "تسجيل دخول",
                             onPressed: () {
                               /* navigateTo(context: context, widget: MainScreen());*/
-                              if(loginkey.currentState!.validate()) {
+                              if(loginkey.currentState!.validate()) 
+                              {
                                 ShopLoginCubit.get(context).UserLogin(
                                     nationalId: phoneController.text,
                                     password: passwordController.text);
-                              }                           
+                              }
                             }),
                       ),
+
                       Center(
                         child: InkWell(
                           onTap: () {
-                            CacheHelper.saveData(
-                                key: "isLogin", value: false);
+                            CacheHelper.saveData( key: "isLogin", value: false);
                             isLogin = CacheHelper.getData(key: "isLogin");
                             print(isLogin);
                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
@@ -180,9 +166,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 3.2.h,
-                      ),
+                      
+                      SizedBox( height: 3.2.h, ),
                       InkWell(
                         onTap: () {
                           navigateTo(context: context, widget: UserRegister(
@@ -190,8 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ));
                         },
                         child: Center(
-                          child: Text(
-                            "ليس لديك حساب ؟ اضغط هنا",
+                          child: Text("ليس لديك حساب ؟ اضغط هنا",
                             style: TextStyle(
                                 color: primary,
                                 fontSize: 9.2.sp,
@@ -199,9 +183,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 0.5.h,
-                      ),
+                      
+                      SizedBox( height: 0.5.h,),
                       // Center(
                       //   child: InkWell(
                       //     onTap: () {
@@ -222,9 +205,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       //     ),
                       //   ),
                       // ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
+                      SizedBox( height: 3.h, ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -235,17 +217,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: 9.sp,
                                 fontWeight: FontWeight.w500),
                           ),
-                          SizedBox(
-                            width: 1.5.w,
-                          ),
+                          SizedBox( width: 1.5.w, ),
+
                           InkWell(
                             onTap: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUS(
                                 isFromLogin: true,
                               )));
                             },
-                            child: Text(
-                              "تواصل معنا",
+                            child: Text("تواصل معنا",
                               style: TextStyle(
                                   decoration: TextDecoration.underline,
                                   color: primary,
@@ -255,9 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         ],
                       ),
-                      SizedBox(
-                        height: 2.h,
-                      )
+                      SizedBox( height: 2.h, )
                     ],
                   ),
                 ),

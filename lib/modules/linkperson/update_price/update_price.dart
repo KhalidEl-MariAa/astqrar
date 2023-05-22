@@ -69,7 +69,7 @@ class UpdatePrice extends StatelessWidget {
                           borderColor: primary,
 
                           type: TextInputType.number,
-                          validate: (value){},
+                          validate: (value) { return null;},
                           label: "حدد السعر",
                           labelText: "حدد السعر",
                           prefixIcon: Icons.money)),

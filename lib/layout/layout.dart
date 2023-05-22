@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 2;
-  late Widget _selectedWidget;
+  // late Widget _selectedWidget;
   List widgetList = [
     FavouriteScreen(),
     NotificationScreen(),
