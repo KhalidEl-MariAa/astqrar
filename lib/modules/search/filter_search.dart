@@ -112,7 +112,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
   int? selectedillnesstypeFemaleIndex;
 
   int? selectedlastName;
-  int ?selectedMerrageType ;
+  int? selectedMerrageType;
 
   var minHeight = TextEditingController();
   var maxHeight = TextEditingController();
@@ -127,8 +127,9 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchStates>(
       listener: (context, state) {
-        if(state is FilterSearchSuccessState){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>ResultScreen()));
+        if (state is FilterSearchSuccessState) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ResultScreen()));
         }
       },
       builder: (context, state) => Directionality(
@@ -189,11 +190,13 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                     height: 1.5.h,
                   ),
                   //الحالة الاجتماعية
-              if(genderIndex != null)    Text("الحالة الاجتماعية",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  if(genderIndex != null)       SizedBox(
-                    height: 1.5.h,
-                  ),
+                  if (genderIndex != null)
+                    Text("الحالة الاجتماعية",
+                        style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  if (genderIndex != null)
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
                   if (genderIndex == 0)
                     GridView.count(
                       shrinkWrap: true,
@@ -258,23 +261,18 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                     height: 1.5.h,
                   ), //المظهر
 
-                  if(genderIndex != null)    Text("المظهر",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  if(genderIndex != null)    SizedBox(
-                    height: 1.5.h,
-                  ),
+                  if (genderIndex != null)
+                    Text("المظهر",
+                        style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  if (genderIndex != null)
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
                   if (genderIndex == 0)
                     GridView.count(
                       shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 2,
+                      crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape) ? 4: 2,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
@@ -323,15 +321,18 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                                 });
                               })),
                     ),
-                  if(genderIndex != null)             SizedBox(
-                    height: 1.5.h,
-                  ),
+                  if (genderIndex != null)
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
                   //الاطفال
-                  if(genderIndex != null)        Text("الاطفال",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  if(genderIndex != null)      SizedBox(
-                    height: 1.5.h,
-                  ),
+                  if (genderIndex != null)
+                    Text("الاطفال",
+                        style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  if (genderIndex != null)
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
                   if (genderIndex == 0)
                     GridView.count(
                       shrinkWrap: true,
@@ -370,10 +371,6 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 1,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.05,
                       children: List.generate(
@@ -392,11 +389,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                                 });
                               })),
                     ),
-                  if(genderIndex != null)         SizedBox(
-                    height: 1.5.h,
-                  ),
+                  if (genderIndex != null)
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
 
-                  //الموهل العلمي
                   Text("الموهل العلمي",
                       style: TextStyle(color: black, fontSize: 12.3.sp)),
                   SizedBox(
@@ -409,10 +406,6 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                         ? 4
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
-                    // crossAxisCount: 2,
-                    //  crossAxisSpacing: 0.0,
-
-                    //    mainAxisSpacing: .0,
                     padding: const EdgeInsets.all(0),
                     childAspectRatio: 0.6 / 0.1,
                     children: List.generate(
@@ -434,7 +427,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                   SizedBox(
                     height: 1.5.h,
                   ),
-                  //الاسم ينتهي ب
+
                   Text("الاسم ينتهي ب ",
                       style: TextStyle(color: black, fontSize: 12.3.sp)),
                   SizedBox(
@@ -465,12 +458,14 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                               });
                             })),
                   ),
-                  if(genderIndex!=null)    SizedBox(
-                    height: 1.5.h,
-                  ),
-                  //الوظيفة
-                  if(genderIndex!=null)   Text("الوظيفة",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  if (genderIndex != null)
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
+
+                  if (genderIndex != null)
+                    Text("الوظيفة",
+                        style: TextStyle(color: black, fontSize: 12.3.sp)),
                   SizedBox(
                     height: 1.5.h,
                   ),
@@ -482,10 +477,6 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 2,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
@@ -512,10 +503,6 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 2,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
@@ -537,7 +524,6 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                   SizedBox(
                     height: 1.5.h,
                   ),
-                  //لون البشرة
                   Text("لون البشرة",
                       style: TextStyle(color: black, fontSize: 12.3.sp)),
                   SizedBox(
@@ -551,10 +537,6 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                         ? 4
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
-                    // crossAxisCount: 2,
-                    //  crossAxisSpacing: 0.0,
-
-                    //    mainAxisSpacing: .0,
                     padding: const EdgeInsets.all(0),
                     childAspectRatio: 0.6 / 0.1,
                     children: List.generate(
@@ -573,13 +555,15 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                               });
                             })),
                   ),
-                if(genderIndex!=null)  SizedBox(
-                    height: 1.5.h,
-                  ),
+                  if (genderIndex != null)
+                    SizedBox(
+                      height: 1.5.h,
+                    ),
 
                   //الحالة الصحية
-                if(genderIndex!=null)  Text("الحالة الصحية",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  if (genderIndex != null)
+                    Text("الحالة الصحية",
+                        style: TextStyle(color: black, fontSize: 12.3.sp)),
                   SizedBox(
                     height: 1.5.h,
                   ),
@@ -591,10 +575,6 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 1,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.05,
                       children: List.generate(
@@ -643,10 +623,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                                 });
                               })),
                     ),
+
                   SizedBox(
                     height: 1.5.h,
                   ),
-                  //الطول
+
                   Text("الطول",
                       style: TextStyle(color: black, fontSize: 12.3.sp)),
                   SizedBox(
@@ -664,7 +645,9 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                             borderColor: primary,
                             container: white,
                             type: TextInputType.number,
-                            validate: (value) { return null; },
+                            validate: (value) {
+                              return null;
+                            },
                             label: "الحد الادني للطول"),
                       ),
                       SizedBox(
@@ -679,7 +662,9 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                             borderColor: primary,
                             container: white,
                             type: TextInputType.number,
-                            validate: (value) { return null; },
+                            validate: (value) {
+                              return null;
+                            },
                             label: "الحد الاقصي للطول"),
                       ),
                     ],
@@ -706,7 +691,9 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                             borderColor: primary,
                             container: white,
                             type: TextInputType.number,
-                            validate: (value) { return null; },
+                            validate: (value) {
+                              return null;
+                            },
                             label: "الحد الادني للوزن"),
                       ),
                       SizedBox(
@@ -721,7 +708,9 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                             borderColor: primary,
                             container: white,
                             type: TextInputType.number,
-                            validate: (value) { return null; },
+                            validate: (value) {
+                              return null;
+                            },
                             label: "الحد الاقصي للوزن"),
                       ),
                     ],
@@ -729,7 +718,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                   SizedBox(
                     height: 1.5.h,
                   ),
-                  //العمر
+
                   Text("العمر",
                       style: TextStyle(color: black, fontSize: 12.3.sp)),
                   SizedBox(
@@ -747,7 +736,9 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                             borderColor: primary,
                             container: white,
                             type: TextInputType.number,
-                            validate: (value) { return null; },
+                            validate: (value) {
+                              return null;
+                            },
                             label: "الحد الادني للعمر"),
                       ),
                       SizedBox(
@@ -762,15 +753,18 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                             borderColor: primary,
                             container: white,
                             type: TextInputType.number,
-                            validate: (value) { return null; },
+                            validate: (value) {
+                              return null;
+                            },
                             label: "الحد الاقصي للعمر"),
                       ),
                     ],
                   ),
+
                   SizedBox(
                     height: 1.5.h,
                   ),
-                  //نوع الزواج
+
                   Text(
                     "نوع الزواج",
                     style: TextStyle(color: black, fontSize: 11.sp),
@@ -782,7 +776,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(0),
                     crossAxisCount: (MediaQuery.of(context).orientation ==
-                        Orientation.landscape)
+                            Orientation.landscape)
                         ? 5
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
@@ -793,12 +787,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                     childAspectRatio: 0.8 / 0.02.h,
                     children: List.generate(
                         3,
-                            (index1) => RadioButtonRegister(
+                        (index1) => RadioButtonRegister(
                             isRegisterScreen: false,
                             value: index1,
                             groupvalue: selectedMerrageType,
                             title: merrageType[index1],
-
                             changeFunction: () {
                               setState(() {
                                 selectedMerrageType = index1;
@@ -823,11 +816,15 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                             skinColor: selectedSkinColorIndex != null
                                 ? skinColor[selectedSkinColorIndex!]
                                 : null,
-                            typeOfMarriage: selectedMerrageType!=null?
-                            merrageType[selectedMerrageType!]:null,
-                            lastName:selectedlastName!=null?
-                            lastNameList[selectedlastName!]:null,
-                            qualifications: selectedExperience!=null?experience[selectedExperience!]:null,
+                            typeOfMarriage: selectedMerrageType != null
+                                ? merrageType[selectedMerrageType!]
+                                : null,
+                            lastName: selectedlastName != null
+                                ? lastNameList[selectedlastName!]
+                                : null,
+                            qualifications: selectedExperience != null
+                                ? experience[selectedExperience!]
+                                : null,
                             gender: genderIndex != null
                                 ? genderIndex == 0
                                     ? 1
@@ -844,35 +841,39 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                               maxWeight: int.tryParse(minWeight.text),
                               minAge: int.tryParse(minAge.text),
                               maxAge: int.tryParse(maxAge.text),
-                              jobType: selectedJopTypeMale!=null?
-                              jobType[selectedJopTypeMale!]:null,
-                              typeOfMarriage: selectedMerrageType!=null?
-                              merrageType[selectedMerrageType!]:null,
-                              skinColor:
-                              selectedSkinColorIndex!=null?
-                              skinColor[selectedSkinColorIndex!]:null,
-                              illnessType: selectedillnesstypeMaleIndex!=null?
-                              illnesstypeMale[
-                                  selectedillnesstypeMaleIndex!]:null,
-                              lastName:
-                              selectedlastName!=null?
-                              lastNameList[selectedlastName!]:null,
-                              qualifications:
-                              selectedExperience!=null?
-                              experience[selectedExperience!]:null,
-                              childern:selectedNumberOfKidsMale!=null?
-                              numberOfKids[selectedNumberOfKidsMale!]:null,
-                              personality:
-                              selectedPersonalityMale!=null? personalityMale
-                              [selectedPersonalityMale!]:null,
+                              jobType: selectedJopTypeMale != null
+                                  ? jobType[selectedJopTypeMale!]
+                                  : null,
+                              typeOfMarriage: selectedMerrageType != null
+                                  ? merrageType[selectedMerrageType!]
+                                  : null,
+                              skinColor: selectedSkinColorIndex != null
+                                  ? skinColor[selectedSkinColorIndex!]
+                                  : null,
+                              illnessType: selectedillnesstypeMaleIndex != null
+                                  ? illnesstypeMale[
+                                      selectedillnesstypeMaleIndex!]
+                                  : null,
+                              lastName: selectedlastName != null
+                                  ? lastNameList[selectedlastName!]
+                                  : null,
+                              qualifications: selectedExperience != null
+                                  ? experience[selectedExperience!]
+                                  : null,
+                              childern: selectedNumberOfKidsMale != null
+                                  ? numberOfKids[selectedNumberOfKidsMale!]
+                                  : null,
+                              personality: selectedPersonalityMale != null
+                                  ? personalityMale[selectedPersonalityMale!]
+                                  : null,
                               gender: genderIndex != null
                                   ? genderIndex == 0
                                       ? 1
                                       : 2
                                   : 0,
-                              milirity:
-                              selectedMiliirtyMaleType!=null?
-                              MilirtyMaleStatus[selectedMiliirtyMaleType!]:null);
+                              milirity: selectedMiliirtyMaleType != null
+                                  ? MilirtyMaleStatus[selectedMiliirtyMaleType!]
+                                  : null);
                         }
                         if (genderIndex == 1) {
                           SearchCubit.get(context).filterSearch(
@@ -883,35 +884,42 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                               maxWeight: int.tryParse(minWeight.text),
                               minAge: int.tryParse(minAge.text),
                               maxAge: int.tryParse(maxAge.text),
-                              typeOfMarriage: selectedMerrageType!=null?
-                              merrageType[selectedMerrageType!]:null,
-                              jobType: selectedJopTypeFemale!=null?
-                              jobTypeFemale[selectedJopTypeFemale!]:null,
-                              skinColor:
-                              selectedSkinColorIndex!=null?
-                              skinColor[selectedSkinColorIndex!]:null,
-                              illnessType: selectedillnesstypeMaleIndex!=null?
-                              illnesstypeFemale[
-                              selectedillnesstypeFemaleIndex!]:null,
-                              lastName:
-                              selectedlastName!=null?
-                              lastNameList[selectedlastName!]:null,
-                              qualifications:
-                              selectedExperience!=null?
-                              experience[selectedExperience!]:null,
-                              childern:selectedNumberOfKidsFemale!=null?
-                              numberOfKidsFemale[selectedNumberOfKidsFemale!]:null,
-                              personality:
-                              selectedPersonalityFemale!=null? personalityFemale
-                              [selectedPersonalityFemale!]:null,
+                              typeOfMarriage: selectedMerrageType != null
+                                  ? merrageType[selectedMerrageType!]
+                                  : null,
+                              jobType: selectedJopTypeFemale != null
+                                  ? jobTypeFemale[selectedJopTypeFemale!]
+                                  : null,
+                              skinColor: selectedSkinColorIndex != null
+                                  ? skinColor[selectedSkinColorIndex!]
+                                  : null,
+                              illnessType: selectedillnesstypeMaleIndex != null
+                                  ? illnesstypeFemale[
+                                      selectedillnesstypeFemaleIndex!]
+                                  : null,
+                              lastName: selectedlastName != null
+                                  ? lastNameList[selectedlastName!]
+                                  : null,
+                              qualifications: selectedExperience != null
+                                  ? experience[selectedExperience!]
+                                  : null,
+                              childern: selectedNumberOfKidsFemale != null
+                                  ? numberOfKidsFemale[
+                                      selectedNumberOfKidsFemale!]
+                                  : null,
+                              personality: selectedPersonalityFemale != null
+                                  ? personalityFemale[
+                                      selectedPersonalityFemale!]
+                                  : null,
                               gender: genderIndex != null
                                   ? genderIndex == 0
-                                  ? 1
-                                  : 2
+                                      ? 1
+                                      : 2
                                   : 0,
-                              milirity:
-                              selectedMiliirtyFemaleType!=null?
-                              MilirtyFemaleStatus[selectedMiliirtyFemaleType!]:null);
+                              milirity: selectedMiliirtyFemaleType != null
+                                  ? MilirtyFemaleStatus[
+                                      selectedMiliirtyFemaleType!]
+                                  : null);
                         }
                       }),
                   SizedBox(

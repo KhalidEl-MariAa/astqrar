@@ -473,9 +473,7 @@ class _UserRegisterState extends State<UserRegister>
                                     groupvalue: selectedHairColorName,
                                     title: hairColor[index1],
                                     changeFunction: () {
-                                      setState(() {
-                                        selectedHairColorName = index1;
-                                      });
+                                      setState(() { selectedHairColorName = index1; });
                                       print(hairColor[selectedHairColorName]);
                                     })
                                   ),
@@ -1024,124 +1022,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           doubleInfinityMaterialButton(
                               text: "تسجيل",
-                              onPressed: () {
-                                if (formkey.currentState!.validate() && termsSelected && isSelected2) {
-                                  
-                                  if (gender == "ذكر") 
-                                  {
-                                    RegisterClientCubit.get(context).specifications = [
-                                      selectedlastName == 0 ? "قبيلة" : "عائلة",
-                                      hairColor[selectedHairColorName!],
-                                      hairtype[selectedHairTypeName],
-                                      skinColor[selectedSkinColorName],
-                                      parentSkinColor[selectedParentSkinColorName],
-                                      experience[selectedExperience],
-                                      jobType[selectedJobType],
-                                      illnesstype[selectedIllnessType],
-                                      gender == "انثي"
-                                          ? MilirtyStatus[selectedMiliirtyType]
-                                          : MilirtyMaleStatus[selectedMiliirtyMaleType],
-                                      numberOfKids[selectedNumberOfKids],
-                                      personality[selectedPersonality],
-                                      money[selectedMoney],
-                                      merrageType[selectedMerrageType]
-                                    ];
-
-                                    // print(RegisterClientCubit.get(context).specifications);
-                                    RegisterClientCubit.get(context).convert();
-
-                                    if (formkey.currentState!.validate()) {
-                                      RegisterClientCubit.get(context).RegisterClient(
-                                        childrensNumber: kids,
-                                        kindOfSick: illnessTypeController.text,
-                                        tribe: lastNameNotFamilyController != null
-                                            ? lastNameNotFamilyController.text
-                                            : lastNameFamilyController.text,
-                                        nameOfJob: jobNameController.text,
-                                        specialNeeds: selectedIllnessType == 2 ?true: false,
-                                        gender: gender == "ذكر" ? "1" : "2",
-                                        name: nameController.text,
-                                        email: emailController.text,
-                                        age: ageController.text,
-                                        nationality: nationalityController.text,
-                                        natonalityId: personalCardController.text,
-                                        city: cityController.text,
-                                        password: passwordController.text,
-                                        phone: phoneController.text,
-                                        height: heightController.text,
-                                        width: weightController.text,
-                                        dowry: monyOfPony.text,
-                                        delegateId: widget.delegateId,
-                                        terms: conditionsController.text);
-                                    }
-                                  }
-                                  if (gender == "انثي") 
-                                  {
-                                    RegisterClientCubit.get(context).specifications = [
-                                      selectedlastName == 0 ? "قبيلة" : "عائلة",
-                                      hairColor[selectedHairColorName!],
-                                      hairtype[selectedHairTypeName],
-                                      skinColor[selectedSkinColorName],
-                                      parentSkinColor[selectedParentSkinColorName],
-                                      experience[selectedExperience],
-                                      jobTypeFemale[selectedJobType],
-                                      illnesstypeFemale[selectedIllnessType],
-                                      gender == "انثي"
-                                          ? MilirtyStatus[selectedMiliirtyType]
-                                          : MilirtyMaleStatus[selectedMiliirtyMaleType],
-                                      numberOfKidsFemale[selectedNumberOfKids],
-                                      personalityFemale[selectedPersonality],
-                                      moneyFemale[selectedMoney],
-                                      merrageType[selectedMerrageType]
-                                    ];
-                                    // print(RegisterClientCubit.get(context).specifications);
-                                    RegisterClientCubit.get(context).convert();
-
-                                    if (formkey.currentState!.validate()) {
-                                      RegisterClientCubit.get(context)
-                                          .RegisterClient(
-                                              delegateId: widget.delegateId,
-                                              childrensNumber: kids,
-                                              kindOfSick: illnessTypeController.text,
-                                              tribe: lastNameNotFamilyController != null? 
-                                                lastNameNotFamilyController.text: 
-                                                lastNameFamilyController.text,
-                                              nameOfJob: jobNameController.text,
-                                              specialNeeds: selectedIllnessType == 2? true: false,
-                                              gender: gender == "ذكر" ? "1" : "2",
-                                              name: nameController.text,
-                                              email: emailController.text,
-                                              age: ageController.text,
-                                              nationality: nationalityController.text,
-                                              natonalityId: personalCardController.text,
-                                              city: cityController.text,
-                                              password: passwordController.text,
-                                              phone: phoneController.text,
-                                              height: heightController.text,
-                                              width: weightController.text,
-                                              dowry: monyOfPony.text,
-                                              terms: conditionsController.text);
-                                    }
-                                  }
-
-                                  if (termsSelected == false) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                          padding: EdgeInsetsDirectional.only(
-                                          bottom: 3.h, start: 2.5.w, top: 2.h),
-                                          duration: const Duration(milliseconds: 2000),
-                                          backgroundColor: Colors.red,
-                                          content: Text(
-                                            "من فضلك اقسم ان المعلومات التي ادخلتها صحيحة لتستطيع التسجيل ",
-                                            style: TextStyle(fontFamily: "Hs", fontSize: 11.sp),
-                                      ),
-                                    ));
-                                  }
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
-                                }else{
-                                  setState(() { error_msg = "Errrrro"; });
-                                }
-                              }),
+                              onPressed: () { registeNewUser(context); }),
 
                           SizedBox(
                             height: 2.5.h,
@@ -1168,4 +1049,132 @@ class _UserRegisterState extends State<UserRegister>
       ),
     );
   }
-}
+
+  void registeNewUser(BuildContext context)
+  {
+    if( !termsSelected || !isSelected2)
+    {
+      showToast(
+        msg: "لكي تتم عملية التسجيل: من فضلك قم بالموافقة على الشروط واقسم بأن المعلومات التي أدخلتها صحيحة ", 
+        state: ToastStates.ERROR);
+
+      // ScaffoldMessenger.of(context)
+      //     .showSnackBar(SnackBar(
+      //       padding: EdgeInsetsDirectional.only(
+      //       bottom: 3.h, start: 2.5.w, top: 2.h),
+      //       duration: const Duration(milliseconds: 2000),
+      //       backgroundColor: Colors.red,
+      //       content: Text(
+      //         "لكي تتم عملية التسجيل: من فضلك قم بالموافقة على الشروط واقسم بأن المعلومات التي أدخلتها صحيحة ",
+      //         style: TextStyle(fontFamily: "Hs", fontSize: 11.sp),
+      //   ),
+      // ));
+    }
+    
+    if(formkey.currentState!.validate()) 
+    {                                  
+      if(gender == "ذكر") 
+      {
+        print('here');
+        RegisterClientCubit.get(context).specifications = [
+          selectedlastName == 0 ? "قبيلة" : "عائلة",
+          hairColor[selectedHairColorName!],
+          hairtype[selectedHairTypeName],
+          skinColor[selectedSkinColorName],
+          parentSkinColor[selectedParentSkinColorName],
+          experience[selectedExperience],
+          jobType[selectedJobType],
+          illnesstype[selectedIllnessType],
+          gender == "انثي"
+              ? MilirtyStatus[selectedMiliirtyType]
+              : MilirtyMaleStatus[selectedMiliirtyMaleType],
+          numberOfKids[selectedNumberOfKids],
+          personality[selectedPersonality],
+          money[selectedMoney],
+          merrageType[selectedMerrageType]
+        ];
+
+        // print(RegisterClientCubit.get(context).specifications);
+        RegisterClientCubit.get(context).convert();
+
+        if (formkey.currentState!.validate()) {
+          RegisterClientCubit.get(context).RegisterClient(
+            childrensNumber: kids,
+            kindOfSick: illnessTypeController.text,
+            tribe: lastNameNotFamilyController != null
+                ? lastNameNotFamilyController.text
+                : lastNameFamilyController.text,
+            nameOfJob: jobNameController.text,
+            specialNeeds: selectedIllnessType == 2 ?true: false,
+            gender: gender == "ذكر" ? "1" : "2",
+            name: nameController.text,
+            email: emailController.text,
+            age: ageController.text,
+            nationality: nationalityController.text,
+            natonalityId: personalCardController.text,
+            city: cityController.text,
+            password: passwordController.text,
+            phone: phoneController.text,
+            height: heightController.text,
+            width: weightController.text,
+            dowry: monyOfPony.text,
+            delegateId: widget.delegateId,
+            terms: conditionsController.text);
+        }
+      }
+      if (gender == "انثي") 
+      {
+        RegisterClientCubit.get(context).specifications = [
+          selectedlastName == 0 ? "قبيلة" : "عائلة",
+          hairColor[selectedHairColorName!],
+          hairtype[selectedHairTypeName],
+          skinColor[selectedSkinColorName],
+          parentSkinColor[selectedParentSkinColorName],
+          experience[selectedExperience],
+          jobTypeFemale[selectedJobType],
+          illnesstypeFemale[selectedIllnessType],
+          gender == "انثي"
+              ? MilirtyStatus[selectedMiliirtyType]
+              : MilirtyMaleStatus[selectedMiliirtyMaleType],
+          numberOfKidsFemale[selectedNumberOfKids],
+          personalityFemale[selectedPersonality],
+          moneyFemale[selectedMoney],
+          merrageType[selectedMerrageType]
+        ];
+        // print(RegisterClientCubit.get(context).specifications);
+        RegisterClientCubit.get(context).convert();
+
+        if (formkey.currentState!.validate()) {
+          RegisterClientCubit.get(context)
+              .RegisterClient(
+                  delegateId: widget.delegateId,
+                  childrensNumber: kids,
+                  kindOfSick: illnessTypeController.text,
+                  tribe: lastNameNotFamilyController != null? 
+                    lastNameNotFamilyController.text: 
+                    lastNameFamilyController.text,
+                  nameOfJob: jobNameController.text,
+                  specialNeeds: selectedIllnessType == 2? true: false,
+                  gender: gender == "ذكر" ? "1" : "2",
+                  name: nameController.text,
+                  email: emailController.text,
+                  age: ageController.text,
+                  nationality: nationalityController.text,
+                  natonalityId: personalCardController.text,
+                  city: cityController.text,
+                  password: passwordController.text,
+                  phone: phoneController.text,
+                  height: heightController.text,
+                  width: weightController.text,
+                  dowry: monyOfPony.text,
+                  terms: conditionsController.text);
+        }
+      }
+
+      // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
+    }else{
+      showToast(msg: "بعض المدخلات غير صحيحة!!", state: ToastStates.ERROR);
+    }
+
+  }
+} //end class

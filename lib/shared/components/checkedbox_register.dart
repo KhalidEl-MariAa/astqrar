@@ -2,12 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class CheckedBoxRegister extends StatelessWidget {
-  Function onchanged;
-  bool isSelected;
-  Color focusColor;
-  Color TextColor;
-  String text;
+class CheckedBoxRegister extends StatelessWidget 
+{
+  final Function onchanged;
+  final bool isSelected;
+  final Color focusColor;
+  final Color TextColor;
+  final String text;
+
   CheckedBoxRegister({required this.onchanged,required this.text,required this.isSelected,required this.focusColor,required this.TextColor});
 
   @override
@@ -16,11 +18,9 @@ class CheckedBoxRegister extends StatelessWidget {
       children: [
         Checkbox(
             value: isSelected,
-            onChanged: (bool? value) {
-             onchanged();
-            },
+            onChanged: (bool? value) { onchanged(); },
 
-//            fillColor:MaterialStateColor.resolveWith((states) =>Colors.white) ,
+            //  fillColor:MaterialStateColor.resolveWith((states) =>Colors.white) ,
             focusColor: focusColor,
             autofocus: true),
         Container(

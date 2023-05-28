@@ -10,7 +10,8 @@ import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GetInformationCubit extends Cubit<GetInformationStates> {
+class GetInformationCubit extends Cubit<GetInformationStates> 
+{
   GetInformationCubit() : super(GetInformationInitialState());
 
   static GetInformationCubit get(context) => BlocProvider.of(context);
@@ -19,16 +20,17 @@ class GetInformationCubit extends Cubit<GetInformationStates> {
   late GetInformationUserModel getInformationUserModel;
   bool getInformationDone = false;
 
- userOrVisitorToGetInformation({required String userId}){
+  userOrVisitorToGetInformation({required String userId})
+  {
     if(isLogin){
       getInformationUser(userId: userId);
-    }
-    else{
+    }else{
       getInformationUserByVisitor(userId: userId);
     }
   }
 
-  getInformationUser({required String userId}) {
+  void getInformationUser({required String userId}) 
+  {
     log(userId);
     log(token.toString());
     getInformationDone = false;
@@ -51,7 +53,8 @@ class GetInformationCubit extends Cubit<GetInformationStates> {
     });
   }
 
-  getInformationUserByVisitor({required String userId}) {
+  void getInformationUserByVisitor({required String userId}) 
+  {
     log(userId);
 
     getInformationDone = false;
@@ -75,7 +78,8 @@ class GetInformationCubit extends Cubit<GetInformationStates> {
   //add to favourite
   late AddToFavouriteModel addToFavouriteModel;
 
-  addToFavourite({required String userId}) {
+  void addToFavourite({required String userId}) 
+  {
     getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
     emit(AddToFavouriteLoadingState());
     DioHelper.postDataWithBearearToken(
@@ -99,7 +103,8 @@ class GetInformationCubit extends Cubit<GetInformationStates> {
   //delete from favourite
   late AddToFavouriteModel deleteFromFavouriteModel;
 
-  deleteFromFavourite({required String userId}) {
+  void deleteFromFavourite({required String userId}) 
+  {
     getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
     emit(AddToFavouriteLoadingState());
     DioHelper.postDataWithBearearToken(
@@ -121,16 +126,17 @@ class GetInformationCubit extends Cubit<GetInformationStates> {
     });
   }
 
-//add request
+  //add request
   late AddRequestModel addRequestModel;
 
-  addRequest({required String userId}) {
+  void addRequest({required String userId}) 
+  {
     emit(AddRequestLoadingState());
     DioHelper.postDataWithBearearToken(
-            url: ADDREQUEST, data: {
-              "userId":userId
-    }, token: token.toString())
-        .then((value) {
+      url: ADDREQUEST, 
+      data: { "userId":userId}, 
+      token: token.toString())
+    .then((value) {
       log(value.toString());
       addRequestModel = AddRequestModel.fromJson(value.data);
       log(value.statusCode.toString());
@@ -143,24 +149,28 @@ class GetInformationCubit extends Cubit<GetInformationStates> {
   }
 
   //send notification
-sendNotification({required String userid,required int type,required String body,required String title}){
-    emit(SendNotificationLoadingState());
-DioHelper.postDataWithBearearToken(token: token.toString(),url: SENDNOTIFICATION, data: {
-    "userId":userid,
-    "projectName":"استقرار",
-    "deviceType":Platform.isIOS?"ios":"android",
-    "notificationType":type,
-    "body":body,
-    "title":title
-    })
-    .then((value) {
-      log(value.toString());
-      emit(SendNotificationSuccessState());
-}).catchError((error){
-      log(error.toString());
-      emit(SendNotificationErrorState(error.toString()));
-});
-}
+  void sendNotification({required String userid,required int type,required String body,required String title})
+  {
+      emit(SendNotificationLoadingState());
 
+      DioHelper.postDataWithBearearToken(
+        token: token.toString(),
+        url: SENDNOTIFICATION, 
+        data: {
+          "userId":userid,
+          "projectName":"استقرار",
+          "deviceType":Platform.isIOS?"ios":"android",
+          "notificationType":type,
+          "body":body,
+          "title":title
+        }
+      ).then((value) {
+          log(value.toString());
+          emit(SendNotificationSuccessState());
+      }).catchError((error){
+          log(error.toString());
+          emit(SendNotificationErrorState(error.toString()));
+      });
+  }
 
-}
+}//end class

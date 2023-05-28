@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:astarar/layout/cubit/cubit.dart';
 import 'package:astarar/models/register_delegate_model.dart';
 import 'package:astarar/modules/register_user/states.dart';
@@ -37,6 +39,11 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
 
   convert() 
   {
+
+    //TODO: just for test
+    AppCubit()..getSpecifications();
+    AppCubit.specificationId;
+
     specificationsMap.clear();
     for (int i = 0; i < specifications.length; i++) {
       specificationsMap.add({
@@ -44,7 +51,8 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
         "SpecificationName": specificationsNames[i]
       });
     }
-    // log(specificationsMap.toString());
+    log('-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+    log(specificationsMap.toString());
   }
 
   RegisterClient({
@@ -96,9 +104,6 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
     };
     print(newUser);
 
-    //TODO: just for test
-    AppCubit()..getSpecifications();
-    AppCubit.specificationId;
 
 
     DioHelper.postData(url: REGISTERCLIENT, data: newUser).then((value) {
@@ -111,7 +116,7 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
       print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       print(error.toString());
       emit(RegisterClientErrorState(error.toString()));
-      showToast(msg: "حصلت مشكلة من السيرفر", state: ToastStates.ERROR);
+      showToast(msg: "حصلت مشكلة من السيرفر أثناء ارسال بيانات التسجيل", state: ToastStates.ERROR);
       print('--------------------------------------------');
     });
   }

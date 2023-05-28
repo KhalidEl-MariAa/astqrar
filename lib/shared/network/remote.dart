@@ -4,6 +4,7 @@ class DioHelper {
   static late Dio dio;
 
   static init() {
+    //TODO: fix it to the reals server.
     print('Dio init() -----------------------------------------');
     dio = Dio(BaseOptions(
       // baseUrl: "http://127.0.0.1:5000/",
@@ -12,7 +13,7 @@ class DioHelper {
       // baseUrl: "https://10.0.2.2:5001/",
       // baseUrl: "http://10.0.2.3:5000/",
       // baseUrl: "http://143.167.215.135:5000/",
-      baseUrl: "https://da5c-143-167-215-135.ngrok-free.app/", //by ngrok
+      baseUrl: "https://cd7e-143-167-214-108.ngrok-free.app/", //by ngrok
       
       receiveDataWhenStatusError: true,
     ));

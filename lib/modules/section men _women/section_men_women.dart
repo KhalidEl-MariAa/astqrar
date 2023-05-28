@@ -8,29 +8,29 @@ import 'package:astarar/shared/components/user/user_item.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
-class SectionMenOrWomen extends StatelessWidget {
+class SectionMenOrWomen extends StatelessWidget 
+{
   final int gender;
-
-  SectionMenOrWomen({required this.gender});
-
-  List<String> oneSection = ['#الكل', 'زواج معلن', 'زواج التعدد', 'زواج مسيار'];
-  List<String> twoSection = [
+  final List<String> oneSection = ['#الكل', 'زواج معلن', 'زواج التعدد', 'زواج مسيار'];
+  final List<String> twoSection = [
     "#الكل",
     "من 18 الي 30",
     "من 30 الي 40",
     "من 40 الي 50"
   ];
-  List<String> threeSection = ["#الكل", "سعودي", "مقيم"];
+
+  final List<String> threeSection = ["#الكل", "سعودي", "مقيم"];
   static int oneIndexSection = 0;
   static int twoIndexSection = 0;
   static int threeIndexSection = 0;
+
+  SectionMenOrWomen({required this.gender});
 
   @override
   Widget build(BuildContext context) {

@@ -82,8 +82,11 @@ Widget defaultTextFormField({
       focusColor: backGround,
       iconColor: grey,
 
-      prefixIcon: prefixIcon==null&&prefixImage==null?null:isImagePrefix
-          ? Padding(
+      prefixIcon: (prefixIcon==null && prefixImage==null)?
+        null
+        :
+        isImagePrefix? 
+          Padding(
               padding:  EdgeInsetsDirectional.only(end: 3.w),
               child: Image(
                 image: AssetImage(prefixImage!),
@@ -91,11 +94,12 @@ Widget defaultTextFormField({
                 width: 10,
               ),
             )
-          : IconButton(
-              icon: Icon(prefixIcon),
-              onPressed: () {
-                prefixPressed!();
-              }),
+          : 
+          IconButton(
+            icon: Icon(prefixIcon),
+            onPressed: () { prefixPressed!(); }
+          ),
+
       isDense: true,
       errorBorder:OutlineInputBorder(
         borderSide: BorderSide(color: primary),
@@ -118,15 +122,14 @@ Widget doubleInfinityMaterialButton({
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-          color: primary),
+          color: primary
+      ),
+
       child: MaterialButton(
-        child: Text(
-          text,
-          style:  TextStyle(color: white),
-        ),
-        onPressed: () {
-          onPressed();
-        },
+        child: Text( text, style:  TextStyle(color: white),
+      ),
+
+      onPressed: () { onPressed(); },
       ),
     ),
   );
@@ -135,31 +138,31 @@ Widget doubleInfinityMaterialButton({
 navigateTo({required BuildContext context,required widget})=>
     Navigator.push(context, MaterialPageRoute(builder: (context)=>widget));
 
+enum ToastStates { SUCCESS, ERROR, WARNING }
+
 showToast({required String msg, required ToastStates state}) =>
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: chooseToastColor(state),
-      textColor: Colors.white,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.white,
+      textColor: chooseToastColor(state), //Colors.white,
       fontSize: 12.sp,
     );
-
-enum ToastStates { SUCCESS, ERROR, WARNING }
 
 Color chooseToastColor(ToastStates state) 
 {
   late Color color;
   switch (state) {
     case ToastStates.SUCCESS:
-      color = Colors.green;
+      color = Colors.green; 
       break;
     case ToastStates.WARNING:
-      color = backGround;
+      color = backGround; 
       break;
     case ToastStates.ERROR:
-      color = Colors.red;
+      color = Colors.red; 
       break;
   }
   return color;

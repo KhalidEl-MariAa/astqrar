@@ -4,9 +4,11 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DetailsItem extends StatelessWidget {
-  String title;
-  String subTitle;
+class DetailsItem extends StatelessWidget 
+{
+  final String title;
+  final String subTitle;
+
   DetailsItem({required this.title,required this.subTitle});
 
   @override
@@ -15,16 +17,13 @@ class DetailsItem extends StatelessWidget {
       crossAxisAlignment:CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.only(
-              top: 1.5.h, start: 5.w),
+          padding: EdgeInsetsDirectional.only( top: 1.5.h, start: 5.w),
           child: Text(
             title,
             style: GoogleFonts.almarai(fontSize: 15,fontWeight: FontWeight.w500)
           ),
         ),
-        SizedBox(
-          height: 1.2.h,
-        ),
+        SizedBox( height: 1.2.h, ),
         Padding(
           padding:
           EdgeInsetsDirectional.only(start:5.w),
