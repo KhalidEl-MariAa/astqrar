@@ -7,12 +7,12 @@ import 'package:sizer/sizer.dart';
 Widget defaultTextFormField({
   required context,
   String? labelText,
-  required TextEditingController controller,
+  TextEditingController? controller,
   required TextInputType type,
   Color? container,
   Color?labelTextcolor,
-  String? Function(String? val)? onsubmit,
-  String? Function(String val)? onchange,
+  void Function(String? val)? onsubmit,
+  void Function(String val)? onchange,
   bool isPassword = false,
   bool isLocation = false,
   Function? onEdition,
@@ -29,7 +29,8 @@ Widget defaultTextFormField({
   Color borderColor=Colors.white,
   // Function? ontap,
   // bool ?autofocus,
-}) {
+}) 
+{
   return TextFormField(
     style: TextStyle(color: styleText),
     controller: controller,
@@ -82,9 +83,7 @@ Widget defaultTextFormField({
       focusColor: backGround,
       iconColor: grey,
 
-      prefixIcon: (prefixIcon==null && prefixImage==null)?
-        null
-        :
+      prefixIcon: (prefixIcon==null && prefixImage==null)? null :
         isImagePrefix? 
           Padding(
               padding:  EdgeInsetsDirectional.only(end: 3.w),

@@ -10,7 +10,13 @@ class RadioButtonRegister extends StatelessWidget
   final bool isRegisterScreen;
   final Function changeFunction;
 
-  RadioButtonRegister({required this.value,required this.isRegisterScreen,required this.groupvalue,required this.title,required this.changeFunction});
+  //Constructor
+  RadioButtonRegister({
+      required this.value, 
+      required this.isRegisterScreen, 
+      required this.groupvalue,
+      required this.title,
+      required this.changeFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +29,7 @@ class RadioButtonRegister extends StatelessWidget
               //here change to your color
               unselectedWidgetColor: isRegisterScreen?white:grey,
             ),
+            
             child: Radio<int>(
               // fillColor: MaterialStateColor.resolveWith((states) => Colors.grey),
               activeColor: primary,

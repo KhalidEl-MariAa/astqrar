@@ -1,42 +1,40 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 class DioHelper {
   static late Dio dio;
+  static String baseUrl = "https://10.0.2.2:7054/";
 
   static init() {
     //TODO: fix it to the reals server.
     print('Dio init() -----------------------------------------');
     dio = Dio(BaseOptions(
       // baseUrl: "http://127.0.0.1:5000/",
-      // baseUrl: "https://estqrar-001-site1.ctempurl.com/",
-      // baseUrl: "https://8d8d-143-167-215-135.ngrok-free.app/",
-      // baseUrl: "https://10.0.2.2:5001/",
-      // baseUrl: "http://10.0.2.3:5000/",
-      // baseUrl: "http://143.167.215.135:5000/",
-      baseUrl: "https://cd7e-143-167-214-108.ngrok-free.app/", //by ngrok
+      baseUrl: "https://10.0.2.2:7054/", //Tested OK
       
       receiveDataWhenStatusError: true,
     ));
   }
 
   static Future<Response> getData({
-    required String url,
-    String? token,
-  }) async {
+    required String url, String? token, }) async 
+  {
+
     dio.options.headers = {
-      'token': token ?? '',
+      'token': token?? '',
     };
+
     return await dio.get(url);
   }
 
   static Future<Response> getDataWithBearerToken({
-    required String url,
-    String? token,
-  }) async {
+    required String url, String? token, }) async 
+  {
     dio.options.headers = {
       'token': token ?? '',
       'Authorization': "Bearer " + token.toString(),
-      //  'Connection':'keep-alive',
     };
     return await dio.get(url);
   }
@@ -60,30 +58,18 @@ class DioHelper {
   }*/
 
   static Future<Response> postData({
-      // String?token,
-      // String ?image,
-      // Map<String, dynamic>? query,
-      required String url,
-      required var data
-      }) async 
+      required String url, required var data }) async 
   {
-
     dio.options.headers = {
-      // 'token':token??'',
-      // 'Accept':"application/json",
-      // 'Content-Type':'multipart/form-data',
-      // 'Content-Length':0,
       'Connection': 'keep-alive',
       "Content-Type": "application/json",
     };
+    // print(dio1.options.baseUrl + url);
+    
 
     //TODO: remove prints
     print('-44444444444444444-3-3');    
-    print(dio.options.baseUrl + url);
-    print(data);
     var res = await dio.post(url, data: data);
-    // print(res);
-    // return await dio.post(url, data: data);
     return res;
   } //end postData
 

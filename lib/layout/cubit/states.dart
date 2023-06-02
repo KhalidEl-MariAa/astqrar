@@ -4,10 +4,7 @@ class AppInitialState extends AppStates{}
 
 class GetSpecificationsLoadingState extends AppStates{}
 
-class GetSpecificationsSuccessState extends AppStates{
-
-
-}
+class GetSpecificationsSuccessState extends AppStates{ }
 
 class GetSpecificationsErrorState extends AppStates{
   final String error;

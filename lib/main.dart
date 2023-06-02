@@ -38,15 +38,15 @@ class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..findProxy = (uri) {
-        return "8123";
-      }
-      ..badCertificateCallback = (X509Certificate cert, String host,
-          int port) => true;
+      // ..findProxy = (uri) { return "7054"; }
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
 
 void main() async {
+
+  HttpOverrides.global = MyHttpOverrides();
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();

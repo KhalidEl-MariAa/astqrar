@@ -18,6 +18,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../layout/layout.dart';
 import '../../shared/contants/contants.dart';
+import '../../shared/network/remote.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -26,7 +27,8 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> 
+{
   // const LoginScreen({Key? key}) : super(key: key);
   var passwordController = TextEditingController();
   var phoneController = TextEditingController();
@@ -42,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print("Device Token" + "  " + value.toString());
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -49,26 +52,29 @@ class _LoginScreenState extends State<LoginScreen> {
       child: BlocProvider(
         create: (BuildContext context) => ShopLoginCubit(),
         child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
-          listener: (context, state) {
+          listener: (context, state) 
+          {
             if (state is ShopLoginSuccessState) {
 
               if(state.loginModel.key==0){
                 showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
               }
-              if (state.loginModel.key==1) {
+              if (state.loginModel.key==1) 
+              {
                 if(state.loginModel.data!.status!){
-                showToast(
-                    msg: "تم تسجيل الدخول بنجاح", state: ToastStates.SUCCESS);
-               if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
-               if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
-                NotificationCubit.get(context).getNotifications();
-              }
+                  showToast( 
+                    msg: "تم تسجيل الدخول بنجاح", 
+                    state: ToastStates.SUCCESS);
+                  if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                  if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
+                  NotificationCubit.get(context).getNotifications();
+                }
                 if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==1) {
-                showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const MainScreen()), (route) => false);
-              }
-                if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
                   showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const MainScreen()), (route) => false);
+                }
+                if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
+                    showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
                 }
               }
             }
@@ -158,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             margin:  EdgeInsets.symmetric(vertical: 2.2.h),
                             child: Text(
-                              "الدخول كزائر113333r111",
+                              "الدخول كزائر113333r111" + DioHelper.baseUrl,
                               style: TextStyle(
                                   color: white,
                                   fontSize: 9.2.sp,
@@ -171,9 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox( height: 3.2.h, ),
                       InkWell(
                         onTap: () {
-                          navigateTo(context: context, widget: UserRegister(
-                            delegateId: null,
-                          ));
+                          navigateTo(context: context, widget: UserRegister() );
                         },
                         child: Center(
                           child: Text("ليس لديك حساب ؟ اضغط هنا",

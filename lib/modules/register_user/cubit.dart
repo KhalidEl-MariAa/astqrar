@@ -1,13 +1,15 @@
 
 import 'dart:developer';
+// import 'dart:js_interop';
 
 import 'package:astarar/layout/cubit/cubit.dart';
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:astarar/models/server_response_model.dart';
 import 'package:astarar/modules/register_user/states.dart';
 import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:astarar/shared/components/components.dart';
+
 
 
 class RegisterClientCubit extends Cubit<RegisterClientStates> 
@@ -16,7 +18,7 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
 
   //late LoginModel loginModel;
   static RegisterClientCubit get(context) => BlocProvider.of(context);
-  late RegisterDelegateModel registerClientModel;
+  
 
   List<String> specifications = [];
   List<String> specificationsNames = [
@@ -39,7 +41,6 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
 
   convert() 
   {
-
     //TODO: just for test
     AppCubit()..getSpecifications();
     AppCubit.specificationId;
@@ -55,7 +56,8 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
     log(specificationsMap.toString());
   }
 
-  RegisterClient({
+
+  void RegisterClient({
     required bool specialNeeds,
     required String name,
     required String email,
@@ -80,21 +82,21 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
 
     var newUser = {
       "userName": name,
-      "email": delegateId == null ? email : "nabil12@gmail.com",
+      "email": email,
       "Age":age,
       "Gender":gender,
-      "NationalID": delegateId == null ? natonalityId : "71717171",
+      "NationalID": natonalityId,
       "Nationality":nationality,
       "City":city,
-      "password": delegateId == null ? password : "0000000",
-      "phone":delegateId==null?phone:"+9665874521",
+      "password": password,
+      "phone": phone,
       "Height":height,
       "Weight":width,
       "SpecialNeeds":specialNeeds,
       "Dowry":dowry,
       "Terms":terms,
-      "DelegateId":delegateId,
-      "IsFakeUser":delegateId!=null? true: false,
+      // "DelegateId":delegateId,
+      // "IsFakeUser":delegateId!=null? true: false,
       
       "ChildrensNumber":childrensNumber!.toInt(),
       "Tribe":tribe,
@@ -106,18 +108,25 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
 
 
 
-    DioHelper.postData(url: REGISTERCLIENT, data: newUser).then((value) {
+    DioHelper.postData(
+      url: REGISTERCLIENT, 
+      data: newUser
+    )
+    .then((value) {
       print('********************************');
       print(value.toString());
-      registerClientModel = RegisterDelegateModel.fromJson(value.data);
-      emit(RegisterClientSuccessState(registerClientModel));
+      // late ServerResponse registerClientModel;
+      //TODO: remove this emit
+      // emit(RegisterClientSuccessState(response));
       
     }).catchError((error) {
       print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       print(error.toString());
-      emit(RegisterClientErrorState(error.toString()));
-      showToast(msg: "حصلت مشكلة من السيرفر أثناء ارسال بيانات التسجيل", state: ToastStates.ERROR);
+
+      // emit(RegisterClientErrorState(error.toString()));
+      
       print('--------------------------------------------');
     });
   }
-}
+
+}//end class

@@ -272,78 +272,57 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   getUserData() {
     getUserDataDone = false;
     emit(GetUserDataLoadingState());
+
     DioHelper.postDataWithBearearToken(
-            url: GETPROFILEDATA, data: {}, token: token.toString())
-        .then((value) {
-      log(value.toString());
+            url: GETPROFILEDATA, 
+            data: {}, 
+            token: token.toString()
+    ).then((value) {
+
+      // log(value.toString());
+
       getUserDataModel = GetUserDataModel.fromJson(value.data);
-      UserProfileScreenState.emailController.text =
-          getUserDataModel.data!.email!;
-      UserProfileScreenState.nameController.text =
-          getUserDataModel.data!.userName!;
-      UserProfileScreenState.personalCardController.text =
-          getUserDataModel.data!.nationalID!;
+      UserProfileScreenState.emailController.text = getUserDataModel.data!.email!;
+      UserProfileScreenState.nameController.text = getUserDataModel.data!.userName!;
+      UserProfileScreenState.personalCardController.text = getUserDataModel.data!.nationalID!;
       UserProfileScreenState.cityController.text = getUserDataModel.data!.city!;
-      UserProfileScreenState.nationalityController.text =
-          getUserDataModel.data!.nationality ?? "";
-      UserProfileScreenState.ageController.text =
-          getUserDataModel.data!.age.toString();
+      UserProfileScreenState.nationalityController.text = getUserDataModel.data!.nationality ?? "";
+      UserProfileScreenState.ageController.text = getUserDataModel.data!.age.toString();
       //  UserProfileScreenState.phoneController.text=getUserDataModel.data!.phone??" ";
-      UserProfileScreenState.heightController.text =
-          getUserDataModel.data!.height.toString();
-      UserProfileScreenState.weightController.text =
-          getUserDataModel.data!.weight.toString();
-      UserProfileScreenState.conditionsController.text =
-          getUserDataModel.data!.terms.toString();
-      UserProfileScreenState.monyOfPony.text =
-          getUserDataModel.data!.dowry.toString();
+      UserProfileScreenState.heightController.text = getUserDataModel.data!.height.toString();
+      UserProfileScreenState.weightController.text = getUserDataModel.data!.weight.toString();
+      UserProfileScreenState.conditionsController.text = getUserDataModel.data!.terms.toString();
+      UserProfileScreenState.monyOfPony.text = getUserDataModel.data!.dowry.toString();
+
       genderUser = getUserDataModel.data!.gender!;
-      hairColorName =
-          getUserDataModel.data!.userSubSpecificationDto[1].specificationValue;
-      hairTypeName =
-          getUserDataModel.data!.userSubSpecificationDto[2].specificationValue;
-      skinColorName =
-          getUserDataModel.data!.userSubSpecificationDto[3].specificationValue;
-      parentSkinColorName =
-          getUserDataModel.data!.userSubSpecificationDto[4].specificationValue;
-      experienceName =
-          getUserDataModel.data!.userSubSpecificationDto[5].specificationValue;
-
-
+      hairColorName = getUserDataModel.data!.userSubSpecificationDto[1].specificationValue;
+      hairTypeName = getUserDataModel.data!.userSubSpecificationDto[2].specificationValue;
+      skinColorName = getUserDataModel.data!.userSubSpecificationDto[3].specificationValue;
+      parentSkinColorName = getUserDataModel.data!.userSubSpecificationDto[4].specificationValue;
+      experienceName = getUserDataModel.data!.userSubSpecificationDto[5].specificationValue;
 
       if (genderUser == 1) {
-        MilirtyMaleStatusName = getUserDataModel
-            .data!.userSubSpecificationDto[8].specificationValue;
-        personalityName = getUserDataModel
-            .data!.userSubSpecificationDto[10].specificationValue;
-        jopTypeName = getUserDataModel
-            .data!.userSubSpecificationDto[6].specificationValue;
-        illnessTypeName = getUserDataModel
-            .data!.userSubSpecificationDto[7].specificationValue;
-        numberOfKidsName = getUserDataModel
-            .data!.userSubSpecificationDto[9].specificationValue;
-        moneyName =
-            getUserDataModel.data!.userSubSpecificationDto[11].specificationValue;
+        MilirtyMaleStatusName = getUserDataModel.data!.userSubSpecificationDto[8].specificationValue;
+        personalityName = getUserDataModel.data!.userSubSpecificationDto[10].specificationValue;
+        jopTypeName = getUserDataModel.data!.userSubSpecificationDto[6].specificationValue;
+        illnessTypeName = getUserDataModel.data!.userSubSpecificationDto[7].specificationValue;
+        numberOfKidsName = getUserDataModel.data!.userSubSpecificationDto[9].specificationValue;
+        moneyName = getUserDataModel.data!.userSubSpecificationDto[11].specificationValue;
       }
       if (genderUser == 2) {
-        MilirtyStatusName = getUserDataModel
-            .data!.userSubSpecificationDto[8].specificationValue;
-        personalityFemaleName = getUserDataModel
-            .data!.userSubSpecificationDto[10].specificationValue;
-        jopTypeFemaleName = getUserDataModel
-            .data!.userSubSpecificationDto[6].specificationValue;
-        illnessTypeFemaleName = getUserDataModel
-            .data!.userSubSpecificationDto[7].specificationValue;
-        numberOfKidsFemaleName = getUserDataModel
-            .data!.userSubSpecificationDto[9].specificationValue;
-        moneyFemaleName =
-            getUserDataModel.data!.userSubSpecificationDto[11].specificationValue;
+        MilirtyStatusName = getUserDataModel.data!.userSubSpecificationDto[8].specificationValue;
+        personalityFemaleName = getUserDataModel.data!.userSubSpecificationDto[10].specificationValue;
+        jopTypeFemaleName = getUserDataModel.data!.userSubSpecificationDto[6].specificationValue;
+        illnessTypeFemaleName = getUserDataModel.data!.userSubSpecificationDto[7].specificationValue;
+        numberOfKidsFemaleName = getUserDataModel.data!.userSubSpecificationDto[9].specificationValue;
+        moneyFemaleName =getUserDataModel.data!.userSubSpecificationDto[11].specificationValue;
       }
 
 
       listlist();
       getUserDataDone = true;
       emit(GetUserDataSucccessState());
+      
     }).catchError((error) {
       log(error.toString());
       emit(GetUserDataErrorState(error.toString()));
@@ -358,11 +337,11 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
         "SpecificationName": specificationsNames[i]
       });
     }
-    log(specifications.toString());
-   log(specificationsMap.toString());
+    // log(specifications.toString());
+    // log(specificationsMap.toString());
   }
 
-//update user data
+  //update user data
   late LoginModel updateUserDataModel;
 
   updateUserData() {
@@ -381,23 +360,25 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       "UserSpecifications": specificationsMap,
       //"type":"image/png"
     });
+
     DioHelper.postDataWithImage(
             url: UPDATEUSERDATA,
             data: formData,
             token: token.toString(),
             length: 0)
-        .then((value) {
+    .then((value) {
       log(value.toString());
+
       updateUserDataModel = LoginModel.fromJson(value.data);
-      CacheHelper.saveData(
-          key: "name", value: updateUserDataModel.data!.userName);
+      
       name = CacheHelper.getData(key: "name");
-      CacheHelper.saveData(
-          key: "age", value: updateUserDataModel.data!.age.toString());
       age = CacheHelper.getData(key: "age");
-      CacheHelper.saveData(
-          key: "email", value: updateUserDataModel.data!.email);
       email = CacheHelper.getData(key: "email");
+
+      CacheHelper.saveData(key: "name", value: updateUserDataModel.data!.userName);
+      CacheHelper.saveData(key: "age", value: updateUserDataModel.data!.age.toString());
+      CacheHelper.saveData(key: "email", value: updateUserDataModel.data!.email);
+
       emit(UpdateUserDataSucccessState(updateUserDataModel));
     }).catchError((error) {
       log(error.toString());

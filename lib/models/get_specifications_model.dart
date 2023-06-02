@@ -3,13 +3,16 @@
 class GetSpecificationsModel
 {
   int?key;
-  List<DataOfSpecifications>data=[];
+  List<DataOfSpecifications> data=[];
 
+  GetSpecificationsModel(){}
+  
   GetSpecificationsModel.fromJson(Map<String,dynamic>json)
   {
-      key=json['key'];
-      json['data'].forEach((element) {
-        data.add(DataOfSpecifications.fromJson(element));
+      key = json['key'];
+      data = [];
+      json['data'].forEach( (e) {
+        data.add(DataOfSpecifications.fromJson(e));
       });
   }
 }

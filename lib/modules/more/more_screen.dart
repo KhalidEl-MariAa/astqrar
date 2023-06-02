@@ -28,27 +28,10 @@ class MoreScreen extends StatelessWidget {
   static var form = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocConsumer<SettingsCubit, SettingsStates>(
-      listener: (context, state) {
-        if (state is LogoutSuccessState) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-              (route) => false);
-        }
-
-        if (state is RemoveAccountSuccessState) {
-          if (state.statusCode == 200) {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-                (route) => false);
-          } else {
-            showToast(msg: "حدث خطا ما", state: ToastStates.ERROR);
-          }
-        }
-      },
+      listener: (context, state) { on_state_changed(context, state); },
       builder: (context, state) => Scaffold(
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(10.h),
@@ -109,9 +92,7 @@ class MoreScreen extends StatelessWidget {
                           const Spacer(),
                           if (isLogin)
                             InkWell(
-                              onTap: () {
-                                SettingsCubit.get(context).logOut();
-                              },
+                              onTap: () { SettingsCubit.get(context).logOut(); },
                               child: Text(
                                 "تسجيل الخروج",
                                 style: TextStyle(
@@ -124,9 +105,9 @@ class MoreScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                SizedBox(
-                  height: 2.h,
-                ),
+
+                SizedBox( height: 2.h, ),
+
                 Material(
                   elevation: 10,
                   shadowColor: Colors.grey,
@@ -145,10 +126,10 @@ class MoreScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (isLogin)
-                            Text(
-                              "الاعدادات",
+                            Text("الاعدادات",
                               style: GoogleFonts.poppins(
-                                  fontSize: 13.sp, color: Colors.grey[600]),
+                                fontSize: 13.sp, color: Colors.grey[600]
+                              ),
                             ),
                           /*   if(isLogin!)         SwitchRaw(
                               image: "assets/notifications-button.png",
@@ -164,49 +145,38 @@ class MoreScreen extends StatelessWidget {
                             ),
                           if (isLogin)
                             InkWell(
-                                onTap: () {
-                                  if (typeOfUser == 1) {
-                                    showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) =>
-                                            UserProfileScreen());
-                                  }
-                                  if (typeOfUser == 2) {
-                                    ProfileDeleagateCubit.get(context)
-                                        .getProfileDelegate(delegateId: id!);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                SpeceficDelegateScreen(
-                                                  id: id!,
-                                                  name: name!,
-                                                )));
-                                  }
-                                },
                                 child: DefaultRaw(
                                     image: "assets/man-user.png",
-                                    text: "الملف الشخصي")),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          if (isLogin && typeOfUser == 2)
-                            InkWell(
+                                    text: "الملف الشخصي"),
+
                                 onTap: () {
-                                  if (typeOfUser == 2) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => UserRegister(delegateId: id) ));
-                                  }
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      context: context,
+                                      builder: (context) =>
+                                          UserProfileScreen()
+                                  );
                                 },
-                                child: DefaultRaw(
-                                    image: "assets/man-user.png",
-                                    text: "اضافة مستخدم")),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+                            ),
+                          
+                          SizedBox(height: 1.h,),
+                          // if (isLogin && typeOfUser == 2)
+                          //   InkWell(
+                          //       onTap: () {
+                          //         if (typeOfUser == 2) {
+                          //           Navigator.push(
+                          //               context,
+                          //               MaterialPageRoute(
+                          //                   builder: (context) => UserRegister(delegateId: id) ));
+                          //         }
+                          //       },
+                          //       child: DefaultRaw(
+                          //           image: "assets/man-user.png",
+                          //           text: "اضافة مستخدم")
+                          //   ),
+                          
+                          SizedBox(height: 1.h,),
+
                           if (isLogin)
                             InkWell(
                                 onTap: () {
@@ -218,60 +188,43 @@ class MoreScreen extends StatelessWidget {
                                 },
                                 child: DefaultRaw(
                                     image: "assets/man-user.png",
-                                    text: "حذف الحساب ")),
-                          SizedBox(
-                            height: 2.h,
-                          ),
+                                    text: "حذف الحساب ")
+                            ),
+                          SizedBox( height: 2.h,),
                           Text( "معلومات",
                             style: GoogleFonts.poppins( fontSize: 13.sp, color: Colors.grey[600]),
                           ),
                           
-                          SizedBox(
-                            height: 2.h,
-                          ),
+                          SizedBox( height: 2.h,),
                           InkWell(
                             onTap: () {
-                              navigateTo(
-                                  context: context, widget: const AboutApp());
+                              navigateTo(context: context, widget: const AboutApp() );
                             },
                             child: DefaultRaw(
                                 image: "assets/information.png",
                                 text: "عن التطبيق"),
                           ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
+                          SizedBox( height: 2.h, ),
                           InkWell(
                             onTap: () {
-                              navigateTo(
-                                  context: context,
-                                  widget: const TermsScreen());
+                              navigateTo( context: context, widget: const TermsScreen() );
                             },
                             child: DefaultRaw(
                                 image: "assets/Filled outline.png",
                                 text: "الشروط و الاحكام"),
                           ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
+                          SizedBox( height: 2.h, ),
                           InkWell(
                             onTap: () {
-                              navigateTo(
-                                  context: context,
-                                  widget: ContactUS(
-                                    isFromLogin: false,
-                                  ));
+                              navigateTo( context: context, widget: ContactUS( isFromLogin: false, ) );
                             },
                             child: DefaultRaw(
                                 image: "assets/phone.png", text: "اتصل بنا"),
                           ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
+                          SizedBox( height: 2.h, ),
                           InkWell(
                               onTap: () {
-                                Share.share(
-                                    'https://play.google.com/store/apps/details?id=com.astqrar.com');
+                                Share.share('https://play.google.com/store/apps/details?id=com.astqrar.com');
                               },
                               child: DefaultRaw(
                                   image: "assets/sharing.png",
@@ -286,4 +239,26 @@ class MoreScreen extends StatelessWidget {
           )),
     );
   }
-}
+
+  void on_state_changed(BuildContext context, SettingsStates state)
+  {
+    if (state is LogoutSuccessState) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false);
+    }
+
+    if (state is RemoveAccountSuccessState) {
+      if (state.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            (route) => false);
+      } else {
+        showToast(msg: "حدث خطا ما", state: ToastStates.ERROR);
+      }
+    }
+
+  }
+}//end class
