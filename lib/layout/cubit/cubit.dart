@@ -12,33 +12,40 @@ class AppCubit extends Cubit<AppStates>
 {
   AppCubit() : super(AppInitialState());
 
-  late GetSpecificationsModel getSpecificationsModel;
-  
   static AppCubit get(context) => BlocProvider.of(context);  
   static  Map<String, int> specificationId = {};
 
-  getSpecifications() 
+  Future loadSpecificationId() async
   {
-    emit(GetSpecificationsLoadingState());
-    
-    DioHelper.getDataWithBearerToken(
+    GetSpecificationsModel getSpecificationsModel;
+    await DioHelper.getDataWithBearerToken(
         url: SUBSPECIFICATIONS,
-        token:token.toString(),)
+        token: token.toString(),)
     .then((value) {
         //  print(value.toString());
         getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
-        getSpecificationsModel.data.forEach((element) {
-          specificationId.addAll({element.nameAr!: element.id!});
+        getSpecificationsModel.data.forEach( (e) {
+          specificationId.addAll({e.nameAr!: e.id!});
         });
-        print(specificationId["اسود"]);
         emit(GetSpecificationsSuccessState());
     }).catchError((error) {
-        log(error.toString());
+        // log(error.toString());
         emit(GetSpecificationsErrorState(error.toString()));
     });
   }
+  
+  Future<Map<String, int>> getSpecifications() async
+  {
+    emit(GetSpecificationsLoadingState());
 
-  getPhone()
+    if( specificationId.isEmpty ){
+      await loadSpecificationId();
+    }
+    return specificationId;
+    
+  }
+
+  void getPhone()
   {
     DioHelper.postData(url: GetPhoneNumber, data: {})
     .then((value) {

@@ -1,4 +1,4 @@
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 
 abstract class RegisterLinkPersonStates{}
 
@@ -7,7 +7,7 @@ class RegisterLinkPersonInitialState extends RegisterLinkPersonStates{}
 class RegisterLinkPersonLoadingState extends RegisterLinkPersonStates{}
 
 class RegisterLinkPersonSuccessState extends RegisterLinkPersonStates{
- final RegisterDelegateModel registerDelegateModel;
+ final ServerResponse registerDelegateModel;
  RegisterLinkPersonSuccessState(this.registerDelegateModel);
 
 }

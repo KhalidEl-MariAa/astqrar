@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 import 'package:astarar/modules/change_password/cubit/states.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/network/end_points.dart';
@@ -11,7 +11,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordStates> {
   ChangePasswordCubit() : super(ChangePasswordInitialState());
 
   static ChangePasswordCubit get(context) => BlocProvider.of(context);
-  late RegisterDelegateModel changePasswordModel;
+  late ServerResponse changePasswordModel;
 
   changePassword({required String oldPassword, required String newPassword}) {
     emit(ChangePasswordLoadingState());
@@ -23,7 +23,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordStates> {
     }, token: token.toString())
         .then((value) {
           log(value.data);
-          changePasswordModel=RegisterDelegateModel.fromJson(value.data);
+          changePasswordModel = ServerResponse.fromJson(value.data);
           emit(ChangePasswordSuccessState(changePasswordModel));
     })
         .catchError((error) {

@@ -1,4 +1,4 @@
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 
 abstract class RegisterClientStates{}
 
@@ -7,9 +7,8 @@ class RegisterClientInitialState extends RegisterClientStates{}
 class RegisterClientLoadingState extends RegisterClientStates{}
 
 class RegisterClientSuccessState extends RegisterClientStates{
-  final RegisterDelegateModel registerClientModel;
-  RegisterClientSuccessState(this.registerClientModel);
-
+  final ServerResponse response;
+  RegisterClientSuccessState(this.response);
 }
 
 class RegisterClientErrorState extends RegisterClientStates{
@@ -17,11 +16,11 @@ class RegisterClientErrorState extends RegisterClientStates{
   RegisterClientErrorState(this.error);
 }
 
-class GetSpecificationsLoadingState extends RegisterClientStates{}
+// class GetSpecificationsLoadingState extends RegisterClientStates{}
 
-class GetSpecificationsSuccessState extends RegisterClientStates{}
+// class GetSpecificationsSuccessState extends RegisterClientStates{}
 
-class GetSpecificationsErrorState extends RegisterClientStates{
-  final String error;
-  GetSpecificationsErrorState(this.error);
-}
+// class GetSpecificationsErrorState extends RegisterClientStates{
+//   final String error;
+//   GetSpecificationsErrorState(this.error);
+// }

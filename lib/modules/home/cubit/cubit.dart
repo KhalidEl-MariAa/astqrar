@@ -8,7 +8,8 @@ import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeCubit extends Cubit<HomeStates> {
+class HomeCubit extends Cubit<HomeStates> 
+{
   HomeCubit() : super(HomeInitialState());
 
   //late LoginModel loginModel;
@@ -17,7 +18,7 @@ class HomeCubit extends Cubit<HomeStates> {
   late GetAllUsers getHomeModel;
   List<UsersHomeData> menSection = [];
   List<UsersHomeData> womenSection = [];
-Map<int,int> subSpecification={};
+  Map<int,int> subSpecification={};
   /*getHomeData() {
     emit(HomeLoadingState());
     DioHelper.postData(url: GETHOME, data: {}).then((value) {
@@ -35,7 +36,7 @@ Map<int,int> subSpecification={};
 
   //ads
   late GetAllAdsWithUsersModel getAllAdsWithUsersModel;
-bool getUserAdsDone=false;
+  bool getUserAdsDone=false;
 
   getUserAds() {
     getUserAdsDone=false;

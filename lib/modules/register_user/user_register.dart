@@ -1,4 +1,5 @@
-import 'package:astarar/layout/cubit/cubit.dart';
+import 'dart:async';
+import 'dart:convert';
 import 'package:astarar/layout/cubit/states.dart';
 import 'package:astarar/modules/linkperson/layout_linkPerson/layout_link_person.dart';
 import 'package:astarar/modules/register_user/cubit.dart';
@@ -11,14 +12,21 @@ import 'package:astarar/shared/components/header_logo.dart';
 import 'package:astarar/shared/components/user/register/radiobuttonregister.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:astarar/layout/cubit/cubit.dart';
 import 'package:sizer/sizer.dart';
+import '../../models/get_user_data_model.dart';
+import '../../models/server_response_model.dart';
+import '../../shared/network/end_points.dart';
+import '../../shared/network/remote.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserRegister extends StatefulWidget 
 {
-  final String? delegateId;
+  // final String? delegateId;
 
-  UserRegister({Key? key, required this.delegateId}) : super(key: key);
+  UserRegister({Key? key }) : super(key: key);
+  // UserRegister({Key? key, required this.delegateId}) : super(key: key);
 
   @override
   _UserRegisterState createState() => _UserRegisterState();
@@ -27,30 +35,32 @@ class UserRegister extends StatefulWidget
 
 class _UserRegisterState extends State<UserRegister> 
 {
+  bool isLoading = false;
+  User newUser = User();
 
   var emailController = TextEditingController();
-  var nameController = TextEditingController();
-  var personalCardController = TextEditingController();
-  var NationalID = "";
-  var cityController = TextEditingController();
-  var ageController = TextEditingController();
-  var phoneController = TextEditingController();
-  var weightController = TextEditingController();
-  var heightController = TextEditingController();
+  var userNameController = TextEditingController();
+  var nationalIdController = TextEditingController();
+  var cityController = TextEditingController();  
   var nationalityController = TextEditingController();
-  var jobNameController = TextEditingController();
+
+  var tribeController = TextEditingController();
+  var phoneController = TextEditingController();
+  var ageController = TextEditingController();
+  var heightController = TextEditingController();
+  var weightController = TextEditingController();
+  
+  var nameOfJobController = TextEditingController();
   var illnessTypeController = TextEditingController();
   var numberOfKidsController = TextEditingController();
-  var monyOfPony = TextEditingController();
+  var dowryController = TextEditingController();
+  var termsController = TextEditingController();
+
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
-  var conditionsController = TextEditingController();
 
-  var lastNameFamilyController = TextEditingController();
-  var lastNameNotFamilyController = TextEditingController();
-
-  bool isSelected2 = false;
-  bool termsSelected = false;
+  bool isDataConfirmed = false;
+  bool isTermsConfirmed = false;
 
   int selectedlastName = 0;
   int selectedHairColorName = 0;
@@ -65,7 +75,7 @@ class _UserRegisterState extends State<UserRegister>
   int selectedNumberOfKids = 0;
   int selectedPersonality = 0;
   int selectedMoney = 0;
-  int kids = 0;
+  // int kids = 0;
   int selectedMerrageType = 0;
   String error_msg = "";
   String gender = "ذكر";
@@ -148,46 +158,7 @@ class _UserRegisterState extends State<UserRegister>
     return BlocProvider(
       create: (BuildContext context) => RegisterClientCubit(),
       child: BlocConsumer<RegisterClientCubit, RegisterClientStates>(
-        listener: (context, state) {
-          if (state is RegisterClientSuccessState) 
-          {
-            if (state.registerClientModel.key == 1) 
-            {
-              showToast(msg: "تم التسجيل بنجاح", state: ToastStates.SUCCESS);
-              if (widget.delegateId == null) {
-              //   Navigator.pushAndRemoveUntil(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => LoginScreen()),
-              //     (route) => false,
-              //   );
-              }else{
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LayoutLinkPerson()),
-                  (route) => false,
-                );
-                // nameController.clear();
-                // cityController.clear();
-                // nationalityController.clear();
-                // ageController.clear();
-                // lastNameFamilyController.clear();
-                // heightController.clear();
-                // weightController.clear();
-                // jobNameController.clear();
-                // illnessTypeController.clear();
-                // numberOfKidsController.clear();
-                // monyOfPony.clear();
-                // conditionsController.clear();
-              }
-            }
-            else 
-            {
-              showToast(
-                  msg: state.registerClientModel.msg!,
-                  state: ToastStates.ERROR);
-            }
-          }
-        },
+        listener: (context, state) { on_state_changed(context, state); },
 
         builder: (context, state) => BlocBuilder<AppCubit, AppStates>(
           builder: (context, state) => Directionality(
@@ -219,9 +190,7 @@ class _UserRegisterState extends State<UserRegister>
                           ),
                           
                           const HeaderLogo(),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
+
                           Material(
                               elevation: 5,
                               shadowColor: Colors.grey,
@@ -252,106 +221,107 @@ class _UserRegisterState extends State<UserRegister>
                                       style: TextStyle(color: Colors.grey[600]),
                                     ),
                                   ),
-                                  items: <String>['انثي', 'ذكر']
-                                    .map((String value) 
-                                    {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        alignment: Alignment.centerRight,
-                                        child: Material(
-                                          elevation: 5,
-                                          shadowColor: Colors.grey[400],
-                                          child: Container(
-                                              width: double.infinity,
-                                              alignment: Alignment.centerRight,
-                                              child: Text(value,
-                                                  textAlign: TextAlign.start)),
-                                        ),
-                                      );
-                                    }).toList(),
+                                  items: <String>['انثي', 'ذكر'].map((String value) 
+                                  {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      alignment: Alignment.centerRight,
+                                      child: Material(
+                                        elevation: 5,
+                                        shadowColor: Colors.grey[400],
+                                        child: Container(
+                                            width: double.infinity,
+                                            alignment: Alignment.centerRight,
+                                            child: Text(value,
+                                                textAlign: TextAlign.start)),
+                                      ),
+                                    );
+                                  }).toList(),
                                   onChanged: (String? newValue) {
                                     setState(() { gender = newValue!; });
-                                    //print(gender);
                                   },
                                 ),
                               ),
                             ),
-                          // SizedBox( height: 1.5.h, ),
-                          if (widget.delegateId == null)
-                            defaultTextFormField(
-                                context: context,
-                                controller: emailController,
-                                type: TextInputType.emailAddress,
-                                validate: (String? value) {
-                                  if (widget.delegateId == null) {
-                                    if (value!.isEmpty) {
-                                      return "من فضلك ادخل البريد الالكتروني";
-                                    }else if (!value.contains("@")) {
-                                      return "من فضلك ادخل البريد الالكتروني بطريقة صحيحة";
-                                    }else{
-                                      return null;
-                                    }
-                                  }else{
-                                    return null;
-                                  }
-                                },
-                                labelText: "البريد الالكتروني",
-                                //  labelTextcolor: white,
-                                label: "الرجاء ادخال البريد الالكتروني",
-                                prefixIcon: Icons.email_outlined),
 
-                          // if (widget.delegateId == null)
+                          defaultTextFormField(
+                            context: context,
+                            controller: emailController,
+                            type: TextInputType.emailAddress,
+                            // onchange: (v) => setState(() {  newUser.email = v;  }),
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                  return "من فضلك ادخل البريد الالكتروني";
+                              }else if (!value.contains("@")) {
+                                  return "من فضلك ادخل البريد الالكتروني بطريقة صحيحة";
+                              }else{
+                                  newUser.email = value;
+                                  return null;
+                              }
+                            },
+                              
+                            labelText: "البريد الالكتروني",
+                            label: "الرجاء ادخال البريد الالكتروني",
+                            prefixIcon: Icons.email_outlined),
 
                           defaultTextFormField(
                               context: context,
-                              controller: nameController,
-                              //   labelTextcolor: white,
+                              controller: userNameController,
+                              // onchange: (v) => setState(() {  newUser.userName = v;  }),
                               type: TextInputType.text,
                               validate: (String? value) {
+                                newUser.userName = value;
                                 return (value!.isEmpty)? "من فضلك ادخل الاسم": null;
                               },
                               labelText: "الاسم",
                               label: "الرجاء ادخال اسمك",
                               prefixIcon: Icons.person_outline),
 
-                          if (widget.delegateId == null)
-                            defaultTextFormField(
-                                context: context,
-                                controller: personalCardController,
-                                type: TextInputType.number,
-                                validate: (String? value) {
-                                  if (widget.delegateId == null) {
-                                    return (value!.isEmpty)? "من فضلك ادخل رقم الهوية": null;
-                                  }else{
-                                    return null;
-                                  }
-                                },
-                                labelText: "رقم الهوية",
-                                //  labelTextcolor: white,
-                                label: "الرجاء ادخال رقم الهوية",
-                                prefixIcon: Icons.person_outline),
+                          defaultTextFormField(
+                              context: context,
+                              controller: nationalIdController,
+                              // onchange: (v) { 
+                              //   setState(() {  newUser.nationalID = v;  }); 
+                              //   return ; 
+                              // },                            
+                              type: TextInputType.number,
+                              validate: (String? value) {
+                                newUser.nationalID = value;
+                                return (value!.isEmpty)? "من فضلك ادخل رقم الهوية": null;
+                              },
+                              labelText: "رقم الهوية",
+                              label: "الرجاء ادخال رقم الهوية",
+                              prefixIcon: Icons.person_outline),
 
                           defaultTextFormField(
                               context: context,
                               controller: cityController,
+                              // onchange: (v) => setState(() {  newUser.city = v;  }),
                               type: TextInputType.text,
                               validate: (String? value) {
+                                newUser.city = value;
                                 return (value!.isEmpty)? "من فضلك ادخل المدينة": null;
                               },
                               labelText: "المدينة",
                               label: "الرجاء ادخال المدينة",
-                              //labelTextcolor: white,
                               prefixIcon: Icons.person_outline),
+
                           defaultTextFormField(
                               context: context,
                               controller: nationalityController,
+                              // onchange: (v) { 
+                              //   setState(() {  newUser.nationality = v;  }); 
+                              //   return ; 
+                              // },
                               type: TextInputType.text,
                               validate: (String? value) {
+                                newUser.nationality = value;
                                 return (value!.isEmpty)?"من فضلك ادخل الجنسية": null;
                               },
                               labelText: "الجنسية",
                               label: "الرجاء ادخال الجنسية",
-                              prefixIcon: Icons.person_outline),
+                              prefixIcon: Icons.person_outline
+                          ),
 
                           Text(
                             "الاسم ينتهي",
@@ -359,73 +329,63 @@ class _UserRegisterState extends State<UserRegister>
                           ),
 
                           RadioListTile<int>(
-                              value: 0,
-                              secondary: Container(
-                                width: 45.w,
-                                child: defaultTextFormField(
-                                    context: context,
-                                    controller: lastNameNotFamilyController,
-                                    type: TextInputType.text,
-                                    labelTextcolor: white,
-                                    validate: (value) {
-                                      return null;
-                                      // return (selectedlastName == 0 && value!.isEmpty)? "من فضلك ادخل اسم القبيلة": null;
-                                    },
-                                    label: "ادخل اسم"),
-                              ),
-                              title: Text("قبيلة",
-                                style: TextStyle(color: white, fontSize: 12.sp),
-                              ),
-                              groupValue: selectedlastName,
-                              activeColor: primary,
-                              onChanged: (value) {
-                                setState(() { selectedlastName = 0; });
-                              }), 
+                                value: 0,
+                                title: Text("قبيلة",
+                                  style: TextStyle(color: white, fontSize: 12.sp),
+                                ),
+                                groupValue: selectedlastName,
+                                activeColor: primary,
+                                onChanged: (value) {
+                                  setState(() { selectedlastName = 0; });
+                                }), 
 
-                        RadioListTile<int>(
-                          value: 1,
-                          secondary: Container(
-                            width: 45.w,
-                            child: defaultTextFormField(
+                          RadioListTile<int>(
+                            value: 1,
+                            title: Text("عائلة", 
+                                style: TextStyle(color: white, fontSize: 12.sp),
+                            ),
+                            activeColor: primary,
+                            groupValue: selectedlastName,
+                            onChanged: (value) {
+                              setState(() { selectedlastName = 1; });
+                            }),
+
+                          defaultTextFormField(
                                 context: context,
-                                controller: lastNameFamilyController,
+                                controller: tribeController,
+                                // onchange: (v) => setState(() {  newUser.tribe = v;  }),
                                 type: TextInputType.text,
                                 validate: (value) {
+                                  newUser.tribe = value; 
                                   return null;
                                   // return (selectedlastName == 1 && value!.isEmpty) "من فضلك ادخل اسم العائلة": null;
                                 },
-                                label: "ادخل اسم",
-                                labelTextcolor: white),
+                                labelText: "العائلة / القبيلة",
+                                label: "ادخل اسم العائلة/القبيلة",
+                                prefixIcon: Icons.person_outline,
                           ),
-                          title: Text("عائلة", 
-                              style: TextStyle(color: white, fontSize: 12.sp),
-                          ),
-                          activeColor: primary,
-                          groupValue: selectedlastName,
-                          onChanged: (value) {
-                            setState(() { selectedlastName = 1; });
-                          }),
+                                
 
-                          if (widget.delegateId == null)
-                            defaultTextFormField(
-                                context: context,
-                                controller: phoneController,
-                                type: TextInputType.number,
-                                validate: (String? value) {
-                                  if (widget.delegateId != null) 
-                                    { return null;}
-                                  return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
-                                },
-                                labelText: "رقم الهاتف",
-                                //  labelTextcolor: white,
-                                label: "الرجاء ادخال رقم الهاتف",
-                                prefixIcon: Icons.phone),
+                          defaultTextFormField(
+                              context: context,
+                              controller: phoneController,
+                              // onchange: (v) => setState(() {  newUser.phone = v;  }),
+                              type: TextInputType.number,
+                              validate: (String? value) {
+                                newUser.phone = value; 
+                                return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
+                              },
+                              labelText: "رقم الهاتف",
+                              label: "الرجاء ادخال رقم الهاتف",
+                              prefixIcon: Icons.phone),
 
                           defaultTextFormField(
                               context: context,
                               controller: ageController,
+                              // onchange: (v) => setState(() {  newUser.age = v;  }),
                               type: TextInputType.number,
                               validate: (String? value) {
+                                newUser.age = value;
                                 return (value!.isEmpty)? "من فضلك ادخل العمر": null;
                               },
                               labelText: "العمر",
@@ -437,8 +397,10 @@ class _UserRegisterState extends State<UserRegister>
                           defaultTextFormField(
                               context: context,
                               controller: heightController,
+                              // onchange: (v) => setState(() {  newUser.height = v;  }),
                               type: TextInputType.number,
                               validate: (String? value) {
+                                newUser.height = value;
                                 return (value!.isEmpty)?"من فضلك ادخل الطول": null;
                               },
                               labelText: "الطول",
@@ -448,8 +410,10 @@ class _UserRegisterState extends State<UserRegister>
                           defaultTextFormField(
                               context: context,
                               controller: weightController,
+                              // onchange: (v) =>  setState(() {  newUser.weight = v;  }),
                               type: TextInputType.number,
                               validate: (String? value) {
+                                newUser.weight = value;
                                 return (value!.isEmpty)? "من فضلك ادخل الوزن": null;
                               },
                               labelText: "الوزن",
@@ -474,7 +438,7 @@ class _UserRegisterState extends State<UserRegister>
                                     title: hairColor[index1],
                                     changeFunction: () {
                                       setState(() { selectedHairColorName = index1; });
-                                      print(hairColor[selectedHairColorName]);
+                                      // print(hairColor[selectedHairColorName]);
                                     })
                                   ),
                           ),
@@ -616,11 +580,17 @@ class _UserRegisterState extends State<UserRegister>
                             ),
                           defaultTextFormField(
                               context: context,
-                              controller: jobNameController,
+                              controller: nameOfJobController,
+                              // onchange: (v) { 
+                              //   setState(() {  newUser.nameOfJob = v;  }); 
+                              //   return ; 
+                              // },
                               type: TextInputType.text,
-                              validate: (String? value) {return null;},
+                              validate: (String? value) {
+                                newUser.nameOfJob = value;
+                                return null;
+                              },
                               labelText: "اسم الوظيفة",
-                              //  labelTextcolor: white,
                               label: "الرجاء ادخال اسم الوظيفة (ان وجدت)",
                               prefixIcon: Icons.person),
 
@@ -637,13 +607,13 @@ class _UserRegisterState extends State<UserRegister>
                               physics: const NeverScrollableScrollPhysics(),
                               childAspectRatio: 0.8 / 0.01.h,
                               children: List.generate( illnesstype.length,
-                                  (index1) => RadioButtonRegister(
+                                  (i) => RadioButtonRegister(
                                       isRegisterScreen: true,
-                                      value: index1,
+                                      value: i,
                                       groupvalue: selectedIllnessType,
-                                      title: illnesstype[index1],
+                                      title: illnesstype[i],
                                       changeFunction: () {
-                                        setState(() { selectedIllnessType = index1; });
+                                        setState(() { selectedIllnessType = i; });
                                       })),
                             ),
                           if (gender == "انثي")
@@ -668,8 +638,14 @@ class _UserRegisterState extends State<UserRegister>
                           defaultTextFormField(
                               context: context,
                               controller: illnessTypeController,
+                              // onchange: (v) => setState(() {  
+                              //   newUser.illnessType = v;  
+                              // }),
                               type: TextInputType.text,
-                              validate: (String? value) { return null;},
+                              validate: (String? value) { 
+                                newUser.illnessType = value;  
+                                return null;
+                              },
                               labelText: "نوع المرض",
                               label: "الرجاء ادخال نوع المرض (ان وجد)",
                               prefixIcon: Icons.person),
@@ -770,19 +746,17 @@ class _UserRegisterState extends State<UserRegister>
                           defaultTextFormField(
                               context: context,
                               controller: numberOfKidsController,
+                              // onchange: (v) => setState(() { newUser.numberOfKids = int.parse(v); }),
                               type: TextInputType.number,
-                              validate: (String? value) {
-                                if (selectedNumberOfKids != 0 && value!.isEmpty) {
+                              validate: (String? value){
+                                if(value!.isEmpty) {
                                   return "من فضلك اكتب عدد الاطفال";
                                 }else{
+                                  newUser.numberOfKids = int.parse(numberOfKidsController.text);
                                   return null;
                                 }
                               },
-                              onchange: (value) {
-                                kids = int.parse(numberOfKidsController.text);
-                              },
                               labelText: "عدد الاطفال",
-                              //  labelTextcolor: white,
                               label: "الرجاء ادخال عدد الاطفال (ان وجد)",
                               prefixIcon: Icons.person),
 
@@ -817,17 +791,17 @@ class _UserRegisterState extends State<UserRegister>
                               physics: const NeverScrollableScrollPhysics(),
                               childAspectRatio: 0.8 / 0.02.h,
                               children: List.generate(
-                                  personalityFemale.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedPersonality,
-                                      title: personalityFemale[index1],
-                                      changeFunction: () {
-                                        setState(() {
-                                          selectedPersonality = index1;
-                                        });
-                                      })),
+                                personalityFemale.length,
+                                (index1) => RadioButtonRegister(
+                                    isRegisterScreen: true,
+                                    value: index1,
+                                    groupvalue: selectedPersonality,
+                                    title: personalityFemale[index1],
+                                    changeFunction: () {
+                                      setState( (){selectedPersonality = index1;} );
+                                    }
+                                )
+                              ),
                             ),
 
                           Text(
@@ -900,17 +874,21 @@ class _UserRegisterState extends State<UserRegister>
                           defaultTextFormField(
                               context: context,
                               labelText: "قيمة المهر",
-                              controller: monyOfPony,
+                              controller: dowryController,
+                              // onchange: (v) => setState(() {  newUser.dowry = v;  }),
                               type: TextInputType.number,
                               validate: (String? value) {
+                                newUser.dowry = value;
                                 return (value!.isEmpty)? "من فضلك ادخل المهر": null;
                               },
                               label: "قيمة المهر(0 الي 100 الف)",
                               prefixIcon: Icons.person),
 
                           TextFormField(
-                            controller: conditionsController,
+                            controller: termsController,
+                            // onChanged: (v) => setState(() {  newUser.terms = v;  }),
                             validator: (String? value) {
+                              newUser.terms = value;
                               return (value!.isEmpty)? "من فضلك ادخل شروطك": null;
                             },
                             decoration: InputDecoration(
@@ -921,10 +899,8 @@ class _UserRegisterState extends State<UserRegister>
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1, color: Colors.white),
+                                borderSide: const BorderSide( width: 1, color: Colors.white),
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               filled: true,
@@ -936,86 +912,78 @@ class _UserRegisterState extends State<UserRegister>
                             style: TextStyle(color: white),
                           ),
 
-                          if (widget.delegateId == null)
-                            defaultTextFormField(
-                              context: context,
-                              controller: passwordController,
-                              type: TextInputType.text,
-                              validate: (String? value) {
-                                // return null;
-                                //TODO: change apssword length to 7
-                                if (widget.delegateId != null) {return null;}
-                                if (value!.isEmpty) {
-                                  return "من فضلك ادخل كلمة السر";
-                                }else if (value.length < 3) {
-                                  return " من فضلك ادخل كلمة مرور لا تقل عن 7 حروف";                                
-                                }else{
-                                  return null;
-                                }
-                              },
+                          defaultTextFormField(
+                            context: context,
+                            controller: passwordController,
+                            // onchange: (val) => setState( () =>  newUser.password = val ),
+                            type: TextInputType.text,
+                            validate: (String? value) {
+                              //TODO: change apssword length to 7
+                              if (value!.isEmpty) {
+                                return "من فضلك ادخل كلمة السر";
+                              }else if (value.length < 3) {
+                                return " من فضلك ادخل كلمة مرور لا تقل عن 7 حروف";                                
+                              }else{
+                                newUser.password = value;
+                                return null;
+                              }
+                            },
 
-                              labelText: "كلمة السر",
-                              //  labelTextcolor: white,
-                              label: "كلمة السر",
-                              prefixIcon: Icons.lock_outline_rounded,
-                              // suffix: Icons.visibility_outlined
-                            ),
+                            labelText: "كلمة السر",
+                            label: "كلمة السر",
+                            prefixIcon: Icons.lock_outline_rounded,
+                          ),
 
-                          if (widget.delegateId == null)
-                            defaultTextFormField(
-                              context: context,
-                              controller: confirmPasswordController,
-                              type: TextInputType.text,
-                              validate: (String? value) {
-                                if (widget.delegateId != null) {return null;}
-                                if (passwordController.text !=
-                                  confirmPasswordController.text) {
-                                  return "كلمة السر و تاكيد كلمة السر غير متطابقان";
-                                }else if (value!.isEmpty) {
-                                  return "من فضلك ادخل تاكيد كلمة السر";
-                                }else{
-                                  return null;
-                                }
-                              },
-                              labelText: "تاكيد كلمة السر",
-                              label: "تاكيد كلمة السر",
-                              prefixIcon: Icons.lock_outline_rounded,
-                              //suffix: Icons.visibility_outlined
-                            ),
+                          defaultTextFormField(
+                            context: context,
+                            controller: confirmPasswordController,  
+                            type: TextInputType.text,
+                            validate: (val) {
+                              if (newUser.password != val) {
+                                return "كلمة السر و تاكيد كلمة السر غير متطابقان";
+                              }else if (val!.isEmpty) {
+                                return "من فضلك ادخل تاكيد كلمة السر";
+                              }else{
+                                newUser.password = val;
+                                return null;
+                              }
+                            },
+                            labelText: "تاكيد كلمة السر",
+                            label: "تاكيد كلمة السر",
+                            prefixIcon: Icons.lock_outline_rounded,
+                          ),
 
                           CheckedBoxRegister(
                               onchanged: () {
-                                setState(() { isSelected2 = !isSelected2; });
-                                // print(isSelected2);
+                                setState(() { isDataConfirmed = !isDataConfirmed; });
                               },
-                              text:
-                                  "اقسم بالله ان المعلومات التي قمت بادخلها صحيحة و التطبيق غير مسئول عن اي معلومات اخري غير صحيحة",
-                              isSelected: isSelected2,
+                              text: "اقسم بالله ان المعلومات التي قمت بادخلها صحيحة و التطبيق غير مسئول عن اي معلومات اخري غير صحيحة",
+                              isSelected: isDataConfirmed,
                               focusColor: primary,
                               TextColor: white),
 
                           Row(
                             children: [
                               Checkbox(
-                                  value: termsSelected,
+                                  value: isTermsConfirmed,
                                   onChanged: (bool? value) {
-                                    setState(() { termsSelected = !termsSelected; });
+                                    setState(() { isTermsConfirmed = !isTermsConfirmed; });
                                   },
                                   focusColor: primary,
-                                  autofocus: true),
+                                  autofocus: true,
+                              ),
                               Text("اوافق علي  ",
                                   style: TextStyle( color: primary, fontSize: 10.sp)),
                               InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute( builder: (context) => TermsScreen()));
-                                },
                                 child: Text("الشروط و الاحكام",
                                     style: TextStyle(
                                         color: primary,
                                         fontSize: 10.sp,
                                         decoration: TextDecoration.underline)),
+                                onTap: () {
+                                  Navigator.push( context,
+                                      MaterialPageRoute( builder: (context) => TermsScreen()));
+                                },
                               )
                             ],
                           ),
@@ -1024,6 +992,9 @@ class _UserRegisterState extends State<UserRegister>
                               text: "تسجيل",
                               onPressed: () { registeNewUser(context); }),
 
+                          SizedBox(
+                            child: isLoading ? CircularProgressIndicator() : SizedBox(),
+                          ),
                           SizedBox(
                             height: 2.5.h,
                             child: Text(
@@ -1034,8 +1005,7 @@ class _UserRegisterState extends State<UserRegister>
                           ),
 
                           //TODO: remove Delegate
-                          if (widget.delegateId == null)                            
-                            const AlreadyHaveAccountText(),
+                          const AlreadyHaveAccountText(),
 
                         ], ),
 
@@ -1050,131 +1020,214 @@ class _UserRegisterState extends State<UserRegister>
     );
   }
 
+  void on_state_changed(BuildContext context, RegisterClientStates state){}
+  // void on_state_changed(BuildContext context, RegisterClientStates state)
+  // {
+  //   if(state is RegisterClientSuccessState) 
+  //   {
+  //   }else if(state is RegisterClientErrorState){
+  //     showToast(
+  //       msg: "حصلت مشكلة من السيرفر أثناء ارسال بيانات التسجيل" + ": " + state.error, 
+  //       state: ToastStates.ERROR);
+  //   }
+  // }//end 
+
+  void handleResponse(ServerResponse response)
+  {
+    if(response.key == 1) 
+    {
+      showToast(msg: "تم التسجيل بنجاح", state: ToastStates.SUCCESS);
+      // TODO: uncomment show LayoutLinkPerson
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => const LayoutLinkPerson() ), 
+      //   (route) => false,
+      // );
+
+      // TODO: uncomment all clear lines.
+      // nameController.clear();
+      // cityController.clear();
+      // nationalityController.clear();
+      // ageController.clear();
+      // lastNameFamilyController.clear();
+      // heightController.clear();
+      // weightController.clear();
+      // jobNameController.clear();
+      // illnessTypeController.clear();
+      // numberOfKidsController.clear();
+      // monyOfPony.clear();
+      // conditionsController.clear();
+    }else{
+
+      showToast(
+          msg: response.msg!,
+          state: ToastStates.ERROR);
+    }
+  }
+
   void registeNewUser(BuildContext context)
   {
-    if( !termsSelected || !isSelected2)
-    {
-      showToast(
-        msg: "لكي تتم عملية التسجيل: من فضلك قم بالموافقة على الشروط واقسم بأن المعلومات التي أدخلتها صحيحة ", 
-        state: ToastStates.ERROR);
 
-      // ScaffoldMessenger.of(context)
-      //     .showSnackBar(SnackBar(
-      //       padding: EdgeInsetsDirectional.only(
-      //       bottom: 3.h, start: 2.5.w, top: 2.h),
-      //       duration: const Duration(milliseconds: 2000),
-      //       backgroundColor: Colors.red,
-      //       content: Text(
-      //         "لكي تتم عملية التسجيل: من فضلك قم بالموافقة على الشروط واقسم بأن المعلومات التي أدخلتها صحيحة ",
-      //         style: TextStyle(fontFamily: "Hs", fontSize: 11.sp),
-      //   ),
-      // ));
-    }
-    
-    if(formkey.currentState!.validate()) 
-    {                                  
-      if(gender == "ذكر") 
-      {
-        print('here');
-        RegisterClientCubit.get(context).specifications = [
-          selectedlastName == 0 ? "قبيلة" : "عائلة",
-          hairColor[selectedHairColorName!],
-          hairtype[selectedHairTypeName],
-          skinColor[selectedSkinColorName],
-          parentSkinColor[selectedParentSkinColorName],
-          experience[selectedExperience],
-          jobType[selectedJobType],
-          illnesstype[selectedIllnessType],
-          gender == "انثي"
-              ? MilirtyStatus[selectedMiliirtyType]
-              : MilirtyMaleStatus[selectedMiliirtyMaleType],
-          numberOfKids[selectedNumberOfKids],
-          personality[selectedPersonality],
-          money[selectedMoney],
-          merrageType[selectedMerrageType]
-        ];
-
-        // print(RegisterClientCubit.get(context).specifications);
-        RegisterClientCubit.get(context).convert();
-
-        if (formkey.currentState!.validate()) {
-          RegisterClientCubit.get(context).RegisterClient(
-            childrensNumber: kids,
-            kindOfSick: illnessTypeController.text,
-            tribe: lastNameNotFamilyController != null
-                ? lastNameNotFamilyController.text
-                : lastNameFamilyController.text,
-            nameOfJob: jobNameController.text,
-            specialNeeds: selectedIllnessType == 2 ?true: false,
-            gender: gender == "ذكر" ? "1" : "2",
-            name: nameController.text,
-            email: emailController.text,
-            age: ageController.text,
-            nationality: nationalityController.text,
-            natonalityId: personalCardController.text,
-            city: cityController.text,
-            password: passwordController.text,
-            phone: phoneController.text,
-            height: heightController.text,
-            width: weightController.text,
-            dowry: monyOfPony.text,
-            delegateId: widget.delegateId,
-            terms: conditionsController.text);
-        }
-      }
-      if (gender == "انثي") 
-      {
-        RegisterClientCubit.get(context).specifications = [
-          selectedlastName == 0 ? "قبيلة" : "عائلة",
-          hairColor[selectedHairColorName!],
-          hairtype[selectedHairTypeName],
-          skinColor[selectedSkinColorName],
-          parentSkinColor[selectedParentSkinColorName],
-          experience[selectedExperience],
-          jobTypeFemale[selectedJobType],
-          illnesstypeFemale[selectedIllnessType],
-          gender == "انثي"
-              ? MilirtyStatus[selectedMiliirtyType]
-              : MilirtyMaleStatus[selectedMiliirtyMaleType],
-          numberOfKidsFemale[selectedNumberOfKids],
-          personalityFemale[selectedPersonality],
-          moneyFemale[selectedMoney],
-          merrageType[selectedMerrageType]
-        ];
-        // print(RegisterClientCubit.get(context).specifications);
-        RegisterClientCubit.get(context).convert();
-
-        if (formkey.currentState!.validate()) {
-          RegisterClientCubit.get(context)
-              .RegisterClient(
-                  delegateId: widget.delegateId,
-                  childrensNumber: kids,
-                  kindOfSick: illnessTypeController.text,
-                  tribe: lastNameNotFamilyController != null? 
-                    lastNameNotFamilyController.text: 
-                    lastNameFamilyController.text,
-                  nameOfJob: jobNameController.text,
-                  specialNeeds: selectedIllnessType == 2? true: false,
-                  gender: gender == "ذكر" ? "1" : "2",
-                  name: nameController.text,
-                  email: emailController.text,
-                  age: ageController.text,
-                  nationality: nationalityController.text,
-                  natonalityId: personalCardController.text,
-                  city: cityController.text,
-                  password: passwordController.text,
-                  phone: phoneController.text,
-                  height: heightController.text,
-                  width: weightController.text,
-                  dowry: monyOfPony.text,
-                  terms: conditionsController.text);
-        }
-      }
-
-      // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
-    }else{
+    if( !formkey.currentState!.validate() ){
       showToast(msg: "بعض المدخلات غير صحيحة!!", state: ToastStates.ERROR);
+      return;
     }
+
+    setState(() {
+      isLoading = true;
+    });
+    // emit( RegisterClientLoadingState() );
+    
+    // print(newUser.toMap());
+    // var mm = newUser.toMap(); // newUser.toMap()
+    // var json_str_newUser = json.encode(newUser);
+    // var json_obj_newUser = json.decode(json_str_newUser);
+
+    DioHelper.postData(
+      url: REGISTERCLIENT, 
+      data: newUser.toMap()
+    )
+    .then((value) {
+      print('************--------------------------********************');
+      print(value.toString());
+      ServerResponse response = ServerResponse.fromJson(value.data);
+      handleResponse(response);
+
+      //TODO: Remove this
+      // emit( RegisterClientSuccessState(response) );
+
+      setState(() {
+        isLoading = false;
+      });
+
+    }).catchError((error) {
+      print('xxxxxxxxxxxxxxx+++++++++++++++++++++++++++++++++xxxxxxxxxxxxxxxxxxxxxxxxx');
+      ServerResponse response = new ServerResponse(0, error.message);
+      handleResponse(response);
+      // emit( RegisterClientErrorState(error.toString()) );
+      setState(() {
+        isLoading = false;
+      });
+    });
+
 
   }
+
+  // void registeNewUserXX(BuildContext context)
+  // {
+  //   if( !termsSelected || !isSelected2)
+  //   {
+  //     showToast(
+  //       msg: "لكي تتم عملية التسجيل: من فضلك قم بالموافقة على الشروط واقسم بأن المعلومات التي أدخلتها صحيحة ", 
+  //       state: ToastStates.ERROR);
+  //   }
+    
+  //   if(formkey.currentState!.validate()) 
+  //   {                                  
+  //     if(gender == "ذكر") 
+  //     {
+  //       print('here');
+  //       RegisterClientCubit.get(context).specifications = [
+  //         selectedlastName == 0 ? "قبيلة" : "عائلة",
+  //         hairColor[selectedHairColorName!],
+  //         hairtype[selectedHairTypeName],
+  //         skinColor[selectedSkinColorName],
+  //         parentSkinColor[selectedParentSkinColorName],
+  //         experience[selectedExperience],
+  //         jobType[selectedJobType],
+  //         illnesstype[selectedIllnessType],
+  //         gender == "انثي"
+  //             ? MilirtyStatus[selectedMiliirtyType]
+  //             : MilirtyMaleStatus[selectedMiliirtyMaleType],
+  //         numberOfKids[selectedNumberOfKids],
+  //         personality[selectedPersonality],
+  //         money[selectedMoney],
+  //         merrageType[selectedMerrageType]
+  //       ];
+
+  //       // print(RegisterClientCubit.get(context).specifications);
+  //       RegisterClientCubit.get(context).convert();
+
+  //       if (formkey.currentState!.validate()) {
+  //         RegisterClientCubit.get(context).RegisterClient(
+  //           childrensNumber: kids,
+  //           kindOfSick: illnessTypeController.text,
+  //           tribe: lastNameNotFamilyController != null
+  //               ? lastNameNotFamilyController.text
+  //               : lastNameFamilyController.text,
+  //           nameOfJob: jobNameController.text,
+  //           specialNeeds: selectedIllnessType == 2 ?true: false,
+  //           gender: gender == "ذكر" ? "1" : "2",
+  //           name: nameController.text,
+  //           email: emailController.text,
+  //           age: ageController.text,
+  //           nationality: nationalityController.text,
+  //           natonalityId: personalCardController.text,
+  //           city: cityController.text,
+  //           password: passwordController.text,
+  //           phone: phoneController.text,
+  //           height: heightController.text,
+  //           width: weightController.text,
+  //           dowry: monyOfPony.text,
+  //           // delegateId: widget.delegateId,
+  //           terms: conditionsController.text);
+  //       }
+  //     }
+  //     if (gender == "انثي") 
+  //     {
+  //       RegisterClientCubit.get(context).specifications = [
+  //         selectedlastName == 0 ? "قبيلة" : "عائلة",
+  //         hairColor[selectedHairColorName],
+  //         hairtype[selectedHairTypeName],
+  //         skinColor[selectedSkinColorName],
+  //         parentSkinColor[selectedParentSkinColorName],
+  //         experience[selectedExperience],
+  //         jobTypeFemale[selectedJobType],
+  //         illnesstypeFemale[selectedIllnessType],
+  //         gender == "انثي"
+  //             ? MilirtyStatus[selectedMiliirtyType]
+  //             : MilirtyMaleStatus[selectedMiliirtyMaleType],
+  //         numberOfKidsFemale[selectedNumberOfKids],
+  //         personalityFemale[selectedPersonality],
+  //         moneyFemale[selectedMoney],
+  //         merrageType[selectedMerrageType]
+  //       ];
+  //       // print(RegisterClientCubit.get(context).specifications);
+  //       RegisterClientCubit.get(context).convert();
+
+  //       if (formkey.currentState!.validate()) {
+  //         RegisterClientCubit.get(context)
+  //             .RegisterClient(
+  //                 // delegateId: widget.delegateId,
+  //                 childrensNumber: kids,
+  //                 kindOfSick: illnessTypeController.text,
+  //                 tribe: lastNameNotFamilyController != null? 
+  //                   lastNameNotFamilyController.text: 
+  //                   lastNameFamilyController.text,
+  //                 nameOfJob: jobNameController.text,
+  //                 specialNeeds: selectedIllnessType == 2? true: false,
+  //                 gender: gender == "ذكر" ? "1" : "2",
+  //                 name: nameController.text,
+  //                 email: emailController.text,
+  //                 age: ageController.text,
+  //                 nationality: nationalityController.text,
+  //                 natonalityId: personalCardController.text,
+  //                 city: cityController.text,
+  //                 password: passwordController.text,
+  //                 phone: phoneController.text,
+  //                 height: heightController.text,
+  //                 width: weightController.text,
+  //                 dowry: monyOfPony.text,
+  //                 terms: conditionsController.text);
+  //       }
+  //     }
+
+  //     // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
+  //   }else{
+  //     showToast(msg: "بعض المدخلات غير صحيحة!!", state: ToastStates.ERROR);
+  //   }
+
+  // }
+
 } //end class

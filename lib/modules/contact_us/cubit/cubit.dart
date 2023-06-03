@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 import 'package:astarar/modules/contact_us/cubit/states.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/network/end_points.dart';
@@ -11,7 +11,7 @@ class ContactUsCubit extends Cubit<ContactUsStates> {
   ContactUsCubit() : super(ContactUsInitialState());
 
   static ContactUsCubit get(context) => BlocProvider.of(context);
-  late RegisterDelegateModel contactUsModel;
+  late ServerResponse contactUsModel;
 
   sendContact({required String message,required String userName,
   required String phone}){
@@ -22,7 +22,7 @@ class ContactUsCubit extends Cubit<ContactUsStates> {
       "msg":message
     },token: token.toString()).then((value) {
       log(value.toString());
-      contactUsModel=RegisterDelegateModel.fromJson(value.data);
+      contactUsModel=ServerResponse.fromJson(value.data);
       emit(ContactUsSuccessState(contactUsModel));
     }).catchError((error){
       log(error.toString());

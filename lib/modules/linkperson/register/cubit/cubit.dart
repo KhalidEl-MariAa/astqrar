@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 import 'package:astarar/modules/linkperson/register/cubit/states.dart';
 import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
@@ -12,7 +12,7 @@ class RegisterLinkPersonCubit extends Cubit<RegisterLinkPersonStates> {
   //late LoginModel loginModel;
   static RegisterLinkPersonCubit get(context) => BlocProvider.of(context);
 
-  late RegisterDelegateModel registerDelegateModel;
+  late ServerResponse registerDelegateModel;
 
   registerDelegate(
       {required String name,
@@ -41,7 +41,7 @@ class RegisterLinkPersonCubit extends Cubit<RegisterLinkPersonStates> {
 
     }).then((value) {
       log(value.toString());
-      registerDelegateModel = RegisterDelegateModel.fromJson(value.data);
+      registerDelegateModel = ServerResponse.fromJson(value.data);
       emit(RegisterLinkPersonSuccessState(registerDelegateModel));
     }).catchError((error) {
      log(error.toString());

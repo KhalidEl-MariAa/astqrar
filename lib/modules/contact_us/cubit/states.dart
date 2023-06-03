@@ -1,4 +1,4 @@
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 
 abstract class ContactUsStates{}
 
@@ -7,7 +7,7 @@ class ContactUsInitialState extends ContactUsStates{}
 class ContactUsLoadingState extends ContactUsStates{}
 
 class ContactUsSuccessState extends ContactUsStates{
-  final RegisterDelegateModel contactisModel;
+  final ServerResponse contactisModel;
   ContactUsSuccessState(this.contactisModel);
 //ShopLoginSuccessState(this.loginModel);
 }

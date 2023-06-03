@@ -1,4 +1,4 @@
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 
 abstract class ChangePasswordStates{}
 
@@ -7,7 +7,7 @@ class ChangePasswordInitialState extends ChangePasswordStates{}
 class ChangePasswordLoadingState extends ChangePasswordStates{}
 
 class ChangePasswordSuccessState extends ChangePasswordStates{
-  final RegisterDelegateModel changePasswordModel;
+  final ServerResponse changePasswordModel;
   ChangePasswordSuccessState(this.changePasswordModel);
   //ShopLoginSuccessState(this.loginModel);
 }

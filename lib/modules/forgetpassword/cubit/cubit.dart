@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:astarar/models/forget_password.dart';
-import 'package:astarar/models/register_delegate_model.dart';
+import 'package:astarar/models/server_response_model.dart';
 import 'package:astarar/modules/forgetpassword/cubit/states.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/network/end_points.dart';
@@ -35,7 +35,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates> {
 
   //changepassword
 
-  late RegisterDelegateModel changePasswordByCodeModel;
+  late ServerResponse changePasswordByCodeModel;
 
   changePasswordByCode({required String newPassword,required String code}) {
     emit(ChangePasswordByCodeLoadingState());
