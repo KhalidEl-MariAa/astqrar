@@ -15,7 +15,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends StatelessWidget 
+{
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchStates>(

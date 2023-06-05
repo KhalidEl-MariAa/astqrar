@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:astarar/modules/ads/ads.dart';
-import 'package:astarar/modules/delegates_section/delegates_section.dart';
 import 'package:astarar/modules/home/cubit/cubit.dart';
 import 'package:astarar/modules/home/cubit/states.dart';
 import 'package:astarar/modules/home/widgets/container_home.dart';
@@ -27,6 +26,8 @@ import 'package:astarar/notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../shared/styles/colors.dart';
+import '../search/cubit/cubit.dart';
+import '../search/filter_search.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
@@ -37,7 +38,8 @@ class UserHomeScreen extends StatefulWidget {
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
     NotiticationWidget(context).init();
     if (Platform.isIOS) {
@@ -53,15 +55,18 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         log("empty");
       }
     });
+    
     FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
     );
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) 
+    {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
-//foreground
+      //foreground
       if (notification != null && android != null) {
         NotiticationWidget.showNotification(
           notification.hashCode,
@@ -71,12 +76,13 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         );
       }
     });
-    // background State
 
+    // background State
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       if (event.data["screen"] == "cart") {
       } else {}
     });
+
     //terminal
     FirebaseMessaging.instance.getInitialMessage().then((event) {
       if (event != null) {
@@ -339,6 +345,27 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     Expanded(
                       child: InkWell(
                         onTap: () async {
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      FilterSearchScreen(
+                                        textSearch: SearchCubit.get(context).searchTextController.text,
+                                      )
+                              )
+                          );
+                        },
+                        child: ContainerHome(text: "الفلتر",),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+
+                    Expanded(
+                      child: InkWell(
+                        onTap: () async {
                           HubConnectionBuilder()
                             .withUrl("https://estqrar-001-site1.ctempurl.com/chatHub")
                             .build();
@@ -347,6 +374,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               SectionMenOrWomen.twoIndexSection=0;
                               SectionMenOrWomen.threeIndexSection=0;
                               GetUserByGenderCubit.get(context).getUserByGender(genderValue: 1);
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

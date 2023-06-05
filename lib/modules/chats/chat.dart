@@ -2,8 +2,6 @@ import 'package:astarar/modules/chats/cubit/cubit.dart';
 import 'package:astarar/modules/chats/cubit/states.dart';
 import 'package:astarar/modules/details_user/cubit/cubit.dart';
 import 'package:astarar/modules/details_user/details_user.dart';
-import 'package:astarar/modules/specific_delegate_screen/cubit/cubit.dart';
-import 'package:astarar/modules/specific_delegate_screen/specific_Delegate_screen.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:astarar/shared/components/favourite_item.dart';
 import 'package:astarar/shared/components/loading_gif.dart';
@@ -117,32 +115,33 @@ class ChatScreen extends StatelessWidget {
                               }
                               if (ContactsCubit.get(context)
                                           .contacts[index]
-                                          .userInformation !=
-                                      null &&
+                                          .userInformation != null 
+                                          &&
                                   ContactsCubit.get(context)
                                           .contacts[index]
                                           .userInformation!
-                                          .typeUser ==
-                                      2) {
-                                var delegateId = ContactsCubit.get(context)
-                                    .contacts[index]
-                                    .userInformation!
-                                    .id!;
-                                var delegateName=ContactsCubit.get(context)
-                                    .contacts[index]
-                                    .userInformation!
-                                    .user_Name!;
-                                ProfileDeleagateCubit.get(context)
-                                    .getProfileDelegate(
-                                        delegateId: delegateId);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SpeceficDelegateScreen(
-                                              name: delegateName,
-                                              id: delegateId,
-                                            )));
+                                          .typeUser == 2) 
+                              {
+
+                                // var delegateId = ContactsCubit.get(context)
+                                //     .contacts[index]
+                                //     .userInformation!
+                                //     .id!;
+                                // var delegateName=ContactsCubit.get(context)
+                                //     .contacts[index]
+                                //     .userInformation!
+                                //     .user_Name!;
+                                // ProfileDeleagateCubit.get(context)
+                                //     .getProfileDelegate(
+                                //         delegateId: delegateId);
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             SpeceficDelegateScreen(
+                                //               name: delegateName,
+                                //               id: delegateId,
+                                //             )));
                               }
                             },
                           )),

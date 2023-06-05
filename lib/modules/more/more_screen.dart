@@ -5,8 +5,6 @@ import 'package:astarar/modules/more/cubit/cubit.dart';
 import 'package:astarar/modules/more/cubit/states.dart';
 import 'package:astarar/modules/more/widgets/dialog_log_out.dart';
 import 'package:astarar/modules/register_user/user_register.dart';
-import 'package:astarar/modules/specific_delegate_screen/cubit/cubit.dart';
-import 'package:astarar/modules/specific_delegate_screen/specific_Delegate_screen.dart';
 import 'package:astarar/modules/terms/terms.dart';
 import 'package:astarar/modules/user_profile_screen/user_profile_screen.dart';
 import 'package:astarar/modules/more/widgets/default_raw.dart';

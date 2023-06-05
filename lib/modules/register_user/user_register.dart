@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:astarar/layout/cubit/states.dart';
 import 'package:astarar/models/get_information_user.dart';
-import 'package:astarar/modules/linkperson/layout_linkPerson/layout_link_person.dart';
 import 'package:astarar/modules/register_user/cubit.dart';
 import 'package:astarar/modules/register_user/states.dart';
 import 'package:astarar/modules/terms/terms.dart';

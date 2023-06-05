@@ -1,5 +1,4 @@
 import 'package:astarar/modules/contact_us/contact_us.dart';
-import 'package:astarar/modules/linkperson/layout_linkPerson/layout_link_person.dart';
 import 'package:astarar/modules/login/cubit/cubit.dart';
 import 'package:astarar/modules/login/cubit/states.dart';
 import 'package:astarar/modules/login/not_subscribed_screen.dart';
@@ -65,8 +64,9 @@ class _LoginScreenState extends State<LoginScreen>
                   showToast( 
                     msg: "تم تسجيل الدخول بنجاح", 
                     state: ToastStates.SUCCESS);
-                  if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
-                  if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                  // if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                  // if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
                   NotificationCubit.get(context).getNotifications();
                 }
                 if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==1) {

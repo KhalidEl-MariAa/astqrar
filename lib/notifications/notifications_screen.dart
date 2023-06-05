@@ -1,6 +1,5 @@
 import 'package:astarar/modules/details_user/cubit/cubit.dart';
 import 'package:astarar/modules/details_user/details_user.dart';
-import 'package:astarar/modules/specific_delegate_screen/specific_Delegate_screen.dart';
 import 'package:astarar/shared/components/accept_success_dialog.dart';
 import 'package:astarar/notifications/cubit/cubit.dart';
 import 'package:astarar/notifications/cubit/states.dart';
@@ -155,29 +154,28 @@ class NotificationScreen extends StatelessWidget {
                                       .reversed
                                       .toList()[index]
                                       .userInformation!
-                                      .typeUser ==
-                                  2) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SpeceficDelegateScreen(
-                                              name:
-                                                  NotificationCubit.get(context)
-                                                      .getNotificationsModel
-                                                      .data
-                                                      .reversed
-                                                      .toList()[index]
-                                                      .userInformation!
-                                                      .user_Name!,
-                                              id: NotificationCubit.get(context)
-                                                  .getNotificationsModel
-                                                  .data
-                                                  .reversed
-                                                  .toList()[index]
-                                                  .userInformation!
-                                                  .id!,
-                                            )));
+                                      .typeUser == 2) {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             SpeceficDelegateScreen(
+                                //               name:
+                                //                   NotificationCubit.get(context)
+                                //                       .getNotificationsModel
+                                //                       .data
+                                //                       .reversed
+                                //                       .toList()[index]
+                                //                       .userInformation!
+                                //                       .user_Name!,
+                                //               id: NotificationCubit.get(context)
+                                //                   .getNotificationsModel
+                                //                   .data
+                                //                   .reversed
+                                //                   .toList()[index]
+                                //                   .userInformation!
+                                //                   .id!,
+                                //             )));
                               }
                             },
                             userId: NotificationCubit.get(context)

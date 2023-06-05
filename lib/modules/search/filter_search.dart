@@ -1,17 +1,13 @@
 import 'dart:developer';
-
 import 'package:astarar/modules/search/cubit/states.dart';
 import 'package:astarar/modules/search/result.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:astarar/shared/components/logo/normal_logo.dart';
 import 'package:astarar/shared/components/user/register/radiobuttonregister.dart';
 import 'package:astarar/shared/styles/colors.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:sizer/sizer.dart';
-
 import 'cubit/cubit.dart';
 
 class FilterSearchScreen extends StatefulWidget {
@@ -24,7 +20,8 @@ class FilterSearchScreen extends StatefulWidget {
   _FilterSearchScreenState createState() => _FilterSearchScreenState();
 }
 
-class _FilterSearchScreenState extends State<FilterSearchScreen> {
+class _FilterSearchScreenState extends State<FilterSearchScreen> 
+{
   List<String> gender = ["ذكر", "انثي"];
   List<String> MilirtyFemaleStatus = [
     'مطلقة بكر',
@@ -90,25 +87,15 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
   int? selectedMiliirtyMaleType;
 
   int? selectedPersonalityMale;
-
   int? selectedPersonalityFemale;
-
   int? selectedNumberOfKidsMale;
-
   int? selectedNumberOfKidsFemale;
-
   int? selectedExperience;
-
   int? selectedLastNameIndex;
-
   int? selectedJopTypeMale;
-
   int? selectedJopTypeFemale;
-
   int? selectedSkinColorIndex;
-
   int? selectedillnesstypeMaleIndex;
-
   int? selectedillnesstypeFemaleIndex;
 
   int? selectedlastName;

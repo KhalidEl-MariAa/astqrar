@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:astarar/models/chatModel.dart';
 import 'package:astarar/modules/conversation/cubit/cubit.dart';
 import 'package:astarar/modules/conversation/cubit/states.dart';
-import 'package:astarar/modules/conversation/more_for_delegate/more_for_delegate.dart';
 import 'package:astarar/shared/contants/contants.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -164,18 +163,19 @@ class UserConversationScreenState extends State<UserConversationScreen>
                                         : AssetImage(femaleImage))),
                           )),
                       actions: [
-                        if (widget.typeUser == 2) InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MoreForDelegateScreen(
-                              delegateName: widget.userName,
-                              delegateId: widget.userId,
-                            )));
-                          },
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.only(end: 2.w),
-                            child: Center(child: Text("سعي للخطابة",style: TextStyle(fontSize: 13.sp,fontWeight: FontWeight.w600),)),
-                          ),
-                        )
+                        // if (widget.typeUser == 2) 
+                        //   InkWell(
+                        //     onTap: (){
+                        //       Navigator.push(context, MaterialPageRoute(builder: (context)=> MoreForDelegateScreen(
+                        //         delegateName: widget.userName,
+                        //         delegateId: widget.userId,
+                        //       )));
+                        //     },
+                        //     child: Padding(
+                        //       padding: EdgeInsetsDirectional.only(end: 2.w),
+                        //       child: Center(child: Text("سعي للخطابة",style: TextStyle(fontSize: 13.sp,fontWeight: FontWeight.w600),)),
+                        //     ),
+                        //   )
                       ],
                     ),
                   ),

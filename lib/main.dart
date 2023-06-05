@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:astarar/layout/cubit/cubit.dart';
 import 'package:astarar/modules/about_app/cubit/cubit.dart';
 import 'package:astarar/modules/ads/cubit/cubit.dart';
-import 'package:astarar/modules/conversation/more_for_delegate/cubit/cubit.dart';
-import 'package:astarar/modules/delegates_section/cubit/cubit.dart';
 import 'package:astarar/modules/details_user/cubit/cubit.dart';
 import 'package:astarar/modules/home/cubit/cubit.dart';
 import 'package:astarar/modules/more/cubit/cubit.dart';
@@ -12,7 +10,6 @@ import 'package:astarar/modules/packages/cubit/cubit.dart';
 import 'package:astarar/modules/payment/cubit/cubit.dart';
 import 'package:astarar/modules/search/cubit/cubit.dart';
 import 'package:astarar/modules/section%20men%20_women/cubit/cubit.dart';
-import 'package:astarar/modules/specific_delegate_screen/cubit/cubit.dart';
 import 'package:astarar/modules/splash_screen/splash_screen.dart';
 import 'package:astarar/notifications/cubit/cubit.dart';
 import 'package:astarar/shared/contants/contants.dart';
@@ -107,10 +104,10 @@ class MyApp extends StatelessWidget {
                   create: (BuildContext context) => SettingsCubit()),
               BlocProvider<SearchCubit>(
                   create: (BuildContext context) => SearchCubit()),
-              BlocProvider<DelegatesCubit>(
-                  create: (BuildContext context) =>
-                  DelegatesCubit()
-                    ..getDelegates()),
+              // BlocProvider<DelegatesCubit>(
+              //     create: (BuildContext context) =>
+              //     DelegatesCubit()
+              //       ..getDelegates()),
               BlocProvider<AboutUsCubit>(
                   create: (BuildContext context) =>
                   AboutUsCubit()
@@ -123,10 +120,11 @@ class MyApp extends StatelessWidget {
               BlocProvider<PaymentCubit>(
                   create: (BuildContext context) => PaymentCubit()),
 
-              BlocProvider<PaymentDelegateCubit>(
-                  create: (BuildContext context) => PaymentDelegateCubit()),
-              BlocProvider<ProfileDeleagateCubit>(
-                  create: (BuildContext context) => ProfileDeleagateCubit())
+              // BlocProvider<PaymentDelegateCubit>(
+              //     create: (BuildContext context) => PaymentDelegateCubit()),
+              
+              // BlocProvider<ProfileDeleagateCubit>(
+              //     create: (BuildContext context) => ProfileDeleagateCubit())
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
