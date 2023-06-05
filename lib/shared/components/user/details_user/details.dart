@@ -1,3 +1,6 @@
+import 'package:collection/collection.dart';
+import 'package:astarar/models/get_information_user.dart';
+import 'package:astarar/models/user.dart';
 import 'package:astarar/shared/components/dialog_to_login.dart';
 import 'package:astarar/shared/components/user/details_item.dart';
 import 'package:astarar/shared/contants/contants.dart';
@@ -17,32 +20,33 @@ class DetailsItemScreen extends StatelessWidget {
   final int gender;
   final String height;
   final String weight;
-  final List userSubSpecificationDto;
-final Function favouriteFunction;
+  final List<UserSubSpecificationDtoModel> userSubSpecificationDto;
+  final Function favouriteFunction;
   final Function chatFunction;
-final bool isFavourite;
-final bool specialNeeds;
-final String dowry;
-final String terms;
-final Function onClickUser;
-  DetailsItemScreen(
+  final bool isFavourite;
+  final bool specialNeeds;
+  final String dowry;
+  final String terms;
+  final Function onClickUser;
 
-      {required this.userSubSpecificationDto,
-        required this.dowry,
-        required this.terms,
-  required this.specialNeeds,required this.messageVisibility,
-      required this.gender,
-        required this.onClickUser,
-      required this.height,
-        required this.isFavourite,
-        required this.favouriteFunction,
-        required this.chatFunction,
-      required this.weight,
-      required this.city,
-      required this.age,
-      required this.nationality,
-      required this.email,
-      required this.name});
+  DetailsItemScreen({
+    required this.userSubSpecificationDto,
+    required this.dowry,
+    required this.terms,
+    required this.specialNeeds,
+    required this.messageVisibility,
+    required this.gender,
+    required this.onClickUser,
+    required this.height,
+    required this.isFavourite,
+    required this.favouriteFunction,
+    required this.chatFunction,
+    required this.weight,
+    required this.city,
+    required this.age,
+    required this.nationality,
+    required this.email,
+    required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +191,7 @@ final Function onClickUser;
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  subTitle: userSubSpecificationDto[0].specificationValue.toString(),
+                  subTitle: userSubSpecificationDto[0].value.toString(),
                   title: 'الاسم ينتهي',
                 ),
               ),
@@ -221,11 +225,11 @@ final Function onClickUser;
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'لون الشعر', subTitle: userSubSpecificationDto[1].specificationValue.toString(),)),
+                  child: DetailsItem(title: 'لون الشعر', subTitle: userSubSpecificationDto[1].value.toString(),)),
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  subTitle: userSubSpecificationDto[4].specificationValue.toString(),
+                  subTitle: userSubSpecificationDto[4].value.toString(),
                   title: 'من عرق',
                 ),
               ),
@@ -240,12 +244,12 @@ final Function onClickUser;
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'مؤهل علمي', subTitle: userSubSpecificationDto[5].specificationValue.toString(),)),
+                  child: DetailsItem(title: 'مؤهل علمي', subTitle: userSubSpecificationDto[5].value.toString(),)),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'الوظيفة',
-                  subTitle: userSubSpecificationDto[6].specificationValue.toString(),
+                  subTitle: userSubSpecificationDto[6].value.toString(),
                 ),
               ),
             ],
@@ -257,11 +261,11 @@ final Function onClickUser;
           decoration: BoxDecoration(color: HexColor("#FFFFFF")),
           child: Row(
             children: [
-              Container(width: 46.w,child: DetailsItem(title: 'الحالة الصحية', subTitle: userSubSpecificationDto[7].specificationValue.toString(),)),
+              Container(width: 46.w,child: DetailsItem(title: 'الحالة الصحية', subTitle: userSubSpecificationDto[7].value.toString(),)),
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  subTitle: userSubSpecificationDto[8].specificationValue.toString(),
+                  subTitle: userSubSpecificationDto[8].value.toString(),
                   title: 'الحالة الاجتماعية',
                 ),
               ),
@@ -276,12 +280,12 @@ final Function onClickUser;
             children: [
               Container(
     width: 46.w,
-    child: DetailsItem(title: 'هل لديك اطفال', subTitle: userSubSpecificationDto[9].specificationValue.toString(),)),
+    child: DetailsItem(title: 'هل لديك اطفال', subTitle: userSubSpecificationDto[9].value.toString(),)),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'نبذة عن مظهرك',
-                  subTitle: userSubSpecificationDto[10].specificationValue.toString(),
+                  subTitle: userSubSpecificationDto[10].value.toString(),
                 ),
               ),
             ],
@@ -298,7 +302,7 @@ final Function onClickUser;
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  subTitle: userSubSpecificationDto[11].specificationValue.toString(),
+                  subTitle: userSubSpecificationDto[11].value.toString(),
                   title: 'الوضع المالي',
                 ),
               ),
@@ -311,7 +315,12 @@ final Function onClickUser;
           decoration: BoxDecoration(color: HexColor("#FFFFFF")),
           child: Row(
             children: [
-              Container(width: 46.w,child: DetailsItem(title: 'نوع الزواج', subTitle:userSubSpecificationDto[12].specificationValue.toString() )),
+              Container(
+                width: 46.w,
+                child: DetailsItem(
+                  title: 'نوع الزواج', 
+                  
+                  subTitle: findOrEmptyStr(userSubSpecificationDto, 'نوع الزواج') )),
 
               Container(width: 46.w,child: DetailsItem(title: 'قيمة المهر', subTitle:dowry )),
             ],
@@ -342,5 +351,17 @@ final Function onClickUser;
 
       ],
     );
+  }
+  
+  findOrEmptyStr(List<UserSubSpecificationDtoModel> list, String specificationName) 
+  {
+    if(userSubSpecificationDto.any( (e) => e.value == specificationName)){
+      //userSubSpecificationDto[12].value.toString()
+      return list.firstWhere( (e) => e.value == specificationName).value.toString();
+    }else{
+      return "------";
+    } //specificationName
+    // userSubSpecificationDto
+    // list.firstWhere( (e) => e.value == 'جميلة')??userSubSpecificationDto[12].value.toString()
   }
 }

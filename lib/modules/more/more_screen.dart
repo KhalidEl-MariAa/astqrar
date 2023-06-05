@@ -153,8 +153,7 @@ class MoreScreen extends StatelessWidget {
                                   showModalBottomSheet(
                                       isScrollControlled: true,
                                       context: context,
-                                      builder: (context) =>
-                                          UserProfileScreen()
+                                      builder: (context) => UserProfileScreen()
                                   );
                                 },
                             ),

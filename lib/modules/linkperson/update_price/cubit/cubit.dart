@@ -38,16 +38,14 @@ class PriceCubit extends Cubit<PriceStates> {
       "DelegateId":id,
       "newPrice":newprice
     })
-        .then((value) {
-          print(value.toString());
-          updatePriceModel=UpdatePriceModel.fromJson(value.data);
+        .then((value) {          
+          updatePriceModel = UpdatePriceModel.fromJson(value.data);
           if(updatePriceModel.item1!){
             price=newprice.toString();
           }
           emit(UpdatePriceSuccessState());
     })
-        .catchError((error) {
-      print(error.toString());
+        .catchError((error) {      
       emit(UpdatePriceErrorState(error.toString()));
     });
   }

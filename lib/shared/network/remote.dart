@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
@@ -5,14 +6,14 @@ import 'package:dio/dio.dart';
 
 class DioHelper {
   static late Dio dio;
-  static String baseUrl = "https://10.0.2.2:7054/";
+  static String baseUrl = "https://10.0.2.2:7054/"; //Tested OK on Debug
+  // static String baseUrl = "http://10.0.2.2:5109/";   //Tested OK on Run
 
   static init() {
     //TODO: fix it to the reals server.
-    print('Dio init() -----------------------------------------');
+    log('Dio init() -----------------------------------------');
     dio = Dio(BaseOptions(
-      // baseUrl: "http://127.0.0.1:5000/",
-      baseUrl: "https://10.0.2.2:7054/", //Tested OK
+      baseUrl: baseUrl, 
       
       receiveDataWhenStatusError: true,
     ));
@@ -64,8 +65,6 @@ class DioHelper {
       'Connection': 'keep-alive',
       "Content-Type": "application/json",
     };
-    // print(dio1.options.baseUrl + url);
-    
 
     //TODO: remove prints
     print('-44444444444444444-3-3');    

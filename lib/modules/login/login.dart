@@ -2,8 +2,7 @@ import 'package:astarar/modules/contact_us/contact_us.dart';
 import 'package:astarar/modules/linkperson/layout_linkPerson/layout_link_person.dart';
 import 'package:astarar/modules/login/cubit/cubit.dart';
 import 'package:astarar/modules/login/cubit/states.dart';
-import 'package:astarar/modules/login/widgets/forget_password+text.dart';
-import 'package:astarar/modules/main%20screen/main_screen.dart';
+import 'package:astarar/modules/login/not_subscribed_screen.dart';
 import 'package:astarar/modules/register_user/user_register.dart';
 import 'package:astarar/notifications/cubit/cubit.dart';
 import 'package:astarar/shared/components/components.dart';
@@ -19,6 +18,7 @@ import 'package:sizer/sizer.dart';
 import '../../layout/layout.dart';
 import '../../shared/contants/contants.dart';
 import '../../shared/network/remote.dart';
+import '../forgetpassword/forgetpassword.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen>
                 }
                 if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==1) {
                   showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const MainScreen()), (route) => false);
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NotSubscribedScreen()), (route) => false);
                 }
                 if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
                     showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
@@ -132,7 +132,28 @@ class _LoginScreenState extends State<LoginScreen>
                               .suffix,
                           labelTextcolor: Colors.white54),
 
-                      const  ForgetPassword(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordScreen()));
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text("هل نسيت كلمة المرور؟",
+                                style: TextStyle(
+                                    color: grey,
+                                    fontSize: 7.8.sp,
+                                    // decoration: decoration??TextDecoration.none,
+                                    //fontWeight: fontWeight??(WidgetUtils.lang=="ar"?FontWeight.w500:FontWeight.w200),
+                                    //fontFamily: fontFamily?? (WidgetUtils.lang=="ar"? GoogleFonts.cairo().fontFamily : GoogleFonts.almarai().fontFamily)
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       SizedBox( height: 1.5.h, ),
 
                       ConditionalBuilder(
@@ -143,7 +164,6 @@ class _LoginScreenState extends State<LoginScreen>
                         builder: (context) => doubleInfinityMaterialButton(
                             text: "تسجيل دخول",
                             onPressed: () {
-                              /* navigateTo(context: context, widget: MainScreen());*/
                               if(loginkey.currentState!.validate()) 
                               {
                                 ShopLoginCubit.get(context).UserLogin(

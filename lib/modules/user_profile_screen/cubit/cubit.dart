@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:astarar/layout/cubit/cubit.dart';
-import 'package:astarar/models/get_user_data_model.dart';
+import 'package:astarar/models/user.dart';
 import 'package:astarar/models/login.dart';
 import 'package:astarar/modules/user_profile_screen/cubit/states.dart';
 import 'package:astarar/modules/user_profile_screen/user_profile_screen.dart';
@@ -266,10 +266,11 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   }
 
   //get user data
-  late GetUserDataModel getUserDataModel;
+  late User user;
   bool getUserDataDone = false;
 
-  getUserData() {
+  getUserData() 
+  {
     getUserDataDone = false;
     emit(GetUserDataLoadingState());
 
@@ -281,41 +282,41 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
 
       // log(value.toString());
 
-      getUserDataModel = GetUserDataModel.fromJson(value.data);
-      UserProfileScreenState.emailController.text = getUserDataModel.data!.email!;
-      UserProfileScreenState.nameController.text = getUserDataModel.data!.userName!;
-      UserProfileScreenState.personalCardController.text = getUserDataModel.data!.nationalID!;
-      UserProfileScreenState.cityController.text = getUserDataModel.data!.city!;
-      UserProfileScreenState.nationalityController.text = getUserDataModel.data!.nationality ?? "";
-      UserProfileScreenState.ageController.text = getUserDataModel.data!.age.toString();
-      //  UserProfileScreenState.phoneController.text=getUserDataModel.data!.phone??" ";
-      UserProfileScreenState.heightController.text = getUserDataModel.data!.height.toString();
-      UserProfileScreenState.weightController.text = getUserDataModel.data!.weight.toString();
-      UserProfileScreenState.conditionsController.text = getUserDataModel.data!.terms.toString();
-      UserProfileScreenState.monyOfPony.text = getUserDataModel.data!.dowry.toString();
+      user = User.fromJson(value.data["data"]);
+      UserProfileScreenState.emailController.text = user.email!;
+      UserProfileScreenState.nameController.text = user.userName!;
+      UserProfileScreenState.personalCardController.text = user.nationalID!;
+      UserProfileScreenState.cityController.text = user.city!;
+      UserProfileScreenState.nationalityController.text = user.nationality ?? "";
+      UserProfileScreenState.ageController.text = user.age.toString();
+      //  UserProfileScreenState.phoneController.text=user.phone??" ";
+      UserProfileScreenState.heightController.text = user.height.toString();
+      UserProfileScreenState.weightController.text = user.weight.toString();
+      UserProfileScreenState.conditionsController.text = user.terms.toString();
+      UserProfileScreenState.monyOfPony.text = user.dowry.toString();
 
-      genderUser = getUserDataModel.data!.gender!;
-      hairColorName = getUserDataModel.data!.userSubSpecificationDto[1].specificationValue;
-      hairTypeName = getUserDataModel.data!.userSubSpecificationDto[2].specificationValue;
-      skinColorName = getUserDataModel.data!.userSubSpecificationDto[3].specificationValue;
-      parentSkinColorName = getUserDataModel.data!.userSubSpecificationDto[4].specificationValue;
-      experienceName = getUserDataModel.data!.userSubSpecificationDto[5].specificationValue;
+      genderUser = user.gender!;
+      hairColorName = user.subSpecifications[1].value;
+      hairTypeName = user.subSpecifications[2].value;
+      skinColorName = user.subSpecifications[3].value;
+      parentSkinColorName = user.subSpecifications[4].value;
+      experienceName = user.subSpecifications[5].value;
 
       if (genderUser == 1) {
-        MilirtyMaleStatusName = getUserDataModel.data!.userSubSpecificationDto[8].specificationValue;
-        personalityName = getUserDataModel.data!.userSubSpecificationDto[10].specificationValue;
-        jopTypeName = getUserDataModel.data!.userSubSpecificationDto[6].specificationValue;
-        illnessTypeName = getUserDataModel.data!.userSubSpecificationDto[7].specificationValue;
-        numberOfKidsName = getUserDataModel.data!.userSubSpecificationDto[9].specificationValue;
-        moneyName = getUserDataModel.data!.userSubSpecificationDto[11].specificationValue;
+        MilirtyMaleStatusName = user.subSpecifications[8].value;
+        personalityName = user.subSpecifications[10].value;
+        jopTypeName = user.subSpecifications[6].value;
+        illnessTypeName = user.subSpecifications[7].value;
+        numberOfKidsName = user.subSpecifications[9].value;
+        moneyName = user.subSpecifications[11].value;
       }
       if (genderUser == 2) {
-        MilirtyStatusName = getUserDataModel.data!.userSubSpecificationDto[8].specificationValue;
-        personalityFemaleName = getUserDataModel.data!.userSubSpecificationDto[10].specificationValue;
-        jopTypeFemaleName = getUserDataModel.data!.userSubSpecificationDto[6].specificationValue;
-        illnessTypeFemaleName = getUserDataModel.data!.userSubSpecificationDto[7].specificationValue;
-        numberOfKidsFemaleName = getUserDataModel.data!.userSubSpecificationDto[9].specificationValue;
-        moneyFemaleName =getUserDataModel.data!.userSubSpecificationDto[11].specificationValue;
+        MilirtyStatusName = user.subSpecifications[8].value;
+        personalityFemaleName = user.subSpecifications[10].value;
+        jopTypeFemaleName = user.subSpecifications[6].value;
+        illnessTypeFemaleName = user.subSpecifications[7].value;
+        numberOfKidsFemaleName = user.subSpecifications[9].value;
+        moneyFemaleName =user.subSpecifications[11].value;
       }
 
 
@@ -331,9 +332,10 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
 
   convert() {
     specificationsMap.clear();
+    Map<String, int> specificationIDs = new AppCubit().getSpecifications();
     for (int i = 0; i < specifications.length; i++) {
       specificationsMap.add({
-        "SpecificationId": AppCubit.specificationId[specifications[i]],
+        "SpecificationId": specificationIDs[specifications[i]],
         "SpecificationName": specificationsNames[i]
       });
     }
@@ -344,7 +346,7 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   //update user data
   late LoginModel updateUserDataModel;
 
-  updateUserData() {
+  void updateUserData() {
     emit(UpdateUserDataLoadingState());
     FormData formData = FormData.fromMap({
       "userName": UserProfileScreenState.nameController.text,
@@ -352,7 +354,7 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       "Age": UserProfileScreenState.ageController.text,
       "Nationality": UserProfileScreenState.nationalityController.text,
       "City": UserProfileScreenState.cityController.text,
-      "phone": getUserDataModel.data!.phone,
+      "phone": user.phone,
       "Height": UserProfileScreenState.heightController.text,
       "Weight": UserProfileScreenState.weightController.text,
       "Dowry": UserProfileScreenState.monyOfPony.text,
@@ -367,7 +369,7 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
             token: token.toString(),
             length: 0)
     .then((value) {
-      log(value.toString());
+      // log(value.toString());
 
       updateUserDataModel = LoginModel.fromJson(value.data);
       

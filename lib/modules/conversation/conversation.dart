@@ -64,7 +64,6 @@ class UserConversationScreenState extends State<UserConversationScreen>
       chat = ChatModel.fromJson(jsonDecode(ss));
       if (mounted) {
         setState(() {
-          print("kkkkkkkkkkkkkkkkkkkkkk");
           UserConversationScreenState.messages.add(chat.text.toString());
           UserConversationScreenState.messagesMine.add(false);
           UserConversationScreenState.senderIdList

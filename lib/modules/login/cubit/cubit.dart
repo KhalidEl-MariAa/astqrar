@@ -30,12 +30,8 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
   }
 
   //to login user
-  Future UserLogin({required String nationalId, required String password}) async {
-    // log(nationalId);
-    // log(password);
-    // log(deviceToken.toString());
-    // emit(ShopLoginLoadingState());
-    // print("token login"+deviceToken.toString());
+  Future UserLogin({required String nationalId, required String password}) async 
+  {
     log(LOGIN);
 
     await DioHelper.postData(
@@ -58,8 +54,8 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
           CacheHelper.saveData( key: "age", value: loginModel.data!.age.toString());
           CacheHelper.saveData( key: "email", value: loginModel.data!.email);
           CacheHelper.saveData( key: "gender", value: loginModel.data!.gender);
-          CacheHelper.saveData(key: "phone", value: loginModel.data!.phone);
-          CacheHelper.saveData(key: "isLogin", value: true);
+          CacheHelper.saveData( key: "phone", value: loginModel.data!.phone);
+          CacheHelper.saveData( key: "isLogin", value: true);
 
           token = CacheHelper.getData(key: "token");
           typeOfUser = CacheHelper.getData(key: "typeUser");

@@ -52,7 +52,7 @@ class ForgetPasswordScreen extends StatelessWidget
                       style: TextStyle(color: primary, fontSize: 10.sp),
                     ),
                     SizedBox( height: 6.5.h, ),
-                    doubleInfinityMaterialButton(
+                    doubleInfinityMaterialButton(                      
                         text: "مراسلة الادمن لاستعادة كلمة السر ",
                         onPressed: () async{
                           final link = WhatsAppUnilink(
@@ -69,6 +69,10 @@ class ForgetPasswordScreen extends StatelessWidget
                           // await launchUrl(link.asUri(), mode: mode);
                       }
                     ),
+                    
+                    /** حسب طلب صاحب المشروع
+                     * يتم استعادة كلمة المرور من خلال محادثة الواتساب
+                     **/
                     // defaultTextFormField(
                     //     context: context,
                     //     controller: nationalIdController,

@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:astarar/modules/conversation/more_for_delegate/cubit/cubit.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class RateDelegate extends StatelessWidget {
                   ),
                   onRatingUpdate: (rating) {
                     valueOfRating=rating;
-                    print(valueOfRating);
+                    log("valueOfRating: ${valueOfRating}");
                   },
                 ),
               ),

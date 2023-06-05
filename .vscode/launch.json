@@ -5,18 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "astarar",
+      "name": "astqrar",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "astarar (profile mode)",
+      "name": "astqrar (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "astarar (release mode)",
+      "name": "astqrar (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

@@ -42,7 +42,7 @@ class GetInformationCubit extends Cubit<GetInformationStates>
         .then((value) {
       log(value.toString());
       getInformationUserModel = GetInformationUserModel.fromJson(value.data);
-      log(getInformationUserModel.userSubSpecification!.userSubSpecificationDto![12].specificationValue.toString());
+      // log(getInformationUserModel.userSubSpecification!.userSubSpecificationDto![11].value.toString());
       getInformationDone = true;
       emit(GetInformationSuccessState());
       sendNotification(userid: userId, type: 3, body:"تمت زيارة صفحتك من قبل $name",

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:astarar/layout/cubit/states.dart';
+import 'package:astarar/models/get_information_user.dart';
 import 'package:astarar/modules/linkperson/layout_linkPerson/layout_link_person.dart';
 import 'package:astarar/modules/register_user/cubit.dart';
 import 'package:astarar/modules/register_user/states.dart';
@@ -14,7 +16,7 @@ import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:astarar/layout/cubit/cubit.dart';
 import 'package:sizer/sizer.dart';
-import '../../models/get_user_data_model.dart';
+import '../../models/user.dart';
 import '../../models/server_response_model.dart';
 import '../../shared/network/end_points.dart';
 import '../../shared/network/remote.dart';
@@ -35,6 +37,11 @@ class UserRegister extends StatefulWidget
 
 class _UserRegisterState extends State<UserRegister> 
 {
+  late Map<String, int> specifications;
+  _UserRegisterState() {
+    Map<String, int> specifications = new AppCubit().getSpecifications();
+  }
+  
   bool isLoading = false;
   User newUser = User();
 
@@ -79,6 +86,8 @@ class _UserRegisterState extends State<UserRegister>
   int selectedMerrageType = 0;
   String error_msg = "";
   String gender = "ذكر";
+
+  late SubSpecification _selectedJobType;
 
 
   List<String> hairColor = ['اسود', 'اشقر', 'بني', 'ابيض'];
@@ -150,6 +159,8 @@ class _UserRegisterState extends State<UserRegister>
   ];
   List<String> merrageType = ['تعدد', 'مسيار', 'علني'];
   
+  
+  
 
   var formkey = GlobalKey<FormState>();
 
@@ -159,7 +170,6 @@ class _UserRegisterState extends State<UserRegister>
       create: (BuildContext context) => RegisterClientCubit(),
       child: BlocConsumer<RegisterClientCubit, RegisterClientStates>(
         listener: (context, state) { on_state_changed(context, state); },
-
         builder: (context, state) => BlocBuilder<AppCubit, AppStates>(
           builder: (context, state) => Directionality(
             textDirection: TextDirection.rtl,
@@ -534,106 +544,141 @@ class _UserRegisterState extends State<UserRegister>
                                     })),
                           ),
 
-                          Text("الوظيفة",
+                          //TODO: fix eeee
+                          //الوظيفة                          
+                          Text(AppCubit.Specifications[SpecificationIDs.job]["nameAr"] + "eeeaaaaaaeeeeee",
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
 
-                          if (gender == "ذكر")
-                            GridView.count(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(0),
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                              physics: const NeverScrollableScrollPhysics(),
-                              childAspectRatio: 0.6 / 0.02.h,
-                              children: List.generate(
-                                  jobType.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedJobType,
-                                      title: jobType[index1],
-                                      changeFunction: () {
-                                        setState(() {
-                                          selectedJobType = index1;
-                                        });
-                                      })),
-                            ),
-                          if (gender == "انثي")
-                            GridView.count(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(0),
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                              physics: const NeverScrollableScrollPhysics(),
-                              childAspectRatio: 0.6 / 0.02.h,
-                              children: List.generate( jobTypeFemale.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedJobType,
-                                      title: jobTypeFemale[index1],
-                                      changeFunction: () { setState(() {
-                                          selectedJobType = index1;
-                                        });
-                                      })),
-                            ),
-                          defaultTextFormField(
-                              context: context,
-                              controller: nameOfJobController,
-                              // onchange: (v) { 
-                              //   setState(() {  newUser.nameOfJob = v;  }); 
-                              //   return ; 
-                              // },
-                              type: TextInputType.text,
-                              validate: (String? value) {
-                                newUser.nameOfJob = value;
-                                return null;
-                              },
-                              labelText: "اسم الوظيفة",
-                              label: "الرجاء ادخال اسم الوظيفة (ان وجدت)",
-                              prefixIcon: Icons.person),
+                          GridView.count(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.all(0),
+                            crossAxisCount:
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                            physics: const NeverScrollableScrollPhysics(),
+                            childAspectRatio: 0.6 / 0.02.h,
+                            children: getListofRadioButtons(SpecificationIDs.job ), 
+                          ),
+         
 
-                          Text("الحالة الصحية",
-                            style: TextStyle(color: white, fontSize: 14),
+                          // Text("الوظيفة",
+                          //   style: TextStyle(color: white, fontSize: 11.sp),
+                          // ),
+
+                          // if (gender == "ذكر")
+                          //   GridView.count(
+                          //     shrinkWrap: true,
+                          //     padding: EdgeInsets.all(0),
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     childAspectRatio: 0.6 / 0.02.h,
+                          //     children: List.generate(
+                          //         jobType.length,
+                          //         (i) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: i,
+                          //             groupvalue: selectedJobType,
+                          //             title: jobType[i] + selectedJobType.toString(),
+                          //             changeFunction: () {
+                          //               setState(() {
+                          //                 selectedJobType = i;
+                          //               });
+                          //             })),
+                          //   ),
+                          // if (gender == "انثي")
+                          //   GridView.count(
+                          //     shrinkWrap: true,
+                          //     padding: EdgeInsets.all(0),
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     childAspectRatio: 0.6 / 0.02.h,
+                          //     children: List.generate( jobTypeFemale.length,
+                          //         (index1) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: index1,
+                          //             groupvalue: selectedJobType,
+                          //             title: jobTypeFemale[index1],
+                          //             changeFunction: () { setState(() {
+                          //                 selectedJobType = index1;
+                          //               });
+                          //             })),
+                          //   ),
+                          // defaultTextFormField(
+                          //     context: context,
+                          //     controller: nameOfJobController,
+                          //     // onchange: (v) { 
+                          //     //   setState(() {  newUser.nameOfJob = v;  }); 
+                          //     //   return ; 
+                          //     // },
+                          //     type: TextInputType.text,
+                          //     validate: (String? value) {
+                          //       newUser.nameOfJob = value;
+                          //       return null;
+                          //     },
+                          //     labelText: "اسم الوظيفة",
+                          //     label: "الرجاء ادخال اسم الوظيفة (ان وجدت)",
+                          //     prefixIcon: Icons.person),
+
+
+                          //TODO: fix kkkkkkk
+                          //الحالة الصحية
+                          Text(AppCubit.Specifications[SpecificationIDs.health_status]["nameAr"] + "kkkkksssssskkkkkkkkk",
+                            style: TextStyle(color: white, fontSize: 11.sp),
                           ),
 
-                          if (gender == "ذكر")
-                            GridView.count(
-                              padding: EdgeInsets.all(0),
-                              shrinkWrap: true,
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
-                              physics: const NeverScrollableScrollPhysics(),
-                              childAspectRatio: 0.8 / 0.01.h,
-                              children: List.generate( illnesstype.length,
-                                  (i) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: i,
-                                      groupvalue: selectedIllnessType,
-                                      title: illnesstype[i],
-                                      changeFunction: () {
-                                        setState(() { selectedIllnessType = i; });
-                                      })),
-                            ),
-                          if (gender == "انثي")
-                            GridView.count(
-                              padding: EdgeInsets.all(0),
-                              shrinkWrap: true,
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
-                              physics: const NeverScrollableScrollPhysics(),
-                              childAspectRatio: 0.8 / 0.01.h,
-                              children: List.generate( illnesstypeFemale.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedIllnessType,
-                                      title: illnesstypeFemale[index1],
-                                      changeFunction: () {
-                                        setState(() { selectedIllnessType = index1; });
-                                      })),
-                            ),
+                          GridView.count(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.all(0),
+                            crossAxisCount:
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                            physics: const NeverScrollableScrollPhysics(),
+                            childAspectRatio: 0.6 / 0.02.h,
+                            children: getListofRadioButtons(SpecificationIDs.health_status), 
+                          ),
+
+
+                          // Text("الحالة الصحية",
+                          //   style: TextStyle(color: white, fontSize: 14),
+                          // ),
+
+                          // if (gender == "ذكر")
+                          //   GridView.count(
+                          //     padding: EdgeInsets.all(0),
+                          //     shrinkWrap: true,
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     childAspectRatio: 0.8 / 0.01.h,
+                          //     children: List.generate( illnesstype.length,
+                          //         (i) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: i,
+                          //             groupvalue: selectedIllnessType,
+                          //             title: illnesstype[i],
+                          //             changeFunction: () {
+                          //               setState(() { selectedIllnessType = i; });
+                          //             })),
+                          //   ),
+                          // if (gender == "انثي")
+                          //   GridView.count(
+                          //     padding: EdgeInsets.all(0),
+                          //     shrinkWrap: true,
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     childAspectRatio: 0.8 / 0.01.h,
+                          //     children: List.generate( illnesstypeFemale.length,
+                          //         (index1) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: index1,
+                          //             groupvalue: selectedIllnessType,
+                          //             title: illnesstypeFemale[index1],
+                          //             changeFunction: () {
+                          //               setState(() { selectedIllnessType = index1; });
+                          //             })),
+                          //   ),
 
                           defaultTextFormField(
                               context: context,
@@ -650,98 +695,131 @@ class _UserRegisterState extends State<UserRegister>
                               label: "الرجاء ادخال نوع المرض (ان وجد)",
                               prefixIcon: Icons.person),
 
-                          Text("الحالة الاجتماعية",
-                            style: TextStyle(color: white, fontSize: 14),
-                          ),
+                          // Text("الحالة الاجتماعية",
+                          //   style: TextStyle(color: white, fontSize: 14),
+                          // ),
 
-                          if (gender == "ذكر")
-                            GridView.count(
-                              shrinkWrap: true,
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                              physics: const NeverScrollableScrollPhysics(),
-                              childAspectRatio: 0.8 / 0.02.h,
+                          // if (gender == "ذكر")
+                          //   GridView.count(
+                          //     shrinkWrap: true,
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     childAspectRatio: 0.8 / 0.02.h,
 
-                              children: List.generate(
-                                  MilirtyMaleStatus.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedMiliirtyMaleType,
-                                      title: MilirtyMaleStatus[index1],
-                                      changeFunction: () {
-                                        setState(() { selectedMiliirtyMaleType = index1; });
-                                      })),
-                            ),
+                          //     children: List.generate(
+                          //         MilirtyMaleStatus.length,
+                          //         (index1) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: index1,
+                          //             groupvalue: selectedMiliirtyMaleType,
+                          //             title: MilirtyMaleStatus[index1],
+                          //             changeFunction: () {
+                          //               setState(() { selectedMiliirtyMaleType = index1; });
+                          //             })),
+                          //   ),
 
-                          if (gender == "انثي")
-                            GridView.count(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(0),
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                              physics: const NeverScrollableScrollPhysics(),
-                              childAspectRatio: 0.8 / 0.02.h,
-                              children: List.generate(
-                                  MilirtyStatus.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedMiliirtyType,
-                                      title: MilirtyStatus[index1],
-                                      changeFunction: () {
-                                        setState(() {
-                                          selectedMiliirtyType = index1;
-                                        });
-                                      })),
-                            ),
 
-                          // Spacer(),
-                          Text("هل لديك اطفال",
+                          
+                          //الحالة الاجتماعية
+                          Text(AppCubit.Specifications[SpecificationIDs.social_status]["nameAr"] ,
                             style: TextStyle(color: white, fontSize: 11.sp),
                           ),
 
-                          if (gender == "ذكر")
-                            GridView.count(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(0),
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
-                              physics: const NeverScrollableScrollPhysics(),
-                              mainAxisSpacing: .05,
-                              childAspectRatio: 0.8 / 0.01.h,
-                              children: List.generate(
-                                  numberOfKids.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedNumberOfKids,
-                                      title: numberOfKids[index1],
-                                      changeFunction: () {
-                                        setState(() { selectedNumberOfKids = index1; });
-                                      })),
-                            ),
+                          GridView.count(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.all(0),
+                            crossAxisCount:
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                            physics: const NeverScrollableScrollPhysics(),
+                            childAspectRatio: 0.6 / 0.02.h,
+                            children: getListofRadioButtons(SpecificationIDs.social_status), 
+                          ),
 
-                          if (gender == "انثي")
-                            GridView.count(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(0),
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
-                              physics: const NeverScrollableScrollPhysics(),
-                              mainAxisSpacing: .05,
-                              childAspectRatio: 0.8 / 0.01.h,
-                              children: List.generate(
-                                  numberOfKidsFemale.length,
-                                  (index1) => RadioButtonRegister(
-                                      isRegisterScreen: true,
-                                      value: index1,
-                                      groupvalue: selectedNumberOfKids,
-                                      title: numberOfKidsFemale[index1],
-                                      changeFunction: () {
-                                        setState(() { selectedNumberOfKids = index1; });
-                                      })),
-                            ),
+                          // if (gender == "انثي")
+                          //   GridView.count(
+                          //     shrinkWrap: true,
+                          //     padding: EdgeInsets.all(0),
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     childAspectRatio: 0.8 / 0.02.h,
+                          //     children: List.generate(
+                          //         MilirtyStatus.length,
+                          //         (index1) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: index1,
+                          //             groupvalue: selectedMiliirtyType,
+                          //             title: MilirtyStatus[index1],
+                          //             changeFunction: () {
+                          //               setState(() {
+                          //                 selectedMiliirtyType = index1;
+                          //               });
+                          //             })),
+                          //   ),
+
+                          // Spacer(),
+                          // Text("هل لديك اطفال",
+                          //   style: TextStyle(color: white, fontSize: 11.sp),
+                          // ),
+
+                          // if (gender == "ذكر")
+                          //   GridView.count(
+                          //     shrinkWrap: true,
+                          //     padding: EdgeInsets.all(0),
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     mainAxisSpacing: .05,
+                          //     childAspectRatio: 0.8 / 0.01.h,
+                          //     children: List.generate(
+                          //         numberOfKids.length,
+                          //         (index1) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: index1,
+                          //             groupvalue: selectedNumberOfKids,
+                          //             title: numberOfKids[index1],
+                          //             changeFunction: () {
+                          //               setState(() { selectedNumberOfKids = index1; });
+                          //             })),
+                          //   ),
+
+                          // if (gender == "انثي")
+                          //   GridView.count(
+                          //     shrinkWrap: true,
+                          //     padding: EdgeInsets.all(0),
+                          //     crossAxisCount:
+                          //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
+                          //     physics: const NeverScrollableScrollPhysics(),
+                          //     mainAxisSpacing: .05,
+                          //     childAspectRatio: 0.8 / 0.01.h,
+                          //     children: List.generate(
+                          //         numberOfKidsFemale.length,
+                          //         (index1) => RadioButtonRegister(
+                          //             isRegisterScreen: true,
+                          //             value: index1,
+                          //             groupvalue: selectedNumberOfKids,
+                          //             title: numberOfKidsFemale[index1],
+                          //             changeFunction: () {
+                          //               setState(() { selectedNumberOfKids = index1; });
+                          //             })),
+                          //   ),
+
+                          //هل لديك اطفال
+                          Text(AppCubit.Specifications[SpecificationIDs.have_children]["nameAr"] + "CCCCCCCCCCcc",
+                            style: TextStyle(color: white, fontSize: 11.sp),
+                          ),
+
+                          GridView.count(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.all(0),
+                            crossAxisCount:
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
+                            physics: const NeverScrollableScrollPhysics(),
+                            mainAxisSpacing: .05,
+                            childAspectRatio: 0.8 / 0.01.h,
+                            children: getListofRadioButtons(SpecificationIDs.have_children), 
+                          ),
 
                           defaultTextFormField(
                               context: context,
@@ -749,12 +827,17 @@ class _UserRegisterState extends State<UserRegister>
                               // onchange: (v) => setState(() { newUser.numberOfKids = int.parse(v); }),
                               type: TextInputType.number,
                               validate: (String? value){
-                                if(value!.isEmpty) {
-                                  return "من فضلك اكتب عدد الاطفال";
-                                }else{
-                                  newUser.numberOfKids = int.parse(numberOfKidsController.text);
+                                newUser.subSpecifications.forEach((e) { log("${e.id}, ${e.value} ");});
+                                var no_kids = newUser.subSpecifications.any((sub) => sub.id == 77);
+                                // 77 -> 'بدون أطفال'
+                                if( no_kids ) {
                                   return null;
+                                }else if(value!.isEmpty){
+                                  return "من فضلك اكتب عدد الاطفال";
                                 }
+                                newUser.numberOfKids = int.parse(numberOfKidsController.text);
+                                return null;
+
                               },
                               labelText: "عدد الاطفال",
                               label: "الرجاء ادخال عدد الاطفال (ان وجد)",
@@ -1021,16 +1104,6 @@ class _UserRegisterState extends State<UserRegister>
   }
 
   void on_state_changed(BuildContext context, RegisterClientStates state){}
-  // void on_state_changed(BuildContext context, RegisterClientStates state)
-  // {
-  //   if(state is RegisterClientSuccessState) 
-  //   {
-  //   }else if(state is RegisterClientErrorState){
-  //     showToast(
-  //       msg: "حصلت مشكلة من السيرفر أثناء ارسال بيانات التسجيل" + ": " + state.error, 
-  //       state: ToastStates.ERROR);
-  //   }
-  // }//end 
 
   void handleResponse(ServerResponse response)
   {
@@ -1079,8 +1152,6 @@ class _UserRegisterState extends State<UserRegister>
     });
     // emit( RegisterClientLoadingState() );
     
-    // print(newUser.toMap());
-    // var mm = newUser.toMap(); // newUser.toMap()
     // var json_str_newUser = json.encode(newUser);
     // var json_obj_newUser = json.decode(json_str_newUser);
 
@@ -1093,9 +1164,6 @@ class _UserRegisterState extends State<UserRegister>
       print(value.toString());
       ServerResponse response = ServerResponse.fromJson(value.data);
       handleResponse(response);
-
-      //TODO: Remove this
-      // emit( RegisterClientSuccessState(response) );
 
       setState(() {
         isLoading = false;
@@ -1113,6 +1181,44 @@ class _UserRegisterState extends State<UserRegister>
 
 
   }
+  
+  List<Widget> getListofRadioButtons(int specificationId) 
+  {
+    var Spec = AppCubit.Specifications[ specificationId ];
+
+    if(Spec == null)
+      return [Text("No Elements")];
+
+    List<Widget> radios = [];
+    Spec["subSpecifications"].forEach((sub_id, sub) 
+    {
+      SubSpecification found_or_created;
+      found_or_created = newUser.subSpecifications
+                      .firstWhere( (user_sub) => user_sub.specId == sub["specificationId"],
+                      orElse: () {
+                        var new_sub = new SubSpecification(sub["id"], sub["nameAr"], Spec["id"], Spec["nameAr"]);
+                        newUser.subSpecifications.add( new_sub );
+                        return new_sub;
+                      });
+
+      radios.add(
+        RadioButtonRegister(
+          isRegisterScreen: true,
+          value: sub["id"],
+          groupvalue: found_or_created.id, 
+          title: sub["nameAr"] ,
+          changeFunction: () {
+            setState(() {
+              found_or_created.id = sub["id"];
+              found_or_created.value = sub["nameAr"];
+              found_or_created.specId = Spec["id"];
+              found_or_created.name = Spec["nameAr"];
+            });
+          })
+      );      
+    });
+    return radios;
+  }
 
   // void registeNewUserXX(BuildContext context)
   // {
@@ -1127,7 +1233,6 @@ class _UserRegisterState extends State<UserRegister>
   //   {                                  
   //     if(gender == "ذكر") 
   //     {
-  //       print('here');
   //       RegisterClientCubit.get(context).specifications = [
   //         selectedlastName == 0 ? "قبيلة" : "عائلة",
   //         hairColor[selectedHairColorName!],
@@ -1146,7 +1251,7 @@ class _UserRegisterState extends State<UserRegister>
   //         merrageType[selectedMerrageType]
   //       ];
 
-  //       // print(RegisterClientCubit.get(context).specifications);
+  
   //       RegisterClientCubit.get(context).convert();
 
   //       if (formkey.currentState!.validate()) {
@@ -1193,13 +1298,11 @@ class _UserRegisterState extends State<UserRegister>
   //         moneyFemale[selectedMoney],
   //         merrageType[selectedMerrageType]
   //       ];
-  //       // print(RegisterClientCubit.get(context).specifications);
   //       RegisterClientCubit.get(context).convert();
 
   //       if (formkey.currentState!.validate()) {
   //         RegisterClientCubit.get(context)
   //             .RegisterClient(
-  //                 // delegateId: widget.delegateId,
   //                 childrensNumber: kids,
   //                 kindOfSick: illnessTypeController.text,
   //                 tribe: lastNameNotFamilyController != null? 
@@ -1222,12 +1325,10 @@ class _UserRegisterState extends State<UserRegister>
   //                 terms: conditionsController.text);
   //       }
   //     }
-
-  //     // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
+  // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
   //   }else{
   //     showToast(msg: "بعض المدخلات غير صحيحة!!", state: ToastStates.ERROR);
   //   }
-
   // }
 
 } //end class

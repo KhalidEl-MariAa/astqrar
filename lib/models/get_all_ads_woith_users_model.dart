@@ -44,6 +44,7 @@ class UserSubSpecificationsDetailsWithAds
 {
   String?name;
   String?specificationValue;
+  
   UserSubSpecificationsDetailsWithAds.fromJson(Map<String,dynamic>json){
     name=json['name'];
     specificationValue=json['specificationValue'];

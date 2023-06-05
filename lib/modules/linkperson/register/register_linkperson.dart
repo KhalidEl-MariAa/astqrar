@@ -297,7 +297,7 @@ var formkey =GlobalKey<FormState>();
                             setState(() {
                               isSelected = !isSelected;
                             });
-                            print(isSelected);
+                            
                           },
                           text:
                               "اقسم بالله ان المعلومات التي قمت بادخلها صحيحة و التطبيق غير مسئول عن اي معلومات اخري غير صحيحة",

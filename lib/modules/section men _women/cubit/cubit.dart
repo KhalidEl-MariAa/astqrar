@@ -19,15 +19,18 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates> {
   List users = [];
   bool getUsersByGenderDone = false;
 
-  getUserByGender({required int genderValue}) {
+  getUserByGender({required int genderValue}) 
+  {
     users = [];
     getUsersByGenderDone = false;
     emit(GetUserByGenderLoadingState());
+    
     DioHelper.getDataWithQuery(
         url: GETUSERSBYGENDER,
         token: token.toString(),
-        query: {"gender": genderValue}).then((value) {
-      log(value.toString());
+        query: {"gender": genderValue})
+    .then((value) {
+      // log(value.toString());
       getUsersByGengerModel = GetUsersByGengerModel.fromjson(value.data);
       for (int i = 0; i < getUsersByGengerModel.data.length; i++) {
         users.add(getUsersByGengerModel.data[i]);
@@ -115,9 +118,7 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates> {
   getUsersByFilter({required String gender}) {
     users = [];
     log(startAge.toString());
- /*   print(endAge);
-    print(nationality);
-    print(typeofmarriage);*/
+
     emit(GetUsersByFilterLoadingState());
     DioHelper.postDataWithBearearToken(
             url: GETUSERSBYFILTER,

@@ -69,12 +69,12 @@ class PaymentDelegateCubit extends Cubit<PaymentStates> {
   getPrice({required String delegateId}) {
     emit(GetPriceLoadingState());
     DioHelper.postData(url: GETPRICE, data: {"DelegateId": delegateId}).then((value) {
-      print(value.toString());
+      log(value.toString());
       getPriceModel = GetPriceModel.fromJson(value.data);
       price = getPriceModel.price!;
       emit(GetPriceSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      log(error.toString());
       emit(GetPriceErrorState(error.toString()));
     });
   }
@@ -90,10 +90,10 @@ class PaymentDelegateCubit extends Cubit<PaymentStates> {
       "title":title
     })
         .then((value) {
-      print(value.toString());
+      log(value.toString());
       emit(SendNotificationSuccessState());
     }).catchError((error){
-      print(error.toString());
+      log(error.toString());
       emit(SendNotificationErrorState(error.toString()));
     });
   }
@@ -108,12 +108,12 @@ addRate({required String delegateId,required int rate}){
       "rate":rate
     },token: token.toString())
     .then((value) {
-      print(value.toString());
+      log(value.toString());
       addRateModel=AddToFavouriteModel.fromJson(value.data);
       removeUser(delgateId: delegateId);
       emit(AddRateSuucessState(addRateModel));
     }).catchError((error){
-      print(error.toString());
+      log(error.toString());
       emit(AddRateErrorState(error.toString()));
     });
 }
@@ -128,12 +128,12 @@ addRate({required String delegateId,required int rate}){
       "ClientId":id!
     })
         .then((value) {
-      print(value.toString());
+      log(value.toString());
       removeClientModel=UpdatePriceModel.fromJson(value.data);
 
       emit(RemoveUserSuuccessState());
     }).catchError((error){
-      print(error.toString());
+      log(error.toString());
       emit(RemoveUserErrorState(error.toString()));
     });
 

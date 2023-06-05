@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:astarar/modules/ads/ads.dart';
@@ -49,7 +50,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         .getInitialMessage()
         .then((RemoteMessage? message) {
       if (message != null) {
-        print("empty");
+        log("empty");
       }
     });
     FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(

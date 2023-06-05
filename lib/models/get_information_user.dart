@@ -1,3 +1,4 @@
+
 class GetInformationUserModel {
   bool? isFavorate;
   bool? isInMyContacts;
@@ -60,32 +61,38 @@ class UserSubSpecificationModel
     bool?specialNeeds;
 
     List<UserSubSpecificationDtoModel>userSubSpecificationDto=[];
-      UserSubSpecificationModel.fromJson(Map<String, dynamic> json) {
-        id = json['id'];
-        userName = json['userName'];
-        email = json['email'];
-        nationality = json['nationality'];
-        gender = json['gender'];
-        city = json['city'];
-        age = json['age'];
-        height = json['height'];
-        weight = json['weight'];
-        dowry = json['dowry'];
-        terms = json['terms'];
-        specialNeeds=json['specialNeeds'];
-        json['userSubSpecificationDto'].forEach((element) {
-          userSubSpecificationDto.add(UserSubSpecificationDtoModel.fromJson(element));
-        });
+    UserSubSpecificationModel.fromJson(Map<String, dynamic> json) {
+      id = json['id'];
+      userName = json['userName'];
+      email = json['email'];
+      nationality = json['nationality'];
+      gender = json['gender'];
+      city = json['city'];
+      age = json['age'];
+      height = json['height'];
+      weight = json['weight'];
+      dowry = json['dowry'];
+      terms = json['terms'];
+      specialNeeds=json['specialNeeds'];
+      
+      json['userSubSpecificationDto'].forEach((element) {
+        userSubSpecificationDto.add(UserSubSpecificationDtoModel.fromJson(element));
+      });
   }
 }
 
 class UserSubSpecificationDtoModel {
   int? id;
   String?name;
-  String?specificationValue;
+  String?value;
+
+  UserSubSpecificationDtoModel(this.id, this.name, this.value);
+
   UserSubSpecificationDtoModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name=json['name'];
-    specificationValue=json['specificationValue'];
+    value=json['specificationValue'];
   }
+
+  
 }

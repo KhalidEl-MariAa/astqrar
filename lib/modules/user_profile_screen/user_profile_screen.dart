@@ -16,6 +16,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 class UserProfileScreen extends StatefulWidget {
+
   const UserProfileScreen({Key? key}) : super(key: key);
 
   @override
@@ -34,7 +35,8 @@ int selectedlastName = 0;
 String gender = "ذكر";
 var formkey = GlobalKey<FormState>();
 
-class UserProfileScreenState extends State<UserProfileScreen> {
+class UserProfileScreenState extends State<UserProfileScreen> 
+{
   static var emailController = TextEditingController();
   static var nameController = TextEditingController();
   static var personalCardController = TextEditingController();
@@ -55,8 +57,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
         listener: (context, state) {
           if (state is UpdateUserDataSucccessState) {
             if (state.updateProfileModel.key == 1) {
-              showToast(
-                  msg: "تم تحديث البيانات بنجاح", state: ToastStates.SUCCESS);
+              showToast(msg: "تم تحديث البيانات بنجاح", state: ToastStates.SUCCESS);
+                  
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -70,8 +72,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
           condition: UserProfileCubit.get(context).getUserDataDone,
           fallback: (context) => Scaffold(
             backgroundColor: white,
-              body:
-              const LoadingGif()),
+              body: const LoadingGif()),
           builder: (context) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -149,7 +150,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             },
                             labelText: "المدينة",
                             label: "الرجاء ادخال المدينة",
-                            //labelTextcolor: white,
                             prefixIcon: Icons.person_outline),
                         SizedBox(
                           height: 1.5.h,
@@ -165,7 +165,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               return (value!.isEmpty)? "من فضلك ادخل الجنسية": null;
                             },
                             labelText: "الجنسية",
-                            //labelTextcolor: white,
                             label: "الرجاء ادخال الجنسية",
                             prefixIcon: Icons.person_outline),
                         SizedBox(
@@ -265,7 +264,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             styleText: Colors.black,
                             borderColor: primary,
                             labelText: "رقم الهاتف",
-                            //  labelTextcolor: white,
                             label: "الرجاء ادخال رقم الهاتف",
                             prefixIcon: Icons.phone),*/
                         SizedBox(
@@ -288,18 +286,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
-
-                        /*      defaultTextFormField(
-                                context: context,
-                                controller: ageController,
-                                type: TextInputType.number,
-                                validate: (String? value) {},
-                                labelText: "العمر",
-                                label: "الرجاء ادخال العمر",
-                                //labelTextcolor: white,
-                                prefixIcon: Icons.person_outline),
-                            SizedBox(height: 1.5.h,),
-*/
+                            
                         defaultTextFormField(
                             context: context,
                             container: Colors.grey[100],
@@ -312,7 +299,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             },
                             labelText: "الطول",
                             label: "الرجاء ادخال الطول",
-                            // labelTextcolor: white,
                             prefixIcon: Icons.person_outline),
                         SizedBox(
                           height: 1.5.h,
@@ -329,7 +315,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             },
                             labelText: "الوزن",
                             label: "الرجاء ادخال الوزن",
-                            //   labelTextcolor: white,
                             prefixIcon: Icons.person_outline),
                         SizedBox(
                           height: 1.5.h,
@@ -348,8 +333,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               ? 4
                               : 2,
                           physics: const NeverScrollableScrollPhysics(),
-                          // crossAxisCount: 2,
-                          //  crossAxisSpacing: 0.0,
                           padding: const EdgeInsets.all(0),
                           mainAxisSpacing: 5,
                           childAspectRatio: 0.6 / 0.1,
@@ -386,10 +369,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               ? 4
                               : 2,
                           physics: const NeverScrollableScrollPhysics(),
-                          // crossAxisCount: 2,
-                          //  crossAxisSpacing: 0.0,
-
-                          //    mainAxisSpacing: .0,
                           padding: const EdgeInsets.all(0),
                           childAspectRatio: 0.6 / 0.1,
                           children: List.generate(
@@ -415,13 +394,10 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
-                        Text(
-                          "لون البشرة",
+                        Text("لون البشرة",
                           style: TextStyle(color: black, fontSize: 14),
                         ),
-                        SizedBox(
-                          height: 1.h,
-                        ),
+                        SizedBox( height: 1.h,),
                         GridView.count(
                           shrinkWrap: true,
                           crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -429,25 +405,18 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               ? 4
                               : 2,
                           physics: const NeverScrollableScrollPhysics(),
-                          // crossAxisCount: 2,
-                          //  crossAxisSpacing: 0.0,
                           padding: const EdgeInsets.all(0),
-
-                          //    mainAxisSpacing: .0,
                           childAspectRatio: 0.6 / 0.1,
                           children: List.generate(
                               3,
                               (index1) => RadioButtonRegister(
                                   isRegisterScreen: false,
                                   value: index1,
-                                  groupvalue: UserProfileCubit.get(context)
-                                      .skinColorint!,
-                                  title: UserProfileCubit.get(context)
-                                      .skinColor[index1],
+                                  groupvalue: UserProfileCubit.get(context).skinColorint!,
+                                  title: UserProfileCubit.get(context).skinColor[index1],
                                   changeFunction: () {
                                     setState(() {
-                                      UserProfileCubit.get(context)
-                                          .skinColorint = index1;
+                                      UserProfileCubit.get(context).skinColorint = index1;
                                     });
                                   })),
                         ),
@@ -469,10 +438,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               : 2,
                           padding: const EdgeInsets.all(0),
                           physics: const NeverScrollableScrollPhysics(),
-                          // crossAxisCount: 2,
-                          //  crossAxisSpacing: 0.0,
-
-                          //    mainAxisSpacing: .0,
                           childAspectRatio: 0.6 / 0.1,
                           children: List.generate(
                               3,
@@ -508,10 +473,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               ? 5
                               : 3,
                           physics: const NeverScrollableScrollPhysics(),
-                          // crossAxisCount: 2,
-                          //  crossAxisSpacing: 0.0,
-
-                          //    mainAxisSpacing: .0,
                           childAspectRatio: 0.6 / 0.19,
                           children: List.generate(
                               UserProfileCubit.get(context)
@@ -550,10 +511,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.6 / 0.19,
                             children: List.generate(
                                 5,
@@ -581,10 +538,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.6 / 0.19,
                             children: List.generate(
                                 5,
@@ -634,10 +587,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 1,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.9 / 0.1,
                             children: List.generate(
                                 3,
@@ -665,10 +614,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 1,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.9 / 0.1,
                             children: List.generate(
                                 3,
@@ -712,10 +657,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           height: 1.h,
                         ),
                         if (UserProfileCubit.get(context)
-                                .getUserDataModel
-                                .data!
-                                .gender ==
-                            1)
+                                .user.gender == 1)
                           GridView.count(
                             shrinkWrap: true,
                             crossAxisCount:
@@ -746,24 +688,14 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                       });
                                     })),
                           ),
-                        if (UserProfileCubit.get(context)
-                                .getUserDataModel
-                                .data!
-                                .gender ==
-                            2)
+
+                        if (UserProfileCubit.get(context).user.gender ==2)
                           GridView.count(
                             shrinkWrap: true,
                             padding: const EdgeInsets.all(0),
                             crossAxisCount:
-                                (MediaQuery.of(context).orientation ==
-                                        Orientation.landscape)
-                                    ? 5
-                                    : 2,
+                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.8 / 0.15,
                             children: List.generate(
                                 4,
@@ -801,9 +733,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 1,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //   crossAxisSpacing: ,
-
                             mainAxisSpacing: .05,
                             childAspectRatio: 0.8 / 0.07,
                             children: List.generate(
@@ -832,9 +761,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 1,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //   crossAxisSpacing: ,
-
                             mainAxisSpacing: .05,
                             childAspectRatio: 0.8 / 0.07,
                             children: List.generate(
@@ -893,10 +819,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.8 / 0.15,
                             children: List.generate(
                                 3,
@@ -924,10 +846,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     ? 5
                                     : 2,
                             physics: const NeverScrollableScrollPhysics(),
-                            // crossAxisCount: 2,
-                            //  crossAxisSpacing: 0.0,
-
-                            //    mainAxisSpacing: .0,
                             childAspectRatio: 0.8 / 0.15,
                             children: List.generate(
                                 3,
@@ -959,15 +877,10 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         if (UserProfileCubit.get(context).genderUser == 1)   GridView.count(
                           shrinkWrap: true,
                           padding: const EdgeInsets.all(0),
-                          crossAxisCount: (MediaQuery.of(context).orientation ==
-                                  Orientation.landscape)
+                          crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape)
                               ? 5
                               : 2,
                           physics: const NeverScrollableScrollPhysics(),
-                          // crossAxisCount: 2,
-                          //  crossAxisSpacing: 0.0,
-
-                          //    mainAxisSpacing: .0,
                           childAspectRatio: 0.8 / 0.15,
                           children: List.generate(
                               4,
@@ -980,8 +893,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                       .money[index1],
                                   changeFunction: () {
                                     setState(() {
-                                      UserProfileCubit.get(context).moneyint =
-                                          index1;
+                                      UserProfileCubit.get(context).moneyint = index1;
                                     });
                                   })),
                         ),
@@ -993,10 +905,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               ? 5
                               : 2,
                           physics: const NeverScrollableScrollPhysics(),
-                          // crossAxisCount: 2,
-                          //  crossAxisSpacing: 0.0,
-
-                          //    mainAxisSpacing: .0,
                           childAspectRatio: 0.8 / 0.15,
                           children: List.generate(
                               4,
@@ -1005,12 +913,10 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   value: index1,
                                   groupvalue:
                                   UserProfileCubit.get(context).moneyFemaleint??0,
-                                  title: UserProfileCubit.get(context)
-                                      .moneyFemale[index1],
+                                  title: UserProfileCubit.get(context).moneyFemale[index1],
                                   changeFunction: () {
                                     setState(() {
-                                      UserProfileCubit.get(context).moneyFemaleint =
-                                          index1;
+                                      UserProfileCubit.get(context).moneyFemaleint = index1;
                                     });
                                   })),
                         ),
@@ -1079,149 +985,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         doubleInfinityMaterialButton(
                           text: "تاكيد",
                           onPressed: () {
-                            if (formkey!.currentState!.validate()) {
-                              if (UserProfileCubit.get(context).genderUser ==
-                                  1) {
-                                UserProfileCubit.get(context).specifications = [
-                                  selectedlastName == 0 ? "قبيلة" : "عائلة",
-                                  UserProfileCubit.get(context).hairColor[
-                                      UserProfileCubit.get(context)
-                                          .hairColorint!],
-                                  UserProfileCubit.get(context).hairtype[
-                                      UserProfileCubit.get(context)
-                                          .hairTypeint!],
-                                  UserProfileCubit.get(context).skinColor[
-                                      UserProfileCubit.get(context)
-                                          .skinColorint!],
-                                  UserProfileCubit.get(context).parentSkinColor[
-                                      UserProfileCubit.get(context)
-                                          .parentSkinColorint!],
-                                  UserProfileCubit.get(context).experience[
-                                      UserProfileCubit.get(context)
-                                          .experienceint!],
-                                  UserProfileCubit.get(context).jobType[
-                                      UserProfileCubit.get(context)
-                                          .jopTypeint!],
-                                  UserProfileCubit.get(context).illnesstype[
-                                      UserProfileCubit.get(context)
-                                          .illnessTypeint!],
-                                  UserProfileCubit.get(context).genderUser == 2
-                                      ? UserProfileCubit.get(context)
-                                              .MilirtyStatus[
-                                          UserProfileCubit.get(context)
-                                              .MilirtyStatusint!]
-                                      : UserProfileCubit.get(context)
-                                              .MilirtyMaleStatus[
-                                          UserProfileCubit.get(context)
-                                              .MilirtyMaleStatusint!],
-                                  UserProfileCubit.get(context).numberOfKids[
-                                      UserProfileCubit.get(context)
-                                          .numberOfKidsint!],
-                                  UserProfileCubit.get(context).personality[
-                                      UserProfileCubit.get(context)
-                                          .personalityint!],
-                                  UserProfileCubit.get(context).money[
-                                      UserProfileCubit.get(context).moneyint!]
-                                ];
-                                UserProfileCubit.get(context).convert();
-                                UserProfileCubit.get(context).updateUserData();
-                              } else {
-                                UserProfileCubit.get(context).specifications = [
-                                  selectedlastName == 0 ? "قبيلة" : "عائلة",
-                                  UserProfileCubit.get(context).hairColor[
-                                      UserProfileCubit.get(context)
-                                          .hairColorint!],
-                                  UserProfileCubit.get(context).hairtype[
-                                      UserProfileCubit.get(context)
-                                          .hairTypeint!],
-                                  UserProfileCubit.get(context).skinColor[
-                                      UserProfileCubit.get(context)
-                                          .skinColorint!],
-                                  UserProfileCubit.get(context).parentSkinColor[
-                                      UserProfileCubit.get(context)
-                                          .parentSkinColorint!],
-                                  UserProfileCubit.get(context).experience[
-                                      UserProfileCubit.get(context)
-                                          .experienceint!],
-                                  UserProfileCubit.get(context).jobTypeFemale[
-                                      UserProfileCubit.get(context)
-                                          .jopTypeFemaleint!],
-                                  UserProfileCubit.get(context).illnesstypeFemale[
-                                      UserProfileCubit.get(context)
-                                          .illnessTypeFemaleint!],
-                                  UserProfileCubit.get(context).genderUser == 2
-                                      ? UserProfileCubit.get(context)
-                                              .MilirtyStatus[
-                                          UserProfileCubit.get(context)
-                                              .MilirtyStatusint!]
-                                      : UserProfileCubit.get(context)
-                                              .MilirtyMaleStatus[
-                                          UserProfileCubit.get(context)
-                                              .MilirtyStatusint!],
-                                  UserProfileCubit.get(context).numberOfKidsFemale[
-                                      UserProfileCubit.get(context)
-                                          .numberOfKidsFemaleint!],
-                                  UserProfileCubit.get(context).personalityFemale[
-                                      UserProfileCubit.get(context)
-                                          .personalityFemaleint!],
-                                  UserProfileCubit.get(context).moneyFemale[
-                                      UserProfileCubit.get(context).moneyFemaleint!]
-                                ];
-                                UserProfileCubit.get(context).convert();
-                                UserProfileCubit.get(context).updateUserData();
-                              }
-                            }
-                            /*  if(formkey.currentState!.validate()&&termsSelected&&isSelected2){
-                                    RegisterClientCubit.get(context).specifications = [
-                                      selectedlastName==0?"قبيلة":"عائلة",
-                                      hairColor[selectedHairColorName],
-                                      hairtype[selectedHairTypeName],
-                                      skinColor[selectedSkinColorName],
-                                      parentSkinColor[selectedParentSkinColorName],
-                                      experience[selectedExperience],
-                                      jobType[selectedJobType],
-                                      illnesstype[selectedIllnessType],
-                                      gender=="انثي"?
-                                      MilirtyStatus[selectedMiliirtyType]:MilirtyMaleStatus[selectedMiliirtyMaleType],
-                                      numberOfKids[selectedNumberOfKids],
-                                      personality[selectedPersonality],
-                                      money[selectedMoney]];
-                                    print(RegisterClientCubit.get(context).specifications);
-                                    RegisterClientCubit.get(context).convert();
-                         /*           if (formkey.currentState!.validate()) {
-                                      RegisterClientCubit.get(context).RegisterClient(
-                                          specialNeeds:selectedIllnessType==2?true:false,
-                                          gender: gender=="ذكر"?"1":"2",
-                                          name: nameController.text,
-                                          email: emailController.text,
-                                          age: ageController.text,
-                                          nationality: nationalityController.text,
-                                          natonalityId: personalCardController.text,
-                                          city: cityController.text,
-                                          password: passwordController.text,
-                                          phone: phoneController.text,
-                                          height: heightController.text,
-                                          width: weightController.text,
-                                          dowry: monyOfPony.text,
-                                          terms: conditionsController.text);
-                                    }}
-                                  if(termsSelected==false){
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar( SnackBar(
-                                      padding: EdgeInsetsDirectional.only(
-                                          bottom: 3.h, start: 2.5.w, top: 2.h),
-                                      duration: Duration(milliseconds: 2000),
-                                      backgroundColor: Colors.red,
-                                      content: Text(
-                                        "من فضلك اقسم ان المعلومات التي ادخلتها صحيحة لتستطيع التسجيل ",
-                                        style: TextStyle(
-                                            fontFamily: "Hs", fontSize: 11.sp),
-                                      ),
-                                    ));
-                                  }
-*/
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
-                                }*/
+                            confirmOnPress(context);
                           },
                         ),
                         SizedBox(
@@ -1257,5 +1021,106 @@ class UserProfileScreenState extends State<UserProfileScreen> {
         ),
       ),
     );
+
+  }//end widget
+  void confirmOnPress(BuildContext context)
+  {
+    if ( !formkey!.currentState!.validate() ){
+      showToast(msg: "يوجد بيانات غير صحيحة", state: ToastStates.ERROR);
+      return;
+    }
+
+    if (UserProfileCubit.get(context).genderUser == 1) 
+    {
+        UserProfileCubit.get(context).specifications = [ selectedlastName == 0 ? "قبيلة" : "عائلة",
+        UserProfileCubit.get(context).hairColor[ UserProfileCubit.get(context).hairColorint! ],
+        UserProfileCubit.get(context).hairtype[ UserProfileCubit.get(context).hairTypeint! ],
+        UserProfileCubit.get(context).skinColor[ UserProfileCubit.get(context).skinColorint! ],
+        UserProfileCubit.get(context).parentSkinColor[ UserProfileCubit.get(context).parentSkinColorint!],
+        UserProfileCubit.get(context).experience[UserProfileCubit.get(context).experienceint!],
+        UserProfileCubit.get(context).jobType[ UserProfileCubit.get(context).jopTypeint!],
+        UserProfileCubit.get(context).illnesstype[UserProfileCubit.get(context).illnessTypeint!],
+        UserProfileCubit.get(context).genderUser == 2
+            ? UserProfileCubit.get(context).MilirtyStatus[ UserProfileCubit.get(context).MilirtyStatusint! ]
+            : UserProfileCubit.get(context).MilirtyMaleStatus[ UserProfileCubit.get(context).MilirtyMaleStatusint! ],
+        UserProfileCubit.get(context).numberOfKids[ UserProfileCubit.get(context).numberOfKidsint! ],
+        UserProfileCubit.get(context).personality[ UserProfileCubit.get(context).personalityint! ],
+        UserProfileCubit.get(context).money[ UserProfileCubit.get(context).moneyint! ]
+      ];
+      UserProfileCubit.get(context).convert();
+      UserProfileCubit.get(context).updateUserData();
+    } else {
+      UserProfileCubit.get(context).specifications = [ selectedlastName == 0 ? "قبيلة" : "عائلة",
+        UserProfileCubit.get(context).hairColor[ UserProfileCubit.get(context).hairColorint! ],
+        UserProfileCubit.get(context).hairtype[ UserProfileCubit.get(context).hairTypeint! ],
+        UserProfileCubit.get(context).skinColor[ UserProfileCubit.get(context).skinColorint!],
+        UserProfileCubit.get(context).parentSkinColor[ UserProfileCubit.get(context).parentSkinColorint! ],
+        UserProfileCubit.get(context).experience[ UserProfileCubit.get(context).experienceint! ],
+        UserProfileCubit.get(context).jobTypeFemale[ UserProfileCubit.get(context).jopTypeFemaleint! ],
+        UserProfileCubit.get(context).illnesstypeFemale[ UserProfileCubit.get(context).illnessTypeFemaleint! ],
+        UserProfileCubit.get(context).genderUser == 2
+            ? UserProfileCubit.get(context).MilirtyStatus[
+                UserProfileCubit.get(context).MilirtyStatusint!]
+            : UserProfileCubit.get(context).MilirtyMaleStatus[ UserProfileCubit.get(context).MilirtyStatusint! ],
+        UserProfileCubit.get(context).numberOfKidsFemale[ UserProfileCubit.get(context).numberOfKidsFemaleint!],
+        UserProfileCubit.get(context).personalityFemale[ UserProfileCubit.get(context).personalityFemaleint!],
+        UserProfileCubit.get(context).moneyFemale[UserProfileCubit.get(context).moneyFemaleint!]
+      ];
+      UserProfileCubit.get(context).convert();
+      UserProfileCubit.get(context).updateUserData();
+    }
+
+      // if(formkey.currentState!.validate()&&termsSelected&&isSelected2){
+      //       RegisterClientCubit.get(context).specifications = [
+      //         selectedlastName==0?"قبيلة":"عائلة",
+      //         hairColor[selectedHairColorName],
+      //         hairtype[selectedHairTypeName],
+      //         skinColor[selectedSkinColorName],
+      //         parentSkinColor[selectedParentSkinColorName],
+      //         experience[selectedExperience],
+      //         jobType[selectedJobType],
+      //         illnesstype[selectedIllnessType],
+      //         gender=="انثي"?
+      //         MilirtyStatus[selectedMiliirtyType]:MilirtyMaleStatus[selectedMiliirtyMaleType],
+      //         numberOfKids[selectedNumberOfKids],
+      //         personality[selectedPersonality],
+      //         money[selectedMoney]];
+      //       print(RegisterClientCubit.get(context).specifications);
+      //       RegisterClientCubit.get(context).convert();
+      //        if (formkey.currentState!.validate()) {
+      //         RegisterClientCubit.get(context).RegisterClient(
+      //             specialNeeds:selectedIllnessType==2?true:false,
+      //             gender: gender=="ذكر"?"1":"2",
+      //             name: nameController.text,
+      //             email: emailController.text,
+      //             age: ageController.text,
+      //             nationality: nationalityController.text,
+      //             natonalityId: personalCardController.text,
+      //             city: cityController.text,
+      //             password: passwordController.text,
+      //             phone: phoneController.text,
+      //             height: heightController.text,
+      //             width: weightController.text,
+      //             dowry: monyOfPony.text,
+      //             terms: conditionsController.text);
+      //       }}
+      //     if(termsSelected==false){
+      //       ScaffoldMessenger.of(context)
+      //           .showSnackBar( SnackBar(
+      //         padding: EdgeInsetsDirectional.only(
+      //             bottom: 3.h, start: 2.5.w, top: 2.h),
+      //         duration: Duration(milliseconds: 2000),
+      //         backgroundColor: Colors.red,
+      //         content: Text(
+      //           "من فضلك اقسم ان المعلومات التي ادخلتها صحيحة لتستطيع التسجيل ",
+      //           style: TextStyle(
+      //               fontFamily: "Hs", fontSize: 11.sp),
+      //         ),
+      //       ));
+      //     }
+      // Navigator.push(context, MaterialPageRoute(builder: (context)=>VerificationPhone()));
+        
+
   }
-}
+
+}//end class

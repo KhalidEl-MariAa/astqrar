@@ -39,22 +39,22 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
 
   List<Map> specificationsMap = [];
 
-  convert() 
-  {
-    //TODO: just for test
-    AppCubit()..getSpecifications();
-    AppCubit.specificationId;
+  // convert() 
+  // {
+  //   //TODO: just for test
+  //   AppCubit()..getSpecifications();
+  //   AppCubit.specificationId;
 
-    specificationsMap.clear();
-    for (int i = 0; i < specifications.length; i++) {
-      specificationsMap.add({
-        "SpecificationId": AppCubit.specificationId[specifications[i]],
-        "SpecificationName": specificationsNames[i]
-      });
-    }
-    log('-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
-    log(specificationsMap.toString());
-  }
+  //   specificationsMap.clear();
+  //   for (int i = 0; i < specifications.length; i++) {
+  //     specificationsMap.add({
+  //       "SpecificationId": AppCubit.specificationId[ specifications[i] ], // specifications[i]=اسود
+  //       "SpecificationName": specificationsNames[i]
+  //     });
+  //   }
+  //   log('-*-*-*-*-*-*-*-*-*-*-*-*-*-*');
+  //   log(specificationsMap.toString());
+  // }
 
 
   void RegisterClient({
@@ -105,8 +105,6 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
       "UserSpecifications":specificationsMap, //can't SAVE
     };
     print(newUser);
-
-
 
     DioHelper.postData(
       url: REGISTERCLIENT, 

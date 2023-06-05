@@ -150,6 +150,7 @@ class DetailsUserScreen extends StatelessWidget
                 terms: GetInformationCubit.get(context)
                     .getInformationUserModel
                     .userSubSpecification!.terms!,
+                    
                 onClickUser: (){
                   Navigator.push(
                       context,
@@ -179,6 +180,7 @@ class DetailsUserScreen extends StatelessWidget
                     .getInformationUserModel
                     .userSubSpecification!
                     .specialNeeds!,
+
                 userSubSpecificationDto: GetInformationCubit.get(context)
                     .getInformationUserModel
                     .userSubSpecification!
@@ -187,7 +189,6 @@ class DetailsUserScreen extends StatelessWidget
                   if (GetInformationCubit.get(context)
                       .getInformationUserModel
                       .isFavorate!) {
-                    print("hh");
                     GetInformationCubit.get(context).deleteFromFavourite(
                         userId: GetInformationCubit.get(context)
                             .getInformationUserModel

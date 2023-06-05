@@ -1,18 +1,4 @@
 
-
-class GetUserDataModel 
-{
-  int? key;
-  String? msg;
-  User? data;
-
-  GetUserDataModel.fromJson(Map<String, dynamic> json) {
-    key = json['key'];
-    msg = json['msg'];
-    data = json['data'] != null ? User.fromJson(json['data']) : null;
-  }
-}
-
 class User 
 {
   String? id;
@@ -43,9 +29,10 @@ class User
   bool? status;
   String? imgProfile;
 
-  List<UserSpecification> userSubSpecificationDto = [];
+  List<SubSpecification> subSpecifications = [];
 
-  User() {  }  
+  User() { }  
+  
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     gender = json['gender'];
@@ -70,7 +57,7 @@ class User
     imgProfile = json['imgProfile'];
     
     json['userSubSpecificationDto'].forEach((e) {
-      userSubSpecificationDto.add(UserSpecification.fromJson(e));
+      subSpecifications.add(SubSpecification.fromJson(e));
     });
   }
 
@@ -101,38 +88,62 @@ class User
       "NameOfJob": this.nameOfJob,
       "KindOfSick": this.illnessType,
       // "UserSpecifications": specificationsMap,  //can't SAVE
+      "UserSpecifications": this.subSpecifications.map((e) => e.toMap()).toList(),  
     };
 
     return res;
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userName'] = this.userName;
-    data['email'] = this.email;
-    data['Age'] = this.age;
-    data['Gender'] = this.gender;
-    data['NationalID'] = this.nationalID;
-    data['Nationality'] = this.nationality;
-    data['City'] = this.city;
-    data['password'] = this.password;
-    data['phone'] = this.phone;
-    data['Height'] = this.height;
-    data['Weight'] = this.weight;
-    return data;
-  }
-
 }
 
-class UserSpecification 
+class SubSpecification 
 {
   int? id;
+  String? value;
+  
+  int? specId;
   String? name;
-  String? specificationValue;
+  String? nameEn;
 
-  UserSpecification.fromJson(Map<String, dynamic> json) {
+  SubSpecification(this.id, this.value,  this.specId, this.name);
+  
+  SubSpecification.fromJson(Map<String, dynamic> json) 
+  {
     id = json['id'];
-    name = json['name'];
-    specificationValue = json['specificationValue'];
+    value = json['specificationValue']; //subSpecification value, e.g اسود
+
+    name = json['name'];      //specification name, e.g لون الشعر
+    nameEn = json['nameEn']; //specification name English, e.g Hair color
+    // specId = json['name'];    
   }
+
+  Map toMap() 
+  {
+    // in backend UserSpecificationDto
+    return {
+      "SpecificationId" :this.id,      
+      "SpecificationName" : this.name, 
+      "Value" : this.value,
+    };
+  }
+}
+
+//like enum
+//key value for each specification as it stored in the DB
+abstract class SpecificationIDs 
+{
+  static int hair_colour = 1;
+  static int hair_type = 2;
+  static int skin_colour = 3;
+  static int strain = 4;
+  static int qualification = 6;
+  static int job = 7;
+  static int health_status = 8;
+  static int social_status = 9;
+  static int have_children = 10;
+  static int appearance = 11  ;
+  static int financial_situation = 12;
+  static int name_end_with = 14;
+  static int marriage_Type = 15;
+  static int smoking = 17;
+  static int have_a_legitimate_view = 18;
 }
