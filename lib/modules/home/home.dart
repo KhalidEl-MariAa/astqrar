@@ -255,7 +255,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   children: [
                     Text("تواصل معنا لتعلن عن صفحتك الشخصية",
                         style: GoogleFonts.almarai(
-                            color: HexColor("A4A4A4"), fontSize: 9.6.sp,fontWeight: FontWeight.w600)),
+                            color: grey, 
+                            fontSize: 9.6.sp,
+                            fontWeight: FontWeight.w600)),
                     SizedBox(
                       width: 1.w,
                     ),
@@ -270,7 +272,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                             color: primary,
                             decoration: TextDecoration.underline,
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold
+                        ),
                       ),
                     )
                   ],
@@ -285,41 +288,45 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               SizedBox(
                 height: 5.h,
               ),
-            if(typeOfUser==1||isLogin==false)
-              Padding(
-                padding: EdgeInsetsDirectional.only(start: 3.w),
-                child: Text(
-                    "تواصل  مع اي خطابة تريد لمساعدتك في ايجاد الشخص المناسب",
-                    style: GoogleFonts.almarai(
-                        color: HexColor("A4A4A4"), fontSize: 8.8.sp,fontWeight: FontWeight.w600)),
-              ),
-              SizedBox(
-                height: 1.5.h,
-              ),
-              if(typeOfUser==1||isLogin==false) Padding(
-                padding: EdgeInsetsDirectional.only(start: 3.w),
-                child: InkWell(
-                  onTap: () {
-                    navigateTo(context: context, widget: DelegatesSection());
-                  },
-                  child: Text(
-                    "تواصل مع الخطابة",
-                    style: GoogleFonts.almarai(
-                        color: primary,
-                        decoration: TextDecoration.underline,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+
+            // if(typeOfUser==1||isLogin==false)
+            //   Padding(
+            //     padding: EdgeInsetsDirectional.only(start: 3.w),
+            //     child: Text(
+            //         "تواصل  مع اي خطابة تريد لمساعدتك في ايجاد الشخص المناسب",
+            //         style: GoogleFonts.almarai(
+            //             color: HexColor("A4A4A4"), fontSize: 8.8.sp,fontWeight: FontWeight.w600)),
+            //   ),
+            //   SizedBox(
+            //     height: 1.5.h,
+            //   ),
+            // if(typeOfUser==1||isLogin==false) Padding(
+            //   padding: EdgeInsetsDirectional.only(start: 3.w),
+            //   child: InkWell(
+            //     onTap: () {
+            //       navigateTo(context: context, widget: DelegatesSection());
+            //     },
+            //     child: Text(
+            //       "تواصل مع الخطابة",
+            //       style: GoogleFonts.almarai(
+            //           color: primary,
+            //           decoration: TextDecoration.underline,
+            //           fontSize: 12.sp,
+            //           fontWeight: FontWeight.bold),
+            //     ),
+            //   ),
+            // ),
+
               SizedBox(
                 height: 4.h,
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10),
                 child: Text(
-                  typeOfUser==1?": او بامكانك ان تبحث بنفسك هنا":"بامكانك ان تبحثي هنا",
-                  style: GoogleFonts.almarai(color: HexColor("A4A4A4",),fontWeight: FontWeight.w600)
+                  ": بامكانك ان تبحث بنفسك هنا",
+                  style: GoogleFonts.almarai(
+                    color: grey,
+                    fontWeight: FontWeight.w600)
                 ),
               ),
               SizedBox(

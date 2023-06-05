@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
               BlocProvider<AppCubit>(
                   create: (BuildContext context) =>
                   AppCubit()
-                    ..getSpecifications()
+                    ..loadSpecificationsFromBackend()
                     ..getPhone()),
               BlocProvider<HomeCubit>(
                   create: (BuildContext context) =>

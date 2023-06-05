@@ -161,7 +161,8 @@ class DetailsUserScreen extends StatelessWidget
                                 userId: delegateId!,
                                 userName: delegateName!,
                                 typeUser: 2,
-                              )));
+                              ))
+                  );
                   // Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
@@ -258,13 +259,11 @@ class DetailsUserScreen extends StatelessWidget
                 city: GetInformationCubit.get(context)
                         .getInformationUserModel
                         .userSubSpecification!
-                        .city ??
-                    " ",
+                        .city ?? " ",
                 email: GetInformationCubit.get(context)
                         .getInformationUserModel
                         .userSubSpecification!
-                        .email ??
-                    " ",
+                        .email ?? " ",
                 name: GetInformationCubit.get(context)
                     .getInformationUserModel
                     .userSubSpecification!
@@ -272,8 +271,7 @@ class DetailsUserScreen extends StatelessWidget
                 nationality: GetInformationCubit.get(context)
                         .getInformationUserModel
                         .userSubSpecification!
-                        .nationality ??
-                    " ",
+                        .nationality ?? " ",
                 messageVisibility: messageVisibility,
               ),
             ),

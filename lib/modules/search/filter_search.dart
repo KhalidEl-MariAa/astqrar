@@ -164,16 +164,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                         ? 4
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
-                    // crossAxisCount: 2,
-                    //  crossAxisSpacing: 0.0,
-
-                    //    mainAxisSpacing: .0,
                     padding: const EdgeInsets.all(0),
                     childAspectRatio: 0.6 / 0.1,
                     children: List.generate(
                         gender.length,
-                        (index1) => RadioButtonRegister(
-                            isRegisterScreen: false,
+                        (index1) => WhiteRadioButton(
                             value: index1,
                             groupvalue: genderIndex,
                             title: gender[index1],
@@ -205,16 +200,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 2,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
                           MilirtyMaleStatus.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedMiliirtyMaleType,
                               title: MilirtyMaleStatus[index1],
@@ -235,16 +225,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 2,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
                           MilirtyFemaleStatus.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedMiliirtyFemaleType,
                               title: MilirtyFemaleStatus[index1],
@@ -277,8 +262,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
                           personalityMale.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedPersonalityMale,
                               title: personalityMale[index1],
@@ -299,16 +283,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 2,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
                           personalityFemale.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedPersonalityFemale,
                               title: personalityFemale[index1],
@@ -341,16 +320,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 1,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.05,
                       children: List.generate(
                           numberOfKids.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedNumberOfKidsMale,
                               title: numberOfKids[index1],
@@ -375,8 +349,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                       childAspectRatio: 0.6 / 0.05,
                       children: List.generate(
                           numberOfKidsFemale.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedNumberOfKidsFemale,
                               title: numberOfKidsFemale[index1],
@@ -410,8 +383,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                     childAspectRatio: 0.6 / 0.1,
                     children: List.generate(
                         experience.length,
-                        (index1) => RadioButtonRegister(
-                            isRegisterScreen: false,
+                        (index1) => WhiteRadioButton(
                             value: index1,
                             groupvalue: selectedExperience,
                             title: experience[index1],
@@ -444,8 +416,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                     childAspectRatio: 0.6 / 0.1,
                     children: List.generate(
                         lastNameList.length,
-                        (index1) => RadioButtonRegister(
-                            isRegisterScreen: false,
+                        (index1) => WhiteRadioButton(
                             value: index1,
                             groupvalue: selectedlastName,
                             title: lastNameList[index1],
@@ -481,8 +452,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
                           jobType.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedJopTypeMale,
                               title: jobType[index1],
@@ -507,17 +477,13 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                       childAspectRatio: 0.6 / 0.1,
                       children: List.generate(
                           jobTypeFemale.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedJopTypeFemale,
                               title: jobTypeFemale[index1],
                               changeFunction: () {
                                 setState(() {
                                   selectedJopTypeFemale = index1;
-                                  log(
-                                    jobTypeFemale[index1],
-                                  );
                                 });
                               })),
                     ),
@@ -541,8 +507,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                     childAspectRatio: 0.6 / 0.1,
                     children: List.generate(
                         skinColor.length,
-                        (index1) => RadioButtonRegister(
-                            isRegisterScreen: false,
+                        (index1) => WhiteRadioButton(
                             value: index1,
                             groupvalue: selectedSkinColorIndex,
                             title: skinColor[index1],
@@ -579,8 +544,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                       childAspectRatio: 0.6 / 0.05,
                       children: List.generate(
                           illnesstypeMale.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedillnesstypeMaleIndex,
                               title: illnesstypeMale[index1],
@@ -601,16 +565,11 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           ? 4
                           : 1,
                       physics: const NeverScrollableScrollPhysics(),
-                      // crossAxisCount: 2,
-                      //  crossAxisSpacing: 0.0,
-
-                      //    mainAxisSpacing: .0,
                       padding: const EdgeInsets.all(0),
                       childAspectRatio: 0.6 / 0.05,
                       children: List.generate(
                           illnesstypeFemale.length,
-                          (index1) => RadioButtonRegister(
-                              isRegisterScreen: false,
+                          (index1) => WhiteRadioButton(
                               value: index1,
                               groupvalue: selectedillnesstypeFemaleIndex,
                               title: illnesstypeFemale[index1],
@@ -780,15 +739,10 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                         ? 5
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
-                    // crossAxisCount: 2,
-                    //  crossAxisSpacing: 0.0,
-
-                    //    mainAxisSpacing: .0,
                     childAspectRatio: 0.8 / 0.02.h,
                     children: List.generate(
                         3,
-                        (index1) => RadioButtonRegister(
-                            isRegisterScreen: false,
+                        (index1) => WhiteRadioButton(
                             value: index1,
                             groupvalue: selectedMerrageType,
                             title: merrageType[index1],
@@ -804,123 +758,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                   doubleInfinityMaterialButton(
                       text: "بحث",
                       onPressed: () {
-                        if (genderIndex == null) {
-                          SearchCubit.get(context).filterSearch(
-                            textSearch: widget.textSearch,
-                            minHeight: int.tryParse(minHeight.text),
-                            maxHeight: int.tryParse(maxHeight.text),
-                            minWeight: int.tryParse(minWeight.text),
-                            maxWeight: int.tryParse(minWeight.text),
-                            minAge: int.tryParse(minAge.text),
-                            maxAge: int.tryParse(maxAge.text),
-                            skinColor: selectedSkinColorIndex != null
-                                ? skinColor[selectedSkinColorIndex!]
-                                : null,
-                            typeOfMarriage: selectedMerrageType != null
-                                ? merrageType[selectedMerrageType!]
-                                : null,
-                            lastName: selectedlastName != null
-                                ? lastNameList[selectedlastName!]
-                                : null,
-                            qualifications: selectedExperience != null
-                                ? experience[selectedExperience!]
-                                : null,
-                            gender: genderIndex != null
-                                ? genderIndex == 0
-                                    ? 1
-                                    : 2
-                                : 0,
-                          );
-                        }
-                        if (genderIndex == 0) {
-                          SearchCubit.get(context).filterSearch(
-                              textSearch: widget.textSearch,
-                              minHeight: int.tryParse(minHeight.text),
-                              maxHeight: int.tryParse(maxHeight.text),
-                              minWeight: int.tryParse(minWeight.text),
-                              maxWeight: int.tryParse(minWeight.text),
-                              minAge: int.tryParse(minAge.text),
-                              maxAge: int.tryParse(maxAge.text),
-                              jobType: selectedJopTypeMale != null
-                                  ? jobType[selectedJopTypeMale!]
-                                  : null,
-                              typeOfMarriage: selectedMerrageType != null
-                                  ? merrageType[selectedMerrageType!]
-                                  : null,
-                              skinColor: selectedSkinColorIndex != null
-                                  ? skinColor[selectedSkinColorIndex!]
-                                  : null,
-                              illnessType: selectedillnesstypeMaleIndex != null
-                                  ? illnesstypeMale[
-                                      selectedillnesstypeMaleIndex!]
-                                  : null,
-                              lastName: selectedlastName != null
-                                  ? lastNameList[selectedlastName!]
-                                  : null,
-                              qualifications: selectedExperience != null
-                                  ? experience[selectedExperience!]
-                                  : null,
-                              childern: selectedNumberOfKidsMale != null
-                                  ? numberOfKids[selectedNumberOfKidsMale!]
-                                  : null,
-                              personality: selectedPersonalityMale != null
-                                  ? personalityMale[selectedPersonalityMale!]
-                                  : null,
-                              gender: genderIndex != null
-                                  ? genderIndex == 0
-                                      ? 1
-                                      : 2
-                                  : 0,
-                              milirity: selectedMiliirtyMaleType != null
-                                  ? MilirtyMaleStatus[selectedMiliirtyMaleType!]
-                                  : null);
-                        }
-                        if (genderIndex == 1) {
-                          SearchCubit.get(context).filterSearch(
-                              textSearch: widget.textSearch,
-                              minHeight: int.tryParse(minHeight.text),
-                              maxHeight: int.tryParse(maxHeight.text),
-                              minWeight: int.tryParse(minWeight.text),
-                              maxWeight: int.tryParse(minWeight.text),
-                              minAge: int.tryParse(minAge.text),
-                              maxAge: int.tryParse(maxAge.text),
-                              typeOfMarriage: selectedMerrageType != null
-                                  ? merrageType[selectedMerrageType!]
-                                  : null,
-                              jobType: selectedJopTypeFemale != null
-                                  ? jobTypeFemale[selectedJopTypeFemale!]
-                                  : null,
-                              skinColor: selectedSkinColorIndex != null
-                                  ? skinColor[selectedSkinColorIndex!]
-                                  : null,
-                              illnessType: selectedillnesstypeMaleIndex != null
-                                  ? illnesstypeFemale[
-                                      selectedillnesstypeFemaleIndex!]
-                                  : null,
-                              lastName: selectedlastName != null
-                                  ? lastNameList[selectedlastName!]
-                                  : null,
-                              qualifications: selectedExperience != null
-                                  ? experience[selectedExperience!]
-                                  : null,
-                              childern: selectedNumberOfKidsFemale != null
-                                  ? numberOfKidsFemale[
-                                      selectedNumberOfKidsFemale!]
-                                  : null,
-                              personality: selectedPersonalityFemale != null
-                                  ? personalityFemale[
-                                      selectedPersonalityFemale!]
-                                  : null,
-                              gender: genderIndex != null
-                                  ? genderIndex == 0
-                                      ? 1
-                                      : 2
-                                  : 0,
-                              milirity: selectedMiliirtyFemaleType != null
-                                  ? MilirtyFemaleStatus[
-                                      selectedMiliirtyFemaleType!]
-                                  : null);
-                        }
+                        searchOnPressed(context);
+
                       }),
                   SizedBox(
                     height: 3.5.h,
@@ -933,4 +772,127 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
       ),
     );
   }
-}
+  
+  void searchOnPressed(BuildContext context) 
+  {
+    if (genderIndex == null) {
+      SearchCubit.get(context).filterSearch(
+        textSearch: widget.textSearch,
+        minHeight: int.tryParse(minHeight.text),
+        maxHeight: int.tryParse(maxHeight.text),
+        minWeight: int.tryParse(minWeight.text),
+        maxWeight: int.tryParse(minWeight.text),
+        minAge: int.tryParse(minAge.text),
+        maxAge: int.tryParse(maxAge.text),
+        skinColor: selectedSkinColorIndex != null
+            ? skinColor[selectedSkinColorIndex!]
+            : null,
+        typeOfMarriage: selectedMerrageType != null
+            ? merrageType[selectedMerrageType!]
+            : null,
+        lastName: selectedlastName != null
+            ? lastNameList[selectedlastName!]
+            : null,
+        qualifications: selectedExperience != null
+            ? experience[selectedExperience!]
+            : null,
+        gender: genderIndex != null
+            ? genderIndex == 0
+                ? 1
+                : 2
+            : 0,
+      );
+    }
+    if (genderIndex == 0) {
+      SearchCubit.get(context).filterSearch(
+          textSearch: widget.textSearch,
+          minHeight: int.tryParse(minHeight.text),
+          maxHeight: int.tryParse(maxHeight.text),
+          minWeight: int.tryParse(minWeight.text),
+          maxWeight: int.tryParse(minWeight.text),
+          minAge: int.tryParse(minAge.text),
+          maxAge: int.tryParse(maxAge.text),
+          jobType: selectedJopTypeMale != null
+              ? jobType[selectedJopTypeMale!]
+              : null,
+          typeOfMarriage: selectedMerrageType != null
+              ? merrageType[selectedMerrageType!]
+              : null,
+          skinColor: selectedSkinColorIndex != null
+              ? skinColor[selectedSkinColorIndex!]
+              : null,
+          illnessType: selectedillnesstypeMaleIndex != null
+              ? illnesstypeMale[
+                  selectedillnesstypeMaleIndex!]
+              : null,
+          lastName: selectedlastName != null
+              ? lastNameList[selectedlastName!]
+              : null,
+          qualifications: selectedExperience != null
+              ? experience[selectedExperience!]
+              : null,
+          childern: selectedNumberOfKidsMale != null
+              ? numberOfKids[selectedNumberOfKidsMale!]
+              : null,
+          personality: selectedPersonalityMale != null
+              ? personalityMale[selectedPersonalityMale!]
+              : null,
+          gender: genderIndex != null
+              ? genderIndex == 0
+                  ? 1
+                  : 2
+              : 0,
+          milirity: selectedMiliirtyMaleType != null
+              ? MilirtyMaleStatus[selectedMiliirtyMaleType!]
+              : null);
+    }
+    if (genderIndex == 1) {
+      SearchCubit.get(context).filterSearch(
+          textSearch: widget.textSearch,
+          minHeight: int.tryParse(minHeight.text),
+          maxHeight: int.tryParse(maxHeight.text),
+          minWeight: int.tryParse(minWeight.text),
+          maxWeight: int.tryParse(minWeight.text),
+          minAge: int.tryParse(minAge.text),
+          maxAge: int.tryParse(maxAge.text),
+          typeOfMarriage: selectedMerrageType != null
+              ? merrageType[selectedMerrageType!]
+              : null,
+          jobType: selectedJopTypeFemale != null
+              ? jobTypeFemale[selectedJopTypeFemale!]
+              : null,
+          skinColor: selectedSkinColorIndex != null
+              ? skinColor[selectedSkinColorIndex!]
+              : null,
+          illnessType: selectedillnesstypeMaleIndex != null
+              ? illnesstypeFemale[
+                  selectedillnesstypeFemaleIndex!]
+              : null,
+          lastName: selectedlastName != null
+              ? lastNameList[selectedlastName!]
+              : null,
+          qualifications: selectedExperience != null
+              ? experience[selectedExperience!]
+              : null,
+          childern: selectedNumberOfKidsFemale != null
+              ? numberOfKidsFemale[
+                  selectedNumberOfKidsFemale!]
+              : null,
+          personality: selectedPersonalityFemale != null
+              ? personalityFemale[
+                  selectedPersonalityFemale!]
+              : null,
+          gender: genderIndex != null
+              ? genderIndex == 0
+                  ? 1
+                  : 2
+              : 0,
+          milirity: selectedMiliirtyFemaleType != null
+              ? MilirtyFemaleStatus[
+                  selectedMiliirtyFemaleType!]
+              : null);
+    }    
+  }
+
+
+}//end class

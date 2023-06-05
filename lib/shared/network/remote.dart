@@ -6,8 +6,8 @@ import 'package:dio/dio.dart';
 
 class DioHelper {
   static late Dio dio;
-  static String baseUrl = "https://10.0.2.2:7054/"; //Tested OK on Debug
-  // static String baseUrl = "http://10.0.2.2:5109/";   //Tested OK on Run
+  // static String baseUrl = "https://10.0.2.2:7054/"; //Tested OK on Debug
+  static String baseUrl = "http://10.0.2.2:5109/";   //Tested OK on Run
 
   static init() {
     //TODO: fix it to the reals server.

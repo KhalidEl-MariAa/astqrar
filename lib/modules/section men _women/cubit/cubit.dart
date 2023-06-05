@@ -9,7 +9,8 @@ import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GetUserByGenderCubit extends Cubit<GetUserByGenderStates> {
+class GetUserByGenderCubit extends Cubit<GetUserByGenderStates> 
+{
   GetUserByGenderCubit() : super(GetUserByGenderInitialState());
 
   //late LoginModel loginModel;

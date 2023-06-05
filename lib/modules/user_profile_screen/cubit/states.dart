@@ -1,12 +1,17 @@
 import 'package:astarar/models/login.dart';
 
+import '../../../models/user.dart';
+
 abstract class UserProfileStates {}
 
 class UserProfileInitialState extends UserProfileStates {}
 
 class GetUserDataLoadingState extends UserProfileStates {}
 
-class GetUserDataSucccessState extends UserProfileStates {}
+class GetUserDataSucccessState extends UserProfileStates {
+  final User current_user;
+  GetUserDataSucccessState(this.current_user);
+}
 
 class GetUserDataErrorState extends UserProfileStates {
   final String error;

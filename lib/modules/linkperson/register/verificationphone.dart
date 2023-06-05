@@ -31,7 +31,11 @@ class VerificationPhone extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsetsDirectional.only(start: 28),
-                      child: Text("كود التفعيل",style: TextStyle(color: white,fontWeight: FontWeight.w400)),
+                      child: Text("كود التفعيل",
+                      style: TextStyle(
+                        color: white,
+                        fontWeight: FontWeight.w400)
+                      ),
                     ),
                   ],
                 ),

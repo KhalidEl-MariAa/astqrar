@@ -29,6 +29,7 @@ class User
   bool? status;
   String? imgProfile;
 
+
   List<SubSpecification> subSpecifications = [];
 
   User() { }  
@@ -41,15 +42,13 @@ class User
     nationalID = json['nationalID'];
     city = json['city'];
     nationality = json['nationality'];
-    
+    tribe = json['tribe'];
     phone = json['phone'];
     age = json['age'];
     height = json['height'];
     weight = json['weight'];
-
     dowry = json['dowry'];
     terms = json['terms'];
-
     specialNeeds = json['specialNeeds'];
 
     closeNotify = json['closeNotify'];
@@ -57,11 +56,10 @@ class User
     imgProfile = json['imgProfile'];
     
     json['userSubSpecificationDto'].forEach((e) {
-      subSpecifications.add(SubSpecification.fromJson(e));
+      subSpecifications.add( new SubSpecification.fromJson(e) );
     });
   }
 
-  // Map<String, dynamic> toMap() 
   Map toMap() 
   {
     
@@ -87,8 +85,11 @@ class User
       "Tribe": this.tribe,
       "NameOfJob": this.nameOfJob,
       "KindOfSick": this.illnessType,
-      // "UserSpecifications": specificationsMap,  //can't SAVE
-      "UserSpecifications": this.subSpecifications.map((e) => e.toMap()).toList(),  
+      
+      "UserSpecifications": 
+        this.subSpecifications
+          .map((e) => e.toMap())
+          .toList(),  
     };
 
     return res;
@@ -113,16 +114,21 @@ class SubSpecification
 
     name = json['name'];      //specification name, e.g لون الشعر
     nameEn = json['nameEn']; //specification name English, e.g Hair color
-    // specId = json['name'];    
+    
+    specId = json['specificationId'];    
   }
 
-  Map toMap() 
+  Map toMap({String? UserId}) 
   {
     // in backend UserSpecificationDto
     return {
+      "UserId" : UserId,
+
       "SpecificationId" :this.id,      
-      "SpecificationName" : this.name, 
       "Value" : this.value,
+
+      "specId" : specId,
+      "SpecificationName" : this.name, 
     };
   }
 }

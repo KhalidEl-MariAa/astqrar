@@ -1,26 +1,19 @@
 import 'package:astarar/models/server_response_model.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
-abstract class RegisterClientStates{}
+abstract class RegisterState{ }
 
-class RegisterClientInitialState extends RegisterClientStates{}
+class RegisterState_Initial extends RegisterState{ }
 
-class RegisterClientLoadingState extends RegisterClientStates{}
+class RegisterState_Loading extends RegisterState{ }
 
-class RegisterClientSuccessState extends RegisterClientStates{
+class RegisterState_Success extends RegisterState{
   final ServerResponse response;
-  RegisterClientSuccessState(this.response);
+  RegisterState_Success(this.response);
+  
 }
 
-class RegisterClientErrorState extends RegisterClientStates{
-  final String error;
-  RegisterClientErrorState(this.error);
+class RegisterState_Error extends RegisterState{
+  final String err_msg;
+  RegisterState_Error(this.err_msg);
 }
-
-// class GetSpecificationsLoadingState extends RegisterClientStates{}
-
-// class GetSpecificationsSuccessState extends RegisterClientStates{}
-
-// class GetSpecificationsErrorState extends RegisterClientStates{
-//   final String error;
-//   GetSpecificationsErrorState(this.error);
-// }

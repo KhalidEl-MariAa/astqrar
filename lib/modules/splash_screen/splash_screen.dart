@@ -23,7 +23,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    if(isLogin&&typeOfUser==1){
+    if(isLogin && typeOfUser==1){
       checkuserIsExpired();
     }
     checkingData();
@@ -33,47 +33,50 @@ class _SplashState extends State<Splash> {
   checkingData() async {
     //  GlobalNotification.instance.setupNotification(context);
     Future.delayed(const Duration(seconds: 4), (() {
-      if (isLogin == false) {
+      if(isLogin == false) 
+      {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          MaterialPageRoute( builder: (context) => const LoginScreen() ),
           (route) => false,
         );
       }
-      if(isLogin==true&&typeOfUser==1){
+
+      if(isLogin==true && typeOfUser==1)
+      {
         if(isExpired==true){
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-              (route) => false,
-        );
-      }
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+                (route) => false,
+          );
+        }
+
         if(isExpired==false){
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const PackagesScreen()),
-                (route) => false,
+            (route) => false,
           );
           showToast(msg: "انتهت صلاحية الباقة لديك", state: ToastStates.WARNING);
         }
 
-        if(isExpired==null){
-
+        if(isExpired==null)
+        {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  (route) => false,
+              MaterialPageRoute( builder: (context) => const LoginScreen()),
+              (route) => false,
             );
-
         }
       }
-      if(isLogin==true&&typeOfUser==2){
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const LayoutLinkPerson()),
-              (route) => false,
-        );
-      }
+      // if(isLogin==true&&typeOfUser==2){
+      //   Navigator.pushAndRemoveUntil(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => const LayoutLinkPerson()),
+      //         (route) => false,
+      //   );
+      // }
 
     }));
   }
@@ -81,7 +84,9 @@ class _SplashState extends State<Splash> {
   bool? isExpired;
 
   checkuserIsExpired(){
-  DioHelper.postDataWithBearearToken(url: "api/v1/CheckUserIsExpiret?userId=$id", data: {},token: token.toString())
+  DioHelper.postDataWithBearearToken(
+    url: "api/v1/CheckUserIsExpiret?userId=$id", 
+    data: {},token: token.toString())
   .then((value) {
     log(value.toString());
     isExpired=value.data['isActive'];
@@ -111,10 +116,7 @@ class _SplashState extends State<Splash> {
                   SizedBox(
                     height: 15.h,
                   ),
-                  Image.asset(
-                    "assets/logo.png",
-                    width: 300,
-                  ),
+                  Image.asset("assets/logo.png", width: 300,),
                   SizedBox(height: 5.h),
                   Image.asset("assets/quraan.PNG", height: 6.h),
                   const Spacer(),

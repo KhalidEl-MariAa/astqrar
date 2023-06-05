@@ -10,41 +10,41 @@ import 'package:astarar/modules/register_user/states.dart';
 import 'package:astarar/shared/network/end_points.dart';
 import 'package:astarar/shared/network/remote.dart';
 
+import '../../models/user.dart';
 
 
-class RegisterClientCubit extends Cubit<RegisterClientStates> 
+
+class RegisterCubit extends Cubit<RegisterState> 
 {
-  RegisterClientCubit() : super(RegisterClientInitialState());
+  RegisterCubit() : super(RegisterState_Initial());
 
   //late LoginModel loginModel;
-  static RegisterClientCubit get(context) => BlocProvider.of(context);
+  static RegisterCubit get(context) => BlocProvider.of(context);
   
 
-  List<String> specifications = [];
-  List<String> specificationsNames = [
-    "الاسم يبنتهي ب ",
-    "لون الشعر",
-    "نوع الشعر",
-    "لون البشرة",
-    "من عرق",
-    "المؤهل العلمي",
-    'الوظيفة',
-    'الحالة الصحية',
-    'الحالة الاجتماعية',
-    'هل لديك اطفال',
-    'نبذة عن مظهرك',
-    'الوضع المالي',
-    'نوع الزواج'
-  ];
-
-  List<Map> specificationsMap = [];
+  // List<String> specifications = [];
+  // List<String> specificationsNames = [
+  //   "الاسم يبنتهي ب ",
+  //   "لون الشعر",
+  //   "نوع الشعر",
+  //   "لون البشرة",
+  //   "من عرق",
+  //   "المؤهل العلمي",
+  //   'الوظيفة',
+  //   'الحالة الصحية',
+  //   'الحالة الاجتماعية',
+  //   'هل لديك اطفال',
+  //   'نبذة عن مظهرك',
+  //   'الوضع المالي',
+  //   'نوع الزواج'
+  // ];
+  // List<Map> specificationsMap = [];
 
   // convert() 
   // {
   //   //TODO: just for test
   //   AppCubit()..getSpecifications();
   //   AppCubit.specificationId;
-
   //   specificationsMap.clear();
   //   for (int i = 0; i < specifications.length; i++) {
   //     specificationsMap.add({
@@ -57,73 +57,28 @@ class RegisterClientCubit extends Cubit<RegisterClientStates>
   // }
 
 
-  void RegisterClient({
-    required bool specialNeeds,
-    required String name,
-    required String email,
-    required String age,
-    required String nationality,
-    required String natonalityId,
-    required String city,
-    required String password,
-    required String phone,
-    required String height,
-    required String width,
-    required String dowry,
-    required String terms,
-    required String gender,
-    int? childrensNumber,
-    required String tribe,
-    required String nameOfJob,
-    required String kindOfSick,
-    String? delegateId }) 
+  void RegisterClient(User newUser, var formkey) 
   {
-    emit(RegisterClientLoadingState());
+    emit(RegisterState_Loading());
 
-    var newUser = {
-      "userName": name,
-      "email": email,
-      "Age":age,
-      "Gender":gender,
-      "NationalID": natonalityId,
-      "Nationality":nationality,
-      "City":city,
-      "password": password,
-      "phone": phone,
-      "Height":height,
-      "Weight":width,
-      "SpecialNeeds":specialNeeds,
-      "Dowry":dowry,
-      "Terms":terms,
-      // "DelegateId":delegateId,
-      // "IsFakeUser":delegateId!=null? true: false,
-      
-      "ChildrensNumber":childrensNumber!.toInt(),
-      "Tribe":tribe,
-      "NameOfJob":nameOfJob,
-      "KindOfSick":kindOfSick,
-      "UserSpecifications":specificationsMap, //can't SAVE
-    };
-    print(newUser);
+    if( !formkey.currentState!.validate() )
+    {      
+      emit( RegisterState_Error("بعض المدخلات غير صحيحة!!") );
+      return;
+    }
 
     DioHelper.postData(
       url: REGISTERCLIENT, 
-      data: newUser
+      data: newUser.toMap()
     )
     .then((value) {
-      print('********************************');
-      print(value.toString());
-      // late ServerResponse registerClientModel;
-      //TODO: remove this emit
-      // emit(RegisterClientSuccessState(response));
+      print('************* ^^^^^^^^^^ *******************');
+      ServerResponse response = ServerResponse.fromJson(value.data);
+      emit(RegisterState_Success(response));
       
     }).catchError((error) {
-      print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-      print(error.toString());
-
-      // emit(RegisterClientErrorState(error.toString()));
-      
-      print('--------------------------------------------');
+      print('xxxxxxxxxxxxx vvvvvvvvvvvv   xxxxxxxxxx');
+      emit(RegisterState_Error(error.toString()));
     });
   }
 

@@ -67,7 +67,7 @@ class AppCubit extends Cubit<AppStates>
     
   }
   
-  Map<String, int> getSpecifications() 
+  Map<String, int> loadSpecificationsFromBackend() 
   {
     emit(GetSpecificationsLoadingState());
 
