@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:astarar/models/get-messages-model.dart';
-import 'package:astarar/modules/conversation/conversation.dart';
-import 'package:astarar/modules/conversation/cubit/states.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../../models/get-messages-model.dart';
+import '../conversation.dart';
+import 'states.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';

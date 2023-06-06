@@ -1,6 +1,6 @@
-import 'package:astarar/notifications/cubit/cubit.dart';
-import 'package:astarar/notifications/widgets/status_button.dart';
-import 'package:astarar/shared/contants/contants.dart';
+import '../cubit/cubit.dart';
+import 'status_button.dart';
+import '../../shared/contants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';

@@ -1,33 +1,31 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:astarar/modules/ads/ads.dart';
-import 'package:astarar/modules/home/cubit/cubit.dart';
-import 'package:astarar/modules/home/cubit/states.dart';
-import 'package:astarar/modules/home/widgets/container_home.dart';
-import 'package:astarar/modules/home/widgets/empty_slider.dart';
-import 'package:astarar/modules/home/widgets/slider_home.dart';
-import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/modules/search/result.dart';
-import 'package:astarar/modules/section%20men%20_women/cubit/cubit.dart';
-import 'package:astarar/modules/section%20men%20_women/section_men_women.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/loading_gif.dart';
-import 'package:astarar/shared/contants/contants.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:signalr_netcore/hub_connection_builder.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:astarar/notification.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
+import '../../notification.dart';
+import '../../shared/components/loading_gif.dart';
+import '../../shared/contants/contants.dart';
 import '../../shared/styles/colors.dart';
+import '../ads/ads.dart';
+import '../login/login.dart';
 import '../search/cubit/cubit.dart';
 import '../search/filter_search.dart';
+import '../search/result.dart';
+import '../section%20men%20_women/cubit/cubit.dart';
+import '../section%20men%20_women/section_men_women.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'widgets/container_home.dart';
+import 'widgets/empty_slider.dart';
+import 'widgets/slider_home.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({Key? key}) : super(key: key);
@@ -187,16 +185,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               padding:
                                   EdgeInsetsDirectional.only(end: 3.w, top: 2.h),
                               child: InkWell(
-                                  onTap: () async {
-                                    String url = "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
-                                    if (await launch(url)) {
-                                      await launch(url,
-                                          forceWebView: false,
-                                          enableJavaScript: false,
-                                          forceSafariVC: false);
-                                    } else {
-                                      throw 'Could not launch ${url}';
-                                    }
+                                  onTap: () async 
+                                  {
+                                    Uri url = Uri(
+                                      scheme: "https", 
+                                      path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
+                                    );
+                                    if (await launchUrl(url, mode: LaunchMode.platformDefault)) {} 
+                                    else { throw 'Could not launch ${url}'; }
                                   },
                                   child: Image(
                                     image: AssetImage("assets/snapchat.png"),

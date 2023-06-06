@@ -1,11 +1,13 @@
-import 'package:astarar/layout/layout.dart';
-import 'package:astarar/modules/conversation/conversation.dart';
-import 'package:astarar/modules/details_user/cubit/cubit.dart';
-import 'package:astarar/modules/details_user/cubit/states.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/loading_gif.dart';
-import 'package:astarar/shared/components/user/details_user/details.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import 'dart:developer';
+
+import '../../layout/layout.dart';
+import '../conversation/conversation.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/loading_gif.dart';
+import '../../shared/components/user/details_user/details.dart';
+import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,16 +62,7 @@ class DetailsUserScreen extends StatelessWidget
                     children: [
                       InkWell(
                           onTap: () async {
-                            String url =
-                                "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
-                            if (await launch(url)) {
-                              await launch(url,
-                                  forceWebView: false,
-                                  enableJavaScript: false,
-                                  forceSafariVC: false);
-                            } else {
-                              throw 'Could not launch ${url}';
-                            }
+                            snapchatPressed(context);                            
                           },
                           child: Image(
                             image: AssetImage("assets/snapchat.png"),
@@ -98,9 +91,7 @@ class DetailsUserScreen extends StatelessWidget
                                           ),
                                         ),
                                         onTap: () {
-                                          //TODO: كتابة الكووود الخاص بعملية الحظر
-                                          showToast(msg: "تم حظر المستخدم", state: ToastStates.SUCCESS);
-                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                                          blockUser_pressed(context);
                                         },
 
                                       ),
@@ -111,18 +102,14 @@ class DetailsUserScreen extends StatelessWidget
                                     color: Colors.black,
                                   ),
                                   InkWell(
-                                    onTap: (){
-                                      navigateTo(
-                                          context: context, widget: ContactUS(
-                                        isFromLogin: false,
-                                      ));
-                                    },
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
                                       child: Text("الابلاغ عن محتوي غير مناسب",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w300)),
+                                          style: TextStyle( fontWeight: FontWeight.w300)),
                                     ),
+                                    onTap: (){
+                                      ReportAnIssuePressed(context);
+                                    },
                                   ),
                                 ],
                               ),
@@ -279,5 +266,32 @@ class DetailsUserScreen extends StatelessWidget
         ),
       ),
     );
+  }
+  
+  void blockUser_pressed(BuildContext context)
+  {
+    //TODO: كتابة الكووود الخاص بعملية الحظر
+    showToast(msg: "تم حظر المستخدم", state: ToastStates.SUCCESS);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+  }
+  
+  void ReportAnIssuePressed(BuildContext context)
+  {
+    navigateTo(context: context, widget: ContactUS(
+      isFromLogin: false,
+    ));
+  }
+  
+  void snapchatPressed(BuildContext context) async 
+  {
+      Uri url = Uri(
+        scheme: "https", 
+        path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
+      );
+      log('Launch to ${url}');
+      if (await launchUrl(url, mode: LaunchMode.platformDefault)) {} 
+      else {
+        throw 'Could not launch ${url}';
+      }
   }
 }

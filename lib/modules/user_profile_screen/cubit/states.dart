@@ -1,4 +1,4 @@
-import 'package:astarar/models/login.dart';
+import '../../../models/login.dart';
 
 import '../../../models/user.dart';
 

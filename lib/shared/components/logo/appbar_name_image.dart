@@ -1,5 +1,5 @@
-import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/shared/contants/contants.dart';
+import '../../../modules/login/login.dart';
+import '../../contants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -26,11 +26,11 @@ class AppBarWithNameAndImage extends StatelessWidget {
               height: 3.h,
             ),
             Text(
-              isLogin!?name!:"اهلا بك ",
+              isLogin?name!:"اهلا بك ",
               style: TextStyle(color: white,fontSize: 11.sp),
             ),
 
-            if(isLogin!)    Text(
+            if(isLogin)    Text(
               age! + " " + "عاما",
               textAlign: TextAlign.start,
               style:

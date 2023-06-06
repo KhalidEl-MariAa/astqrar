@@ -1,6 +1,6 @@
-import 'package:astarar/modules/ads/cubit/cubit.dart';
-import 'package:astarar/modules/payment/payment_screen.dart';
-import 'package:astarar/shared/components/components.dart';
+import '../../../../modules/ads/cubit/cubit.dart';
+import '../../../../modules/payment/payment_screen.dart';
+import '../../components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -85,25 +85,6 @@ class AdsAndPackages extends StatelessWidget {
                               serviceType: "package",
                               idService: packages[index].id,
                             ));
-                        /*    showDialog(
-                                context: context,
-                                builder: (context) => CustomDialog(
-                                      price: GetPackagesCubit.get(context)
-                                          .getPackgesModel
-                                          .data[index]
-                                          .price
-                                          .toString(),
-                                      text: isLogin == true
-                                          ? " اسم العميل :$name \n \n باقة الاشتراك : ${GetPackagesCubit.get(context).getPackgesModel.data[index].description}"
-                                          : "اود ان اضيف باقة ${GetPackagesCubit.get(context).getPackgesModel.data[index].days} يوم ",
-                                    ));
-
-                            GetPackagesCubit.get(context).addPackage(
-                                packageId: GetPackagesCubit.get(context)
-                                    .getPackgesModel
-                                    .data[index]
-                                    .id
-                                    .toString());*/
                           } else {
                             navigateTo(context: context, widget: PaymentScreen(
                               price: AdsCubit.get(context)

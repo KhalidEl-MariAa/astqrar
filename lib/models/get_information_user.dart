@@ -61,6 +61,7 @@ class UserSubSpecificationModel
     bool?specialNeeds;
 
     List<UserSubSpecificationDtoModel>userSubSpecificationDto=[];
+    
     UserSubSpecificationModel.fromJson(Map<String, dynamic> json) {
       id = json['id'];
       userName = json['userName'];

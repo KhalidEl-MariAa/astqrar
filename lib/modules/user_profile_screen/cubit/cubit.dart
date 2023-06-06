@@ -1,14 +1,12 @@
 import 'dart:developer';
 
-import 'package:astarar/layout/cubit/cubit.dart';
-import 'package:astarar/models/user.dart';
-import 'package:astarar/models/login.dart';
-import 'package:astarar/modules/user_profile_screen/cubit/states.dart';
-import 'package:astarar/modules/user_profile_screen/user_profile_screen.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/local.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../../models/user.dart';
+import '../../../models/login.dart';
+import 'states.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/local.dart';
+import '../../../shared/network/remote.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

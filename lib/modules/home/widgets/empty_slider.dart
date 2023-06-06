@@ -1,6 +1,6 @@
 
 
-import 'package:astarar/shared/styles/colors.dart';
+import '../../../shared/styles/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';

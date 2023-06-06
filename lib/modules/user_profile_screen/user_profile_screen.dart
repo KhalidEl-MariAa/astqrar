@@ -1,14 +1,14 @@
 import 'dart:developer';
 
-import 'package:astarar/layout/layout.dart';
-import 'package:astarar/modules/change_password/change_password.dart';
-import 'package:astarar/modules/user_profile_screen/cubit/cubit.dart';
-import 'package:astarar/modules/user_profile_screen/cubit/states.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/loading_gif.dart';
-import 'package:astarar/shared/components/logo/normal_logo.dart';
-import 'package:astarar/shared/components/user/register/radiobuttonregister.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../../layout/layout.dart';
+import '../change_password/change_password.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/loading_gif.dart';
+import '../../shared/components/logo/normal_logo.dart';
+import '../../shared/components/radiobuttonregister.dart';
+import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

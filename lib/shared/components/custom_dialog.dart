@@ -1,7 +1,7 @@
 
 
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../contants/contants.dart';
+import '../styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -123,15 +123,19 @@ class CustomDialog extends StatelessWidget {
                       style: TextStyle(
                           color: white),
                     ),
-                    onPressed: () async {
 
+                    onPressed: () async 
+                    {
+                      // Convert the WhatsAppUnilink instance to a Uri.
+                      // The "launch" method is part of "url_launcher".
                       final link = WhatsAppUnilink(
                         phoneNumber: mobilePhone,
                         text: text,
                       );
-                      // Convert the WhatsAppUnilink instance to a Uri.
-                      // The "launch" method is part of "url_launcher".
-                      await launch('$link',forceWebView: false);
+
+                      if (await launchUrl(link.asUri(), mode: LaunchMode.platformDefault)) {} 
+                      else { throw 'Could not launch ${link.asUri()}'; }
+
                     }),
               ),
             ))

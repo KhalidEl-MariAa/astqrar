@@ -1,7 +1,9 @@
-import 'package:astarar/models/activate_model.dart';
-import 'package:astarar/modules/payment/cubit/states.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/remote.dart';
+import 'dart:developer';
+
+import '../../../models/activate_model.dart';
+import 'states.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -18,30 +20,36 @@ class PaymentCubit extends Cubit<PaymentStates> {
   String? url;
   String? transactionNo;
 
-  changePayment({required value}) {
+  changePayment({required value}) 
+  {
     isPayment = value;
-    emit(ChangePaymentState());
+    emit( ChangePaymentState() );
   }
 
-  addInvoice({required double price}) {
+  addInvoice({required double price}) 
+  {
     emit(AddInvoiceLoadingState());
-    DioHelper.postDataWithBearearToken(
-            url: ADDINVOICE,
-            data: {
-              "amount": price,
-              "clientEmail": email,
-              "clientMobile": phone,
-              "clientName": name,
-              "note": "This invoice is for VIP client."
-            },
-            token: token.toString())
-        .then((value) {
-      print(value.toString());
-      url = value.data['data']['url'];
-      print(value.data['data']['url']);
+    DioHelper.postDataWithBearearToken (
+      url: ADDINVOICE, //"api/v1/AddInvoice"
+      data: {
+        "amount": price,
+        "clientEmail": email,
+        "clientMobile": phone,
+        "clientName": name,
+        "note": "This invoice is for VIP client."
+      },
+      token: token.toString()
+
+    ).then((value) {
+      log(value.toString());
+      url = value.data['data']['url'];      
+      log(value.data['data']['url']);
+
       transactionNo = value.data['data']['transactionNo'];
-      print(value.data['data']['transactionNo']);
+      log(value.data['data']['transactionNo']);
+      
       emit(AddInvoiceSuccessState());
+
     }).catchError((error) {
       print(error.toString());
       emit(AddInvoiceErrorState(error.toString()));
@@ -76,8 +84,9 @@ class PaymentCubit extends Cubit<PaymentStates> {
     DioHelper.postDataWithBearearToken(
             url: "api/v1/GetInvoice?transactionNo=$transactionNo",
             data: {},
-            token: token.toString())
-        .then((value) {
+            token: token.toString()
+    )
+    .then((value) {
       print(value.toString());
       orderSatus = value.data['orderStatus'];
       if(orderSatus=="Paid"){
@@ -102,16 +111,18 @@ class PaymentCubit extends Cubit<PaymentStates> {
     print(serviceId);
     emit(ActivateLoadingState());
     DioHelper.postDataWithBearearToken(
-            url: ACTIVATE, data: {
-"type":type,
-      "id":serviceId
-    }, token: token.toString())
-        .then((value) {
+      url: ACTIVATE, 
+      data: {
+        "type":type,
+        "id":serviceId
+      }, 
+      token: token.toString())
+    .then((value) {
       print(value.toString());
       activateModel = ActivateModel.fromJson(value.data);
-    /*  if(type==2&&activateModel.status!){
-        sendNotificationToAll(body: "تمت اضافة اعلان من قبل $name");
-      }*/
+      // if(type==2&&activateModel.status!){
+      //     sendNotificationToAll(body: "تمت اضافة اعلان من قبل $name");
+      // }
       emit(ActivateSuccessState(
         type: type,
         status: activateModel.status!
@@ -123,16 +134,20 @@ class PaymentCubit extends Cubit<PaymentStates> {
   }
 
 
-  sendNotificationToAll({required String body}){
+  sendNotificationToAll({required String body})
+  {
     emit(SendNotificationToAllLoadingState());
-    DioHelper.postDataWithBearearToken(url: SENDNOTIFICATIONTOALL,
-        data:{
+    DioHelper.postDataWithBearearToken(
+      url: SENDNOTIFICATIONTOALL,
+      data:{
         "projectName":"استقرار",
         "deviceType":"android",
         "notificationType":3,
         "body":body,
         "title":" "
-        },token: token.toString())..then((value) {
+      },
+      token: token.toString())
+    .then((value) {
           print(value.toString());
           emit(SendNotificationToAllSuccessState());
     }).catchError((error){
@@ -140,4 +155,6 @@ class PaymentCubit extends Cubit<PaymentStates> {
           emit(SendNotificationToAllErrorState(error.toString()));
     });
   }
+
+
 }

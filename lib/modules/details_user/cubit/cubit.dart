@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:astarar/models/add_request.dart';
-import 'package:astarar/models/add_to_favourite.dart';
-import 'package:astarar/models/get_information_user.dart';
-import 'package:astarar/modules/details_user/cubit/states.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../../models/add_request.dart';
+import '../../../models/add_to_favourite.dart';
+import '../../../models/get_information_user.dart';
+import 'states.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetInformationCubit extends Cubit<GetInformationStates> 

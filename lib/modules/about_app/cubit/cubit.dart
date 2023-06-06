@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:astarar/models/about_us_model.dart';
-import 'package:astarar/modules/about_app/cubit/states.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../../models/about_us_model.dart';
+import 'states.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AboutUsCubit extends Cubit<AboutUsStates> {

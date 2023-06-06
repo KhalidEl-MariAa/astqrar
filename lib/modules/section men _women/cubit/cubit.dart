@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:astarar/models/get_users_by_filters.dart';
-import 'package:astarar/models/get_users_by_gender.dart';
-import 'package:astarar/modules/section%20men%20_women/cubit/states.dart';
-import 'package:astarar/modules/section%20men%20_women/section_men_women.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../../models/get_users_by_filters.dart';
+import '../../../models/get_users_by_gender.dart';
+import '../../section%20men%20_women/cubit/states.dart';
+import '../../section%20men%20_women/section_men_women.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetUserByGenderCubit extends Cubit<GetUserByGenderStates> 

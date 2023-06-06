@@ -1,10 +1,10 @@
 import 'dart:developer';
-import 'package:astarar/models/add_to_favourite.dart';
-import 'package:astarar/models/get_ads_model.dart';
-import 'package:astarar/modules/ads/cubit/states.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../../models/add_to_favourite.dart';
+import '../../../models/get_ads_model.dart';
+import 'states.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdsCubit extends Cubit<AdsStates> {
@@ -14,38 +14,38 @@ class AdsCubit extends Cubit<AdsStates> {
   static AdsCubit get(context) => BlocProvider.of(context);
 
   late GetAdsModel getAdsModel;
-bool getAdsDone=false;
+  bool getAdsDone = false;
 
-  getAds(){
+  getAds() {
     emit(GetAdsLoadingState());
-    DioHelper.postData(url: GETALLADS, data: {})
-    .then((value) {
+    DioHelper.postData(url: GETALLADS, data: {}).then((value) {
       log(value.toString());
-      getAdsModel=GetAdsModel.fromJson(value.data);
-      getAdsDone=true;
+      getAdsModel = GetAdsModel.fromJson(value.data);
+      getAdsDone = true;
       emit(GetAdsSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       log(error.toString());
       emit(GetAdsErrorState(error.toString()));
     });
-
   }
-
 
   //add ads
   late AddToFavouriteModel addAdsModel;
 
-  addAds({required int adId}){
+  addAds({required int adId}) {
     emit(AddAdsLoadingState());
-    DioHelper.postDataWithBearearToken(url: ADDADS, data: {
-      "AdId":adId,
-    },token: token.toString())
-    .then((value) {
+    DioHelper.postDataWithBearearToken(
+            url: ADDADS,
+            data: {
+              "AdId": adId,
+            },
+            token: token.toString())
+        .then((value) {
       log(value.toString());
-      addAdsModel=AddToFavouriteModel.fromJson(value.data);
+      addAdsModel = AddToFavouriteModel.fromJson(value.data);
       emit(AddAdsSuccessState(value.statusCode!));
-  //    sendNotificationToAll(body: "تمت اضافة اعلان جديد من قبل $name");
-    }).catchError((error){
+      //    sendNotificationToAll(body: "تمت اضافة اعلان جديد من قبل $name");
+    }).catchError((error) {
       log(error.toString());
       emit(AddAdsErrorState(error.toString()));
     });

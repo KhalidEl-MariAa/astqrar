@@ -1,5 +1,5 @@
-import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../login/login.dart';
+import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

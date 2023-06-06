@@ -1,9 +1,9 @@
-import 'package:astarar/modules/details_user/cubit/cubit.dart';
-import 'package:astarar/modules/details_user/details_user.dart';
-import 'package:astarar/shared/components/accept_success_dialog.dart';
-import 'package:astarar/notifications/cubit/cubit.dart';
-import 'package:astarar/notifications/cubit/states.dart';
-import 'package:astarar/notifications/widgets/accepted_notification.dart';
+import '../modules/details_user/cubit/cubit.dart';
+import '../modules/details_user/details_user.dart';
+import '../shared/components/accept_success_dialog.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'widgets/accepted_notification.dart';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';

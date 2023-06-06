@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:astarar/models/get_terms_conditions_model.dart';
-import 'package:astarar/modules/terms/cubit/states.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../../models/get_terms_conditions_model.dart';
+import 'states.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TermsAndConditionsCubit extends Cubit<TermsAndConditionsStates> {

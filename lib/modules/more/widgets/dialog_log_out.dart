@@ -1,10 +1,11 @@
-import 'package:astarar/modules/more/cubit/cubit.dart';
-import 'package:astarar/modules/more/cubit/states.dart';
-import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../shared/styles/colors.dart';
+import '../cubit/cubit.dart';
+import '../cubit/states.dart';
 
 class DialogLogout extends StatelessWidget {
   const DialogLogout({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 
-import 'package:astarar/modules/forgetpassword/resetpassword.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/header_logo.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import 'resetpassword.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/header_logo.dart';
+import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sizer/sizer.dart';

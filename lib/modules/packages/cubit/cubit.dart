@@ -1,12 +1,11 @@
 import 'dart:developer';
 
-import 'package:astarar/models/add_to_favourite.dart';
-import 'package:astarar/models/get_packages_model.dart';
-import 'package:astarar/modules/packages/cubit/states.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
-import 'package:bloc/bloc.dart';
+import '../../../models/add_to_favourite.dart';
+import '../../../models/get_packages_model.dart';
+import 'states.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/network/end_points.dart';
+import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetPackagesCubit extends Cubit<GetPackagesStates> {

@@ -1,12 +1,12 @@
 
-import 'package:astarar/modules/chats/chat.dart';
-import 'package:astarar/modules/favourite/favourite_screen.dart';
-import 'package:astarar/modules/home/home.dart';
-import 'package:astarar/modules/more/more_screen.dart';
-import 'package:astarar/notifications/notifications_screen.dart';
-import 'package:astarar/shared/components/dialog_to_login.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../modules/chats/chat.dart';
+import '../modules/favourite/favourite_screen.dart';
+import '../modules/home/home.dart';
+import '../modules/more/more_screen.dart';
+import '../notifications/notifications_screen.dart';
+import '../shared/components/dialog_please_login.dart';
+import '../shared/contants/contants.dart';
+import '../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

@@ -1,17 +1,19 @@
 import 'dart:developer';
-import 'package:astarar/layout/cubit/cubit.dart';
-import 'package:astarar/layout/cubit/states.dart';
-import 'package:astarar/layout/layout.dart';
-import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/modules/packages/packages.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/remote.dart';
-import 'package:astarar/shared/styles/colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../layout/cubit/cubit.dart';
+import '../../layout/cubit/states.dart';
+import '../../layout/layout.dart';
+import '../../shared/components/components.dart';
+import '../../shared/contants/contants.dart';
+import '../../shared/network/remote.dart';
+import '../../shared/styles/colors.dart';
+import '../login/login.dart';
+import '../packages/packages.dart';
 
 class Splash extends StatefulWidget {
   @override

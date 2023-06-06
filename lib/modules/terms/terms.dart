@@ -1,6 +1,6 @@
-import 'package:astarar/modules/terms/cubit/cubit.dart';
-import 'package:astarar/modules/terms/cubit/states.dart';
-import 'package:astarar/shared/components/logo/stack_logo.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import '../../shared/components/logo/stack_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,6 +1,6 @@
 
-import 'package:astarar/shared/components/header_logo.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../header_logo.dart';
+import '../../styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:astarar/models/add_request.dart';
-import 'package:astarar/models/get_notifications.dart';
-import 'package:astarar/notifications/cubit/states.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../models/add_request.dart';
+import '../../models/get_notifications.dart';
+import 'states.dart';
+import '../../shared/contants/contants.dart';
+import '../../shared/network/end_points.dart';
+import '../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotificationCubit extends Cubit<NotificationStates> {

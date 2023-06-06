@@ -1,10 +1,10 @@
 import 'dart:developer';
-import 'package:astarar/modules/search/cubit/states.dart';
-import 'package:astarar/modules/search/result.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/logo/normal_logo.dart';
-import 'package:astarar/shared/components/user/register/radiobuttonregister.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import 'cubit/states.dart';
+import 'result.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/logo/normal_logo.dart';
+import '../../shared/components/radiobuttonregister.dart';
+import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';

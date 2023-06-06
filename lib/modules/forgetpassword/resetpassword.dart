@@ -1,9 +1,9 @@
-import 'package:astarar/modules/forgetpassword/cubit/cubit.dart';
-import 'package:astarar/modules/forgetpassword/cubit/states.dart';
-import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/header_logo.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import '../login/login.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/header_logo.dart';
+import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';

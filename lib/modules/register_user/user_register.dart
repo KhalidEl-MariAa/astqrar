@@ -1,27 +1,19 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-import 'package:astarar/layout/cubit/states.dart';
-import 'package:astarar/models/get_information_user.dart';
-import 'package:astarar/modules/register_user/cubit.dart';
-import 'package:astarar/modules/register_user/states.dart';
-import 'package:astarar/modules/terms/terms.dart';
-import 'package:astarar/modules/user_profile_screen/user_profile_screen.dart';
-import 'package:astarar/shared/alreadyhaneaccount_text.dart';
-import 'package:astarar/shared/components/checkedbox_register.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/header_logo.dart';
-import 'package:astarar/shared/components/user/register/radiobuttonregister.dart';
-import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:astarar/layout/cubit/cubit.dart';
-import 'package:sizer/sizer.dart';
-import '../../models/user.dart';
-import '../../models/server_response_model.dart';
-import '../../shared/network/end_points.dart';
-import '../../shared/network/remote.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../layout/cubit/cubit.dart';
+import '../../layout/cubit/states.dart';
+import '../../models/user.dart';
+import '../../shared/components/checkedbox_register.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/header_logo.dart';
+import '../../shared/components/radiobuttonregister.dart';
+import '../../shared/styles/colors.dart';
+import '../terms/terms.dart';
+import 'alreadyhaneaccount_text.dart';
+import 'cubit.dart';
+import 'states.dart';
 
 class UserRegister extends StatefulWidget 
 {

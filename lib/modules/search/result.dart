@@ -1,13 +1,13 @@
-import 'package:astarar/modules/details_user/cubit/cubit.dart';
-import 'package:astarar/modules/details_user/details_user.dart';
-import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/modules/search/cubit/cubit.dart';
-import 'package:astarar/modules/search/cubit/states.dart';
-import 'package:astarar/modules/search/filter_search.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/user/user_item.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../details_user/cubit/cubit.dart';
+import '../details_user/details_user.dart';
+import '../login/login.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'filter_search.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/user/user_item.dart';
+import '../../shared/contants/contants.dart';
+import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,14 +60,14 @@ class ResultScreen extends StatelessWidget
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: isLogin!? 2.h : 0,
+                                        height: isLogin? 2.h : 0,
                                       ),
                                       Text(
-                                        isLogin! ? name! : "اهلا بك ",
+                                        isLogin? name! : "اهلا بك ",
                                         style: TextStyle(
                                             color: white, fontSize: 11.sp),
                                       ),
-                                      if (isLogin!)
+                                      if (isLogin)
                                         Text(
                                           age! + " " + "عاما",
                                           style: TextStyle(
@@ -326,17 +326,14 @@ class ResultScreen extends StatelessWidget
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: () async {
-                                        String url =
-                                            "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
-                                        if (await launch(url)) {
-                                          await launch(url,
-                                              forceWebView: false,
-                                              enableJavaScript: false,
-                                              forceSafariVC: false);
-                                        } else {
-                                          throw 'Could not launch ${url}';
-                                        }
+                                      onTap: () async 
+                                      {
+                                        Uri url = Uri(
+                                          scheme: "https", 
+                                          path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
+                                        );
+                                        if (await launchUrl(url, mode: LaunchMode.platformDefault)) {} 
+                                        else { throw 'Could not launch ${url}'; }
                                       },
                                       child: Container(
                                         height: 80.0,
@@ -441,26 +438,14 @@ class ResultScreen extends StatelessWidget
                                                   visibileRemoveIcon: false,
                                                   removeUser: () {},
                                                   onclickUser: () {
-                                                    if (isLogin!) {
-                                                      GetInformationCubit
-                                                              .get(context)
+                                                    if (isLogin) {
+                                                      GetInformationCubit.get(context)
                                                           .getInformationUser(
-                                                              userId:
-                                                                  SearchCubit.get(
-                                                                          context)
-                                                                      .searchList[
-                                                                          index]
-                                                                      .id!);
+                                                              userId: SearchCubit.get(context).searchList[index].id!);
                                                     } else {
-                                                      GetInformationCubit
-                                                              .get(context)
+                                                      GetInformationCubit.get(context)
                                                           .getInformationUserByVisitor(
-                                                              userId:
-                                                                  SearchCubit.get(
-                                                                          context)
-                                                                      .searchList[
-                                                                          index]
-                                                                      .id!);
+                                                              userId:SearchCubit.get(context).searchList[index].id!);
                                                     }
                                                     Navigator.push(
                                                         context,

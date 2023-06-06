@@ -1,10 +1,10 @@
-import 'package:astarar/modules/forgetpassword/cubit/cubit.dart';
-import 'package:astarar/modules/forgetpassword/cubit/states.dart';
-import 'package:astarar/modules/forgetpassword/inputOtp.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/header_logo.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'inputOtp.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/header_logo.dart';
+import '../../shared/contants/contants.dart';
+import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -55,18 +55,15 @@ class ForgetPasswordScreen extends StatelessWidget
                     doubleInfinityMaterialButton(                      
                         text: "مراسلة الادمن لاستعادة كلمة السر ",
                         onPressed: () async{
+                          // Convert the WhatsAppUnilink instance to a Uri.
+                          // The "launch" method is part of "url_launcher".
                           final link = WhatsAppUnilink(
                             phoneNumber: mobilePhone,
                             text: "مرحبا \n اريد استعادة كلمة المرور ",
                           );
 
-                          // Convert the WhatsAppUnilink instance to a Uri.
-                          // The "launch" method is part of "url_launcher".
-                          await launch('$link', forceWebView: false);
-                          
-                          // this is non-deprecated form, but i coudn't make it work.
-                          // LaunchMode mode = LaunchMode.platformDefault;
-                          // await launchUrl(link.asUri(), mode: mode);
+                          if (await launchUrl(link.asUri(), mode: LaunchMode.platformDefault)) {} 
+                          else { throw 'Could not launch ${link.asUri()}'; }
                       }
                     ),
                     

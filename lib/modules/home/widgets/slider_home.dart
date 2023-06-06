@@ -1,10 +1,10 @@
 
 
-import 'package:astarar/modules/details_user/cubit/cubit.dart';
-import 'package:astarar/modules/details_user/details_user.dart';
-import 'package:astarar/modules/home/cubit/cubit.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../../details_user/cubit/cubit.dart';
+import '../../details_user/details_user.dart';
+import '../cubit/cubit.dart';
+import '../../../shared/contants/contants.dart';
+import '../../../shared/styles/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

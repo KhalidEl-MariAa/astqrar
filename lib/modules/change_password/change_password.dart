@@ -1,8 +1,8 @@
-import 'package:astarar/layout/layout.dart';
-import 'package:astarar/modules/change_password/cubit/cubit.dart';
-import 'package:astarar/modules/change_password/cubit/states.dart';
-import 'package:astarar/modules/more/more_screen.dart';
-import 'package:astarar/shared/components/components.dart';
+import '../../layout/layout.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import '../more/more_screen.dart';
+import '../../shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';

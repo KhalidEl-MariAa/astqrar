@@ -1,4 +1,4 @@
-import 'package:astarar/models/forget_password.dart';
+import '../../../models/forget_password.dart';
 
 
 abstract class ForgetPasswordStates{}

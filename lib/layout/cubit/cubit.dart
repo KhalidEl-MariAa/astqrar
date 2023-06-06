@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:astarar/layout/cubit/states.dart';
-import 'package:astarar/models/get_specifications_model.dart';
-import 'package:astarar/shared/contants/contants.dart';
+import 'states.dart';
+import '../../models/get_specifications_model.dart';
+import '../../shared/contants/contants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../shared/network/end_points.dart';

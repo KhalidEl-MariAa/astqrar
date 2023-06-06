@@ -1,10 +1,10 @@
-import 'package:astarar/modules/packages/cubit/cubit.dart';
-import 'package:astarar/modules/packages/cubit/states.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/components/loading_gif.dart';
-import 'package:astarar/shared/components/logo/normal_logo.dart';
-import 'package:astarar/shared/components/user/adsAndPackages/adsAndPackages.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/loading_gif.dart';
+import '../../shared/components/logo/normal_logo.dart';
+import '../../shared/components/user/adsAndPackages/adsAndPackages.dart';
+import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,13 +35,17 @@ class PackagesScreen extends StatelessWidget {
               preferredSize: Size.fromHeight(10.h),
               child: NormalLogo(appbarTitle: "الباقات ",isBack: false),
             ),
+            
             body: ConditionalBuilder(
               condition: GetPackagesCubit.get(context).getPackagesDone,
               fallback: (context) => LoadingGif(),
-              builder: (context) => AdsAndPackages(packages: GetPackagesCubit.get(context).getPackgesModel.data,
-                  isPackages: true,
+              builder: (context) => 
+                  AdsAndPackages(
+                    packages: GetPackagesCubit.get(context).getPackgesModel.data,
+                    isPackages: true,
+                  )
             )
-            )),
+          ),
       ),
     );
   }

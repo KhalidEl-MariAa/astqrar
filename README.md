@@ -1,4 +1,4 @@
-# astarar
+# Astarar (Eng. Sami Alfattani)
 
 A new Flutter project.
 
