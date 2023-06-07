@@ -10,7 +10,7 @@ Widget defaultTextFormField({
   TextEditingController? controller,
   required TextInputType type,
   Color? container,
-  Color?labelTextcolor,
+  Color? labelTextcolor,
   void Function(String? val)? onsubmit,
   void Function(String val)? onchange,
   bool isPassword = false,
@@ -125,7 +125,8 @@ Widget doubleInfinityMaterialButton({
       ),
 
       child: MaterialButton(
-        child: Text( text, style:  TextStyle(color: white),
+        child: 
+        Text( text, style:  TextStyle(color: white),
       ),
 
       onPressed: () { onPressed(); },

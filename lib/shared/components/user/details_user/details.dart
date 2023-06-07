@@ -1,10 +1,10 @@
-import 'package:collection/collection.dart';
-import 'package:astarar/models/get_information_user.dart';
 import 'package:astarar/models/user.dart';
-import 'package:astarar/shared/components/dialog_to_login.dart';
-import 'package:astarar/shared/components/user/details_item.dart';
-import 'package:astarar/shared/contants/contants.dart';
-import 'package:astarar/shared/styles/colors.dart';
+
+import '../../../../models/get_information_user.dart';
+import '../../dialog_please_login.dart';
+import '../details_item.dart';
+import '../../../contants/contants.dart';
+import '../../../styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -20,6 +20,7 @@ class DetailsItemScreen extends StatelessWidget {
   final int gender;
   final String height;
   final String weight;
+
   final List<UserSubSpecificationDtoModel> userSubSpecificationDto;
   final Function favouriteFunction;
   final Function chatFunction;
@@ -52,30 +53,31 @@ class DetailsItemScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if(messageVisibility==false&&typeOfUser==1) InkWell(
-          onTap: (){
-            onClickUser();
-          },
-          child: Padding(
-            padding: EdgeInsetsDirectional.only( top: 2.h,start: 4.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset("assets/chat (7).png"),
-                SizedBox(
-                  width: 3.w,
-                ),
-                Text(
-                  "تواصل مع الخطابة",
-                  style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      color: primary,
-                      decoration: TextDecoration.underline),
-                ),
-              ],
+        if(messageVisibility==false&&typeOfUser==1) 
+          InkWell(
+            onTap: (){
+              onClickUser();
+            },
+            child: Padding(
+              padding: EdgeInsetsDirectional.only( top: 2.h,start: 4.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset("assets/chat (7).png"),
+                  SizedBox(
+                    width: 3.w,
+                  ),
+                  Text(
+                    "تواصل مع الخطابة",
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: primary,
+                        decoration: TextDecoration.underline),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
         Padding(
           padding: EdgeInsetsDirectional.only(top: 1.h),
           child: Center(
@@ -113,11 +115,11 @@ class DetailsItemScreen extends StatelessWidget {
               SizedBox(
                 width: 2.w,
               ),
-            /*  Container(
-                width: 28.w,
-                child: Text('أخر ظهور:3:26',
-                    style: GoogleFonts.poppins(color: Colors.grey[500])),
-              ),*/
+            // Container(
+            //     width: 28.w,
+            //     child: Text('أخر ظهور:3:26',
+            //         style: GoogleFonts.poppins(color: Colors.grey[500])),
+            // ),
               const Spacer(),
               Visibility(
                 visible: messageVisibility&&typeOfUser==1,
@@ -149,8 +151,7 @@ class DetailsItemScreen extends StatelessWidget {
                     else{
                     chatFunction();
                     }                  },
-                  child: Image(
-                      height: 3.h, image: const AssetImage('assets/chat (7).png')),
+                  child: Image(height: 3.h, image: const AssetImage('assets/chat (7).png')),
                 ),
               ),
 
@@ -168,7 +169,9 @@ class DetailsItemScreen extends StatelessWidget {
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'العمر', subTitle: age+"  عام ")),
+                  child: DetailsItem(
+                    title: 'العمر', 
+                    subTitle: age + "  عام ")),
               Container(
                 width: 35.w,
                 child: DetailsItem(
@@ -190,9 +193,9 @@ class DetailsItemScreen extends StatelessWidget {
                   child: DetailsItem(title: 'الجنسية', subTitle: nationality)),
               Container(
                 width: 35.w,
-                child: DetailsItem(
-                  subTitle: userSubSpecificationDto[0].value.toString(),
+                child: DetailsItem(                  
                   title: 'الاسم ينتهي',
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.name_end_with),
                 ),
               ),
             ],
@@ -209,9 +212,7 @@ class DetailsItemScreen extends StatelessWidget {
                   child: DetailsItem(title: 'الطول', subTitle: "${height} سم")),
               Container(
                 width: 35.w,
-                child: DetailsItem(
-                  title: 'الوزن',
-                  subTitle: "${weight} ك",
+                child: DetailsItem(title: 'الوزن', subTitle: "${weight} ك",
                 ),
               ),
             ],
@@ -225,12 +226,15 @@ class DetailsItemScreen extends StatelessWidget {
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'لون الشعر', subTitle: userSubSpecificationDto[1].value.toString(),)),
+                  child: DetailsItem(
+                    title: 'لون الشعر', 
+                    subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.hair_colour),                  
+                    )),
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  subTitle: userSubSpecificationDto[4].value.toString(),
                   title: 'من عرق',
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.strain),                  
                 ),
               ),
             ],
@@ -244,12 +248,17 @@ class DetailsItemScreen extends StatelessWidget {
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'مؤهل علمي', subTitle: userSubSpecificationDto[5].value.toString(),)),
+                  child: DetailsItem(
+                    title: 'مؤهل علمي', 
+                    subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.qualification),
+                  )
+              ),
+
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'الوظيفة',
-                  subTitle: userSubSpecificationDto[6].value.toString(),
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.job),
                 ),
               ),
             ],
@@ -261,12 +270,17 @@ class DetailsItemScreen extends StatelessWidget {
           decoration: BoxDecoration(color: HexColor("#FFFFFF")),
           child: Row(
             children: [
-              Container(width: 46.w,child: DetailsItem(title: 'الحالة الصحية', subTitle: userSubSpecificationDto[7].value.toString(),)),
+              Container(width: 46.w,child: 
+                DetailsItem(
+                  title: 'الحالة الصحية', 
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.health_status),
+                )
+              ),
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  subTitle: userSubSpecificationDto[8].value.toString(),
                   title: 'الحالة الاجتماعية',
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.social_status),
                 ),
               ),
             ],
@@ -285,7 +299,7 @@ class DetailsItemScreen extends StatelessWidget {
                 width: 35.w,
                 child: DetailsItem(
                   title: 'نبذة عن مظهرك',
-                  subTitle: userSubSpecificationDto[10].value.toString(),
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.job),
                 ),
               ),
             ],
@@ -302,8 +316,10 @@ class DetailsItemScreen extends StatelessWidget {
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  subTitle: userSubSpecificationDto[11].value.toString(),
                   title: 'الوضع المالي',
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.financial_situation),
+
+                  
                 ),
               ),
             ],
@@ -318,9 +334,9 @@ class DetailsItemScreen extends StatelessWidget {
               Container(
                 width: 46.w,
                 child: DetailsItem(
-                  title: 'نوع الزواج', 
-                  
-                  subTitle: findOrEmptyStr(userSubSpecificationDto, 'نوع الزواج') )),
+                  title: 'نوع الزواج',                   
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.marriage_Type)                   
+                  )),
 
               Container(width: 46.w,child: DetailsItem(title: 'قيمة المهر', subTitle:dowry )),
             ],
@@ -353,15 +369,15 @@ class DetailsItemScreen extends StatelessWidget {
     );
   }
   
-  findOrEmptyStr(List<UserSubSpecificationDtoModel> list, String specificationName) 
+  findSubSpecificationOrEmptyStr(int specId) 
   {
-    if(userSubSpecificationDto.any( (e) => e.value == specificationName)){
-      //userSubSpecificationDto[12].value.toString()
-      return list.firstWhere( (e) => e.value == specificationName).value.toString();
-    }else{
-      return "------";
-    } //specificationName
-    // userSubSpecificationDto
-    // list.firstWhere( (e) => e.value == 'جميلة')??userSubSpecificationDto[12].value.toString()
+
+    var subkeys = SpecificationIDs.getSubSpecificationKeys(SpecificationIDs.financial_situation);
+    return userSubSpecificationDto
+                  .firstWhere(
+                    (ss) => subkeys.contains(ss.id),
+                            orElse: ( ) => UserSubSpecificationDtoModel(0, "X", "---------") )
+                  .value
+                  .toString();
   }
 }

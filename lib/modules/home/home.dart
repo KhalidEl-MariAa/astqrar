@@ -224,7 +224,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ResultScreen()));
+                                      builder: (context) => ResultScreen() ));
                             },
                             decoration: InputDecoration(
                               prefixIcon:const  Icon(Icons.search),
@@ -338,27 +338,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 3.w),
                 child: Row(
                   children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () async {
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      FilterSearchScreen(
-                                        textSearch: SearchCubit.get(context).searchTextController.text,
-                                      )
-                              )
-                          );
-                        },
-                        child: ContainerHome(text: "الفلتر",),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 6.w,
-                    ),
-
+                    
                     Expanded(
                       child: InkWell(
                         onTap: () async {

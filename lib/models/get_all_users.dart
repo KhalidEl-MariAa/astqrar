@@ -3,6 +3,7 @@ class GetAllUsers {
   String? msg;
   String? snapChat;
   HomeData? data;
+  
   GetAllUsers.fromJson(Map<String, dynamic> json) {
     key = json['key'];
     msg = json['msg'];
@@ -14,6 +15,7 @@ class GetAllUsers {
 class HomeData {
   List<UsersHomeData> users = [];
   List<UsersHomeData> randomUsers = [];
+
   HomeData.fromJson(Map<String, dynamic> json) {
     json['users'].forEach((element) {
       users.add(UsersHomeData.fromJson(element));
@@ -33,6 +35,7 @@ class UsersHomeData {
   int? gender;
   bool? blockedByMe;
   UserInfo? userInfo;
+
   UsersHomeData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userName = json['userName'];

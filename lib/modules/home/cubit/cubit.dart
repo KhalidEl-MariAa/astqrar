@@ -19,6 +19,7 @@ class HomeCubit extends Cubit<HomeStates>
   List<UsersHomeData> menSection = [];
   List<UsersHomeData> womenSection = [];
   Map<int,int> subSpecification={};
+  
   /*getHomeData() {
     emit(HomeLoadingState());
     DioHelper.postData(url: GETHOME, data: {}).then((value) {

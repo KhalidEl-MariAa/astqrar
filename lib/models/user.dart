@@ -1,4 +1,6 @@
 
+import 'package:astarar/layout/cubit/cubit.dart';
+
 class User 
 {
   String? id;
@@ -152,4 +154,15 @@ abstract class SpecificationIDs
   static int marriage_Type = 15;
   static int smoking = 17;
   static int have_a_legitimate_view = 18;
+
+  static  Map get(int specId)
+  {
+    return AppCubit.Specifications[specId];
+  }
+
+  static List getSubSpecificationKeys(int specId)
+  {
+    return AppCubit.Specifications[specId]["subSpecifications"].keys.toList();
+  }
+
 }

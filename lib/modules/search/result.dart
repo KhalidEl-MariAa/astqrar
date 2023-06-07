@@ -1,3 +1,4 @@
+import '../../models/user_item.dart';
 import '../details_user/cubit/cubit.dart';
 import '../details_user/details_user.dart';
 import '../login/login.dart';
@@ -15,12 +16,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ResultScreen extends StatelessWidget 
+class ResultScreen extends StatefulWidget 
 {
   @override
-  Widget build(BuildContext context) {
+  State<ResultScreen> createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends State<ResultScreen> 
+{
+  TextEditingController searchTextController = TextEditingController();
+
+  List<UserItem> searchResult = [];
+
+  @override
+  Widget build(BuildContext context) 
+  {
     return BlocConsumer<SearchCubit, SearchStates>(
-        listener: (context, state) {},
+        listener: (context, state) 
+        {
+          if(state is GetSearchSuccessState)
+          {
+            setState(() {
+              this.searchResult = state.searchResult;  
+            });            
+          }
+        },
         builder: (context, state) {
           SearchCubit.get(context).searchDone = false;
           return Directionality(
@@ -174,30 +194,7 @@ class ResultScreen extends StatelessWidget
                                 child: Row(
                                   children: [
                                     InkWell(
-                                      onTap: () {
-                                        print(SearchCubit.get(context)
-                                            .searchTextController
-                                            .text);
-                                        if (SearchCubit.get(context)
-                                                .searchTextController
-                                                .text !=
-                                            "") {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      FilterSearchScreen(
-                                                        textSearch: SearchCubit
-                                                                .get(context)
-                                                            .searchTextController
-                                                            .text,
-                                                      )));
-                                        } else {
-                                          showToast(
-                                              msg: "من فضلك ابحث عن شي",
-                                              state: ToastStates.SUCCESS);
-                                        }
-                                      },
+                                      onTap: () { show_filter_search_screen(context); },
                                       child: Container(
                                         width: 40.w,
                                         height: 9.h,
@@ -216,33 +213,7 @@ class ResultScreen extends StatelessWidget
                                                         BorderRadius.circular(
                                                             20)),
                                                 child: InkWell(
-                                                  onTap: () {
-                                                    print(SearchCubit.get(
-                                                            context)
-                                                        .searchTextController
-                                                        .text);
-                                                    if (SearchCubit.get(context)
-                                                            .searchTextController
-                                                            .text !=
-                                                        "") {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  FilterSearchScreen(
-                                                                    textSearch: SearchCubit.get(
-                                                                            context)
-                                                                        .searchTextController
-                                                                        .text,
-                                                                  )));
-                                                    } else {
-                                                      showToast(
-                                                          msg:
-                                                              "من فضلك ابحث عن شي",
-                                                          state: ToastStates
-                                                              .SUCCESS);
-                                                    }
-                                                  },
+                                                  onTap: () { show_filter_search_screen(context); },
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
@@ -253,63 +224,12 @@ class ResultScreen extends StatelessWidget
                                                     child: Row(
                                                       children: [
                                                         InkWell(
-                                                            onTap: () {
-                                                              print(SearchCubit
-                                                                      .get(
-                                                                          context)
-                                                                  .searchTextController
-                                                                  .text);
-                                                              if (SearchCubit.get(
-                                                                          context)
-                                                                      .searchTextController
-                                                                      .text !=
-                                                                  "") {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            FilterSearchScreen(
-                                                                              textSearch: SearchCubit.get(context).searchTextController.text,
-                                                                            )));
-                                                              } else {
-                                                                showToast(
-                                                                    msg:
-                                                                        "من فضلك ابحث عن شي",
-                                                                    state: ToastStates
-                                                                        .SUCCESS);
-                                                              }
-                                                            },
+                                                            onTap: () { show_filter_search_screen(context); },
                                                             child: const Text(
                                                                 'بحث بالفلتر')),
                                                         const Spacer(),
                                                         InkWell(
-                                                          onTap: () {
-                                                            print(SearchCubit
-                                                                    .get(
-                                                                        context)
-                                                                .searchTextController
-                                                                .text);
-                                                            if (SearchCubit.get(
-                                                                        context)
-                                                                    .searchTextController
-                                                                    .text !=
-                                                                "") {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) =>
-                                                                          FilterSearchScreen(
-                                                                            textSearch:
-                                                                                SearchCubit.get(context).searchTextController.text,
-                                                                          )));
-                                                            } else {
-                                                              showToast(
-                                                                  msg:
-                                                                      "من فضلك ابحث عن شي",
-                                                                  state: ToastStates
-                                                                      .SUCCESS);
-                                                            }
-                                                          },
+                                                          onTap: () { show_filter_search_screen(context); },
                                                           child: Image(
                                                             image: AssetImage(
                                                                 'assets/filter.png'),
@@ -358,117 +278,77 @@ class ResultScreen extends StatelessWidget
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: defaultTextFormField(
+                        child: 
+                        defaultTextFormField(
                             labelTextcolor: primary,
                             borderColor: primary,
                             container: backGround,
-                            onsubmit: (value) {
-                              SearchCubit.get(context).search(
-                                  text: SearchCubit.get(context)
-                                      .searchTextController
-                                      .text);
-                              SearchCubit.get(context).getSearch = true;
-                            },
-                            suffixPressed: () {
-                              SearchCubit.get(context).search(
-                                  text: SearchCubit.get(context)
-                                      .searchTextController
-                                      .text);
-                              SearchCubit.get(context).getSearch = true;
-                            },
-                            onchange: (value) {
-                              print(value);
-                            },
+                            onsubmit: (value) { start_searching(context); },
+                            suffixPressed: () { start_searching(context); },
+                            onchange: (value) { },
                             context: context,
                             suffix: Icons.search,
-                            controller:
-                                SearchCubit.get(context).searchTextController,
+                            controller: searchTextController,
                             type: TextInputType.text,
                             validate: (value) { return null; },
                             label: "البحث"),
                       ),
                       Visibility(
-                        visible: SearchCubit.get(context).getSearch,
-                        child: ConditionalBuilder(
-                            condition: state is! GetSearchLoadingState,
-                            fallback: (context) => SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                        visible: true, //SearchCubit.get(context).getSearch,
+                        child: 
+                          ConditionalBuilder(
+                            condition: (state is! GetSearchLoadingState) && (state is! FilterSearchLoadingState), //
+                            fallback: (context) => 
+                                SingleChildScrollView(
+                                  child: Column(                                    
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,                                    
                                     children: [
                                       Image(
                                         image: AssetImage(
-                                            "assets/double_ring.gif"),
+                                            "assets/double_ring.gif"), //loading image
                                         height: 12.h,
                                         width: 25.w,
                                       )
                                     ],
                                   ),
                                 ),
-                            builder: (context) => Column(
+                            builder: 
+                                (context) => Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.only(
-                                            start: 5.w, top: 2.h),
-                                        child: Text('النتائج',
+                                        padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
+                                        child: Text( 'النتائج' + " ( ${this.searchResult.length} )",
                                             style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w100,
+                                                fontWeight: FontWeight.w200,
                                                 fontSize: 19)),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.only(bottom: 2.h),
                                         child: GridView.count(
                                               shrinkWrap: true,
-                                              physics:
-                                                  NeverScrollableScrollPhysics(),
+                                              physics: NeverScrollableScrollPhysics(),
                                               childAspectRatio: 1 / 1.2,
                                               crossAxisCount: 3,
                                               crossAxisSpacing: 0.0,
                                               mainAxisSpacing: 12.0,
-                                              children: List.generate(
-                                                  SearchCubit.get(context)
-                                                      .searchList
-                                                      .length, (index) {
-                                                return Center(
-                                                    child: UserItem(
-                                                  visibileRemoveIcon: false,
-                                                  removeUser: () {},
-                                                  onclickUser: () {
-                                                    if (isLogin) {
-                                                      GetInformationCubit.get(context)
-                                                          .getInformationUser(
-                                                              userId: SearchCubit.get(context).searchList[index].id!);
-                                                    } else {
-                                                      GetInformationCubit.get(context)
-                                                          .getInformationUserByVisitor(
-                                                              userId:SearchCubit.get(context).searchList[index].id!);
-                                                    }
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                DetailsUserScreen(
-                                                                  messageVisibility:
-                                                                      true,
-                                                                )));
-                                                  },
-                                                  genderValue:
-                                                      SearchCubit.get(context)
-                                                          .searchList[index]
-                                                          .gender!,
-                                                  username:
-                                                      SearchCubit.get(context)
-                                                          .searchList[index]
-                                                          .user_Name!,
-                                                ));
-                                              })),
+                                              children: 
+                                                List.generate(
+                                                  this.searchResult.length, 
+                                                  (index) {
+                                                    return Center(
+                                                        child: user_item_thmbnail(context, index)
+                                                    );
+                                                  }
+                                                )
+                                              ),
                                       ),
 
-                                    ])),
+                                    ])
+                        ),
                       )
                     ],
                   ),
@@ -477,5 +357,68 @@ class ResultScreen extends StatelessWidget
             ),
           );
         });
+  }
+
+  UserItemWidget user_item_thmbnail(BuildContext context, int index) 
+  {
+    return UserItemWidget(
+      visibileRemoveIcon: false,
+      removeUser: () {},
+      onclickUser: () {
+        if (isLogin) {
+          GetInformationCubit.get(context)
+              .getInformationUser(
+                  userId: this.searchResult[index].id!);
+        } else {
+          GetInformationCubit.get(context)
+              .getInformationUserByVisitor(
+                  userId: this.searchResult[index].id!);
+        }
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    DetailsUserScreen(
+                      messageVisibility:
+                          true,
+                    )));
+      },
+      genderValue:
+          this.searchResult[index].gender!,
+      username:
+          this.searchResult[index].user_Name!,
+    );
+  }
+
+  void show_filter_search_screen(BuildContext context)
+  {
+    print(searchTextController.text);
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  FilterSearchScreen(
+                    textSearch: searchTextController.text,
+                  )));
+
+  }
+
+  void start_searching(BuildContext context) 
+  {
+
+    if (searchTextController.text != "") 
+    {
+      SearchCubit.get(context).searchByText(
+        text: searchTextController.text);
+
+      SearchCubit.get(context).getSearch = true;
+
+    } else {
+      showToast(
+          msg: "من فضلك ابحث عن شي",
+          state: ToastStates.SUCCESS);
+    }
+
   }
 }

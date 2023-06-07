@@ -1,4 +1,6 @@
 import 'dart:developer';
+import '../../layout/cubit/cubit.dart';
+import '../../models/user.dart';
 import 'cubit/states.dart';
 import 'result.dart';
 import '../../shared/components/components.dart';
@@ -13,8 +15,7 @@ import 'cubit/cubit.dart';
 class FilterSearchScreen extends StatefulWidget {
   final String textSearch;
 
-  const FilterSearchScreen({Key? key, required this.textSearch})
-      : super(key: key);
+  const FilterSearchScreen({Key? key, required this.textSearch}): super(key: key);
 
   @override
   _FilterSearchScreenState createState() => _FilterSearchScreenState();
@@ -22,91 +23,15 @@ class FilterSearchScreen extends StatefulWidget {
 
 class _FilterSearchScreenState extends State<FilterSearchScreen> 
 {
+  List<SubSpecification> selectedSubSpecs = [];
+
   List<String> gender = ["ذكر", "انثي"];
-  List<String> MilirtyFemaleStatus = [
-    'مطلقة بكر',
-    'مطلقة',
-    'أرملة',
-    'عزباء بكر'
-  ];
-  List<String> MilirtyMaleStatus = ['أعزب', 'أرمل', 'مطلق'];
-  List<String> personalityMale = ['وسيم', 'غير وسيم', 'مقبول الشكل'];
-  List<String> personalityFemale = ['نوعا ما جميلة', 'متوسطة الجمال', 'جميلة'];
-  List<String> numberOfKids = [
-    'بدون أطفال',
-    'مع والدتهم',
-    'معي أطفال',
-    'معي أطفال وبعد الزواج مع والدتهم'
-  ];
-  List<String> numberOfKidsFemale = [
-    'بدون أطفال',
-    'مع والدهم',
-    'معي أطفال',
-    'معي أطفال وبعد الزواج مع والدهم'
-  ];
-  List<String> experience = [
-    'دكتوراة',
-    'جامعي',
-    'ابتدائي',
-    'ثانوي',
-    'متوسط',
-    'غير متعلم'
-  ];
-  List lastNameList = ["عائلة", "قبيلة"];
-  List<String> jobType = [
-    'موظف قطاعي حكومي',
-    'موظف عسكري',
-    'عاطل عن العمل',
-    'موظف قطاع خاص',
-    'أعمال حرة'
-  ];
-  List<String> jobTypeFemale = [
-    'موظفة قطاعي حكومي',
-    'موظفة عسكري',
-    'عاطلة عن العمل',
-    'موظفة قطاع خاص',
-    'أعمال حرة'
-  ];
-  List<String> skinColor = ['بيضاء', 'سمراء', 'سوداء', 'قمحي'];
-  List<String> illnesstypeMale = [
-    'سليم من الأمراض',
-    'من ذوي الاحتياجات الخاصة',
-    'معي مرض مزمن'
-  ];
-  List<String> illnesstypeFemale = [
-    'سليمة من الأمراض',
-    'من ذوي الاحتياجات الخاصة',
-    'معي مرض مزمن'
-  ];
-
-  List<String> merrageType = ['تعدد', 'مسيار', 'علني'];
-
   int? genderIndex;
-
-  int? selectedMiliirtyFemaleType;
-  int? selectedMiliirtyMaleType;
-
-  int? selectedPersonalityMale;
-  int? selectedPersonalityFemale;
-  int? selectedNumberOfKidsMale;
-  int? selectedNumberOfKidsFemale;
-  int? selectedExperience;
-  int? selectedLastNameIndex;
-  int? selectedJopTypeMale;
-  int? selectedJopTypeFemale;
-  int? selectedSkinColorIndex;
-  int? selectedillnesstypeMaleIndex;
-  int? selectedillnesstypeFemaleIndex;
-
-  int? selectedlastName;
-  int? selectedMerrageType;
 
   var minHeight = TextEditingController();
   var maxHeight = TextEditingController();
-
   var minWeight = TextEditingController();
   var maxWeight = TextEditingController();
-
   var minAge = TextEditingController();
   var maxAge = TextEditingController();
 
@@ -114,10 +39,9 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchStates>(
       listener: (context, state) {
-        if (state is FilterSearchSuccessState) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultScreen()));
-        }
+        if (state is FilterSearchLoadingState) {
+          Navigator.pop( context );
+        }else if (state is FilterSearchSuccessState) { }
       },
       builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
@@ -162,326 +86,75 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             changeFunction: () {
                               setState(() {
                                 genderIndex = index1;
-                                log(
-                                  gender[index1],
-                                );
+                                log(gender[index1],);
                               });
                             })),
                   ),
                   SizedBox(
                     height: 1.5.h,
                   ),
+
                   //الحالة الاجتماعية
-                  if (genderIndex != null)
-                    Text("الحالة الاجتماعية",
-                        style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  if (genderIndex != null)
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
-                  if (genderIndex == 0)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.1,
-                      children: List.generate(
-                          MilirtyMaleStatus.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedMiliirtyMaleType,
-                              title: MilirtyMaleStatus[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedMiliirtyMaleType = index1;
-                                  log(
-                                    MilirtyMaleStatus[index1],
-                                  );
-                                });
-                              })),
-                    ),
-                  if (genderIndex == 1)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.1,
-                      children: List.generate(
-                          MilirtyFemaleStatus.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedMiliirtyFemaleType,
-                              title: MilirtyFemaleStatus[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedMiliirtyFemaleType = index1;
-                                  log(
-                                    MilirtyFemaleStatus[index1],
-                                  );
-                                });
-                              })),
-                    ),
+                  Text("الحالة الاجتماعية", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  SizedBox( height: 1.5.h, ),
+
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: (MediaQuery.of(context).orientation ==
+                            Orientation.landscape)
+                        ? 4
+                        : 2,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    childAspectRatio: 0.6 / 0.1,
+                    children: getListofRadioButtons(SpecificationIDs.social_status)
+                  ),
+
+                  Text("المظهر", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                    
                   SizedBox(
                     height: 1.5.h,
-                  ), //المظهر
+                  ),
 
-                  if (genderIndex != null)
-                    Text("المظهر",
-                        style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  if (genderIndex != null)
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
-                  if (genderIndex == 0)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape) ? 4: 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.1,
-                      children: List.generate(
-                          personalityMale.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedPersonalityMale,
-                              title: personalityMale[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedPersonalityMale = index1;
-                                  log(
-                                    personalityMale[index1],
-                                  );
-                                });
-                              })),
-                    ),
-                  if (genderIndex == 1)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.1,
-                      children: List.generate(
-                          personalityFemale.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedPersonalityFemale,
-                              title: personalityFemale[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedPersonalityFemale = index1;
-                                  log(
-                                    personalityFemale[index1],
-                                  );
-                                });
-                              })),
-                    ),
-                  if (genderIndex != null)
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: (MediaQuery.of(context).orientation ==
+                            Orientation.landscape)
+                        ? 4
+                        : 2,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    childAspectRatio: 0.6 / 0.1,
+                    children: getListofRadioButtons(SpecificationIDs.appearance),
+                  ),
+
+                  SizedBox(
+                    height: 1.5.h,
+                  ),
+
                   //الاطفال
-                  if (genderIndex != null)
-                    Text("الاطفال",
-                        style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  if (genderIndex != null)
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
-                  if (genderIndex == 0)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 1,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.05,
-                      children: List.generate(
-                          numberOfKids.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedNumberOfKidsMale,
-                              title: numberOfKids[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedNumberOfKidsMale = index1;
-                                  log(
-                                    numberOfKids[index1],
-                                  );
-                                });
-                              })),
-                    ),
-                  if (genderIndex == 1)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 1,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.05,
-                      children: List.generate(
-                          numberOfKidsFemale.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedNumberOfKidsFemale,
-                              title: numberOfKidsFemale[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedNumberOfKidsFemale = index1;
-                                  log(
-                                    numberOfKidsFemale[index1],
-                                  );
-                                });
-                              })),
-                    ),
-                  if (genderIndex != null)
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
+                  Text("الاطفال", style: TextStyle(color: black, fontSize: 12.3.sp)),
 
-                  Text("الموهل العلمي",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
+                  SizedBox( height: 1.5.h,),
+
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: (MediaQuery.of(context).orientation ==
                             Orientation.landscape)
                         ? 4
-                        : 2,
+                        : 1,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(0),
-                    childAspectRatio: 0.6 / 0.1,
-                    children: List.generate(
-                        experience.length,
-                        (index1) => WhiteRadioButton(
-                            value: index1,
-                            groupvalue: selectedExperience,
-                            title: experience[index1],
-                            changeFunction: () {
-                              setState(() {
-                                selectedExperience = index1;
-                                log(
-                                  experience[index1],
-                                );
-                              });
-                            })),
-                  ),
+                    childAspectRatio: 0.6 / 0.05,
+                    children: getListofRadioButtons(SpecificationIDs.have_children)
+                    ),
+
                   SizedBox(
                     height: 1.5.h,
                   ),
 
-                  Text("الاسم ينتهي ب ",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: (MediaQuery.of(context).orientation ==
-                            Orientation.landscape)
-                        ? 4
-                        : 2,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(0),
-                    childAspectRatio: 0.6 / 0.1,
-                    children: List.generate(
-                        lastNameList.length,
-                        (index1) => WhiteRadioButton(
-                            value: index1,
-                            groupvalue: selectedlastName,
-                            title: lastNameList[index1],
-                            changeFunction: () {
-                              setState(() {
-                                selectedlastName = index1;
-                                log(
-                                  lastNameList[selectedlastName!],
-                                );
-                              });
-                            })),
-                  ),
-                  if (genderIndex != null)
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
-
-                  if (genderIndex != null)
-                    Text("الوظيفة",
-                        style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  if (genderIndex == 0)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.1,
-                      children: List.generate(
-                          jobType.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedJopTypeMale,
-                              title: jobType[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedJopTypeMale = index1;
-                                  log(
-                                    jobType[index1],
-                                  );
-                                });
-                              })),
-                    ),
-                  if (genderIndex == 1)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 2,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.1,
-                      children: List.generate(
-                          jobTypeFemale.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedJopTypeFemale,
-                              title: jobTypeFemale[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedJopTypeFemale = index1;
-                                });
-                              })),
-                    ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-                  Text("لون البشرة",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
+                  Text("الموهل العلمي", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  SizedBox(height: 1.5.h,),
 
                   GridView.count(
                     shrinkWrap: true,
@@ -492,93 +165,88 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(0),
                     childAspectRatio: 0.6 / 0.1,
-                    children: List.generate(
-                        skinColor.length,
-                        (index1) => WhiteRadioButton(
-                            value: index1,
-                            groupvalue: selectedSkinColorIndex,
-                            title: skinColor[index1],
-                            changeFunction: () {
-                              setState(() {
-                                selectedSkinColorIndex = index1;
-                                log(
-                                  skinColor[index1],
-                                );
-                              });
-                            })),
+                    children: getListofRadioButtons(SpecificationIDs.qualification)                    
                   ),
+
+                  SizedBox(height: 1.5.h,),
+
+                  Text("الاسم ينتهي ب ", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  SizedBox( height: 1.5.h,),
+
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: (MediaQuery.of(context).orientation ==
+                            Orientation.landscape)
+                        ? 4
+                        : 2,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    childAspectRatio: 0.6 / 0.1,
+                    children: getListofRadioButtons(SpecificationIDs.name_end_with)
+                  ),
+
+                  SizedBox(
+                    height: 1.5.h,
+                  ),
+
+                  Text("الوظيفة", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  SizedBox(height: 1.5.h,),
+
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: (MediaQuery.of(context).orientation ==
+                            Orientation.landscape)
+                        ? 4
+                        : 2,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    childAspectRatio: 0.6 / 0.1,
+                    children: getListofRadioButtons(SpecificationIDs.job)
+                  ),
+
+                  
+                  SizedBox(height: 1.5.h,),
+                  
+                  Text("لون البشرة", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  SizedBox(height: 1.5.h,),
+
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: (MediaQuery.of(context).orientation ==
+                            Orientation.landscape)
+                        ? 4
+                        : 2,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    childAspectRatio: 0.6 / 0.1,
+                    children: getListofRadioButtons(SpecificationIDs.skin_colour)
+                  ),
+
                   if (genderIndex != null)
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
+                    SizedBox(height: 1.5.h,),
 
                   //الحالة الصحية
-                  if (genderIndex != null)
-                    Text("الحالة الصحية",
-                        style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
+                  Text("الحالة الصحية", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  SizedBox(height: 1.5.h, ),
+
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: (MediaQuery.of(context).orientation ==
+                            Orientation.landscape)
+                        ? 4
+                        : 1,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    childAspectRatio: 0.6 / 0.05,
+                    children: getListofRadioButtons(SpecificationIDs.health_status)
                   ),
-                  if (genderIndex == 0)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 1,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.05,
-                      children: List.generate(
-                          illnesstypeMale.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedillnesstypeMaleIndex,
-                              title: illnesstypeMale[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedillnesstypeMaleIndex = index1;
-                                  log(
-                                    illnesstypeMale[index1],
-                                  );
-                                });
-                              })),
-                    ),
-                  if (genderIndex == 1)
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: (MediaQuery.of(context).orientation ==
-                              Orientation.landscape)
-                          ? 4
-                          : 1,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      childAspectRatio: 0.6 / 0.05,
-                      children: List.generate(
-                          illnesstypeFemale.length,
-                          (index1) => WhiteRadioButton(
-                              value: index1,
-                              groupvalue: selectedillnesstypeFemaleIndex,
-                              title: illnesstypeFemale[index1],
-                              changeFunction: () {
-                                setState(() {
-                                  selectedillnesstypeFemaleIndex = index1;
-                                  log(
-                                    illnesstypeFemale[index1],
-                                  );
-                                });
-                              })),
-                    ),
 
                   SizedBox(
                     height: 1.5.h,
                   ),
 
-                  Text("الطول",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
+                  Text("الطول", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  SizedBox(height: 1.5.h, ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -590,6 +258,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             labelTextcolor: Colors.white54,
                             borderColor: primary,
                             container: white,
+                            styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
                               return null;
@@ -607,6 +276,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             labelTextcolor: Colors.white54,
                             borderColor: primary,
                             container: white,
+                            styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
                               return null;
@@ -636,6 +306,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             labelTextcolor: Colors.white54,
                             borderColor: primary,
                             container: white,
+                            styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
                               return null;
@@ -653,6 +324,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             labelTextcolor: Colors.white54,
                             borderColor: primary,
                             container: white,
+                            styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
                               return null;
@@ -672,24 +344,28 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    children: 
+                    [
                       Container(
                         width: 44.w,
                         child: defaultTextFormField(
                             context: context,
                             controller: minAge,
                             labelTextcolor: Colors.white54,
+                            styleText: Colors.black87,
                             borderColor: primary,
-                            container: white,
+                            container: Colors.white,
                             type: TextInputType.number,
                             validate: (value) {
                               return null;
                             },
                             label: "الحد الادني للعمر"),
                       ),
+
                       SizedBox(
                         width: 6.w,
                       ),
+
                       Container(
                         width: 44.w,
                         child: defaultTextFormField(
@@ -698,6 +374,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             labelTextcolor: Colors.white54,
                             borderColor: primary,
                             container: white,
+                            styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
                               return null;
@@ -711,13 +388,10 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     height: 1.5.h,
                   ),
 
-                  Text(
-                    "نوع الزواج",
-                    style: TextStyle(color: black, fontSize: 11.sp),
+                  Text("نوع الزواج", style: TextStyle(color: black, fontSize: 11.sp),
                   ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
+                  SizedBox(height: 1.h,),
+                  
                   GridView.count(
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(0),
@@ -727,30 +401,26 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
                     childAspectRatio: 0.8 / 0.02.h,
-                    children: List.generate(
-                        3,
-                        (index1) => WhiteRadioButton(
-                            value: index1,
-                            groupvalue: selectedMerrageType,
-                            title: merrageType[index1],
-                            changeFunction: () {
-                              setState(() {
-                                selectedMerrageType = index1;
-                              });
-                            })),
+                    children: getListofRadioButtons(SpecificationIDs.marriage_Type)
                   ),
+
                   SizedBox(
                     height: 3.5.h,
                   ),
+
                   doubleInfinityMaterialButton(
                       text: "بحث",
-                      onPressed: () {
-                        searchOnPressed(context);
+                      onPressed: () { searchOnPressed(context);}),
 
-                      }),
-                  SizedBox(
-                    height: 3.5.h,
-                  ),
+                  SizedBox(height: 1.5.h,),
+
+                  doubleInfinityMaterialButton(
+                      text: "مسح",
+                      onPressed: () { clearAll(context); }),
+
+                  SizedBox(height: 1.5.h,),
+
+                  
                 ],
               ),
             ),
@@ -759,127 +429,96 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
       ),
     );
   }
-  
-  void searchOnPressed(BuildContext context) 
+
+  void clearAll(BuildContext context)
   {
-    if (genderIndex == null) {
-      SearchCubit.get(context).filterSearch(
-        textSearch: widget.textSearch,
-        minHeight: int.tryParse(minHeight.text),
-        maxHeight: int.tryParse(maxHeight.text),
-        minWeight: int.tryParse(minWeight.text),
-        maxWeight: int.tryParse(minWeight.text),
-        minAge: int.tryParse(minAge.text),
-        maxAge: int.tryParse(maxAge.text),
-        skinColor: selectedSkinColorIndex != null
-            ? skinColor[selectedSkinColorIndex!]
-            : null,
-        typeOfMarriage: selectedMerrageType != null
-            ? merrageType[selectedMerrageType!]
-            : null,
-        lastName: selectedlastName != null
-            ? lastNameList[selectedlastName!]
-            : null,
-        qualifications: selectedExperience != null
-            ? experience[selectedExperience!]
-            : null,
-        gender: genderIndex != null
-            ? genderIndex == 0
-                ? 1
-                : 2
-            : 0,
-      );
-    }
-    if (genderIndex == 0) {
-      SearchCubit.get(context).filterSearch(
-          textSearch: widget.textSearch,
-          minHeight: int.tryParse(minHeight.text),
-          maxHeight: int.tryParse(maxHeight.text),
-          minWeight: int.tryParse(minWeight.text),
-          maxWeight: int.tryParse(minWeight.text),
-          minAge: int.tryParse(minAge.text),
-          maxAge: int.tryParse(maxAge.text),
-          jobType: selectedJopTypeMale != null
-              ? jobType[selectedJopTypeMale!]
-              : null,
-          typeOfMarriage: selectedMerrageType != null
-              ? merrageType[selectedMerrageType!]
-              : null,
-          skinColor: selectedSkinColorIndex != null
-              ? skinColor[selectedSkinColorIndex!]
-              : null,
-          illnessType: selectedillnesstypeMaleIndex != null
-              ? illnesstypeMale[
-                  selectedillnesstypeMaleIndex!]
-              : null,
-          lastName: selectedlastName != null
-              ? lastNameList[selectedlastName!]
-              : null,
-          qualifications: selectedExperience != null
-              ? experience[selectedExperience!]
-              : null,
-          childern: selectedNumberOfKidsMale != null
-              ? numberOfKids[selectedNumberOfKidsMale!]
-              : null,
-          personality: selectedPersonalityMale != null
-              ? personalityMale[selectedPersonalityMale!]
-              : null,
-          gender: genderIndex != null
-              ? genderIndex == 0
-                  ? 1
-                  : 2
-              : 0,
-          milirity: selectedMiliirtyMaleType != null
-              ? MilirtyMaleStatus[selectedMiliirtyMaleType!]
-              : null);
-    }
-    if (genderIndex == 1) {
-      SearchCubit.get(context).filterSearch(
-          textSearch: widget.textSearch,
-          minHeight: int.tryParse(minHeight.text),
-          maxHeight: int.tryParse(maxHeight.text),
-          minWeight: int.tryParse(minWeight.text),
-          maxWeight: int.tryParse(minWeight.text),
-          minAge: int.tryParse(minAge.text),
-          maxAge: int.tryParse(maxAge.text),
-          typeOfMarriage: selectedMerrageType != null
-              ? merrageType[selectedMerrageType!]
-              : null,
-          jobType: selectedJopTypeFemale != null
-              ? jobTypeFemale[selectedJopTypeFemale!]
-              : null,
-          skinColor: selectedSkinColorIndex != null
-              ? skinColor[selectedSkinColorIndex!]
-              : null,
-          illnessType: selectedillnesstypeMaleIndex != null
-              ? illnesstypeFemale[
-                  selectedillnesstypeFemaleIndex!]
-              : null,
-          lastName: selectedlastName != null
-              ? lastNameList[selectedlastName!]
-              : null,
-          qualifications: selectedExperience != null
-              ? experience[selectedExperience!]
-              : null,
-          childern: selectedNumberOfKidsFemale != null
-              ? numberOfKidsFemale[
-                  selectedNumberOfKidsFemale!]
-              : null,
-          personality: selectedPersonalityFemale != null
-              ? personalityFemale[
-                  selectedPersonalityFemale!]
-              : null,
-          gender: genderIndex != null
-              ? genderIndex == 0
-                  ? 1
-                  : 2
-              : 0,
-          milirity: selectedMiliirtyFemaleType != null
-              ? MilirtyFemaleStatus[
-                  selectedMiliirtyFemaleType!]
-              : null);
-    }    
+    setState(() 
+    {
+        genderIndex = null;
+        minHeight.text = "";
+        maxHeight.text = "";
+        minAge.text = "";
+        maxAge.text = "";
+        minWeight.text = "";
+        maxWeight.text = "";
+
+        selectedSubSpecs.clear();
+    });
+    
   }
 
+  String? findSubSpecValueBySpecId_OrEmptyStr(specId)
+  {
+    //SubSpecification(0, null, 0, null)
+    return selectedSubSpecs
+            .firstWhere((s) => s.specId == specId,
+            orElse: () => SubSpecification(0, null, 0, null)).value;
+  }
+  void searchOnPressed(BuildContext context) 
+  {
+      Map query = {
+        "maritalStatus": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.social_status),
+        "gender": (genderIndex == null)? 0 : genderIndex! + 1,
+        "appearance": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.appearance),
+        "children": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.have_children),
+        "qualification": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.qualification),
+        "wifeLineage": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.name_end_with),
+        "hasDiseases": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.health_status),
+        "skinSolour": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.skin_colour),
+        "workNature": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.job),
+        
+        "minHeight": int.tryParse(minHeight.text)?? 0,
+        "maxHeight": int.tryParse(maxHeight.text)?? 0,
+        "minWeight": int.tryParse(minWeight.text)?? 0,
+        "maxWeight": int.tryParse(minWeight.text)?? 0,
+        "minAge": int.tryParse(minAge.text)?? 0,
+        "maxAge": int.tryParse(maxAge.text)?? 0,        
+        "TextSearch": widget.textSearch,
+        "Typeofmarriage": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.marriage_Type),
+      };    
+
+      SearchCubit.get(context).searchByFilter(query);
+
+  }
+
+  List<Widget> getListofRadioButtons(int specificationId) 
+  {
+    var Spec = AppCubit.Specifications[ specificationId ];
+
+    if(Spec == null)
+      return [Text("No Elements")];
+
+    List<Widget> radios = [];
+    Spec["subSpecifications"].forEach((sub_id, sub) 
+    {
+      SubSpecification? found;
+      found = selectedSubSpecs
+                      .where( (user_sub) => user_sub.specId == sub["specificationId"])
+                      .firstOrNull;
+
+      // log(found.toString());
+
+      radios.add(
+        WhiteRadioButton(
+          value: sub["id"],
+          groupvalue: found?.id, 
+          title: sub["nameAr"] ,
+          changeFunction: () {
+            setState(() {
+              if (found == null){
+                found = new SubSpecification(sub["id"], sub["nameAr"], Spec["id"], Spec["nameAr"]);
+                selectedSubSpecs.add(found!);
+              }else{
+                found?.id = sub["id"];
+                found?.value = sub["nameAr"];
+                found?.specId = Spec["id"];
+                found?.name = Spec["nameAr"];
+              }
+            });
+          })
+      );      
+    });
+    return radios;
+  }
 
 }//end class

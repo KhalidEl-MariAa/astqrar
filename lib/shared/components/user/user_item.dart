@@ -4,13 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
-class UserItem extends StatelessWidget {
+class UserItemWidget extends StatelessWidget 
+{
   final String username;
   final int genderValue;
   final Function onclickUser;
   final Function removeUser;
-final bool visibileRemoveIcon;
-  UserItem(
+  final bool visibileRemoveIcon;
+  
+  UserItemWidget(
       {required this.username,
       required this.genderValue,
       required this.onclickUser,

@@ -53,15 +53,15 @@ class UserConversationScreenState extends State<UserConversationScreen>
 
   void connect() async {
     await hubConnection.start()?.then((value) => print('connected'));
-    hubConnection.invoke('Connect',
-        args: [id!]).then((value) => print("connected user success"));
+    hubConnection.invoke('Connect', args: [id!]).then((value) => print("connected user success"));
     hubConnection.on('receiveMessage', (arguments) async {
       dynamic ss = {};
       ss = jsonEncode(arguments![0]);
       jsonDecode(ss);
       print("ss" + jsonDecode(ss).toString());
       chat = ChatModel.fromJson(jsonDecode(ss));
-      if (mounted) {
+      if (mounted) 
+      {
         setState(() {
           UserConversationScreenState.messages.add(chat.text.toString());
           UserConversationScreenState.messagesMine.add(false);
@@ -71,6 +71,7 @@ class UserConversationScreenState extends State<UserConversationScreen>
         });
       }
     });
+
     hubConnection.on("connectedUsers", (arguments) {
       dynamic list = [];
       print(arguments!.length);
