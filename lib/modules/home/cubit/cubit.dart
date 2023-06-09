@@ -15,10 +15,10 @@ class HomeCubit extends Cubit<HomeStates>
   //late LoginModel loginModel;
   static HomeCubit get(context) => BlocProvider.of(context);
 
-  late GetAllUsers getHomeModel;
-  List<UsersHomeData> menSection = [];
-  List<UsersHomeData> womenSection = [];
-  Map<int,int> subSpecification={};
+  // late GetAllUsers getHomeModel;
+  // List<UsersHomeData> menSection = [];
+  // List<UsersHomeData> womenSection = [];
+  // Map<int,int> subSpecification={};
   
   /*getHomeData() {
     emit(HomeLoadingState());

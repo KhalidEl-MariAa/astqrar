@@ -19,7 +19,7 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<NotificationCubit, NotificationStates>(
       listener: (context, state) {
-        if (state is AcceptRequestSuccessState) {
+        if (state is AcceptChattRequestSuccessState) {
           showDialog(
               context: context, builder: (context) =>  SuccessDialog(
             successText:   "تم القبول بنجاح",

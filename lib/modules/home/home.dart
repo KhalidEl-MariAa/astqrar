@@ -343,7 +343,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       child: InkWell(
                         onTap: () async {
                           HubConnectionBuilder()
-                            .withUrl("https://estqrar-001-site1.ctempurl.com/chatHub")
+                            .withUrl("${BASE_URL}chatHub")
                             .build();
 
                           SectionMenOrWomen.oneIndexSection=0;

@@ -11,21 +11,22 @@ class GetNotificationErrorState extends NotificationStates{
   GetNotificationErrorState(this.error);
 }
 
-class AcceptRequestLoadingState extends NotificationStates{}
+class AcceptChattRequestLoadingState extends NotificationStates{}
 
-class AcceptRequestSuccessState extends NotificationStates{}
+class AcceptChattRequestSuccessState extends NotificationStates{}
 
-class AcceptRequestErrorState extends NotificationStates{
+class AcceptChattRequestErrorState extends NotificationStates{
   final String error;
-  AcceptRequestErrorState(this.error);
+  AcceptChattRequestErrorState(this.error);
 }
-class IgnoreRequestLoadingState extends NotificationStates{}
 
-class IgnoreRequestSuccessState extends NotificationStates{}
+class IgnoreChattRequestLoadingState extends NotificationStates{}
 
-class IgnoreRequestErrorState extends NotificationStates{
+class IgnoreChattRequestSuccessState extends NotificationStates{}
+
+class IgnoreChattRequestErrorState extends NotificationStates{
   final String error;
-  IgnoreRequestErrorState(this.error);
+  IgnoreChattRequestErrorState(this.error);
 }
 
 class SendNotificationLoadingState extends NotificationStates{}

@@ -28,11 +28,12 @@ class DetailsUserScreen extends StatelessWidget
   Widget build(BuildContext context) {
     return BlocConsumer<GetInformationCubit, GetInformationStates>(
       listener: (context, state) {
-        if (state is AddRequestSuccessState) {
+        if (state is AddChattRequestSuccessState) {
           if (state.statusCode == 200) {
-            showToast(
-                msg: "تم ارسال طلب محادثة بنجاح", state: ToastStates.SUCCESS);
+            showToast(msg: "تم ارسال طلب محادثة بنجاح", state: ToastStates.SUCCESS);
           }
+        }else if (state is AddChattRequestErrorState){
+          showToast(msg: state.error, state: ToastStates.SUCCESS);
         }
       },
 
@@ -133,10 +134,10 @@ class DetailsUserScreen extends StatelessWidget
               child: DetailsItemScreen(
                 dowry: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!.dowry!,
+                    .userSubSpecifications!.dowry!, 
                 terms: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!.terms!,
+                    .userSubSpecifications!.terms!,
                     
                 onClickUser: (){
                   Navigator.push(
@@ -166,12 +167,12 @@ class DetailsUserScreen extends StatelessWidget
                 },
                 specialNeeds: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!
+                    .userSubSpecifications!
                     .specialNeeds!,
 
                 userSubSpecificationDto: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!
+                    .userSubSpecifications!
                     .userSubSpecificationDto,
                 favouriteFunction: () {
                   if (GetInformationCubit.get(context)
@@ -180,18 +181,17 @@ class DetailsUserScreen extends StatelessWidget
                     GetInformationCubit.get(context).deleteFromFavourite(
                         userId: GetInformationCubit.get(context)
                             .getInformationUserModel
-                            .userSubSpecification!
+                            .userSubSpecifications!
                             .id!);
                   } else {
                     GetInformationCubit.get(context).addToFavourite(
                         userId: GetInformationCubit.get(context)
                             .getInformationUserModel
-                            .userSubSpecification!
+                            .userSubSpecifications!
                             .id!);
                   }
                 },
                 chatFunction: () {
-
                     GetInformationCubit.get(context)
                           .getInformationUserModel
                           .isInMyContacts!
@@ -202,62 +202,59 @@ class DetailsUserScreen extends StatelessWidget
                                  typeUser: 1,
                                 gender: GetInformationCubit.get(context)
                                     .getInformationUserModel
-                                    .userSubSpecification!.gender!,
+                                    .userSubSpecifications!.gender!,
                                   userId: GetInformationCubit.get(context)
                                       .getInformationUserModel
-                                      .userSubSpecification!
+                                      .userSubSpecifications!
                                       .id!,
                                   userName: GetInformationCubit.get(context)
                                       .getInformationUserModel
-                                      .userSubSpecification!
+                                      .userSubSpecifications!
                                       .userName!)))
-                      : GetInformationCubit.get(context).addRequest(
+                      : GetInformationCubit.get(context).addChattRequest(
                           userId: GetInformationCubit.get(context)
                               .getInformationUserModel
-                              .userSubSpecification!
+                              .userSubSpecifications!
                               .id!);
-
-
-
                 },
                 isFavourite: GetInformationCubit.get(context)
                     .getInformationUserModel
                     .isFavorate!,
                 height: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!
+                    .userSubSpecifications!
                     .height
                     .toString(),
                 weight: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!
+                    .userSubSpecifications!
                     .weight
                     .toString(),
                 gender: int.parse(GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!
+                    .userSubSpecifications!
                     .gender
                     .toString()),
                 age: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!
+                    .userSubSpecifications!
                     .age
                     .toString(),
                 city: GetInformationCubit.get(context)
                         .getInformationUserModel
-                        .userSubSpecification!
+                        .userSubSpecifications!
                         .city ?? " ",
                 email: GetInformationCubit.get(context)
                         .getInformationUserModel
-                        .userSubSpecification!
+                        .userSubSpecifications!
                         .email ?? " ",
                 name: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecification!
+                    .userSubSpecifications!
                     .userName!,
                 nationality: GetInformationCubit.get(context)
                         .getInformationUserModel
-                        .userSubSpecification!
+                        .userSubSpecifications!
                         .nationality ?? " ",
                 messageVisibility: messageVisibility,
               ),

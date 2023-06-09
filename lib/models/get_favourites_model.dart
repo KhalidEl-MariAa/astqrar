@@ -1,4 +1,6 @@
-class GetFavouritesModel {
+
+class GetFavouritesModel 
+{
   int?key;
   List<DataOfUsersInFavouritesModel>data = [];
 

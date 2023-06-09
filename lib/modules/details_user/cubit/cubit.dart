@@ -1,7 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
-import '../../../models/add_request.dart';
+import 'package:astarar/models/server_response_model.dart';
+
 import '../../../models/add_to_favourite.dart';
 import '../../../models/get_information_user.dart';
 import 'states.dart';
@@ -48,7 +49,7 @@ class GetInformationCubit extends Cubit<GetInformationStates>
       sendNotification(userid: userId, type: 3, body:"تمت زيارة صفحتك من قبل $name",
           title: "");
     }).catchError((error) {
-      log(error.toString());
+      // log(error.toString());
       emit(GetInformationErrorState(error.toString()));
     });
   }
@@ -63,13 +64,13 @@ class GetInformationCubit extends Cubit<GetInformationStates>
         url: GETINFORMATIONUSERBYVISITOR,
         query: {"userid": userId})
         .then((value) {
-      log(value.toString());
+      // log(value.toString());
       getInformationUserModel = GetInformationUserModel.fromJson(value.data);
       getInformationDone = true;
       emit(GetInformationSuccessState());
 
     }).catchError((error) {
-      print(error.toString());
+      // print(error.toString());
       emit(GetInformationErrorState(error.toString()));
     });
   }
@@ -116,35 +117,39 @@ class GetInformationCubit extends Cubit<GetInformationStates>
         },
         token: token.toString())
         .then((value) {
-      log(value.toString());
+      // log(value.toString());
       deleteFromFavouriteModel = AddToFavouriteModel.fromJson(value.data);
       emit(AddToFavouriteSuccessState());
     }).catchError((error) {
       getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
-      log(error.toString());
+      // log(error.toString());
       emit(AddToFavouriteErrorState(error.toString()));
     });
   }
 
   //add request
-  late AddRequestModel addRequestModel;
+  late ServerResponse res;
 
-  void addRequest({required String userId}) 
+  void addChattRequest({required String userId}) 
   {
-    emit(AddRequestLoadingState());
+    emit(AddChattRequestLoadingState());
     DioHelper.postDataWithBearearToken(
       url: ADDREQUEST, 
       data: { "userId":userId}, 
       token: token.toString())
     .then((value) {
-      log(value.toString());
-      addRequestModel = AddRequestModel.fromJson(value.data);
-      log(value.statusCode.toString());
-      emit(AddRequestSuccessState(value.statusCode!));
+      // log(value.toString());
+      res = ServerResponse.fromJson(value.data);
+      if( res.key == 0){
+        emit(AddChattRequestErrorState( res.msg.toString() ));
+        return;
+      }
+    
+      emit(AddChattRequestSuccessState(value.statusCode!));
       sendNotification(userid: userId, type: 0, body: "تم ارسال طلب محادثة من قبل $name", title: "طلب محادثة");
     }).catchError((error) {
-      log(error.toString());
-      emit(AddRequestErrorState(error.toString()));
+      // log(error.toString());
+      emit(AddChattRequestErrorState(error.toString()));
     });
   }
 
@@ -165,10 +170,10 @@ class GetInformationCubit extends Cubit<GetInformationStates>
           "title":title
         }
       ).then((value) {
-          log(value.toString());
+          // log(value.toString());
           emit(SendNotificationSuccessState());
       }).catchError((error){
-          log(error.toString());
+          // log(error.toString());
           emit(SendNotificationErrorState(error.toString()));
       });
   }

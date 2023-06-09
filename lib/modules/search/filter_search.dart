@@ -51,7 +51,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
               child: NormalLogo(
                 isBack: true,
                 appbarTitle: "الفلتر",
-              )),
+              )
+            ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.w),
             child: SingleChildScrollView(

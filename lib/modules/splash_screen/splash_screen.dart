@@ -44,7 +44,7 @@ class _SplashState extends State<Splash> {
 
       if(isLogin==true && typeOfUser==1)
       {
-        if(isExpired==true){
+        if(isExpired==true || IS_DEVELOPMENT_MODE){
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -52,7 +52,7 @@ class _SplashState extends State<Splash> {
           );
         }
 
-        if(isExpired==false){
+        else if(isExpired==false){
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const PackagesScreen()),
@@ -61,7 +61,7 @@ class _SplashState extends State<Splash> {
           showToast(msg: "انتهت صلاحية الباقة لديك", state: ToastStates.WARNING);
         }
 
-        if(isExpired==null)
+        else if(isExpired==null)
         {
             Navigator.pushAndRemoveUntil(
               context,

@@ -8,7 +8,8 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
-class CustomDialog extends StatelessWidget {
+class CustomDialog extends StatelessWidget 
+{
   final String text;
   final String price;
   const CustomDialog({Key? key,required this.text,required this.price}) : super(key: key);

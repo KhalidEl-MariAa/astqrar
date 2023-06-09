@@ -49,9 +49,10 @@ void main() async {
   await Firebase.initializeApp();
 
   Bloc.observer = MyBlocObserver();
-  DioHelper.init();
+  await DioHelper.init();
 
   await CacheHelper.init();
+  
   token = CacheHelper.getData(key: "token");
   typeOfUser = CacheHelper.getData(key: "typeUser");
   id = CacheHelper.getData(key: "id");
@@ -63,12 +64,15 @@ void main() async {
 
   isLogin = CacheHelper.getData(key: "isLogin") ?? false;
 
+  IS_DEVELOPMENT_MODE = !kReleaseMode; 
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget 
+{
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
@@ -83,40 +87,38 @@ class MyApp extends StatelessWidget {
                   AppCubit()
                     ..loadSpecificationsFromBackend()
                     ..getPhone()),
-              BlocProvider<HomeCubit>(
-                  create: (BuildContext context) =>
-                  HomeCubit()
 
-                    ..getUserAds()),
+              BlocProvider<HomeCubit>(
+                  create: (BuildContext context) => HomeCubit()..getUserAds()),
+
               BlocProvider<GetPackagesCubit>(
-                  create: (BuildContext context) =>
-                  GetPackagesCubit()
-                    ..getPackages()),
+                  create: (BuildContext context) => GetPackagesCubit()..getPackages()),
+
               BlocProvider<AdsCubit>(
-                  create: (BuildContext context) =>
-                  AdsCubit()
-                    ..getAds()),
+                  create: (BuildContext context) => AdsCubit()..getAds()),
+
               BlocProvider<GetUserByGenderCubit>(
                   create: (BuildContext context) => GetUserByGenderCubit()),
+
               BlocProvider<GetInformationCubit>(
                   create: (BuildContext context) => GetInformationCubit()),
+
               BlocProvider<SettingsCubit>(
                   create: (BuildContext context) => SettingsCubit()),
+
               BlocProvider<SearchCubit>(
                   create: (BuildContext context) => SearchCubit()),
               // BlocProvider<DelegatesCubit>(
               //     create: (BuildContext context) =>
               //     DelegatesCubit()
               //       ..getDelegates()),
+
               BlocProvider<AboutUsCubit>(
-                  create: (BuildContext context) =>
-                  AboutUsCubit()
-                    ..aboutUs()),
+                  create: (BuildContext context) => AboutUsCubit()..aboutUs()),
 
               BlocProvider<NotificationCubit>(
-                  create: (BuildContext context) =>
-                  NotificationCubit()
-                    ..getNotifications()),
+                  create: (BuildContext context) => NotificationCubit()..getNotifications()),
+
               BlocProvider<PaymentCubit>(
                   create: (BuildContext context) => PaymentCubit()),
 

@@ -73,7 +73,7 @@ final String time;
                       children: [
                         InkWell(
                             onTap: () {
-                              NotificationCubit.get(context).acceptRequest(userId: userId);
+                              NotificationCubit.get(context).acceptChattRequest(userId: userId);
                              /* showDialog(
                                   context: context,
                                   builder: (context) => SuccessDialog());*/

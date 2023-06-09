@@ -1,21 +1,52 @@
 import 'dart:developer';
 
+import 'package:astarar/shared/contants/contants.dart';
 import 'package:dio/dio.dart';
 
-class DioHelper {
+class DioHelper 
+{
   static late Dio dio;
-  //TODO: fix it to the real server.
+
   static String baseUrl = "https://10.0.2.2:7054/"; //Tested OK on Debug
   // static String baseUrl = "http://10.0.2.2:5109/";   //Tested OK on Run
 
-  static init() {
+  static Future<String> find_the_baseUrl() async 
+  {
+    var res;
+    String baseurl ="";
+    Map? data = {};
+
+    if( IS_DEVELOPMENT_MODE)
+    {
+      baseurl = "https://10.0.2.2:7054/";
+      data = await fetchData(baseurl, "api/v2/ping");      
+      if(data!["status"] == true) return baseurl;
+
+      baseurl = "http://10.0.2.2:5109/";
+      data = await fetchData(baseurl, "api/v2/ping");
+      if(data!["status"] == true) return baseurl;
+    }
     
-    log('Dio init() -----------------------------------------');
-    dio = Dio(BaseOptions(
+    baseurl = BASE_URL;
+    data = await fetchData(baseurl, "api/v2/ping");
+    if(data!["status"]) 
+      log(res.toString());
+    else
+      log("FAILED with BASE_URL: ${BASE_URL}");
+
+    return baseurl;
+  }
+
+  static init() async
+  {
+    DioHelper.baseUrl = await find_the_baseUrl();
+    log('Dio init() -------------------- ' + baseUrl);
+    dio = Dio(
+      BaseOptions(
       baseUrl: baseUrl, 
-      
       receiveDataWhenStatusError: true,
     ));
+
   }
 
   static Future<Response> getData({
@@ -91,12 +122,13 @@ class DioHelper {
   }
 
   static Future<Response> postDataWithBearearToken(
-      {required String url,
-      String? token,
-      required var data
-      //  String ?image,
-      // Map<String, dynamic>? query,
-      }) async {
+    {required String url,
+    String? token,
+    required var data
+    //  String ?image,
+    // Map<String, dynamic>? query,
+    }) async {
+
     dio.options.headers = {
       // 'token':token??'',
       // 'Accept':"application/json",
@@ -105,8 +137,30 @@ class DioHelper {
       'Connection': 'keep-alive',
       'Content-Type': 'application/json',
     };
+    log("token: ${token.toString()}");
     var res = await dio.post(url, data: data);
     print(res);
     return res;
   }
+
+static Future<Map?> fetchData(String baseurl, String url) async 
+{
+  Dio dio1 = Dio(
+      BaseOptions(
+      baseUrl: baseurl, 
+      receiveDataWhenStatusError: true,
+    ));
+
+  // Dio dio1 = Dio();
+  
+  try {
+    Response response = await dio1.get(url);
+    // Process the response and return the data if successful
+    return response.data;
+  } catch (error) {
+    log('Errorrrrrrrrr: $error');
+    // Return null if there is an exception
+    return {};
+  }
+}
 }

@@ -1,7 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
-import '../../models/add_request.dart';
+import 'package:astarar/models/server_response_model.dart';
+
 import '../../models/get_notifications.dart';
 import 'states.dart';
 import '../../shared/contants/contants.dart';
@@ -9,7 +10,8 @@ import '../../shared/network/end_points.dart';
 import '../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NotificationCubit extends Cubit<NotificationStates> {
+class NotificationCubit extends Cubit<NotificationStates> 
+{
   NotificationCubit() : super(NotificationInitialState());
 
   //late LoginModel loginModel;
@@ -17,11 +19,13 @@ class NotificationCubit extends Cubit<NotificationStates> {
   
   late GetNotificationsModel getNotificationsModel;
   bool getNotificationsDone=false;
-  getNotifications(){
-
+  getNotifications()
+  {
     emit(GetNotificationLoadingState());
-    DioHelper.getDataWithBearerToken(url: GETNOTIFICATIONS,token: token.toString())
-    .then((value) {
+    DioHelper.getDataWithBearerToken(
+      url: GETNOTIFICATIONS,token: 
+      token.toString()
+    ).then((value) {
       log(value.toString());
       getNotificationsModel=GetNotificationsModel.fromJson(value.data);
       getNotificationsDone=true;
@@ -32,44 +36,63 @@ class NotificationCubit extends Cubit<NotificationStates> {
     });
   }
 
-  //accept request
-late AddRequestModel acceptRequestModel;
 
-acceptRequest({required String userId}){
-    emit(AcceptRequestLoadingState());
-    DioHelper.postDataWithBearearToken(url: ACCEPTREQUEST, data: {
-      "userId":userId,
-    },token: token.toString())
-    .then((value) {
+  acceptChattRequest({required String userId})
+  {
+    //accept request
+    late ServerResponse res;
+    emit(AcceptChattRequestLoadingState());
+    DioHelper.postDataWithBearearToken(
+      url: ACCEPTREQUEST, 
+      data: {
+        "userId":userId,
+    },
+    token: token.toString()
+    ).then((value) {
       log(value.toString());
-      acceptRequestModel=AddRequestModel.fromJson(value.data);
-      getNotifications();
-      emit(AcceptRequestSuccessState());
-      sendNotification(userid: userId, type: 1,
-          body: "تم قبول طلب المحادثة من قبل $name", title: "");
-    }).catchError((error){
-     log(error.toString());
-      emit(AcceptRequestErrorState(error.toString()));
-    });
-}
+      res = ServerResponse.fromJson(value.data);
+      log(res.key.toString());
 
-//ignore request
-  late AddRequestModel ignoreRequestModel;
-  ignoreRequest({required String userId}){
-    emit(IgnoreRequestLoadingState());
-    DioHelper.postDataWithBearearToken(url: IGNOREREQUEST, data: {
-      "userId":userId,
-    },token: token.toString())
-        .then((value) {
-      log(value.toString());
-      ignoreRequestModel=AddRequestModel.fromJson(value.data);
       getNotifications();
-      emit(IgnoreRequestSuccessState());
-      sendNotification(userid: userId, type: 2,
-          body: "تم رفض طلب المحادثة من قبل $name", title: "");
+      emit(AcceptChattRequestSuccessState());
+      sendNotification(
+        userid: userId, 
+        type: 1,
+        body: "تم قبول طلب المحادثة من قبل $name", 
+        title: ""
+      );
     }).catchError((error){
       log(error.toString());
-      emit(IgnoreRequestErrorState(error.toString()));
+      emit(AcceptChattRequestErrorState(error.toString()));
+    });
+  }
+
+  ignoreRequest({required String userId})
+  {
+    //ignore request
+    late ServerResponse res;
+    emit(IgnoreChattRequestLoadingState());
+    DioHelper.postDataWithBearearToken(
+      url: IGNOREREQUEST, 
+      data: {
+        "userId":userId,
+      },
+      token: token.toString()
+    ).then((value) {
+      log(value.toString());
+      res = ServerResponse.fromJson(value.data);
+      log(res.key.toString());
+
+      getNotifications();
+      emit(IgnoreChattRequestSuccessState());
+      sendNotification(
+        userid: userId, 
+        type: 2,
+        body: "تم رفض طلب المحادثة من قبل $name", 
+        title: "");
+    }).catchError((error){
+      log(error.toString());
+      emit(IgnoreChattRequestErrorState(error.toString()));
     });
   }
 

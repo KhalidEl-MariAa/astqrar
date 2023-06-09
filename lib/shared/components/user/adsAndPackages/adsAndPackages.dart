@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../custom_dialog.dart';
+
 class AdsAndPackages extends StatelessWidget {
   final List packages;
   final bool isPackages;
@@ -98,22 +100,22 @@ class AdsAndPackages extends StatelessWidget {
                                             .id!,
                             ));
 
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (context) => CustomDialog(
-                            //           price: AdsCubit.get(context)
-                            //               .getAdsModel
-                            //               .data[index]
-                            //               .price
-                            //               .toString(),
-                            //           text:
-                            //               "اسم العميل :$name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
-                            //         ));
-                            // AdsCubit.get(context).addAds(
-                            //     adId: AdsCubit.get(context)
-                            //         .getAdsModel
-                            //         .data[index]
-                            //         .id!);
+                            showDialog(
+                                context: context,
+                                builder: (context) => CustomDialog(
+                                      price: AdsCubit.get(context)
+                                          .getAdsModel
+                                          .data[index]
+                                          .price
+                                          .toString(),
+                                      text:
+                                          "اسم العميل :name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
+                                    ));
+                            AdsCubit.get(context).addAds(
+                                adId: AdsCubit.get(context)
+                                    .getAdsModel
+                                    .data[index]
+                                    .id!);
                           }
                         },
                         child: Container(

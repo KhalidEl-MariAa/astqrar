@@ -29,14 +29,14 @@ class AddToFavouriteErrorState extends GetInformationStates{
   AddToFavouriteErrorState(this.error);
 }
 
-class AddRequestLoadingState extends GetInformationStates{}
+class AddChattRequestLoadingState extends GetInformationStates{}
 
-class AddRequestSuccessState extends GetInformationStates{
+class AddChattRequestSuccessState extends GetInformationStates{
   final int statusCode;
-  AddRequestSuccessState(this.statusCode);
+  AddChattRequestSuccessState(this.statusCode);
 }
 
-class AddRequestErrorState extends GetInformationStates{
+class AddChattRequestErrorState extends GetInformationStates{
   final String error;
-  AddRequestErrorState(this.error);
+  AddChattRequestErrorState(this.error);
 }

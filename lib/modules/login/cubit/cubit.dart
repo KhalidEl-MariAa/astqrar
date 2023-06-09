@@ -45,51 +45,37 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
         // log(value.toString());
         loginModel = LoginModel.fromJson(value.data);
 
-        if(loginModel.key==1 && loginModel.data!.status==true)
+        if (loginModel.key==0){
+          emit(ShopLoginErrorState("حصلت مشكلة من السيرفر، الرجاء ابلاغ مسؤول التطبيق عن هذا العطل"));
+          return;
+        }
+
+        CacheHelper.saveData( key: "phone", value: loginModel.data!.phone);
+        CacheHelper.saveData( key: "token", value: loginModel.data!.token);
+        CacheHelper.saveData(key: "typeUser", value: loginModel.data!.typeUser!);
+        CacheHelper.saveData(key: "id", value: loginModel.data!.id);
+        CacheHelper.saveData( key: "name", value: loginModel.data!.userName);
+        CacheHelper.saveData( key: "age", value: loginModel.data!.age.toString());
+        CacheHelper.saveData( key: "email", value: loginModel.data!.email);
+        CacheHelper.saveData( key: "gender", value: loginModel.data!.gender);
+
+        if( loginModel.data!.status==true || IS_DEVELOPMENT_MODE) 
         {
-          CacheHelper.saveData( key: "token", value: loginModel.data!.token);
-          CacheHelper.saveData( key: "typeUser", value: loginModel.data!.typeUser!);
-          CacheHelper.saveData( key: "id", value: loginModel.data!.id);
-          CacheHelper.saveData( key: "name", value: loginModel.data!.userName);
-          CacheHelper.saveData( key: "age", value: loginModel.data!.age.toString());
-          CacheHelper.saveData( key: "email", value: loginModel.data!.email);
-          CacheHelper.saveData( key: "gender", value: loginModel.data!.gender);
-          CacheHelper.saveData( key: "phone", value: loginModel.data!.phone);
           CacheHelper.saveData( key: "isLogin", value: true);
-
-          token = CacheHelper.getData(key: "token");
-          typeOfUser = CacheHelper.getData(key: "typeUser");
-          id = CacheHelper.getData(key: "id");
-          name = CacheHelper.getData(key: "name");
-          age = CacheHelper.getData(key: "age");
-          email = CacheHelper.getData(key: "email");
-          genderUser = CacheHelper.getData(key: "gender");
-          phone = CacheHelper.getData(key: "phone");
-          isLogin = CacheHelper.getData(key: "isLogin");
+        }else {
+          CacheHelper.saveData(key: "isLogin", value: false);
         }
+        
+        isLogin = CacheHelper.getData(key: "isLogin");
+        phone = CacheHelper.getData(key: "phone");
+        token = CacheHelper.getData(key: "token");
+        typeOfUser = CacheHelper.getData(key: "typeUser");
+        id = CacheHelper.getData(key: "id");
+        name = CacheHelper.getData(key: "name");
+        age = CacheHelper.getData(key: "age");
+        email = CacheHelper.getData(key: "email");
+        genderUser = CacheHelper.getData(key: "gender");
 
-        if(loginModel.key==1 && loginModel.data!.status==false)
-        {
-          CacheHelper.saveData(key: "isLogin", value: false);        
-          CacheHelper.saveData(key: "phone", value: loginModel.data!.phone);
-          CacheHelper.saveData(key: "token", value: loginModel.data!.token);
-          CacheHelper.saveData(key: "typeUser", value: loginModel.data!.typeUser!);
-          CacheHelper.saveData(key: "id", value: loginModel.data!.id);
-          CacheHelper.saveData(key: "name", value: loginModel.data!.userName);
-          CacheHelper.saveData(key: "age", value: loginModel.data!.age.toString());
-          CacheHelper.saveData(key: "email", value: loginModel.data!.email);
-          CacheHelper.saveData(key: "gender", value: loginModel.data!.gender);
-
-          isLogin = CacheHelper.getData(key: "isLogin");
-          phone = CacheHelper.getData(key: "phone");
-          token = CacheHelper.getData(key: "token");
-          typeOfUser = CacheHelper.getData(key: "typeUser");
-          id = CacheHelper.getData(key: "id");
-          name = CacheHelper.getData(key: "name");
-          age = CacheHelper.getData(key: "age");
-          email = CacheHelper.getData(key: "email");
-          genderUser = CacheHelper.getData(key: "gender");
-        }
         emit(ShopLoginSuccessState(loginModel));
 
     }).catchError((error) {

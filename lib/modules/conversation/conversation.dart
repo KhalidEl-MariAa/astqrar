@@ -35,7 +35,7 @@ class UserConversationScreenState extends State<UserConversationScreen>
 {
   static var messagecontroller = new TextEditingController();
   var hubConnection = HubConnectionBuilder()
-      .withUrl("https://estqrar-001-site1.ctempurl.com/chat",)
+      .withUrl("${BASE_URL}chat",)
       .build();
   static List<String> messages = [];
   static List<bool> messagesMine = [];

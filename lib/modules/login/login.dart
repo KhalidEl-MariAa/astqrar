@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
+
 import '../contact_us/contact_us.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -60,22 +64,35 @@ class _LoginScreenState extends State<LoginScreen>
               }
               if (state.loginModel.key==1) 
               {
-                if(state.loginModel.data!.status!){
+                log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
+                if(state.loginModel.data!.status! || IS_DEVELOPMENT_MODE)
+                {
                   showToast( 
                     msg: "تم تسجيل الدخول بنجاح", 
                     state: ToastStates.SUCCESS);
+
                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
                   // if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
                   // if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
                   NotificationCubit.get(context).getNotifications();
+
                 }
-                if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==1) {
+                
+                if( state.loginModel.data!.status == false && kReleaseMode ) 
+                {
+                  // عميل مسجل لكن غير مشترك
                   showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NotSubscribedScreen()), (route) => false);
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NotSubscribedScreen()), (route) => false);
                 }
-                if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
-                    showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                }
+
+                
+                // if(state.loginModel.data!.status == false && state.loginModel.data!.typeUser==1) {
+                //   showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
+                //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NotSubscribedScreen()), (route) => false);
+                // }
+                // if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
+                //     showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
+                // }
               }
             }
           },
@@ -184,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen>
                           child: Container(
                             margin:  EdgeInsets.symmetric(vertical: 2.2.h),
                             child: Text(
-                              "الدخول كزائر113333r111" + DioHelper.baseUrl,
+                              "الدخول كزائر",
                               style: TextStyle(
                                   color: white,
                                   fontSize: 9.2.sp,
@@ -193,6 +210,17 @@ class _LoginScreenState extends State<LoginScreen>
                           ),
                         ),
                       ),
+
+                      if(IS_DEVELOPMENT_MODE)
+                        Center( 
+                          child: Text(DioHelper.baseUrl,
+                                style: TextStyle(
+                                    color: white,
+                                    fontSize: 9.2.sp,
+                                    fontWeight: FontWeight.w500)
+                          ),
+                        ),
+                      
                       
                       SizedBox( height: 3.2.h, ),
                       InkWell(
@@ -209,27 +237,6 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                       ),
                       
-                      SizedBox( height: 0.5.h,),
-                      // Center(
-                      //   child: InkWell(
-                      //     onTap: () {
-                      //       Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //               builder: (context) => RegisterLinkPerson()));
-                      //     },
-                      //     child: Container(
-                      //       margin: const EdgeInsets.symmetric(vertical: 0),
-                      //       child: Text(
-                      //         "تسجيل الخطابات",
-                      //         style: TextStyle(
-                      //             color: white,
-                      //             fontSize: 9.sp,
-                      //             fontWeight: FontWeight.w500),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       SizedBox( height: 3.h, ),
 
                       Row(

@@ -1,5 +1,8 @@
 buildscript {
-    //ext.kotlin_version = '1.6.10'
+    // ext.kotlin_version = '1.7.1'
+    // ext.kotlin_version = '1.5.1' //failed
+    // ext.kotlin_version = '1.6.10' // failed
+    // ext.kotlin_version = '1.6.21'
     ext.kotlin_version = '1.8.21'
     repositories {
         google()

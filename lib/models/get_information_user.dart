@@ -3,7 +3,7 @@ class GetInformationUserModel {
   bool? isFavorate;
   bool? isInMyContacts;
   InformationDetailsModel? information;
-  UserSubSpecificationModel? userSubSpecification;
+  UserSubSpecificationModel? userSubSpecifications;
 
   GetInformationUserModel.fromJson(Map<String, dynamic> json) {
     isFavorate = json['isFavorate'];
@@ -11,7 +11,7 @@ class GetInformationUserModel {
     information = json['information'] != null
         ? InformationDetailsModel.fromJson(json['information'])
         : null;
-    userSubSpecification = json['userSubSpecification'] != null
+    userSubSpecifications = json['userSubSpecification'] != null
         ? UserSubSpecificationModel.fromJson(json['userSubSpecification'])
         : null;
   }
