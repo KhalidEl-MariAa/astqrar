@@ -1,3 +1,5 @@
+import 'package:astarar/modules/forgetpassword/resetpassword.dart';
+
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'inputOtp.dart';
@@ -14,6 +16,7 @@ import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 class ForgetPasswordScreen extends StatelessWidget 
 {
   final nationalIdController = TextEditingController();
+  final phoneController  = TextEditingController(); 
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +27,15 @@ class ForgetPasswordScreen extends StatelessWidget
           listener: (context, state) 
           {
             if (state is ForgetPasswordSuccessState) {
-              if (state.forgetPasswordModel.key == 1) {
                 Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => InputOtp(code: state.forgetPasswordModel.data!.code.toString(),)
-                    ),
-                    (route) => false
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResetPassword(code: "0",)  //InputOtp(code: state.forgetPasswordModel.data!.code.toString()
+                  ),
+                  (route) => true
                 );
-              }
+            }else if (state is ForgetPasswordErrorState) {
+              showToast(msg: state.error, state: ToastStates.ERROR);
             }
           },
 
@@ -47,46 +50,63 @@ class ForgetPasswordScreen extends StatelessWidget
                   children: [
                     SizedBox(height: 3.h, ),
                     const  HeaderLogo(),
-                    Text(
-                      "استعادة كلمة المرور",
+                    Text( "استعادة كلمة المرور",
                       style: TextStyle(color: primary, fontSize: 10.sp),
                     ),
                     SizedBox( height: 6.5.h, ),
-                    doubleInfinityMaterialButton(                      
-                        text: "مراسلة الادمن لاستعادة كلمة السر ",
-                        onPressed: () async{
-                          // Convert the WhatsAppUnilink instance to a Uri.
-                          // The "launch" method is part of "url_launcher".
-                          final link = WhatsAppUnilink(
-                            phoneNumber: mobilePhone,
-                            text: "مرحبا \n اريد استعادة كلمة المرور ",
-                          );
-
-                          if (await launchUrl(link.asUri(), mode: LaunchMode.platformDefault)) {} 
-                          else { throw 'Could not launch ${link.asUri()}'; }
-                      }
-                    ),
+                    
+                    // doubleInfinityMaterialButton(                      
+                    //     text: "مراسلة الادمن لاستعادة كلمة السر ",
+                    //     onPressed: () async{
+                    //       final link = WhatsAppUnilink(
+                    //         phoneNumber: mobilePhone,
+                    //         text: "مرحبا \n اريد استعادة كلمة المرور ",
+                    //       );
+                    // 
+                    //       if (await launchUrl(link.asUri(), mode: LaunchMode.platformDefault)) {} 
+                    //       else { throw 'Could not launch ${link.asUri()}'; }
+                    //   }
+                    // ),
                     
                     /** حسب طلب صاحب المشروع
                      * يتم استعادة كلمة المرور من خلال محادثة الواتساب
+                     * والان في التعديل الجديد يريده حسب رقم الهوية ورقم الجوال
                      **/
-                    // defaultTextFormField(
-                    //     context: context,
-                    //     controller: nationalIdController,
-                    //     type: TextInputType.number,
-                    //     validate: (String? value) {},
-                    //     labelText: "رقم الهوية",
-                    //     label: "الرجاء ادخال رقم الهوية",
-                    //     prefixIcon: Icons.phone_android_rounded),
+                    defaultTextFormField(
+                      context: context,
+                      controller: nationalIdController,
+                      type: TextInputType.number,
+                      validate: (String? val) { 
+                        return (val!.isEmpty)?"من فضلك ادخل الهوية": null;
+                      },
+                      labelText: "رقم الهوية",
+                      label: "الرجاء ادخال رقم الهوية",
+                      prefixIcon: Icons.phone_android_rounded
+                    ),
+                    SizedBox(height: 9.h,),
                     
-                    // SizedBox(height: 9.h,),
-                    
-                    // doubleInfinityMaterialButton(
-                    //     text: "تاكيد",
-                    //     onPressed: () {
-                    //       ForgetPasswordCubit.get(context).sendCode(nationalId: nationalIdController.text);
-                    //       // Navigator.push(context, MaterialPageRoute(builder: (context)=>InputOtp()));
-                    //     }),
+                    defaultTextFormField(
+                      context: context,
+                      controller: phoneController,
+                      type: TextInputType.number,
+                      validate: (String? val) { 
+                        return (val!.isEmpty)?"من فضلك ادخل رقم الجوال": null;
+                      },
+                      labelText: "رقم الجوال",
+                      label: "الرجاء ادخال رقم الجوال",
+                      prefixIcon: Icons.phone_android_rounded
+                    ),
+                    SizedBox(height: 9.h,),
+
+                    doubleInfinityMaterialButton(
+                        text: "التحقق من الهوية",
+                        onPressed: () {
+                          ForgetPasswordCubit.get(context).sendCode(
+                            nationalId: nationalIdController.text,
+                            phone: phoneController.text
+                          );
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>InputOtp()));
+                        }),
                   ],
                 ),
               ),

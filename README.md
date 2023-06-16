@@ -42,3 +42,11 @@ flutter run
 flutter run -d emulator-5554 
 
 ```
+
+
+## Deploy
+you can read this [article](https://docs.flutter.dev/deployment/android)
+```
+flutter build apk
+
+```

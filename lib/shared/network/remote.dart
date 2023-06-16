@@ -26,10 +26,10 @@ class DioHelper
       data = await fetchData(baseurl, "api/v2/ping");
       if(data!["status"] == true) return baseurl;
     }
-    
+        
     baseurl = BASE_URL;
     data = await fetchData(baseurl, "api/v2/ping");
-    if(data!["status"]) 
+    if(data!["status"]??false == true) 
       log(res.toString());
     else
       log("FAILED with BASE_URL: ${BASE_URL}");
@@ -143,24 +143,26 @@ class DioHelper
     return res;
   }
 
-static Future<Map?> fetchData(String baseurl, String url) async 
-{
-  Dio dio1 = Dio(
-      BaseOptions(
-      baseUrl: baseurl, 
-      receiveDataWhenStatusError: true,
-    ));
+  static Future<Map?> fetchData(String baseurl, String url) async 
+  {
 
-  // Dio dio1 = Dio();
-  
-  try {
-    Response response = await dio1.get(url);
-    // Process the response and return the data if successful
-    return response.data;
-  } catch (error) {
-    log('Errorrrrrrrrr: $error');
-    // Return null if there is an exception
+    log('===============================\n Try BaseURL: '+ baseurl + url);
+    
+    Dio dio1 = Dio(
+        BaseOptions(
+        baseUrl: baseurl, 
+        receiveDataWhenStatusError: true,
+      ));
+
+    // Dio dio1 = Dio();
+    try{
+      Response response = await dio1.get(url);
+      log('Connection OK: ' + baseurl + url);
+      // Process the response and return the data if successful
+      return response.data;
+    }catch( err){
+      log('Connection FAILED: ' + baseurl + url);
+    }
     return {};
   }
-}
 }

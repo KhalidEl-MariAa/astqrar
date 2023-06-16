@@ -152,9 +152,6 @@ class _LoginScreenState extends State<LoginScreen>
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: InkWell(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgetPasswordScreen()));
-                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -169,6 +166,10 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                             ],
                           ),
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen() ));
+                          },
+
                         ),
                       ),
                       SizedBox( height: 1.5.h, ),

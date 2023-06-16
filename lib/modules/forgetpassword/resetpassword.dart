@@ -46,17 +46,12 @@ class ResetPassword extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 3.h,
-                    ),
+                   SizedBox(height: 3.h,),
                    const  HeaderLogo(),
-                    Text(
-                      "استعادة كلمة المرور",
+                    Text("استعادة كلمة المرور",
                       style: TextStyle(color: primary, fontSize: 10.sp),
                     ),
-                    SizedBox(
-                      height: 7.h,
-                    ),
+                    SizedBox( height: 7.h,),
                     defaultTextFormField(
                         context: context,
                         controller: passwordController,
