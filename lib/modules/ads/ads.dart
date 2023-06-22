@@ -19,9 +19,9 @@ class AdsScreen extends StatelessWidget {
       listener: (context, state) {
         if(state is AddAdsSuccessState){
           if(state.statusCode==200){
-           // showToast(msg: "تمت اضافة اعلانك بنجاح", state: ToastStates.SUCCESS);
-            //HomeCubit().getUserAds();
-          //  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+            // showToast(msg: "تمت اضافة اعلانك بنجاح", state: ToastStates.SUCCESS);
+            // HomeCubit().getUserAds();
+            // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
           }
           else{
             showToast(msg: "حدث خطا ما , يرجي المحاولة", state: ToastStates.ERROR);
@@ -38,9 +38,9 @@ class AdsScreen extends StatelessWidget {
               child: NormalLogo(appbarTitle: "الاعلانات ",isBack: true),
             ),
             body: ConditionalBuilder(
-                condition: AdsCubit.get(context).getAdsDone,
-                fallback: (context) => const LoadingGif(),
-                builder: (context) => AdsAndPackages(
+                condition: state is GetAdsLoadingState,
+                builder: (context) => const LoadingGif(),
+                fallback: (context) => AdsAndPackages(
                     packages: AdsCubit.get(context).getAdsModel.data,
                     isPackages: false))),
       ),

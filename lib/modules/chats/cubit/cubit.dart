@@ -16,7 +16,6 @@ class ContactsCubit extends Cubit<ContactsStates>
   static ContactsCubit get(context) => BlocProvider.of(context);
 
   late MyContactsModel myContactsModel;
-  bool getContactsDone = false;
   List<DataOfMyContactDetails> contacts=[];
 
   void getContacts() {
@@ -29,7 +28,6 @@ class ContactsCubit extends Cubit<ContactsStates>
       for(int i=0;i<myContactsModel.data.length;i++){
         contacts.add(myContactsModel.data[i]);
       }
-      getContactsDone = true;
       emit(GetContactsSuccessState());
     }).catchError((error) {
       log(error.toString());

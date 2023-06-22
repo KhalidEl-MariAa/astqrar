@@ -33,13 +33,11 @@ class FavouriteScreen extends StatelessWidget {
                       isBack: false,
                       appbarTitle: "المفضلة",
                     )),
-                body: ConditionalBuilder(
-                  condition: GetFavouritesCubit
-                      .get(context)
-                      .getFavouritesDone,
+                body: 
+                ConditionalBuilder(
+                  condition: state is GetFavouritesLoadingState,
+                  builder: (context) => const Center(child:Image(image:AssetImage("assets/favourite.gif"))),
                   fallback: (context) =>
-                const   Center(child:Image(image:AssetImage("assets/favourite.gif"))),
-                  builder: (context) =>
                   GetFavouritesCubit
                       .get(context)
                       .favouriteList.length>0?    Padding(

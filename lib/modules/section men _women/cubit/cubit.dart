@@ -18,12 +18,10 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
 
   late GetUsersByGengerModel getUsersByGengerModel;
   List users = [];
-  bool getUsersByGenderDone = false;
 
   getUserByGender({required int genderValue}) 
   {
     users = [];
-    getUsersByGenderDone = false;
     emit(GetUserByGenderLoadingState());
     
     DioHelper.getDataWithQuery(
@@ -31,17 +29,15 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
         token: token.toString(),
         query: {"gender": genderValue})
     .then((value) {
-      // log(value.toString());
+
       getUsersByGengerModel = GetUsersByGengerModel.fromjson(value.data);
       for (int i = 0; i < getUsersByGengerModel.data.length; i++) {
         users.add(getUsersByGengerModel.data[i]);
-        //log(users[i].age);
       }
       startAge=null;
       endAge=null;
       nationality=null;
       typeofmarriage=null;
-      getUsersByGenderDone = true;
       emit(GetUserByGenderSuccessState());
     }).catchError((error) {
       log(error.toString());

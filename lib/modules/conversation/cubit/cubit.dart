@@ -10,15 +10,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-class ConversationCubit extends Cubit<ConversationStates> {
+class ConversationCubit extends Cubit<ConversationStates> 
+{
   ConversationCubit() : super(ConversationInitialState());
 
-  //late LoginModel loginModel;
   static ConversationCubit get(context) => BlocProvider.of(context);
   late GetMessagesModel getMessagesModel;
-  bool getMessagesDone = false;
 
-  getMessages({required String userId,  required bool typeUserChat}) {
+
+  getMessages({required String userId,  required bool typeUserChat}) 
+  {
+    emit(GetMessagesLoadingState());
+    
     initializeDateFormatting('ar_SA', null);
     UserConversationScreenState.messages = [
       typeUserChat?
@@ -27,8 +30,7 @@ class ConversationCubit extends Cubit<ConversationStates> {
     UserConversationScreenState.senderIdList = [id!];
     UserConversationScreenState.messagesMine = [true];
     UserConversationScreenState.dateMessages = ["1/1/2002"];
-    getMessagesDone = false;
-    emit(GetMessagesLoadingState());
+
     DioHelper.postData(url: GETMESSAGES, data: {
       "SenderId": id,
       "ReceiverId": userId,
@@ -56,7 +58,6 @@ class ConversationCubit extends Cubit<ConversationStates> {
           getMessagesModel.data[i].isMine = false;
         }
       }
-      getMessagesDone = true;
       emit(GetMessagesSuccessState());
     }).catchError((error) {
       log(error.toString());

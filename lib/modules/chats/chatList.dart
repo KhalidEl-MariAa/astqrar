@@ -41,9 +41,9 @@ class ChatListScreen extends StatelessWidget
                     isBack: false,
                   )),
               body: ConditionalBuilder(
-                fallback: (context) => LoadingGif(),
-                condition: ContactsCubit.get(context).getContactsDone,
-                builder: (context) => Padding(
+                condition: state is GetContactsLoadingState,
+                builder: (context) => LoadingGif(),
+                fallback: (context) => Padding(
                   padding: const EdgeInsetsDirectional.only(top: 20),
                   child: ListView.separated(
                       itemBuilder: (context, index) => 

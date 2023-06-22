@@ -14,12 +14,10 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
   static GetFavouritesCubit get(context) => BlocProvider.of(context);
 
   late GetFavouritesModel getFavouritesModel;
-  bool getFavouritesDone = false;
   Map<String, bool> FavouriteMap = {};
   List<DataOfUsersInFavouritesModel> favouriteList = [];
 
   getFavourites() {
-    getFavouritesDone = false;
     emit(GetFavouritesLoadingState());
     DioHelper.postDataWithBearearToken(
             url: GETFAVOURITES,
@@ -34,7 +32,6 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
       for (int i = 0; i < getFavouritesModel.data.length; i++) {
         favouriteList.add(getFavouritesModel.data[i]);
       }
-      getFavouritesDone = true;
       emit(GetFavouritesSuccessState());
     }).catchError((error) {
       log(error.toString());

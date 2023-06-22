@@ -19,13 +19,16 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<NotificationCubit, NotificationStates>(
       listener: (context, state) {
-        if (state is AcceptChattRequestSuccessState) {
+        if (state is AcceptChattRequestSuccessState) 
+        {
           showDialog(
-              context: context, builder: (context) =>  SuccessDialog(
-            successText:   "تم القبول بنجاح",
-            subTitle:   "برجاء تحديد طريقة المحادثة مع الشخص المرسل",
-            actionText:   "محادثة عادية",
-          ));
+              context: context, 
+              builder: (context) =>  SuccessDialog(
+                successText:   "تم القبول بنجاح",
+                subTitle:   "برجاء تحديد طريقة المحادثة مع الشخص المرسل",
+                actionText:   "محادثة عادية",
+              )
+          );
         }
       },
       builder: (context, state) => Scaffold(
@@ -62,10 +65,10 @@ class NotificationScreen extends StatelessWidget {
             ),
           ),
           body: ConditionalBuilder(
-            condition: NotificationCubit.get(context).getNotificationsDone,
+            condition: state is GetNotificationLoadingState,
             fallback: (context) => Padding(
               padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
-              child: Shimmer(
+                child: Shimmer(
                 child: ListView.separated(
                   itemCount: 12,
                   separatorBuilder: (context, index) => SizedBox(
@@ -112,7 +115,7 @@ class NotificationScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+              ),
             builder: (context) => SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +124,7 @@ class NotificationScreen extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) => AcceptNotification(
-                        time:NotificationCubit.get(context)
+                        time: NotificationCubit.get(context)
                             .getNotificationsModel.data.reversed.toList()[index].notification!.time! ,
                             clickUser: () {
                               if (NotificationCubit.get(context)

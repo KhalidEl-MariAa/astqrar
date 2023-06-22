@@ -32,17 +32,16 @@ class _ResultScreenState extends State<ResultScreen>
   Widget build(BuildContext context) 
   {
     return BlocConsumer<SearchCubit, SearchStates>(
-        listener: (context, state) 
-        {
+        listener: (context, state) {
           if(state is GetSearchSuccessState)
           {
             setState(() {
               this.searchResult = state.searchResult;  
-            });            
+            });
           }
         },
         builder: (context, state) {
-          SearchCubit.get(context).searchDone = false;
+          
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -297,23 +296,22 @@ class _ResultScreenState extends State<ResultScreen>
                         visible: true, //SearchCubit.get(context).getSearch,
                         child: 
                           ConditionalBuilder(
-                            condition: (state is! GetSearchLoadingState) && (state is! FilterSearchLoadingState), //
-                            fallback: (context) => 
+                            condition: (state is GetSearchLoadingState) || (state is FilterSearchLoadingState), 
+                            builder: (context) => 
                                 SingleChildScrollView(
                                   child: Column(                                    
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,                                    
                                     children: [
                                       Image(
-                                        image: AssetImage(
-                                            "assets/double_ring.gif"), //loading image
+                                        image: AssetImage("assets/double_ring.gif"), //loading image
                                         height: 12.h,
                                         width: 25.w,
                                       )
                                     ],
                                   ),
                                 ),
-                            builder: 
+                            fallback: 
                                 (context) => Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -346,7 +344,6 @@ class _ResultScreenState extends State<ResultScreen>
                                                 )
                                               ),
                                       ),
-
                                     ])
                         ),
                       )
@@ -412,11 +409,9 @@ class _ResultScreenState extends State<ResultScreen>
       SearchCubit.get(context).searchByText(
         text: searchTextController.text);
 
-      SearchCubit.get(context).getSearch = true;
-
     } else {
       showToast(
-          msg: "من فضلك ابحث عن شي",
+          msg: "من فضلك اكتب اي كلمة بحثية",
           state: ToastStates.SUCCESS);
     }
 

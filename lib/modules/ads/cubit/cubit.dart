@@ -10,18 +10,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AdsCubit extends Cubit<AdsStates> {
   AdsCubit() : super(AdsInitialState());
 
-  //late LoginModel loginModel;
   static AdsCubit get(context) => BlocProvider.of(context);
 
   late GetAdsModel getAdsModel;
-  bool getAdsDone = false;
 
   getAds() {
     emit(GetAdsLoadingState());
-    DioHelper.postData(url: GETALLADS, data: {}).then((value) {
+    DioHelper.postData(url: GETALLADS, data: {})
+    .then((value) {
+      emit(GetAdsLoadingState());
       log(value.toString());
       getAdsModel = GetAdsModel.fromJson(value.data);
-      getAdsDone = true;
+
       emit(GetAdsSuccessState());
     }).catchError((error) {
       log(error.toString());
@@ -51,22 +51,21 @@ class AdsCubit extends Cubit<AdsStates> {
     });
   }
 
-  /*
-  sendNotificationToAll({required String body}){
-    emit(SendNotificationToAllLoadingState());
-    DioHelper.postDataWithBearearToken(url: SENDNOTIFICATIONTOALL,
-        data:{
-        "projectName":"استقرار",
-        "deviceType":"android",
-        "notificationType":3,
-        "body":body,
-        "title":" "
-        },token: token.toString())..then((value) {
-          print(value.toString());
-          emit(SendNotificationToAllSuccessState());
-    }).catchError((error){
-          print(error.toString());
-          emit(SendNotificationToAllErrorState(error.toString()));
-    });
-  }*/
+  // sendNotificationToAll({required String body}){
+  //   emit(SendNotificationToAllLoadingState());
+  //   DioHelper.postDataWithBearearToken(url: SENDNOTIFICATIONTOALL,
+  //       data:{
+  //       "projectName":"استقرار",
+  //       "deviceType":"android",
+  //       "notificationType":3,
+  //       "body":body,
+  //       "title":" "
+  //       },token: token.toString())..then((value) {
+  //         print(value.toString());
+  //         emit(SendNotificationToAllSuccessState());
+  //   }).catchError((error){
+  //         print(error.toString());
+  //         emit(SendNotificationToAllErrorState(error.toString()));
+  //   });
+  // }
 }

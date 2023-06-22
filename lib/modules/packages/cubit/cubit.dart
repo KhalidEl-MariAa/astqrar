@@ -15,41 +15,38 @@ class GetPackagesCubit extends Cubit<GetPackagesStates> {
   static GetPackagesCubit get(context) => BlocProvider.of(context);
 
   late GetPackgesModel getPackgesModel;
- bool getPackagesDone=false;
+  
 
-  getPackages(){
-    getPackagesDone=false;
+  void getPackages() 
+  {
     emit(GetPackagesLoadingState());
-    DioHelper.postData(url: GETPACKAGES, data: {})
-    .then((value) {
+    DioHelper.postData(url: GETPACKAGES, data: {}).then((value) {
       log(value.toString());
-      getPackgesModel=GetPackgesModel.fromJson(value.data);
-      getPackagesDone=true;
-      emit(GetPackagesSuccessState());
+      getPackgesModel = GetPackgesModel.fromJson(value.data);
 
-    }).catchError((error){
+      emit(GetPackagesSuccessState());
+    }).catchError((error) {
       log(error.toString());
       emit(GetPackagesErrorState(error.toString()));
     });
   }
 
-
   //add package
-late AddToFavouriteModel addPackageModel;
+  late AddToFavouriteModel addPackageModel;
 
-addPackage({required String packageId}){
+  addPackage({required String packageId}) {
     emit(AddPackageLoadingState());
-    DioHelper.postDataWithBearearToken(url: ADDPACKAGE, data: {
-      "PakageId":packageId,
-      "UserId":id
-    },token: token.toString())
-    .then((value) {
+    DioHelper.postDataWithBearearToken(
+            url: ADDPACKAGE,
+            data: {"PakageId": packageId, "UserId": id},
+            token: token.toString())
+        .then((value) {
       log(value.toString());
-      addPackageModel=AddToFavouriteModel.fromJson(value.data);
+      addPackageModel = AddToFavouriteModel.fromJson(value.data);
       emit(AddPackageSuccessState(value.statusCode!));
-    }).catchError((error){
+    }).catchError((error) {
       log(error.toString());
       emit(AddPackageErrorState(error.toString()));
     });
-}
+  }
 }

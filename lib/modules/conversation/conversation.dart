@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import '../../models/chatModel.dart';
 import 'cubit/cubit.dart';
@@ -183,317 +184,308 @@ class UserConversationScreenState extends State<UserConversationScreen>
                 ),
                 body:
                 ConditionalBuilder(
-                  condition: ConversationCubit.get(context).getMessagesDone,
-                  fallback: (context) =>
-                     Shimmer(child: ListView.separated(
-                       itemCount: 8,
-                       separatorBuilder: (context,index)=>SizedBox(height: 1.h,),
-                       itemBuilder:(context,index)=> Padding(
-                         padding:
-                         EdgeInsetsDirectional.only(start: 3.w),
-                         child: Container(
-                           width: double.infinity,
-                           alignment: index%2==0
-                               ? Alignment.centerRight
-                               : Alignment.centerLeft,
-                           child: Column(
-                             mainAxisSize: MainAxisSize.min,
-                             children: [
-                               Row(
-                                 mainAxisAlignment:
-                                 index %2==0
-                                     ? MainAxisAlignment.start
-                                     : MainAxisAlignment.end,
-                                 children: [
-                                   Container(
-                                  height: 10.h,
-                                     width: 55.w,
-                                     padding: EdgeInsets.symmetric(horizontal: 2.w),
-                                     decoration: BoxDecoration(
-                                         color: Colors.grey[300],
-                                         borderRadius:
-                                         BorderRadius.only(
-                                             bottomLeft: index%2==0
-                                                 ? Radius.circular(
-                                                 15)
-                                                 : Radius.circular(
-                                                 0),
-                                             topLeft:
-                                             Radius.circular(
-                                                 15),
-                                             topRight:
-                                             Radius.circular(
-                                                 15),
-                                             bottomRight: index %2==0
-
-
-                                                 ? Radius.circular(0)
-                                                 : Radius.circular(20))),
-
-                                   ),
-
-                                 ],
-                               ),
-
-                             ],
-                           ),
-                         ),
-                       ),
-                     ),),
-
-               builder: (context)=> Container(
-                  height: 86.h,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage("assets/chattt.png"),
-                  )),
-                  width: double.infinity,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.only(bottom: 10.h, end: 5.w),
-                        child: ListView.separated(
-                            reverse: true,
-                            itemBuilder: (context, index) => Padding(
-                                  padding:
-                                      EdgeInsetsDirectional.only(start: 3.w),
-                                  child: Container(
-                                    alignment: index == messages.length
-                                        ? Alignment.center
-                                        : messagesMine.reversed.toList()[index]
-                                            ? Alignment.centerRight
-                                            : Alignment.centerLeft,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              index == messages.length - 1
-                                                  ? MainAxisAlignment.center
-                                                  : messagesMine.reversed
-                                                          .toList()[index]
-                                                      ? MainAxisAlignment.start
-                                                      : MainAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              constraints: BoxConstraints(
-                                                  minWidth: index ==
-                                                          messages.length - 1
-                                                      ? 18.w
-                                                      : 10.w,
-                                                  maxWidth: index ==
-                                                          messages.length - 1
-                                                      ? 90.w
-                                                      : 65.w,
-                                                  minHeight: 2.h,
-                                                  maxHeight: double.infinity),
-                                              padding: EdgeInsets.only(
-                                                  left: index ==
-                                                          messages.length - 1
-                                                      ? 2.w
-                                                      : 5.w,
-                                                  right: index ==
-                                                          messages.length - 1
-                                                      ? 2.w
-                                                      : 5.w,
-                                                  top: 2.h,
-                                                  bottom: 2.h),
-                                              decoration: BoxDecoration(
-                                                  color: index ==
-                                                          messages.length - 1
-                                                      ? backGround
-                                                      : messagesMine.reversed
-                                                              .toList()[index]
-                                                          ? primary
-                                                          : white,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          bottomLeft: messagesMine
-                                                                      .reversed
-                                                                      .toList()[
-                                                                  index]
-                                                              ? Radius.circular(
-                                                                  15)
-                                                              : Radius.circular(
-                                                                  0),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  15),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  15),
-                                                          bottomRight: index ==
-                                                                  messages.length -
-                                                                      1
-                                                              ? Radius.circular(
-                                                                  15)
-                                                              : messagesMine
-                                                                      .reversed
-                                                                      .toList()[index]
-                                                                  ? Radius.circular(0)
-                                                                  : Radius.circular(20))),
-                                              child: Text(
-                                                messages.reversed
-                                                    .toList()[index],
-                                                maxLines: 120,
-                                                style: GoogleFonts.almarai(
-                                                    color: messagesMine.reversed
-                                                            .toList()[index]
-                                                        ? white
-                                                        : black,fontSize: index==messages.length-1?10.sp:null),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: index == 0 &&
-                                                      messagesMine.reversed
-                                                                  .toList()[
-                                                              index] ==
-                                                          false
-                                                  ? true
-                                                  : index <
-                                                              senderIdList
-                                                                      .reversed
-                                                                      .toList()
-                                                                      .length -
-                                                                  1 &&
-                                                          messagesMine.reversed
-                                                                      .toList()[
-                                                                  index] ==
-                                                              false
-                                                      ? senderIdList.reversed
-                                                                  .toList()[
-                                                              index] !=
-                                                          senderIdList.reversed
-                                                                  .toList()[
-                                                              index - 1]
-                                                      : false,
-                                              child: Container(
-                                                height: 5.h,
-                                                width: 8.w,
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                        image: widget.gender == 1
-                                                            ? AssetImage(
-                                                                maleImage)
-                                                            : AssetImage(
-                                                                femaleImage))),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        Visibility(
-                                            visible: index ==
-                                                    messages.length - 1
-                                                ? false
-                                                : index == 0
-                                                    ? true
-                                                    : index <
-                                                            dateMessages
-                                                                    .reversed
-                                                                    .toList()
-                                                                    .length -
-                                                                1
-                                                        ? dateMessages.reversed
-                                                                    .toList()[
-                                                                index] !=
-                                                            dateMessages
-                                                                    .reversed
-                                                                    .toList()[
-                                                                index - 1]
-                                                        : false,
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 5.w),
-                                              child: Row(
-                                                mainAxisAlignment: messagesMine
-                                                        .reversed
-                                                        .toList()[index]
-                                                    ? MainAxisAlignment.start
-                                                    : MainAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    dateMessages.reversed
-                                                        .toList()[index],
-                                                    style: TextStyle(
-                                                        color: Colors.grey[400],
-                                                        fontSize: 10.sp),
-                                                  ),
-                                                ],
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                            separatorBuilder: (context, index) => SizedBox(
-                                  height: 0.5.h,
-                                ),
-                            itemCount: messages.length),
-                      ),
-                      Positioned(
-                        bottom: -2.h,
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.only(
-                              bottom: 1.5.h, start: 1.w, end: 1.w),
-                          child: Container(
-                            width: 98.w,
-                            child: TextFormField(
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 5,
-                              minLines: 1,
-                              controller: messagecontroller,
-                              decoration: InputDecoration(
-                                  suffixIcon: InkWell(
-                                    onTap: () async {
-                                      if (hubConnection.state ==
-                                          HubConnectionState.Connected) {
-                                        await hubConnection
-                                            .invoke('SendMessagee', args: [
-                                          id!,
-                                          widget.userId,
-                                          messagecontroller.text,
-                                          0,
-                                          1,
-                                          1
-                                        ]).then((value) {
-                                          print("gg");
-                                          ConversationCubit.get(context).send();
-                                        });
-                                      }
-                                    },
-                                    child: Icon(
-                                      Icons.send,
-                                      color: white,
-                                    ),
-                                  ),
-                                  hintText: "اكتب رسالة",
-                                  contentPadding: EdgeInsetsDirectional.only(
-                                      start: 5.w, top: 5.h),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          const BorderSide(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          const BorderSide(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  filled: true,
-                                  fillColor: primary,
-                                  hintStyle:
-                                      GoogleFonts.almarai(fontSize: 10.sp)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
+                  condition: state is GetMessagesLoadingState,
+                  builder: createShimmer,
+                  fallback: createContainer
+                ),
           ),
         ),
       )
     );
+  }
+
+  Widget createContainer(context) 
+  {
+    return Container(
+      height: 86.h,
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/chattt.png"),
+      )),
+      width: double.infinity,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Padding(
+            padding:
+                EdgeInsetsDirectional.only(bottom: 10.h, end: 5.w),
+            child: ListView.separated(
+                reverse: true,
+                itemBuilder: (context, index) => Padding(
+                      padding:
+                          EdgeInsetsDirectional.only(start: 3.w),
+                      child: Container(
+                        alignment: index == messages.length
+                            ? Alignment.center
+                            : messagesMine.reversed.toList()[index]
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              mainAxisAlignment:
+                                  index == messages.length - 1
+                                      ? MainAxisAlignment.center
+                                      : messagesMine.reversed
+                                              .toList()[index]
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  constraints: BoxConstraints(
+                                      minWidth: index == messages.length - 1? 18.w : 10.w,
+                                      maxWidth: index == messages.length - 1? 90.w : 65.w,
+                                      minHeight: 2.h,
+                                      maxHeight: double.infinity),
+                                  padding: EdgeInsets.only(
+                                      left: index == messages.length - 1 ? 2.w : 5.w,
+                                      right: index ==messages.length - 1 ? 2.w : 5.w,
+                                      top: 2.h,
+                                      bottom: 2.h),
+                                  decoration: BoxDecoration(
+                                      color: index == messages.length - 1 ? 
+                                          backGround 
+                                          : 
+                                          messagesMine.reversed.toList()[index]? primary: white,
+                                      borderRadius:
+                                        BorderRadius.only(
+                                            bottomLeft: messagesMine
+                                                        .reversed
+                                                        .toList()[
+                                                    index]
+                                                ? Radius.circular(
+                                                    15)
+                                                : Radius.circular(
+                                                    0),
+                                            topLeft:
+                                                Radius.circular(
+                                                    15),
+                                            topRight:
+                                                Radius.circular(
+                                                    15),
+                                            bottomRight: index ==
+                                                    messages.length -
+                                                        1
+                                                ? Radius.circular(
+                                                    15)
+                                                : messagesMine
+                                                        .reversed
+                                                        .toList()[index]
+                                                    ? Radius.circular(0)
+                                                    : Radius.circular(20))),
+                                  child: Text(
+                                    messages.reversed
+                                        .toList()[index],
+                                    maxLines: 120,
+                                    style: GoogleFonts.almarai(
+                                        color: messagesMine.reversed
+                                                .toList()[index]
+                                            ? white
+                                            : black,fontSize: index==messages.length-1?10.sp:null),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: index == 0 &&
+                                          messagesMine.reversed
+                                                      .toList()[
+                                                  index] ==
+                                              false
+                                      ? true
+                                      : index <
+                                                  senderIdList
+                                                          .reversed
+                                                          .toList()
+                                                          .length -
+                                                      1 &&
+                                              messagesMine.reversed
+                                                          .toList()[
+                                                      index] ==
+                                                  false
+                                          ? senderIdList.reversed
+                                                      .toList()[
+                                                  index] !=
+                                              senderIdList.reversed
+                                                      .toList()[
+                                                  index - 1]
+                                          : false,
+                                  child: Container(
+                                    height: 5.h,
+                                    width: 8.w,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: widget.gender == 1
+                                                ? AssetImage(
+                                                    maleImage)
+                                                : AssetImage(
+                                                    femaleImage))),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Visibility(
+                                visible: index ==
+                                        messages.length - 1
+                                    ? false
+                                    : index == 0
+                                        ? true
+                                        : index <
+                                                dateMessages
+                                                        .reversed
+                                                        .toList()
+                                                        .length -
+                                                    1
+                                            ? dateMessages.reversed
+                                                        .toList()[
+                                                    index] !=
+                                                dateMessages
+                                                        .reversed
+                                                        .toList()[
+                                                    index - 1]
+                                            : false,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5.w),
+                                  child: Row(
+                                    mainAxisAlignment: messagesMine
+                                            .reversed
+                                            .toList()[index]
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        dateMessages.reversed
+                                            .toList()[index],
+                                        style: TextStyle(
+                                            color: Colors.grey[400],
+                                            fontSize: 10.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                separatorBuilder: (context, index) => SizedBox(
+                      height: 0.5.h,
+                    ),
+                itemCount: messages.length),
+          ),
+          Positioned(
+            bottom: -2.h,
+            child: Padding(
+              padding: EdgeInsetsDirectional.only(
+                  bottom: 1.5.h, start: 1.w, end: 1.w),
+              child: Container(
+                width: 98.w,
+                child: TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 5,
+                  minLines: 1,
+                  controller: messagecontroller,
+                  decoration: InputDecoration(
+                      suffixIcon: InkWell(
+                        onTap: () async {
+                          await write_a_message(context);
+                        },
+                        child: Icon(
+                          Icons.send,
+                          color: white,
+                        ),
+                      ),
+                      hintText: "اكتب رسالة",
+                      contentPadding: EdgeInsetsDirectional.only(
+                          start: 5.w, top: 5.h),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20)),
+                      filled: true,
+                      fillColor: primary,
+                      hintStyle:
+                          GoogleFonts.almarai(fontSize: 10.sp)),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+  }
+
+  Future<void> write_a_message(context) async {
+     if (hubConnection.state ==
+        HubConnectionState.Connected) {
+      await hubConnection.invoke(
+        'SendMessagee', 
+        args: [
+          id!,
+          widget.userId,
+          messagecontroller.text, 0, 1, 1
+      ]).then((value) {
+        log("ggggg");
+        ConversationCubit.get(context).send();
+      });
+    }
+  }
+
+  Widget createShimmer(context)
+  {
+    return Shimmer(
+      child: ListView.separated(
+        itemCount: 8,
+        separatorBuilder: (context,index)=>SizedBox(height: 1.h,),
+        itemBuilder:(context,index)=> Padding(
+          padding:
+          EdgeInsetsDirectional.only(start: 3.w),
+          child: Container(
+            width: double.infinity,
+            alignment: index%2==0
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment:
+                  index %2==0
+                      ? MainAxisAlignment.start
+                      : MainAxisAlignment.end,
+                  children: [
+                    Container(
+                  height: 10.h,
+                      width: 55.w,
+                      padding: EdgeInsets.symmetric(horizontal: 2.w),
+                      decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius:
+                          BorderRadius.only(
+                              bottomLeft: index%2==0
+                                  ? Radius.circular(15)
+                                  : Radius.circular(0),
+                              topLeft:
+                              Radius.circular(15),
+                              topRight:
+                              Radius.circular(15),
+                              bottomRight: index %2==0
+                                  ? Radius.circular(0)
+                                  : Radius.circular(20))),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
   }
 }

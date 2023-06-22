@@ -265,28 +265,28 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                       width: 1.w,
                     ),
                     InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AdsScreen()));
-                      },
                       child: Text(
                         "تواصل معنا",
                         style: GoogleFonts.almarai(
                             color: primary,
                             decoration: TextDecoration.underline,
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.bold
-                        ),
+                            fontWeight: FontWeight.bold),
                       ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                           MaterialPageRoute(builder: (context) => AdsScreen()));
+                      },
                     )
                   ],
                 ),
               ),
 
             ConditionalBuilder(
-                condition: HomeCubit.get(context).getUserAdsDone,
-                fallback: (context) => LoadingGif(),
-                builder: (context) =>  HomeCubit.get(context).getAllAdsWithUsersModel.data.length>0? SliderHome():EmptyResult(),
+                condition: state is GetUserAdsLoadingState,
+                builder: (context) => LoadingGif(),
+                fallback: (context) =>  HomeCubit.get(context).getAllAdsWithUsersModel.data.length > 0? SliderHome():EmptyResult(),
               ),
               SizedBox(
                 height: 5.h,

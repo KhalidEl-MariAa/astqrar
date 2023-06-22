@@ -37,9 +37,9 @@ class PackagesScreen extends StatelessWidget {
             ),
             
             body: ConditionalBuilder(
-              condition: GetPackagesCubit.get(context).getPackagesDone,
-              fallback: (context) => LoadingGif(),
-              builder: (context) => 
+              condition: state is GetPackagesLoadingState,
+              builder: (context) => LoadingGif(),
+              fallback: (context) => 
                   AdsAndPackages(
                     packages: GetPackagesCubit.get(context).getPackgesModel.data,
                     isPackages: true,

@@ -20,14 +20,15 @@ class AboutApp extends StatelessWidget {
           textDirection: TextDirection.rtl,
           child: Scaffold(
             backgroundColor: white,
-              body: ConditionalBuilder(
-                fallback: (context)=>const LoadingGif(),
-                condition:AboutUsCubit.get(context).getAboutUsDone ,
-                builder:(context)=> StackLogo(
-            appbarTitle: "عن التطبيق",
-            strings: AboutUsCubit.get(context).splittingAboutUs,
-          ),
-              )),
+            body: ConditionalBuilder(
+                condition: state is AboutUsLoadingState,
+                builder: (context)=> const LoadingGif(),
+                fallback:(context)=> StackLogo(
+                  appbarTitle: "عن التطبيق",
+                  strings: AboutUsCubit.get(context).splittingAboutUs,
+                ),
+              )
+            ),
         ),
       ),
     );

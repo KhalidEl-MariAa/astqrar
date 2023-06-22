@@ -14,23 +14,24 @@ class NotificationCubit extends Cubit<NotificationStates>
 {
   NotificationCubit() : super(NotificationInitialState());
 
-  //late LoginModel loginModel;
   static NotificationCubit get(context) => BlocProvider.of(context);
   
   late GetNotificationsModel getNotificationsModel;
-  bool getNotificationsDone=false;
   getNotifications()
   {
     emit(GetNotificationLoadingState());
+
     DioHelper.getDataWithBearerToken(
       url: GETNOTIFICATIONS,token: 
       token.toString()
     ).then((value) {
+
       log(value.toString());
-      getNotificationsModel=GetNotificationsModel.fromJson(value.data);
-      getNotificationsDone=true;
+      getNotificationsModel = GetNotificationsModel.fromJson(value.data);
       emit(GetNotificationSuccessState());
-    }).catchError((error){
+
+    }).catchError((error)
+    {
       log(error.toString());
       emit(GetNotificationErrorState(error.toString()));
     });
@@ -42,6 +43,7 @@ class NotificationCubit extends Cubit<NotificationStates>
     //accept request
     late ServerResponse res;
     emit(AcceptChattRequestLoadingState());
+    
     DioHelper.postDataWithBearearToken(
       url: ACCEPTREQUEST, 
       data: {
