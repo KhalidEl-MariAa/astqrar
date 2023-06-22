@@ -67,9 +67,9 @@ const SEARCH="api/v2/search-users";
 
 const FILTERSEARCH="api/v2/get-users-filter";
 
-const SENDNOTIFICATION="api/v2/send";
+const SENDNOTIFICATION="api/v2/send-notification";
 
-const SENDNOTIFICATIONTOALL="api/v2/send-all";
+const SENDNOTIFICATIONTOALL="api/v2/send-notifications-to-all";
 
 const GETMESSAGES="api/v2/get-messages-users";
 

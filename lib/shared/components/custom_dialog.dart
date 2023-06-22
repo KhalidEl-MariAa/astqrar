@@ -1,6 +1,6 @@
 
 
-import '../contants/contants.dart';
+import '../contants/constants.dart';
 import '../styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

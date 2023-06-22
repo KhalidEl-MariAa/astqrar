@@ -21,7 +21,8 @@ class ForgetPasswordErrorState extends ForgetPasswordStates{
 
 class ChangePasswordByCodeLoadingState extends ForgetPasswordStates{}
 
-class ChangePasswordByCodeSuccessState extends ForgetPasswordStates{
+class ChangePasswordByCodeSuccessState extends ForgetPasswordStates
+{
  final dynamic changePassswordByCodeModel;
  ChangePasswordByCodeSuccessState(this.changePassswordByCodeModel);
 

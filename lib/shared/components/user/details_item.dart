@@ -9,7 +9,7 @@ class DetailsItem extends StatelessWidget
   final String title;
   final String subTitle;
 
-  DetailsItem({required this.title,required this.subTitle});
+  DetailsItem({required this.title, required this.subTitle});
 
   @override
   Widget build(BuildContext context) {

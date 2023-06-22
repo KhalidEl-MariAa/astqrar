@@ -112,8 +112,10 @@ Widget defaultTextFormField({
 
 //material button used in register screen and update personal data screen
 Widget doubleInfinityMaterialButton({
-  required String text,
+  String? text,
+  Widget? child,
   required Function onPressed,
+  
 }) {
   return Padding(
     padding:  EdgeInsetsDirectional.only(start: 3.w, end: 3.w),
@@ -125,10 +127,12 @@ Widget doubleInfinityMaterialButton({
       ),
 
       child: MaterialButton(
-        child: 
-        Text( text, style:  TextStyle(color: white),
-      ),
-
+        child: (text != null)?
+          Text( text, style:  TextStyle(color: white), )
+        :
+          child 
+        ,
+        
       onPressed: () { onPressed(); },
       ),
     ),

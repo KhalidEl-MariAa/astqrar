@@ -13,8 +13,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class ChatListScreen extends StatelessWidget 
+{
+  const ChatListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,8 @@ class ChatScreen extends StatelessWidget {
                 builder: (context) => Padding(
                   padding: const EdgeInsetsDirectional.only(top: 20),
                   child: ListView.separated(
-                      itemBuilder: (context, index) => Dismissible(
+                      itemBuilder: (context, index) => 
+                        Dismissible(
                           key: UniqueKey(),
                           onDismissed: (value) {
                             ContactsCubit.get(context).removeChat(
@@ -82,8 +84,7 @@ class ChatScreen extends StatelessWidget {
                             ),
                             name: ContactsCubit.get(context)
                                         .contacts[index]
-                                        .userInformation ==
-                                    null
+                                        .userInformation == null
                                 ? "مستخدم"
                                 : ContactsCubit.get(context)
                                     .contacts[index]
@@ -91,68 +92,40 @@ class ChatScreen extends StatelessWidget {
                                     .user_Name!,
                             gender: 1,
                             onClicked: () {
-                              if (ContactsCubit.get(context)
-                                          .contacts[index]
-                                          .userInformation !=
-                                      null &&
-                                  ContactsCubit.get(context)
-                                          .contacts[index]
-                                          .userInformation!
-                                          .typeUser ==
-                                      1) {
-                                GetInformationCubit.get(context)
-                                    .getInformationUser(
-                                        userId: ContactsCubit.get(context)
-                                            .contacts[index]
-                                            .userInformation!
-                                            .id!);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DetailsUserScreen(
-                                              messageVisibility: true,
-                                            )));
-                              }
-                              if (ContactsCubit.get(context)
-                                          .contacts[index]
-                                          .userInformation != null 
-                                          &&
-                                  ContactsCubit.get(context)
-                                          .contacts[index]
-                                          .userInformation!
-                                          .typeUser == 2) 
-                              {
-
-                                // var delegateId = ContactsCubit.get(context)
-                                //     .contacts[index]
-                                //     .userInformation!
-                                //     .id!;
-                                // var delegateName=ContactsCubit.get(context)
-                                //     .contacts[index]
-                                //     .userInformation!
-                                //     .user_Name!;
-                                // ProfileDeleagateCubit.get(context)
-                                //     .getProfileDelegate(
-                                //         delegateId: delegateId);
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             SpeceficDelegateScreen(
-                                //               name: delegateName,
-                                //               id: delegateId,
-                                //             )));
-                              }
+                              user_on_click(context, index);
                             },
-                          )),
-                      separatorBuilder: (context, index) => SizedBox(
-                            height: 0.5.h,
-                          ),
+                          )
+                        ),
+                      separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
+
                       itemCount: ContactsCubit.get(context).contacts.length),
                 ),
               )),
         ),
       ),
     );
+  }
+
+  void user_on_click(BuildContext context, int index) 
+  {
+    if (ContactsCubit.get(context)
+                .contacts[index]
+                .userInformation != null ) 
+    {
+      GetInformationCubit.get(context)
+          .getInformationUser(
+              userId: ContactsCubit.get(context)
+                  .contacts[index]
+                  .userInformation!
+                  .id!);
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailsUserScreen( messageVisibility: true,)
+          )
+      );
+    }
+
   }
 }

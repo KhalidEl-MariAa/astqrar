@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../../models/chatModel.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';

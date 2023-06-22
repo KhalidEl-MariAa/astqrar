@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -33,7 +34,6 @@ class _UserRegisterState extends State<UserRegister>
 
   var formkey = GlobalKey<FormState>();
   
-  bool isLoading = false;
   User newUser = User();
   String gender = "ذكر";
 
@@ -447,9 +447,10 @@ class _UserRegisterState extends State<UserRegister>
                               controller: numberOfKidsController,
                               type: TextInputType.number,
                               validate: (String? value){
-                                var no_kids = newUser.subSpecifications.any((sub) => sub.id == 77);
+                                bool no_kids = newUser.subSpecifications.any((sub) => sub.id == 77);
+                                bool anyone_is_selected = newUser.subSpecifications.any((sub) => sub.specId == SpecificationIDs.have_children);
                                 // 77 -> 'بدون أطفال'
-                                if( no_kids ) {
+                                if( no_kids || !anyone_is_selected) {
                                   return null;
                                 }else if(value!.isEmpty){
                                   return "من فضلك اكتب عدد الاطفال";
@@ -557,7 +558,7 @@ class _UserRegisterState extends State<UserRegister>
                               }else if (value.length < 7) {
                                 return " من فضلك ادخل كلمة مرور لا تقل عن 7 حروف";                                
                               }else{
-                                newUser.password = value;
+                                newUser.showPassword = value;
                                 return null;
                               }
                             },
@@ -572,12 +573,12 @@ class _UserRegisterState extends State<UserRegister>
                             controller: confirmPasswordController,  
                             type: TextInputType.text,
                             validate: (val) {
-                              if (newUser.password != val) {
+                              if (newUser.showPassword != val) {
                                 return "كلمة السر و تاكيد كلمة السر غير متطابقان";
                               }else if (val!.isEmpty) {
                                 return "من فضلك ادخل تاكيد كلمة السر";
                               }else{
-                                newUser.password = val;
+                                newUser.showPassword = val;
                                 return null;
                               }
                             },
@@ -626,9 +627,11 @@ class _UserRegisterState extends State<UserRegister>
                               onPressed: () { 
                                 registerOnPressed(context); }),
 
-                          SizedBox(
-                            child: isLoading ? 
-                                      CircularProgressIndicator() : SizedBox(),
+                          SizedBox(height: 1.h,),
+                          ConditionalBuilder(
+                            condition: state is RegisterState_Loading,
+                            fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
+                            builder: (context) => CircularProgressIndicator()
                           ),
 
                           const AlreadyHaveAccountText(),
@@ -652,8 +655,7 @@ class _UserRegisterState extends State<UserRegister>
       showToast(msg: "يجب الموافقة على الشروط والقسم بصحة البيانات", state: ToastStates.ERROR);
       return;
     }
-    RegisterCubit.get(context)
-        .RegisterClient(newUser, formkey);
+    RegisterCubit.get(context).RegisterClient(newUser, formkey);
   }
 
   void on_state_changed(BuildContext context, RegisterState state)
@@ -692,12 +694,12 @@ class _UserRegisterState extends State<UserRegister>
     List<Widget> radios = [];
     Spec["subSpecifications"].forEach((sub_id, sub) 
     {
-      SubSpecification found_or_created;
+      // subSpecifications
+      SubSpecification found_or_created;      
       found_or_created = newUser.subSpecifications
                       .firstWhere( (user_sub) => user_sub.specId == sub["specificationId"],
                       orElse: () {
-                        var new_sub = new SubSpecification(sub["id"], sub["nameAr"], Spec["id"], Spec["nameAr"]);
-                        newUser.subSpecifications.add( new_sub );
+                        var new_sub = new SubSpecification(0, sub["nameAr"], Spec["id"], Spec["nameAr"]);
                         return new_sub;
                       });
 
@@ -708,6 +710,9 @@ class _UserRegisterState extends State<UserRegister>
           title: sub["nameAr"] ,
           changeFunction: () {
             setState(() {
+              if(found_or_created.id == 0){
+                newUser.subSpecifications.add( found_or_created );
+              }
               found_or_created.id = sub["id"];
               found_or_created.value = sub["nameAr"];
               found_or_created.specId = Spec["id"];

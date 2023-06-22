@@ -1,15 +1,15 @@
 
-String?id;
-String?token;
+String? id;
+String? token;
 String? forgetPasswordId;
-String?name;
-String?age;
-String?userImage;
-String?email;
-int?genderUser;
-String?deviceToken;
-String?phone;
-int?typeOfUser;
+String? name;
+String? age;
+String? userImage;
+String? email;
+int? genderUser;
+String? deviceToken;
+String? phone;
+int? typeOfUser;
 bool isLogin=true;
 String? mobilePhone;
 bool IS_DEVELOPMENT_MODE=true;

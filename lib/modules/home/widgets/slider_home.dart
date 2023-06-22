@@ -3,7 +3,7 @@
 import '../../details_user/cubit/cubit.dart';
 import '../../details_user/details_user.dart';
 import '../cubit/cubit.dart';
-import '../../../shared/contants/contants.dart';
+import '../../../shared/contants/constants.dart';
 import '../../../shared/styles/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

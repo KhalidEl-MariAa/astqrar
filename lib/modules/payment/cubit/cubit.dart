@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import '../../../models/activate_model.dart';
 import 'states.dart';
-import '../../../shared/contants/contants.dart';
+import '../../../shared/contants/constants.dart';
 import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';

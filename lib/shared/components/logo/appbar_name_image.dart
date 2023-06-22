@@ -1,5 +1,5 @@
 import '../../../modules/login/login.dart';
-import '../../contants/contants.dart';
+import '../../contants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

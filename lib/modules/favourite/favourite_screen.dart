@@ -4,7 +4,7 @@ import 'cubit/cubit.dart';
 import 'cubit/state.dart';
 import '../../shared/components/favourite_item.dart';
 import '../../shared/components/logo/normal_logo.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';

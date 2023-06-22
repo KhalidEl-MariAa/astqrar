@@ -5,7 +5,7 @@ import '../section%20men%20_women/cubit/cubit.dart';
 import '../section%20men%20_women/cubit/states.dart';
 import '../../shared/components/loading_gif.dart';
 import '../../shared/components/user/user_item.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';

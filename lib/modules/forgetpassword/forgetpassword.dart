@@ -1,11 +1,12 @@
 import 'package:astarar/modules/forgetpassword/resetpassword.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'inputOtp.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/header_logo.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,8 @@ class ForgetPasswordScreen extends StatelessWidget
         BlocConsumer<ForgetPasswordCubit, ForgetPasswordStates>(
           listener: (context, state) 
           {
-            if (state is ForgetPasswordSuccessState) {
+            if (state is ForgetPasswordSuccessState) 
+            {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -34,6 +36,7 @@ class ForgetPasswordScreen extends StatelessWidget
                   ),
                   (route) => true
                 );
+                showToast(msg: "تم التحقق من الهوية بنجاح", state: ToastStates.SUCCESS);
             }else if (state is ForgetPasswordErrorState) {
               showToast(msg: state.error, state: ToastStates.ERROR);
             }
@@ -50,23 +53,10 @@ class ForgetPasswordScreen extends StatelessWidget
                   children: [
                     SizedBox(height: 3.h, ),
                     const  HeaderLogo(),
-                    Text( "استعادة كلمة المرور",
-                      style: TextStyle(color: primary, fontSize: 10.sp),
+                    Text( "طلب استعادة كلمة المرور",
+                      style: TextStyle(color: primary, fontSize: 15.sp),
                     ),
-                    SizedBox( height: 6.5.h, ),
-                    
-                    // doubleInfinityMaterialButton(                      
-                    //     text: "مراسلة الادمن لاستعادة كلمة السر ",
-                    //     onPressed: () async{
-                    //       final link = WhatsAppUnilink(
-                    //         phoneNumber: mobilePhone,
-                    //         text: "مرحبا \n اريد استعادة كلمة المرور ",
-                    //       );
-                    // 
-                    //       if (await launchUrl(link.asUri(), mode: LaunchMode.platformDefault)) {} 
-                    //       else { throw 'Could not launch ${link.asUri()}'; }
-                    //   }
-                    // ),
+                    SizedBox( height: 4.5.h, ),                    
                     
                     /** حسب طلب صاحب المشروع
                      * يتم استعادة كلمة المرور من خلال محادثة الواتساب
@@ -81,9 +71,9 @@ class ForgetPasswordScreen extends StatelessWidget
                       },
                       labelText: "رقم الهوية",
                       label: "الرجاء ادخال رقم الهوية",
-                      prefixIcon: Icons.phone_android_rounded
+                      prefixIcon: Icons.person
                     ),
-                    SizedBox(height: 9.h,),
+                    SizedBox(height: 1.h,),
                     
                     defaultTextFormField(
                       context: context,
@@ -96,17 +86,41 @@ class ForgetPasswordScreen extends StatelessWidget
                       label: "الرجاء ادخال رقم الجوال",
                       prefixIcon: Icons.phone_android_rounded
                     ),
-                    SizedBox(height: 9.h,),
+
+                    SizedBox(height: 2.h,),
 
                     doubleInfinityMaterialButton(
                         text: "التحقق من الهوية",
                         onPressed: () {
-                          ForgetPasswordCubit.get(context).sendCode(
+                          ForgetPasswordCubit.get(context).sendUserIdentity(
                             nationalId: nationalIdController.text,
                             phone: phoneController.text
                           );
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=>InputOtp()));
                         }),
+
+                    SizedBox(height: 1.h, ),
+                    ConditionalBuilder(
+                      condition: state is ForgetPasswordLoadingState,
+                      builder: (context) => CircularProgressIndicator(),
+                      fallback: (context) => Text(""),                      
+                    ),
+
+                    SizedBox(height: 4.h, ),
+                    doubleInfinityMaterialButton(                      
+                      text: "مراسلة الادمن لاستعادة كلمة السر ",
+                      onPressed: () async {
+                        final link = WhatsAppUnilink(
+                          phoneNumber: mobilePhone,
+                          text: "مرحبا \n اريد استعادة كلمة المرور ",
+                        );
+                  
+                        if (await launchUrl(link.asUri(), mode: LaunchMode.platformDefault)) {} 
+                        else { throw 'Could not launch ${link.asUri()}'; }
+                      }
+                    ),
+
+                  
                   ],
                 ),
               ),

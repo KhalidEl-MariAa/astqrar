@@ -9,7 +9,7 @@ import '../user_profile_screen/user_profile_screen.dart';
 import 'widgets/default_raw.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/logo/normal_logo.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -12,7 +12,7 @@ import 'modules/search/cubit/cubit.dart';
 import 'modules/section%20men%20_women/cubit/cubit.dart';
 import 'modules/splash_screen/splash_screen.dart';
 import 'notifications/cubit/cubit.dart';
-import 'shared/contants/contants.dart';
+import 'shared/contants/constants.dart';
 import 'shared/network/bloc_observer.dart';
 import 'shared/network/local.dart';
 import 'shared/network/remote.dart';
@@ -40,7 +40,9 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() async {
+void main() async 
+{
+  IS_DEVELOPMENT_MODE = !kReleaseMode; 
 
   HttpOverrides.global = MyHttpOverrides();
 
@@ -64,7 +66,7 @@ void main() async {
 
   isLogin = CacheHelper.getData(key: "isLogin") ?? false;
 
-  IS_DEVELOPMENT_MODE = !kReleaseMode; 
+  
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

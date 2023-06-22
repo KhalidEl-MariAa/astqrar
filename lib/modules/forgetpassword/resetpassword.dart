@@ -1,3 +1,5 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import '../login/login.dart';
@@ -20,21 +22,21 @@ class ResetPassword extends StatelessWidget {
     return BlocProvider(
       create: (context) => ForgetPasswordCubit(),
       child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordStates>(
-        listener: (context, state) {
-          if (state is ChangePasswordByCodeSuccessState) {
-            if (state.changePassswordByCodeModel == 3) {
+        listener: (context, state) 
+        {
+          if (state is ChangePasswordByCodeSuccessState) 
+          {
+            showToast(
+                msg: "تم تغيير كلمة السر بنجاح",
+                state: ToastStates.SUCCESS);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (route) => false);
+          }else if (state is ChangePasswordByCodeErrorState) {
               showToast(
-                  msg: "تم تغيير كلمة السر بنجاح",
-                  state: ToastStates.SUCCESS);
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                  (route) => false);
-            } else {
-              showToast(
-                  msg: " حدث خطا ما",
+                  msg: state.error,
                   state: ToastStates.ERROR);
-            }
           }
         },
         builder: (context, state) => Directionality(
@@ -48,8 +50,8 @@ class ResetPassword extends StatelessWidget {
                   children: [
                    SizedBox(height: 3.h,),
                    const  HeaderLogo(),
-                    Text("استعادة كلمة المرور",
-                      style: TextStyle(color: primary, fontSize: 10.sp),
+                    Text("تغيير كلمة المرور",
+                      style: TextStyle(color: primary, fontSize: 15.sp),
                     ),
                     SizedBox( height: 7.h,),
                     defaultTextFormField(
@@ -59,13 +61,12 @@ class ResetPassword extends StatelessWidget {
                         styleText: Colors.black,
                         type: TextInputType.number,
                         validate: (String? value) { return ''; },
-                        //    labelText: "رقم الجوال",
-                        label: "الرجاء ادخال كلمة المرور",
+                        label: "الرجاء ادخال كلمة المرور الجديدة",
                         prefixIcon: Icons.lock_outline_rounded,
                         suffix: Icons.visibility_outlined),
-                    SizedBox(
-                      height: 1.5.h,
-                    ),
+                    
+                    SizedBox( height: 1.5.h,),
+                    
                     defaultTextFormField(
                         context: context,
                         controller: confirmpasswordController,
@@ -73,19 +74,28 @@ class ResetPassword extends StatelessWidget {
                         type: TextInputType.number,
                         styleText: Colors.black,
                         validate: (String? value) { return ''; },
-                        //    labelText: "رقم الجوال",
-                        label: "تاكيد كلمة المرور",
+                        label: "تاكيد كلمة المرور الجديدة",
                         prefixIcon: Icons.lock_outline_rounded,
                         suffix: Icons.visibility_outlined),
-                    SizedBox(
-                      height: 9.h,
-                    ),
-                    doubleInfinityMaterialButton(
-                        text: "تاكيد",
+
+                    SizedBox(height: 3.h, ),
+
+                    doubleInfinityMaterialButton(                        
+                        text: "تغيير كلمة المرور",
                         onPressed: () {
                           ForgetPasswordCubit.get(context).changePasswordByCode(
-                              newPassword: passwordController.text, code: code);
+                              newPassword: passwordController.text, 
+                              confirmPassword: confirmpasswordController.text,
+                              code: code);
                         }),
+
+                    SizedBox(height: 1.h, ),
+                    ConditionalBuilder(
+                      condition: state is ChangePasswordByCodeLoadingState,
+                      fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
+                      builder: (context) => CircularProgressIndicator()
+                      ),
+
                   ],
                 ),
               ),

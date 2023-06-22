@@ -11,10 +11,9 @@ class Web extends StatelessWidget
   final dynamic idService;
   final String? serviceType;
 
-  final bool isLoading = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   
-  Web({Key? key, this.price,required this.serviceType,required this.idService}) : super(key: key);
+  Web({Key? key, this.price, required this.serviceType, required this.idService}) : super(key: key);
 
   final InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(

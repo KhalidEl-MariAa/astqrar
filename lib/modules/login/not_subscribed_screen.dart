@@ -23,7 +23,7 @@ class _NotSubscribedScreenState extends State<NotSubscribedScreen> {
               preferredSize: Size.fromHeight(11.h),
               child: NormalLogo(
                 isBack: true,
-                appbarTitle: "ssssالفلتر",
+                appbarTitle: "عميل غير مشترك",
               )),       
         body: Center(
           child: Column(

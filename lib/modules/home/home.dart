@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../notification.dart';
 import '../../shared/components/loading_gif.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/styles/colors.dart';
 import '../ads/ads.dart';
 import '../login/login.dart';
@@ -34,7 +34,8 @@ class UserHomeScreen extends StatefulWidget {
   _UserHomeScreenState createState() => _UserHomeScreenState();
 }
 
-class _UserHomeScreenState extends State<UserHomeScreen> {
+class _UserHomeScreenState extends State<UserHomeScreen> 
+{
   @override
   void initState() 
   {
@@ -128,7 +129,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                 height: 2.h,
                               ),
                               Text(
-                                isLogin?name!:"اهلا بك ",
+                                isLogin? name??"XX" :"اهلا بك ",
                                 style: TextStyle(color: white,fontSize: 11.sp),
                               ),
                           if(isLogin)    Text(

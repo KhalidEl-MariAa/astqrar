@@ -6,7 +6,7 @@ import 'package:astarar/models/server_response_model.dart';
 import '../../../models/add_to_favourite.dart';
 import '../../../models/get_information_user.dart';
 import 'states.dart';
-import '../../../shared/contants/contants.dart';
+import '../../../shared/contants/constants.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,6 @@ class GetInformationCubit extends Cubit<GetInformationStates>
 
   //get information users
   late GetInformationUserModel getInformationUserModel;
-  bool getInformationDone = false;
 
   userOrVisitorToGetInformation({required String userId})
   {
@@ -32,22 +31,19 @@ class GetInformationCubit extends Cubit<GetInformationStates>
 
   void getInformationUser({required String userId}) 
   {
-    log(userId);
-    log(token.toString());
-    getInformationDone = false;
-    emit(GetInformationLoadingState());
-    DioHelper.getDataWithQuery(
-            url: GETINFORMATIONUSER,
-            query: {"userid": userId},
-            token: token.toString())
-        .then((value) {
-      log(value.toString());
+      // log(userId);
+      // log(token.toString());
+      emit(GetInformationLoadingState());
+      DioHelper.getDataWithQuery(
+              url: GETINFORMATIONUSER,
+              query: {"userid": userId},
+              token: token.toString())
+    .then((value) 
+    {
       getInformationUserModel = GetInformationUserModel.fromJson(value.data);
       // log(getInformationUserModel.userSubSpecification!.userSubSpecificationDto![11].value.toString());
-      getInformationDone = true;
       emit(GetInformationSuccessState());
-      sendNotification(userid: userId, type: 3, body:"تمت زيارة صفحتك من قبل $name",
-          title: "");
+      sendNotification(userid: userId, type: 3, body:"تمت زيارة صفحتك من قبل $name", title: "");
     }).catchError((error) {
       // log(error.toString());
       emit(GetInformationErrorState(error.toString()));
@@ -58,19 +54,15 @@ class GetInformationCubit extends Cubit<GetInformationStates>
   {
     log(userId);
 
-    getInformationDone = false;
     emit(GetInformationLoadingState());
     DioHelper.getDataWithQuery(
         url: GETINFORMATIONUSERBYVISITOR,
         query: {"userid": userId})
         .then((value) {
-      // log(value.toString());
       getInformationUserModel = GetInformationUserModel.fromJson(value.data);
-      getInformationDone = true;
       emit(GetInformationSuccessState());
 
     }).catchError((error) {
-      // print(error.toString());
       emit(GetInformationErrorState(error.toString()));
     });
   }
@@ -135,7 +127,7 @@ class GetInformationCubit extends Cubit<GetInformationStates>
     emit(AddChattRequestLoadingState());
     DioHelper.postDataWithBearearToken(
       url: ADDREQUEST, 
-      data: { "userId":userId}, 
+      data: { "userId":userId }, 
       token: token.toString())
     .then((value) {
       // log(value.toString());

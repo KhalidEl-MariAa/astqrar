@@ -3,7 +3,7 @@ import 'dart:developer';
 import '../../../models/forget_password.dart';
 import '../../../models/server_response_model.dart';
 import 'states.dart';
-import '../../../shared/contants/contants.dart';
+import '../../../shared/contants/constants.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
 
   late ForgetPassword forgetPasswordModel;
 
-  sendCode({required String nationalId, required String phone}) 
+  sendUserIdentity({required String nationalId, required String phone}) 
   {
     emit(ForgetPasswordLoadingState());
     DioHelper.postData(
@@ -26,17 +26,18 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
         "NationalId": nationalId,
         "phone": phone,
       }
-    ).then((res) {
+    )
+    .then((res) {
       if(res.data["key"] == 0){
         emit(ForgetPasswordErrorState(  res.data["msg"] ));
+        return;
       }
-      // log(res.toString());
+
       forgetPasswordModel = ForgetPassword.fromJson(res.data);
-      // log("code" + forgetPasswordModel.data!.code.toString());
       forgetPasswordId = forgetPasswordModel.data!.userId!;
       emit(ForgetPasswordSuccessState(forgetPasswordModel));
-    }).catchError((error) {
-    //  log(error.toString());
+    })
+    .catchError((error) {
       emit(ForgetPasswordErrorState(error.toString()));
     });
   }
@@ -44,20 +45,30 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
   //changepassword
   late ServerResponse changePasswordByCodeModel;
 
-  changePasswordByCode({required String newPassword, required String code}) 
+  changePasswordByCode({
+    required String newPassword, 
+    required String confirmPassword,
+    required String code}) 
   {
+    log("changing password for: " + forgetPasswordId!);
     emit(ChangePasswordByCodeLoadingState());
     DioHelper.postData(
       url: CHANGEPASSWORDBYCODE, 
       data: {
-      "userId":forgetPasswordId,
-      "code":code,
-      "newPassword":newPassword
+      "userId": forgetPasswordId,
+      "code": code,
+      "newPassword": newPassword,
+      "confirmPassword": confirmPassword,
     })
-    .then((value) {
-      log(value.toString());
-      emit(ChangePasswordByCodeSuccessState(int.parse(value.toString())));
+    .then((value) 
+    {
+      // log(value.toString());
 
+      if (value.data['key'] == 3) {
+        emit(ChangePasswordByCodeSuccessState(3));
+      } else {
+        emit(ChangePasswordByCodeErrorState(value.data['msg']));
+      }
     })
     .catchError((error) {
       log(error.toString());

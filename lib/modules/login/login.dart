@@ -19,7 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../layout/layout.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/network/remote.dart';
 import '../forgetpassword/forgetpassword.dart';
 
@@ -57,43 +57,40 @@ class _LoginScreenState extends State<LoginScreen>
         child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
           listener: (context, state) 
           {
-            if (state is ShopLoginSuccessState) {
-
-              if(state.loginModel.key==0){
-                showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-              }
-              if (state.loginModel.key==1) 
+            if (state is ShopLoginSuccessState) 
+            {
+              log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
+              if(state.loginModel.data!.status! || IS_DEVELOPMENT_MODE)
               {
-                log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
-                if(state.loginModel.data!.status! || IS_DEVELOPMENT_MODE)
-                {
-                  showToast( 
-                    msg: "تم تسجيل الدخول بنجاح", 
-                    state: ToastStates.SUCCESS);
+                showToast( 
+                  msg: "تم تسجيل الدخول بنجاح", 
+                  state: ToastStates.SUCCESS);
 
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
-                  // if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
-                  // if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
-                  NotificationCubit.get(context).getNotifications();
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                // if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                // if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
+                NotificationCubit.get(context).getNotifications();
 
-                }
-                
-                if( state.loginModel.data!.status == false && kReleaseMode ) 
-                {
-                  // عميل مسجل لكن غير مشترك
-                  showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NotSubscribedScreen()), (route) => false);
-                }
-
-                
-                // if(state.loginModel.data!.status == false && state.loginModel.data!.typeUser==1) {
-                //   showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NotSubscribedScreen()), (route) => false);
-                // }
-                // if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
-                //     showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                // }
               }
+              
+              if( state.loginModel.data!.status == false && kReleaseMode ) 
+              {
+                // عميل مسجل لكن غير مشترك
+                showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> NotSubscribedScreen()), (route) => true);
+              }
+
+              
+              // if(state.loginModel.data!.status == false && state.loginModel.data!.typeUser==1) {
+              //   showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
+              //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NotSubscribedScreen()), (route) => false);
+              // }
+              // if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
+              //     showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
+              // }
+
+            }else if (state is ShopLoginErrorState) {
+              showToast(msg: state.error, state: ToastStates.ERROR);
             }
           },
           
@@ -202,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen>
                           child: Container(
                             margin:  EdgeInsets.symmetric(vertical: 2.2.h),
                             child: Text(
-                              "الدخول كزائر",
+                              "الدخول كزائر"+"11111111111111",
                               style: TextStyle(
                                   color: white,
                                   fontSize: 9.2.sp,
@@ -212,17 +209,27 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                       ),
 
-                      if(IS_DEVELOPMENT_MODE)
-                        Center( 
-                          child: Text(DioHelper.baseUrl,
-                                style: TextStyle(
-                                    color: white,
-                                    fontSize: 9.2.sp,
-                                    fontWeight: FontWeight.w500)
-                          ),
+                      // TODO: remove the following 2 Center()
+                      Center( 
+                        child: Text(DioHelper.baseUrl,
+                              style: TextStyle(
+                                  color: white,
+                                  fontSize: 9.2.sp,
+                                  fontWeight: FontWeight.w500)
                         ),
+                      ),
                       
-                      
+                      Center( 
+                        child: Text("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}",
+                              style: TextStyle(
+                                  color: white,
+                                  fontSize: 9.2.sp,
+                                  fontWeight: FontWeight.w500)
+                        ),
+                      ),
+
+
+
                       SizedBox( height: 3.2.h, ),
                       InkWell(
                         onTap: () {

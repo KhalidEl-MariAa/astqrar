@@ -3,26 +3,24 @@ import 'dart:developer';
 import '../../../models/user.dart';
 import '../../../models/login.dart';
 import 'states.dart';
-import '../../../shared/contants/contants.dart';
+import '../../../shared/contants/constants.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserProfileCubit extends Cubit<UserProfileStates> {
+class UserProfileCubit extends Cubit<UserProfileStates> 
+{
   UserProfileCubit() : super(UserProfileInitialState());
 
-  //late LoginModel loginModel;
   static UserProfileCubit get(context) => BlocProvider.of(context);
 
   //get user data
   late User user;
-  bool getUserDataDone = false;
 
   getUserData() 
   {
-    getUserDataDone = false;
     emit(GetUserDataLoadingState());
 
     DioHelper.postDataWithBearearToken(
@@ -31,15 +29,11 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
             token: token.toString()
     ).then((value) {
 
-      // log(value.toString());
-
       user = User.fromJson(value.data["data"]);
 
       genderUser = user.gender!;
       print("-----------9-9-9-9-9-9-9-9-9-9-9-9-9-9-");
 
-      // listlist();
-      getUserDataDone = true;
       emit(GetUserDataSucccessState(user));
       
     }).catchError((error) {
@@ -51,7 +45,8 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
    //update user data
   late LoginModel updateUserDataModel;
 
-  void updateUserData(User current_user) {
+  void updateUserData(User current_user) 
+  {
     emit(UpdateUserDataLoadingState());
 
     //Creates readable "multipart/form-data" streams.
@@ -65,6 +60,11 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       // "phone": current_user.phone,
       "Height": current_user.height,
       "Weight": current_user.weight,
+
+      "nameOfJob": current_user.nameOfJob,
+      "illnessType": current_user.illnessType,
+      "numberOfKids": current_user.numberOfKids,
+      
       "Dowry": current_user.dowry,
       "Terms": current_user.terms,
       "UserSpecifications": current_user
@@ -75,10 +75,11 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
     });
 
     DioHelper.postDataWithImage(
-            url: UPDATEUSERDATA,
-            data: formData,
-            token: token.toString(),
-            length: 0)
+      url: UPDATEUSERDATA,
+      data: formData,
+      token: token.toString(),
+      length: 0      
+    )
     .then((value) {
       // log(value.toString());
 

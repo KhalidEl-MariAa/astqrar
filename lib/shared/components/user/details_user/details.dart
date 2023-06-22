@@ -3,7 +3,7 @@ import 'package:astarar/models/user.dart';
 import '../../../../models/get_information_user.dart';
 import '../../dialog_please_login.dart';
 import '../details_item.dart';
-import '../../../contants/contants.dart';
+import '../../../contants/constants.dart';
 import '../../../styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -149,8 +149,9 @@ class DetailsItemScreen extends StatelessWidget {
                       showDialog(context: context, builder: (context)=>const DialogPleaseLogin());
                     }
                     else{
-                    chatFunction();
-                    }                  },
+                      chatFunction();
+                    }                  
+                  },
                   child: Image(height: 3.h, image: const AssetImage('assets/chat (7).png')),
                 ),
               ),
@@ -293,8 +294,12 @@ class DetailsItemScreen extends StatelessWidget {
           child: Row(
             children: [
               Container(
-    width: 46.w,
-    child: DetailsItem(title: 'هل لديك اطفال', subTitle: userSubSpecificationDto[9].value.toString(),)),
+                width: 46.w,
+                child: DetailsItem(
+                  title: 'هل لديك اطفال', 
+                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.have_children),)
+              ),
+
               Container(
                 width: 35.w,
                 child: DetailsItem(
@@ -372,7 +377,7 @@ class DetailsItemScreen extends StatelessWidget {
   findSubSpecificationOrEmptyStr(int specId) 
   {
 
-    var subkeys = SpecificationIDs.getSubSpecificationKeys(SpecificationIDs.financial_situation);
+    var subkeys = SpecificationIDs.getSubSpecificationKeys(specId);
     return userSubSpecificationDto
                   .firstWhere(
                     (ss) => subkeys.contains(ss.id),

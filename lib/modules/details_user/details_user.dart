@@ -40,12 +40,12 @@ class DetailsUserScreen extends StatelessWidget
       builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
         child: ConditionalBuilder(
-          condition: GetInformationCubit.get(context).getInformationDone,
-          fallback: (context) => Scaffold(
+          condition: state is GetInformationLoadingState,
+          builder: (context) => Scaffold(
             backgroundColor: white,
             body: LoadingGif(),
           ),
-          builder: (context) => Scaffold(
+          fallback: (context) => Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
               iconTheme: IconThemeData(color: Colors.white),
@@ -174,6 +174,7 @@ class DetailsUserScreen extends StatelessWidget
                     .getInformationUserModel
                     .userSubSpecifications!
                     .userSubSpecificationDto,
+
                 favouriteFunction: () {
                   if (GetInformationCubit.get(context)
                       .getInformationUserModel
@@ -191,6 +192,9 @@ class DetailsUserScreen extends StatelessWidget
                             .id!);
                   }
                 },
+
+                
+                //TODO: تعديل بحيث يدخل على الشات فورا
                 chatFunction: () {
                     GetInformationCubit.get(context)
                           .getInformationUserModel

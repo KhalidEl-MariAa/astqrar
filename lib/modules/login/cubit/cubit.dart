@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import '../../../models/login.dart';
 import 'states.dart';
-import '../../../shared/contants/contants.dart';
+import '../../../shared/contants/constants.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
@@ -32,6 +32,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
   //to login user
   Future UserLogin({required String nationalId, required String password}) async 
   {
+    emit(ShopLoginLoadingState());
     log(LOGIN);
 
     await DioHelper.postData(
@@ -46,14 +47,14 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
         loginModel = LoginModel.fromJson(value.data);
 
         if (loginModel.key==0){
-          emit(ShopLoginErrorState("حصلت مشكلة من السيرفر، الرجاء ابلاغ مسؤول التطبيق عن هذا العطل"));
+          emit(ShopLoginErrorState(loginModel.msg!));
           return;
         }
 
         CacheHelper.saveData( key: "phone", value: loginModel.data!.phone);
         CacheHelper.saveData( key: "token", value: loginModel.data!.token);
-        CacheHelper.saveData(key: "typeUser", value: loginModel.data!.typeUser!);
-        CacheHelper.saveData(key: "id", value: loginModel.data!.id);
+        CacheHelper.saveData( key: "typeUser", value: loginModel.data!.typeUser!);
+        CacheHelper.saveData( key: "id", value: loginModel.data!.id);
         CacheHelper.saveData( key: "name", value: loginModel.data!.userName);
         CacheHelper.saveData( key: "age", value: loginModel.data!.age.toString());
         CacheHelper.saveData( key: "email", value: loginModel.data!.email);

@@ -19,17 +19,18 @@ class User
 
   String? nameOfJob;
   String? illnessType;
-  int? numberOfKids;
+  int? numberOfKids=0;
   
   bool? specialNeeds;
 
   dynamic dowry;
   dynamic terms;
-  String? password;
+  String? showPassword;
   
   bool? closeNotify;
   bool? status;
   String? imgProfile;
+  int typeUser = 1;
 
 
   List<SubSpecification> subSpecifications = [];
@@ -57,7 +58,7 @@ class User
     status = json['status'];
     imgProfile = json['imgProfile'];
     
-    json['userSubSpecificationDto'].forEach((e) {
+    json['userSubSpecificationDto']?.forEach((e) {
       subSpecifications.add( new SubSpecification.fromJson(e) );
     });
   }
@@ -66,15 +67,15 @@ class User
   {
     
     Map res = {
-      "userName": this.userName,
+      "user_Name": this.userName,
       "email": this.email,
       "Age": this.age,
       "Gender": this.gender,
       "NationalID": this.nationalID,
       "Nationality": this.nationality,
       "City": this.city,
-      "password": this.password,
-      "phone": this.phone,
+      "ShowPassword": this.showPassword,
+      "PhoneNumber": this.phone,
       "Height": this.height,
       "Weight": this.weight,
       "SpecialNeeds": this.specialNeeds,
@@ -87,6 +88,8 @@ class User
       "Tribe": this.tribe,
       "NameOfJob": this.nameOfJob,
       "KindOfSick": this.illnessType,
+
+      "typeUser": this.typeUser, //always 1
       
       "UserSpecifications": 
         this.subSpecifications

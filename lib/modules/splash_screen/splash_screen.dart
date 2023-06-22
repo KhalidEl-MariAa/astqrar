@@ -9,7 +9,7 @@ import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
 import '../../layout/layout.dart';
 import '../../shared/components/components.dart';
-import '../../shared/contants/contants.dart';
+import '../../shared/contants/constants.dart';
 import '../../shared/network/remote.dart';
 import '../../shared/styles/colors.dart';
 import '../login/login.dart';

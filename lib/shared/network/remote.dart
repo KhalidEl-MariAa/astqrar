@@ -1,7 +1,9 @@
 import 'dart:developer';
 
-import 'package:astarar/shared/contants/contants.dart';
+import 'package:astarar/shared/components/components.dart';
+import 'package:astarar/shared/contants/constants.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class DioHelper 
 {
@@ -15,6 +17,8 @@ class DioHelper
     var res;
     String baseurl ="";
     Map? data = {};
+
+    log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
 
     if( IS_DEVELOPMENT_MODE)
     {
@@ -39,8 +43,11 @@ class DioHelper
 
   static init() async
   {
+    
     DioHelper.baseUrl = await find_the_baseUrl();
     log('Dio init() -------------------- ' + baseUrl);
+    
+    
     dio = Dio(
       BaseOptions(
       baseUrl: baseUrl, 
@@ -146,12 +153,15 @@ class DioHelper
   static Future<Map?> fetchData(String baseurl, String url) async 
   {
 
-    log('===============================\n Try BaseURL: '+ baseurl + url);
+    log('================\n Try BaseURL: '+ baseurl + url);
     
     Dio dio1 = Dio(
         BaseOptions(
         baseUrl: baseurl, 
         receiveDataWhenStatusError: true,
+        connectTimeout: 3000,
+        receiveTimeout: 3000,
+        sendTimeout: 3000,
       ));
 
     // Dio dio1 = Dio();

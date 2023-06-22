@@ -63,11 +63,12 @@ class UserProfileScreenState extends State<UserProfileScreen>
           on_state_is_changed(context, state);
         },
         builder: (context, state) => ConditionalBuilder(
-          condition: UserProfileCubit.get(context).getUserDataDone,
-          fallback: (context) => Scaffold(
-            backgroundColor: white,
-              body: const LoadingGif()),
-          builder: (context) => Directionality(
+          condition: state is GetUserDataLoadingState,
+          builder: (context) => Scaffold(
+              backgroundColor: white,
+              body: const LoadingGif()
+          ),
+          fallback: (context) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
               // backgroundColor: backGround,
@@ -98,7 +99,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             validate: (String? value) {
                               if (value!.isEmpty) {
                                 return "من فضلك ادخل البريد الالكتروني";
-                              }else if (!value.contains("@gmail.com")) {
+                              }else if (!value.contains("@")) {
                                 return "من فضلك ادخل البريد الالكتروني بطريقة صحيحة";
                               }else{
                                 current_user.email = value;
@@ -201,74 +202,6 @@ class UserProfileScreenState extends State<UserProfileScreen>
                           label: "ادخل اسم العائلة/القبيلة"
                         ),
 
-                        // Transform.scale(
-                        //   scale: 0.8,
-                        //   child: RadioListTile<int>(
-                        //       value: 0,
-                        //       activeColor: primary,
-                        //       secondary: Container(
-                        //         width: 45.w,
-                        //         child: defaultTextFormField(
-                        //             context: context,
-                        //             container: Colors.grey[100],
-                        //             styleText: Colors.black,
-                        //             borderColor: primary,
-                        //             controller: lastNameNotFamilyController,
-                        //             type: TextInputType.text,
-                        //             labelTextcolor: Colors.black,
-                        //             validate: (value) {
-                        //               return null;
-                        //              /* if (selectedlastName == 0 && value!.isEmpty) {
-                        //                 return "من فضلك ادخل اسم القبيلة";
-                        //               }*/
-                        //             },
-                        //             label: "ادخل اسم"),
-                        //       ),
-                        //       title: Text(
-                        //         "قبيلة",
-                        //         style: TextStyle(color: black, fontSize: 12.sp),
-                        //       ),
-                        //       groupValue: selectedlastName,
-                        //       onChanged: (value) {
-                        //         setState(() {
-                        //           selectedlastName = 0;
-                        //         });
-                        //       }),
-                        // ),
-                        // SizedBox(
-                        //   height: 0.5.h,
-                        // ),
-                        // Transform.scale(
-                        //   scale: 0.8,
-                        //   child: RadioListTile<int>(
-                        //       value: 1,
-                        //       activeColor: primary,
-                        //       secondary: Container(
-                        //         width: 45.w,
-                        //         child: defaultTextFormField(
-                        //             context: context,
-                        //             controller: lastNameFamilyController,
-                        //             type: TextInputType.text,
-                        //             validate: (value) {
-                        //               return null;
-                        //             },
-                        //             container: Colors.grey[100],
-                        //             styleText: Colors.black,
-                        //             borderColor: primary,
-                        //             label: "ادخل اسم",
-                        //             labelTextcolor: white),
-                        //       ),
-                        //       title: Text(
-                        //         "عائلة",
-                        //         style: TextStyle(color: black, fontSize: 12.sp),
-                        //       ),
-                        //       groupValue: selectedlastName,
-                        //       onChanged: (value) {
-                        //         setState(() {
-                        //           selectedlastName = 1;
-                        //         });
-                        //       }),
-                        // ),
 
                         // SizedBox(
                         //   height: 1.5.h,
@@ -490,21 +423,20 @@ class UserProfileScreenState extends State<UserProfileScreen>
                           children: getListofRadioButtons(SpecificationIDs.health_status),
                         ),
 
-                        SizedBox(
-                          height: 1.5.h,
-                        ),
+                        SizedBox( height: 1.5.h,),
+
                         defaultTextFormField(
                             context: context,
                             controller: illnessTypeController,
                             container: Colors.grey[100],
                             styleText: Colors.black,
                             borderColor: primary,
-                            type: TextInputType.number,
+                            type: TextInputType.text,
                             validate: (String? value) { 
                               current_user.illnessType = value;
                               return null; 
                             },
-                            labelText: "نوع المرض",
+                            labelText: "نوع المرض111",
                             label: "الرجاء ادخال نوع المرض (ان وجد)",
                             prefixIcon: Icons.person),
                         SizedBox(
@@ -560,8 +492,9 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             validate: (String? value) 
                             {
                                 var no_kids = current_user.subSpecifications.any((sub) => sub.id == 77);
+                                bool anyone_is_selected = current_user.subSpecifications.any((sub) => sub.specId == SpecificationIDs.have_children);
                                 // 77 -> 'بدون أطفال'
-                                if( no_kids ) {
+                                if( no_kids || !anyone_is_selected) {
                                   return null;
                                 }else if(value!.isEmpty){
                                   return "من فضلك اكتب عدد الاطفال";
@@ -688,14 +621,23 @@ class UserProfileScreenState extends State<UserProfileScreen>
                           height: 3.5.h,
                         ),
                         doubleInfinityMaterialButton(
-                          text: "تاكيد",
+                          text: "تحديث",
                           onPressed: () {
                             confirmOnPress(context);
                           },
                         ),
-                        SizedBox(
-                          height: 2.5.h,
+
+                        Center(
+                          child: 
+                            ConditionalBuilder(
+                              condition: state is UpdateUserDataLoadingState,
+                              fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
+                              builder: (context) => CircularProgressIndicator()
+                          ),
                         ),
+
+                        SizedBox(height: 2.5.h,),
+
                         InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -754,8 +696,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
       found_or_created = this.current_user.subSpecifications
                       .firstWhere( (user_sub) => user_sub.specId == sub["specificationId"],
                       orElse: () {
-                        var new_sub = new SubSpecification(sub["id"], sub["nameAr"], Spec["id"], Spec["nameAr"]);
-                        this.current_user.subSpecifications.add( new_sub );
+                        var new_sub = new SubSpecification(0, sub["nameAr"], Spec["id"], Spec["nameAr"]);                        
                         return new_sub;
                       });
 
@@ -766,6 +707,9 @@ class UserProfileScreenState extends State<UserProfileScreen>
           title: sub["nameAr"] ,
           changeFunction: () {
             setState(() {
+              if( found_or_created.id ==0 ){
+                this.current_user.subSpecifications.add( found_or_created );
+              }
               found_or_created.id = sub["id"];
               found_or_created.value = sub["nameAr"];
               found_or_created.specId = Spec["id"];
@@ -793,9 +737,16 @@ class UserProfileScreenState extends State<UserProfileScreen>
       //  UserProfileScreenState.phoneController.text=current_user.phone??" ";
       heightController.text = current_user.height.toString();
       weightController.text = current_user.weight.toString();
+      jobNameController.text = current_user.nameOfJob?? "";
+      illnessTypeController.text = current_user.illnessType?? "";
+      numberOfKidsController.text = current_user.numberOfKids.toString();
+
       conditionsController.text = current_user.terms.toString();
       dowryController.text = current_user.dowry.toString();
 
+    }
+    else if (state is GetUserDataErrorState) {
+      showToast(msg: state.error, state: ToastStates.ERROR);
     }
     else if (state is UpdateUserDataSucccessState) {
       if (state.updateProfileModel.key == 1) {
