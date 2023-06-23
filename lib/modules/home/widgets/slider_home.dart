@@ -35,7 +35,7 @@ class SliderHome extends StatelessWidget {
                 if(isLogin==true){
                   GetInformationCubit.get(context)
                       .getInformationUser(
-                      userId:
+                      otherId:
                       HomeCubit.get(context)
                           .getAllAdsWithUsersModel.data[realindex].id!);}
                 else{

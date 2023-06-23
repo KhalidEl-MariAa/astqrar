@@ -12,7 +12,8 @@ import 'package:sizer/sizer.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import '../shared/styles/colors.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatelessWidget 
+{
   const NotificationScreen({Key? key}) : super(key: key);
 
   @override
@@ -66,14 +67,12 @@ class NotificationScreen extends StatelessWidget {
           ),
           body: ConditionalBuilder(
             condition: state is GetNotificationLoadingState,
-            fallback: (context) => Padding(
+            builder: (context) => Padding(
               padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
                 child: Shimmer(
                 child: ListView.separated(
                   itemCount: 12,
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 1.h,
-                  ),
+                  separatorBuilder: (context, index) => SizedBox(height: 1.h,),
                   itemBuilder: (context, index) => Container(
                     height: 12.h,
                     color: Colors.grey[200],
@@ -86,27 +85,17 @@ class NotificationScreen extends StatelessWidget {
                           height: 10.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(35),
-                              color: Colors.grey[400]),
+                              color: Colors.grey[400]
+                          ),
                         ),
-                        SizedBox(
-                          width: 3.w,
-                        ),
+                        SizedBox(width: 3.w,),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 1.h,
-                              width: 45.w,
-                              color: Colors.grey[400],
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Container(
-                              height: 1.h,
-                              width: 25.w,
-                              color: Colors.grey[400],
+                            Container(height: 1.h, width: 45.w, color: Colors.grey[400],),
+                            SizedBox(height: 2.h,),
+                            Container(height: 1.h, width: 25.w, color: Colors.grey[400],
                             )
                           ],
                         ),
@@ -116,7 +105,7 @@ class NotificationScreen extends StatelessWidget {
                 ),
               ),
               ),
-            builder: (context) => SingleChildScrollView(
+            fallback: (context) => SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -133,11 +122,10 @@ class NotificationScreen extends StatelessWidget {
                                       .reversed
                                       .toList()[index]
                                       .userInformation!
-                                      .typeUser ==
-                                  1) {
+                                      .typeUser ==1) {
                                 GetInformationCubit.get(context)
                                     .getInformationUser(
-                                        userId: NotificationCubit.get(context)
+                                        otherId: NotificationCubit.get(context)
                                             .getNotificationsModel
                                             .data
                                             .reversed

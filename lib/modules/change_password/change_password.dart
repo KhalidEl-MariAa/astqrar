@@ -1,4 +1,4 @@
-import '../../layout/layout.dart';
+import '../home/layout/layout.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import '../more/more_screen.dart';
@@ -24,7 +24,7 @@ class ChangePassword extends StatelessWidget
               MoreScreen.confirmPasswordController.clear();
               MoreScreen.oldPasswordController.clear();
               showToast(msg: state.changePasswordModel.msg!, state: ToastStates.SUCCESS);
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
             }
             else{
               showToast(msg: state.changePasswordModel.msg!, state: ToastStates.ERROR);

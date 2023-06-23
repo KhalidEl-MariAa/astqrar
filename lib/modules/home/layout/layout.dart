@@ -1,28 +1,28 @@
-import '../modules/chats/chatList.dart';
-import '../modules/favourite/favourite_screen.dart';
-import '../modules/home/home.dart';
-import '../modules/more/more_screen.dart';
-import '../notifications/notifications_screen.dart';
-import '../shared/components/dialog_please_login.dart';
-import '../shared/contants/constants.dart';
-import '../shared/styles/colors.dart';
+import '../../chats/chatList.dart';
+import '../../favourite/favourite_screen.dart';
+import '../home_tap.dart';
+import '../../more/more_screen.dart';
+import '../../../notifications/notifications_screen.dart';
+import '../../../shared/components/dialog_please_login.dart';
+import '../../../shared/contants/constants.dart';
+import '../../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class LayoutScreen extends StatefulWidget {
+  const LayoutScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _LayoutScreenState createState() => _LayoutScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _LayoutScreenState extends State<LayoutScreen> {
   int _selectedIndex = 2;
   // late Widget _selectedWidget;
   List widgetList = [
     FavouriteScreen(),
     NotificationScreen(),
-    UserHomeScreen(),
+    HomeTap(),
     ChatListScreen(),
     MoreScreen(),
   ];
@@ -45,7 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  BottomAppBar createBottomAppBar(BuildContext context) {
+  BottomAppBar createBottomAppBar(BuildContext context) 
+  {
     return BottomAppBar(
         clipBehavior: Clip.antiAlias,
         notchMargin: 9,
@@ -139,22 +140,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => DialogPleaseLogin());
                   }
                   setState(() {
-                    if (isLogin) {
-                      _selectedIndex = 3;
-                    }
+                    if (isLogin) { _selectedIndex = 3; }
                   });
                 },
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsetsDirectional.only(
-                          start: 1.8.w, top: 0.5.h),
+                      padding: EdgeInsetsDirectional.only( start: 1.8.w, top: 0.5.h),
                       child: Image.asset('assets/chat.png',
                           color: _selectedIndex == 3 ? primary : customGrey),
                     ),
-                    SizedBox(
-                      height: 0.3.h,
-                    ),
+                    SizedBox( height: 0.3.h, ),
                     Text(
                       "المحادثات",
                       style: TextStyle(
@@ -195,20 +191,20 @@ class _HomeScreenState extends State<HomeScreen> {
       );
   }
 
-  FloatingActionButton floatingActionButton() {
+  FloatingActionButton floatingActionButton() 
+  {
     return FloatingActionButton(
       onPressed: () {
-        setState(() {
-          _selectedIndex = 2;
-        });
-        //  Navigator.push(context, MaterialPageRoute(builder: (context)=>CommonProducts()));
+        setState(() { _selectedIndex = 2; });
       },
+
       child: Container(
         width: 10.w,
         color: primary,
         child: Image.asset('assets/home.png'),
       ),
+
       backgroundColor: primary,
     );
   }
-}
+}//------------------

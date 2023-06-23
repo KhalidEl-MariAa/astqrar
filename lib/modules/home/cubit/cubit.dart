@@ -11,28 +11,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
 
-  //late LoginModel loginModel;
   static HomeCubit get(context) => BlocProvider.of(context);
 
   // late GetAllUsers getHomeModel;
   // List<UsersHomeData> menSection = [];
   // List<UsersHomeData> womenSection = [];
   // Map<int,int> subSpecification={};
-
-  /*getHomeData() {
-    emit(HomeLoadingState());
-    DioHelper.postData(url: GETHOME, data: {}).then((value) {
-      print(value.toString());
-      getHomeModel = GetAllUsers.fromJson(value.data);
-
-      emit(HomeSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(HomeErrorState(error.toString()));
-    });
-  }
-
-*/
 
   //ads
   late GetAllAdsWithUsersModel getAllAdsWithUsersModel;

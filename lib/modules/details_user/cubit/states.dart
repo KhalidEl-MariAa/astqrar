@@ -29,14 +29,26 @@ class AddToFavouriteErrorState extends GetInformationStates{
   AddToFavouriteErrorState(this.error);
 }
 
-class AddChattRequestLoadingState extends GetInformationStates{}
+// class AddChattRequestLoadingState extends GetInformationStates{}
 
-class AddChattRequestSuccessState extends GetInformationStates{
-  final int statusCode;
-  AddChattRequestSuccessState(this.statusCode);
+// class AddChattRequestSuccessState extends GetInformationStates{
+//   final int statusCode;
+//   AddChattRequestSuccessState(this.statusCode);
+// }
+
+// class AddChattRequestErrorState extends GetInformationStates{
+//   final String error;
+//   AddChattRequestErrorState(this.error);
+// }
+
+class AddHimToMyContactsLoading extends GetInformationStates{}
+
+class AddHimToMyContactsLoadingSuccess extends GetInformationStates{
+  final String msg;
+  AddHimToMyContactsLoadingSuccess(this.msg);
 }
 
-class AddChattRequestErrorState extends GetInformationStates{
+class AddHimToMyContactsLoadingError extends GetInformationStates{
   final String error;
-  AddChattRequestErrorState(this.error);
+  AddHimToMyContactsLoadingError(this.error);
 }

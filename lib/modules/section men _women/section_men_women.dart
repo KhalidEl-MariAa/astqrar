@@ -39,8 +39,8 @@ class SectionMenOrWomen extends StatelessWidget
       builder: (context, state) => 
         ConditionalBuilder(
           condition: state is GetUserByGenderLoadingState,
-          fallback: (context) => Scaffold(backgroundColor: white, body: const LoadingGif()),
-          builder: (context) => Directionality(
+          builder: (context) => Scaffold(backgroundColor: white, body: const LoadingGif()),
+          fallback: (context) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
               backgroundColor: HexColor("#FFFFFF"),
@@ -72,7 +72,6 @@ class SectionMenOrWomen extends StatelessWidget
                                 ),
                                 child: AppBar(
                                   toolbarHeight: 14.h,
-
                                   title: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -176,19 +175,17 @@ class SectionMenOrWomen extends StatelessWidget
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) => ChoiceChip(
+                                itemBuilder: (context, index) => ChoiceChip (
                                   selectedColor: primary,
-                                  onSelected: (bool value) {
-                                    print(value);
-                                    print(index);
+                                  onSelected: (bool value) 
+                                  {
                                     GetUserByGenderCubit.get(context)
                                         .changeindexonesection(
                                             index: index,
                                             gender: gender == 1 ? "1" : "2");
                                   },
                                   label: Text(oneSection[index],
-                                      style:
-                                          GoogleFonts.poppins(fontSize: 9.5.sp)),
+                                      style: GoogleFonts.poppins(fontSize: 9.5.sp)),
                                   backgroundColor: Colors.grey[400],
                                   selected: index == oneIndexSection,
                                 ),
@@ -239,6 +236,8 @@ class SectionMenOrWomen extends StatelessWidget
                           height: 4.5.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
+                            itemCount: threeSection.length,
+                            separatorBuilder: (context, index) => SizedBox(width: 1.w,),
                             itemBuilder: (context, index) => ChoiceChip(
                               selectedColor: primary,
                               onSelected: (bool value) {
@@ -252,13 +251,10 @@ class SectionMenOrWomen extends StatelessWidget
                               backgroundColor: Colors.grey[400],
                               selected: index == threeIndexSection,
                             ),
-                            itemCount: threeSection.length,
-                            separatorBuilder: (context, index) => SizedBox(
-                              width: 1.w,
-                            ),
                           ),
                         ),
                       ),
+
                       if (GetUserByGenderCubit.get(context).users.isNotEmpty)
                         GridView.count(
                             shrinkWrap: true,
@@ -274,29 +270,7 @@ class SectionMenOrWomen extends StatelessWidget
                                   child: UserItemWidget(
                                 visibileRemoveIcon: false,
                                 removeUser: () {},
-                                onclickUser: () {
-                                  if (isLogin == true) {
-                                    GetInformationCubit.get(context)
-                                        .getInformationUser(
-                                            userId:
-                                                GetUserByGenderCubit.get(context)
-                                                    .users[index]
-                                                    .id!);
-                                  } else {
-                                    GetInformationCubit.get(context)
-                                        .getInformationUserByVisitor(
-                                            userId:
-                                                GetUserByGenderCubit.get(context)
-                                                    .users[index]
-                                                    .id!);
-                                  }
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DetailsUserScreen(
-                                                messageVisibility: true,
-                                              )));
-                                },
+                                onclickUser: () { onClickUserItem(context, index); },
                                 genderValue: GetUserByGenderCubit.get(context)
                                     .users[index]
                                     .gender!,
@@ -313,5 +287,31 @@ class SectionMenOrWomen extends StatelessWidget
           ),
       ),
     );
+  }
+
+  void onClickUserItem(BuildContext context, int index) 
+  {
+    if (isLogin == true) 
+     {
+      GetInformationCubit.get(context)
+          .getInformationUser(
+              otherId:
+                  GetUserByGenderCubit.get(context)
+                      .users[index]
+                      .id!);
+    }else{
+      GetInformationCubit.get(context)
+          .getInformationUserByVisitor(
+              userId:
+                  GetUserByGenderCubit.get(context)
+                      .users[index]
+                      .id!);
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailsUserScreen(
+                  messageVisibility: true,
+                )));
   }
 }

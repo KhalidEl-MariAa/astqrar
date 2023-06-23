@@ -51,8 +51,8 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
   String? typeofmarriage;
   String? nationality;
 
-  changeindexonesection({required int index, required String gender}) {
-    print(index);
+  changeindexonesection({required int index, required String gender}) 
+  {
     SectionMenOrWomen.oneIndexSection = index;
     if (SectionMenOrWomen.oneIndexSection == 0) {
       typeofmarriage = null;

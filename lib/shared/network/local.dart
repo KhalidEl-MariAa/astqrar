@@ -6,7 +6,9 @@ class CacheHelper{
     sharedpreferneces=await SharedPreferences.getInstance();
   }
 
-  static Future<bool> saveData({required String key,required dynamic value})async{
+  static Future<bool> saveData({required String key,required dynamic value})async
+  {
+    if(value == null) {return await sharedpreferneces.setString(key, "");}
     if(value is bool) {return await sharedpreferneces.setBool(key, value);}
     if(value is String) {return await sharedpreferneces.setString(key, value);}
     if(value is int) {

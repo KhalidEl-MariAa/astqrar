@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../layout/cubit/cubit.dart';
-import '../../layout/cubit/states.dart';
-import '../../layout/layout.dart';
+import '../home/layout/cubit/cubit.dart';
+import '../home/layout/cubit/states.dart';
+import '../home/layout/layout.dart';
 import '../../shared/components/components.dart';
 import '../../shared/contants/constants.dart';
 import '../../shared/network/remote.dart';
@@ -47,7 +47,7 @@ class _SplashState extends State<Splash> {
         if(isExpired==true || IS_DEVELOPMENT_MODE){
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            MaterialPageRoute(builder: (context) => const LayoutScreen()),
                 (route) => false,
           );
         }

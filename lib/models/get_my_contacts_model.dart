@@ -22,10 +22,12 @@ class DataOfMyContactDetails {
   }
 }
 
-class UserInformationContactData {
+class UserInformationContactData 
+{
   String? id;
   String? user_Name;
   int? typeUser;
+
   UserInformationContactData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     user_Name = json['user_Name'];

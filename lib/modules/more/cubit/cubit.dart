@@ -15,16 +15,22 @@ class SettingsCubit extends Cubit<SettingsStates> {
   //late LoginModel loginModel;
   static SettingsCubit get(context) => BlocProvider.of(context);
 
-  removeAccount(){
+  void removeAccount()
+  {
     emit(RemoveAccountLoadingState());
-    DioHelper.postDataWithBearearToken(url: REMOVEACCOUNT, data: {},token: token.toString())
-    .then((value) {
+
+    DioHelper.postDataWithBearearToken(
+      url: REMOVEACCOUNT, 
+      data: {},token: 
+      token.toString()
+    )
+    .then((value) 
+    {
       if(value.statusCode==200){
-        CacheHelper.saveData(
-            key: "isLogin", value: false);
+        CacheHelper.saveData(key: "isLogin", value: false);
         isLogin = CacheHelper.getData(key: "isLogin");
       }
-    emit(RemoveAccountSuccessState(value.statusCode!));
+      emit(RemoveAccountSuccessState(value.statusCode!));
 
     }).catchError((error){
       log(error.toString());

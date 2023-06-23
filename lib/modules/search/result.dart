@@ -304,7 +304,7 @@ class _ResultScreenState extends State<ResultScreen>
                                     mainAxisAlignment: MainAxisAlignment.center,                                    
                                     children: [
                                       Image(
-                                        image: AssetImage("assets/double_ring.gif"), //loading image
+                                        image: AssetImage("assets/loading.gif"), //loading image
                                         height: 12.h,
                                         width: 25.w,
                                       )
@@ -365,7 +365,7 @@ class _ResultScreenState extends State<ResultScreen>
         if (isLogin) {
           GetInformationCubit.get(context)
               .getInformationUser(
-                  userId: this.searchResult[index].id!);
+                  otherId: this.searchResult[index].id!);
         } else {
           GetInformationCubit.get(context)
               .getInformationUserByVisitor(

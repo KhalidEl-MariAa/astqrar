@@ -72,24 +72,22 @@ class AcceptNotification extends StatelessWidget
                                   : notificationType == 3
                                       ? message
                                       : "",
-                      style: GoogleFonts.poppins(
-                          fontSize: 9.sp, fontWeight: FontWeight.w600),
+                      style: GoogleFonts.poppins( fontSize: 9.sp, fontWeight: FontWeight.w600),
                     ),
                   ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
+
+                  SizedBox( height: 2.h,),
+
                   if (notificationType == 0)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         InkWell(
                             onTap: () {
-                              NotificationCubit.get(context)
-                                  .acceptChattRequest(userId: userId);
-                              /* showDialog(
-                                  context: context,
-                                  builder: (context) => SuccessDialog());*/
+                              NotificationCubit.get(context).acceptChattRequest(userId: userId);
+                              // showDialog(
+                              //     context: context,
+                              //     builder: (context) => SuccessDialog());
                             },
                             child: StatusButton(text: "قبول", color: primary)),
                         SizedBox(
@@ -97,11 +95,9 @@ class AcceptNotification extends StatelessWidget
                         ),
                         InkWell(
                             onTap: () {
-                              NotificationCubit.get(context)
-                                  .ignoreRequest(userId: userId);
+                              NotificationCubit.get(context).ignoreRequest(userId: userId);
                             },
-                            child:
-                                StatusButton(text: "رفض", color: Colors.red)),
+                            child: StatusButton(text: "رفض", color: Colors.red)),
                       ],
                     ),
                   if (notificationType != 0)

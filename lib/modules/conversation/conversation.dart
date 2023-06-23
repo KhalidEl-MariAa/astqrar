@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:astarar/shared/components/components.dart';
+
 import '../../models/chatModel.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -14,13 +16,14 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 import 'package:sizer/sizer.dart';
 
-class UserConversationScreen extends StatefulWidget {
+class ConversationScreen extends StatefulWidget 
+{
   final String userId;
   final String userName;
   final int gender;
   final int typeUser;
 
-  const UserConversationScreen(
+  const ConversationScreen(
       {Key? key,
       required this.userId,
       required this.userName,
@@ -29,15 +32,17 @@ class UserConversationScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  UserConversationScreenState createState() => UserConversationScreenState();
+  ConversationScreenState createState() => ConversationScreenState();
 }
 
-class UserConversationScreenState extends State<UserConversationScreen> 
+class ConversationScreenState extends State<ConversationScreen> 
 {
-  static var messagecontroller = new TextEditingController();
-  var hubConnection = HubConnectionBuilder()
+  static var messagecontroller = new TextEditingController();  
+
+  var hub = HubConnectionBuilder()
       .withUrl("${BASE_URL}chat",)
       .build();
+
   static List<String> messages = [];
   static List<bool> messagesMine = [];
   static List<String> senderIdList = [];
@@ -52,37 +57,51 @@ class UserConversationScreenState extends State<UserConversationScreen>
 
   String status = "غير متصل";
 
-  void connect() async {
-    await hubConnection.start()?.then((value) => print('connected'));
-    hubConnection.invoke('Connect', args: [id!]).then((value) => print("connected user success"));
-    hubConnection.on('receiveMessage', (arguments) async {
+  void connect() async 
+  {
+    await hub.start()?.then((value) => log('connected  ✅ 🔗'))
+      .catchError( (e) { 
+        log('DISCONNECTED....... ❌ ✂️'); 
+        log(e.toString()); 
+      } );
+
+    hub.invoke('Connect', args: [id!])
+      .then((value) => print("connected user success"))
+      .catchError( (e)  { 
+        log('USER is DISCONNECTED.......') ;
+        log(e.toString()); 
+      } );
+
+    hub.onclose( ({error}) => log("HUB ERR: " + error.toString() ) );
+
+    hub.on('receiveMessage', (args) async {
       dynamic ss = {};
-      ss = jsonEncode(arguments![0]);
+      ss = jsonEncode(args![0]);
       jsonDecode(ss);
       print("ss" + jsonDecode(ss).toString());
       chat = ChatModel.fromJson(jsonDecode(ss));
       if (mounted) 
       {
         setState(() {
-          UserConversationScreenState.messages.add(chat.text.toString());
-          UserConversationScreenState.messagesMine.add(false);
-          UserConversationScreenState.senderIdList
-              .add(chat.senderId.toString());
+          ConversationScreenState.messages.add(chat.text.toString());
+          ConversationScreenState.messagesMine.add(false);
+          ConversationScreenState.senderIdList.add(chat.senderId.toString());
           dateMessages.add(chat.date);
         });
       }
     });
 
-    hubConnection.on("connectedUsers", (arguments) {
+    hub.on("connectedUsers", (args) {
       dynamic list = [];
-      print(arguments!.length);
+      print(args!.length);
 
-      print("jj" + jsonEncode(arguments[0]));
-      list = jsonEncode(arguments[0]);
+      print("jj" + jsonEncode(args[0]));
+      list = jsonEncode(args[0]);
       print("list" + list.toString());
       list = jsonDecode(list);
       print("li" + list.toString());
-      for (int i = 0; i < list!.length; i++) {
+      for (int i = 0; i < list!.length; i++) 
+      {
         print(list[0]);
         if (list[i].toString() == widget.userId) {
           setState(() {
@@ -99,17 +118,20 @@ class UserConversationScreenState extends State<UserConversationScreen>
   void dispose() 
   {
     super.dispose();
-    hubConnection.stop().then((value) => print("closed"));
-    hubConnection.onclose(({error}) {
-      print("hh");
-    });
+
+    hub.stop()
+      .then((value) => log("HUB is CLOSED!"))
+      .catchError( (e) { 
+        log('Error while HUB closing .......'); 
+        log(e.toString()); 
+      });
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) =>
-          ConversationCubit()..getMessages(userId: widget.userId,typeUserChat: widget.typeUser==1?true:false),
+          ConversationCubit()..getMessages(userId: widget.userId, typeUserChat: widget.typeUser==1?true:false),
       child: BlocConsumer<ConversationCubit, ConversationStates>(
         listener: (context, state) {},
         builder: (context, state) => Directionality(
@@ -252,31 +274,20 @@ class UserConversationScreenState extends State<UserConversationScreen>
                                         BorderRadius.only(
                                             bottomLeft: messagesMine
                                                         .reversed
-                                                        .toList()[
-                                                    index]
-                                                ? Radius.circular(
-                                                    15)
-                                                : Radius.circular(
-                                                    0),
-                                            topLeft:
-                                                Radius.circular(
-                                                    15),
-                                            topRight:
-                                                Radius.circular(
-                                                    15),
-                                            bottomRight: index ==
-                                                    messages.length -
-                                                        1
-                                                ? Radius.circular(
-                                                    15)
+                                                        .toList()[index]
+                                                ? Radius.circular(15)
+                                                : Radius.circular(0),
+                                            topLeft: Radius.circular(15),
+                                            topRight: Radius.circular(15),
+                                            bottomRight: index == messages.length - 1
+                                                ? Radius.circular(15)
                                                 : messagesMine
                                                         .reversed
                                                         .toList()[index]
                                                     ? Radius.circular(0)
                                                     : Radius.circular(20))),
-                                  child: Text(
-                                    messages.reversed
-                                        .toList()[index],
+                                  
+                                  child: Text(messages.reversed.toList()[index],
                                     maxLines: 120,
                                     style: GoogleFonts.almarai(
                                         color: messagesMine.reversed
@@ -288,26 +299,17 @@ class UserConversationScreenState extends State<UserConversationScreen>
                                 Visibility(
                                   visible: index == 0 &&
                                           messagesMine.reversed
-                                                      .toList()[
-                                                  index] ==
-                                              false
+                                                      .toList()[index] == false
                                       ? true
                                       : index <
                                                   senderIdList
                                                           .reversed
                                                           .toList()
-                                                          .length -
-                                                      1 &&
-                                              messagesMine.reversed
-                                                          .toList()[
-                                                      index] ==
-                                                  false
+                                                          .length - 1 &&
+                                              messagesMine.reversed.toList()[index] == false
                                           ? senderIdList.reversed
-                                                      .toList()[
-                                                  index] !=
-                                              senderIdList.reversed
-                                                      .toList()[
-                                                  index - 1]
+                                                      .toList()[index] != senderIdList.reversed
+                                                      .toList()[index - 1]
                                           : false,
                                   child: Container(
                                     height: 5.h,
@@ -345,8 +347,7 @@ class UserConversationScreenState extends State<UserConversationScreen>
                                                     index - 1]
                                             : false,
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 5.w),
+                                  padding: EdgeInsets.symmetric( horizontal: 5.w),
                                   child: Row(
                                     mainAxisAlignment: messagesMine
                                             .reversed
@@ -355,8 +356,7 @@ class UserConversationScreenState extends State<UserConversationScreen>
                                         : MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        dateMessages.reversed
-                                            .toList()[index],
+                                        dateMessages.reversed.toList()[index],
                                         style: TextStyle(
                                             color: Colors.grey[400],
                                             fontSize: 10.sp),
@@ -388,7 +388,7 @@ class UserConversationScreenState extends State<UserConversationScreen>
                   decoration: InputDecoration(
                       suffixIcon: InkWell(
                         onTap: () async {
-                          await write_a_message(context);
+                          await send_a_message(context);
                         },
                         child: Icon(
                           Icons.send,
@@ -420,20 +420,24 @@ class UserConversationScreenState extends State<UserConversationScreen>
 
   }
 
-  Future<void> write_a_message(context) async {
-     if (hubConnection.state ==
-        HubConnectionState.Connected) {
-      await hubConnection.invoke(
-        'SendMessagee', 
-        args: [
-          id!,
-          widget.userId,
-          messagecontroller.text, 0, 1, 1
-      ]).then((value) {
-        log("ggggg");
-        ConversationCubit.get(context).send();
-      });
+  Future<void> send_a_message(context) async 
+  {
+    if (hub.state == HubConnectionState.Disconnected)
+    {
+      showToast(
+        msg: "غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً", 
+        state: ToastStates.ERROR
+      );
     }
+
+    await hub.invoke(
+      'SendMessagee', 
+      args: [id!, widget.userId, messagecontroller.text, 0, 1, 1]
+    ).then((value) {
+      log("ggggg");
+      ConversationCubit.get(context).send();
+    });
+
   }
 
   Widget createShimmer(context)

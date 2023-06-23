@@ -1,3 +1,4 @@
+import '../../shared/contants/constants.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import '../details_user/cubit/cubit.dart';
@@ -22,12 +23,10 @@ class ChatListScreen extends StatelessWidget
     return BlocProvider(
       create: (BuildContext context) => ContactsCubit()..getContacts(),
       child: BlocConsumer<ContactsCubit, ContactsStates>(
-        listener: (context, state) {
+        listener: (context, state) 
+        {
           if (state is RemoveChatSuccessState) {
-            if (state.statusCode == 200) {
-              showToast(
-                  msg: "تم حذف المحادثة بنجاح", state: ToastStates.SUCCESS);
-            }
+              showToast( msg: "تم حذف المحادثة بنجاح", state: ToastStates.SUCCESS);
           }
         },
         builder: (context, state) => Directionality(
@@ -40,6 +39,7 @@ class ChatListScreen extends StatelessWidget
                     appbarTitle: "المحادثات",
                     isBack: false,
                   )),
+
               body: ConditionalBuilder(
                 condition: state is GetContactsLoadingState,
                 builder: (context) => LoadingGif(),
@@ -49,7 +49,8 @@ class ChatListScreen extends StatelessWidget
                       itemBuilder: (context, index) => 
                         Dismissible(
                           key: UniqueKey(),
-                          onDismissed: (value) {
+                          onDismissed: (value) 
+                          {
                             ContactsCubit.get(context).removeChat(
                                 userId: ContactsCubit.get(context)
                                     .contacts[index]
@@ -63,38 +64,49 @@ class ChatListScreen extends StatelessWidget
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.only(
-                                      start: MediaQuery.of(context).size.width *
-                                          0.055),
-                                  child: Icon(
-                                    Icons.delete_outline,
-                                    color: white,
+                                      start: MediaQuery.of(context).size.width * 0.055),
+
+                                  child: Icon( Icons.delete_outline, color: white,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          child: FavouriteItem(
-                            widget: Text(
-                              ContactsCubit.get(context)
-                                  .contacts[index]
-                                  .contact!
-                                  .time!,
-                              style: GoogleFonts.poppins(
-                                  color: customGrey, fontSize: 10.sp),
-                            ),
-                            name: ContactsCubit.get(context)
+                          child: 
+                            Stack(
+                              children: [
+                                if (state is RemoveChatLoadingState)
+                                  Positioned.fill(
+                                    child: Container(
+                                      color: Colors.black54,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ),
+                                  ),
+                                
+                                FavouriteItem(
+                                  widget: Text(
+                                    ContactsCubit.get(context)
                                         .contacts[index]
-                                        .userInformation == null
-                                ? "مستخدم"
-                                : ContactsCubit.get(context)
-                                    .contacts[index]
-                                    .userInformation!
-                                    .user_Name!,
-                            gender: 1,
-                            onClicked: () {
-                              user_on_click(context, index);
-                            },
-                          )
+                                        .contact!
+                                        .time!,
+                                    style: GoogleFonts.poppins(
+                                        color: customGrey, fontSize: 10.sp),
+                                  ),
+                                  name: ContactsCubit.get(context)
+                                              .contacts[index]
+                                              .userInformation == null
+                                      ? "مستخدم"
+                                      : ContactsCubit.get(context)
+                                          .contacts[index]
+                                          .userInformation!
+                                          .user_Name! ,
+                                  gender: 1,
+                                  onClicked: () { user_on_click(context, index); },
+                                )
+
+                            ],)
                         ),
                       separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
 
@@ -114,7 +126,7 @@ class ChatListScreen extends StatelessWidget
     {
       GetInformationCubit.get(context)
           .getInformationUser(
-              userId: ContactsCubit.get(context)
+              otherId: ContactsCubit.get(context)
                   .contacts[index]
                   .userInformation!
                   .id!);

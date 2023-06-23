@@ -27,14 +27,14 @@ import 'widgets/container_home.dart';
 import 'widgets/empty_slider.dart';
 import 'widgets/slider_home.dart';
 
-class UserHomeScreen extends StatefulWidget {
-  const UserHomeScreen({Key? key}) : super(key: key);
+class HomeTap extends StatefulWidget {
+  const HomeTap({Key? key}) : super(key: key);
 
   @override
-  _UserHomeScreenState createState() => _UserHomeScreenState();
+  _HomeTapState createState() => _HomeTapState();
 }
 
-class _UserHomeScreenState extends State<UserHomeScreen> 
+class _HomeTapState extends State<HomeTap> 
 {
   @override
   void initState() 
@@ -286,7 +286,10 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             ConditionalBuilder(
                 condition: state is GetUserAdsLoadingState,
                 builder: (context) => LoadingGif(),
-                fallback: (context) =>  HomeCubit.get(context).getAllAdsWithUsersModel.data.length > 0? SliderHome():EmptyResult(),
+                fallback: (context) =>  HomeCubit.get(context).getAllAdsWithUsersModel.data.length > 0? 
+                                          SliderHome()
+                                          :
+                                          EmptyResult(),
               ),
               SizedBox(
                 height: 5.h,
@@ -320,9 +323,7 @@ class _UserHomeScreenState extends State<UserHomeScreen>
             //   ),
             // ),
 
-              SizedBox(
-                height: 4.h,
-              ),
+              SizedBox(height: 4.h, ),
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10),
                 child: Text(
@@ -342,45 +343,20 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                     
                     Expanded(
                       child: InkWell(
-                        onTap: () async {
-                          HubConnectionBuilder()
-                            .withUrl("${BASE_URL}chatHub")
-                            .build();
-
-                          SectionMenOrWomen.oneIndexSection=0;
-                              SectionMenOrWomen.twoIndexSection=0;
-                              SectionMenOrWomen.threeIndexSection=0;
-                              GetUserByGenderCubit.get(context).getUserByGender(genderValue: 1);
-
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SectionMenOrWomen(gender: 1,)));
-                        },
+                        onTap: () async { MenSectionClick(context); },
                         child: ContainerHome(
                           text: "قسم الرجال",
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 6.w,
-                    ),
+                    
+                    SizedBox( width: 6.w,),
+
                     Expanded(
                       child: InkWell(
-                          onTap: () {
-                            SectionMenOrWomen.oneIndexSection = 0;
-                            SectionMenOrWomen.twoIndexSection = 0;
-                            SectionMenOrWomen.threeIndexSection = 0;
-                            GetUserByGenderCubit.get(context)
-                                .getUserByGender(genderValue: 2);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SectionMenOrWomen(
-                                          gender: 2,
-                                        )));
-                          },
-                          child: ContainerHome(text: "قسم النساء")),
+                          onTap: () { WomenSectionClick(context); },
+                          child: ContainerHome(text: "قسم النساء")
+                      ),
                     )
                   ],
                 ),
@@ -389,6 +365,40 @@ class _UserHomeScreenState extends State<UserHomeScreen>
           ),
         ),
       ),
+    );
+  }
+
+  void WomenSectionClick(BuildContext context) 
+  {
+    SectionMenOrWomen.oneIndexSection = 0;
+    SectionMenOrWomen.twoIndexSection = 0;
+    SectionMenOrWomen.threeIndexSection = 0;
+
+    GetUserByGenderCubit.get(context).getUserByGender(genderValue: 2);
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SectionMenOrWomen(gender: 2)
+        )
+    );
+  }
+
+  void MenSectionClick(BuildContext context) 
+  {
+    HubConnectionBuilder()
+      .withUrl("${BASE_URL}chatHub")
+      .build();
+    
+    SectionMenOrWomen.oneIndexSection=0;
+    SectionMenOrWomen.twoIndexSection=0;
+    SectionMenOrWomen.threeIndexSection=0;
+    GetUserByGenderCubit.get(context).getUserByGender(genderValue: 1);
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SectionMenOrWomen(gender: 1,))
     );
   }
 }

@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../layout/layout.dart';
+import '../home/layout/layout.dart';
 import '../../shared/contants/constants.dart';
 import '../../shared/network/remote.dart';
 import '../forgetpassword/forgetpassword.dart';
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen>
                   msg: "تم تسجيل الدخول بنجاح", 
                   state: ToastStates.SUCCESS);
 
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
                 // if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
                 // if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
                 NotificationCubit.get(context).getNotifications();
@@ -194,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen>
                             CacheHelper.saveData( key: "isLogin", value: false);
                             isLogin = CacheHelper.getData(key: "isLogin");
                             print(isLogin);
-                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>LayoutScreen()));
                           },
                           child: Container(
                             margin:  EdgeInsets.symmetric(vertical: 2.2.h),

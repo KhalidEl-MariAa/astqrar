@@ -48,7 +48,7 @@ class FavouriteScreen extends StatelessWidget {
                                     onClicked: () {
                                      if(isLogin){ GetInformationCubit.get(context)
                                           .getInformationUser(
-                                          userId: GetFavouritesCubit
+                                          otherId: GetFavouritesCubit
                                               .get(context)
                                               .favouriteList[index]
                                               .id!);}

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import '../../layout/layout.dart';
+import '../home/layout/layout.dart';
 import '../conversation/conversation.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -22,17 +22,21 @@ class DetailsUserScreen extends StatelessWidget
   final String?delegateId;
   final String?delegateName;
 
-  DetailsUserScreen({Key? key,required this.messageVisibility,this.delegateId,this.delegateName}) : super(key: key);
+  DetailsUserScreen({Key? key, required this.messageVisibility, this.delegateId, this.delegateName}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocConsumer<GetInformationCubit, GetInformationStates>(
       listener: (context, state) {
-        if (state is AddChattRequestSuccessState) {
-          if (state.statusCode == 200) {
-            showToast(msg: "تم ارسال طلب محادثة بنجاح", state: ToastStates.SUCCESS);
-          }
-        }else if (state is AddChattRequestErrorState){
+        if (state is AddHimToMyContactsLoadingSuccess) 
+        {
+          showToast(
+            msg: state.msg, 
+            state: ToastStates.SUCCESS);
+        }
+        else if (state is AddHimToMyContactsLoadingError)
+        {
           showToast(msg: state.error, state: ToastStates.SUCCESS);
         }
       },
@@ -51,10 +55,8 @@ class DetailsUserScreen extends StatelessWidget
               iconTheme: IconThemeData(color: Colors.white),
               backgroundColor: backGround,
               toolbarHeight: 9.h,
-              title: const Text(
-                "التفاصيل",
-                style: TextStyle(color: Colors.white),
-              ),
+              title: const Text( "التفاصيل", 
+                          style: TextStyle(color: Colors.white), ),
               actions: [
                 Padding(
                   padding:
@@ -62,17 +64,11 @@ class DetailsUserScreen extends StatelessWidget
                   child: Row(
                     children: [
                       InkWell(
-                          onTap: () async {
-                            snapchatPressed(context);                            
-                          },
-                          child: Image(
-                            image: AssetImage("assets/snapchat.png"),
-                            height: 4.h,
-                            width: 10.w,
-                          )),
+                          onTap: () async { snapchatPressed(context); },
+                          child: Image(image: AssetImage("assets/snapchat.png"), height: 4.h, width: 10.w,)
+                      ),
                       PopupMenuButton(
-                          onSelected: (item) {
-                          },
+                          onSelected: (item) { },
                           position: PopupMenuPosition.under,
                           itemBuilder: (context) => <PopupMenuEntry>[
                             PopupMenuItem(
@@ -87,30 +83,21 @@ class DetailsUserScreen extends StatelessWidget
                                         child: Padding(
                                           padding: const EdgeInsets.all(15.0),
                                           child: Text("حظر المستخدم",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w300),
+                                            style: TextStyle( fontWeight: FontWeight.w300),
                                           ),
                                         ),
-                                        onTap: () {
-                                          blockUser_pressed(context);
-                                        },
-
+                                        onTap: () { blockUser_pressed(context); },
                                       ),
                                     ],
                                   ),
-                                  Container(
-                                    height: 0.01.h,
-                                    color: Colors.black,
-                                  ),
+                                  Container( height: 0.01.h, color: Colors.black, ),
                                   InkWell(
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
                                       child: Text("الابلاغ عن محتوي غير مناسب",
                                           style: TextStyle( fontWeight: FontWeight.w300)),
                                     ),
-                                    onTap: (){
-                                      ReportAnIssuePressed(context);
-                                    },
+                                    onTap: (){ ReportAnIssuePressed(context); },
                                   ),
                                 ],
                               ),
@@ -121,9 +108,7 @@ class DetailsUserScreen extends StatelessWidget
                 )
               ],
               leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: () { Navigator.pop(context); },
                 child: Icon(
                   Icons.arrow_back_ios,
                   color: Colors.white,
@@ -132,19 +117,20 @@ class DetailsUserScreen extends StatelessWidget
             ),
             body: SingleChildScrollView(
               child: DetailsItemScreen(
+                state: state,
                 dowry: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!.dowry!, 
+                    .otherUser!.dowry!, 
                 terms: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!.terms!,
+                    .otherUser!.terms!,
                     
                 onClickUser: (){
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              UserConversationScreen(
+                              ConversationScreen(
                                 gender: 2,
                                 userId: delegateId!,
                                 userName: delegateName!,
@@ -165,100 +151,59 @@ class DetailsUserScreen extends StatelessWidget
                   //           typeUser:1,
                   //         )));
                 },
+
                 specialNeeds: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!
+                    .otherUser!
                     .specialNeeds!,
 
                 userSubSpecificationDto: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!
+                    .otherUser!
                     .userSubSpecificationDto,
 
-                favouriteFunction: () {
-                  if (GetInformationCubit.get(context)
-                      .getInformationUserModel
-                      .isFavorate!) {
-                    GetInformationCubit.get(context).deleteFromFavourite(
-                        userId: GetInformationCubit.get(context)
-                            .getInformationUserModel
-                            .userSubSpecifications!
-                            .id!);
-                  } else {
-                    GetInformationCubit.get(context).addToFavourite(
-                        userId: GetInformationCubit.get(context)
-                            .getInformationUserModel
-                            .userSubSpecifications!
-                            .id!);
-                  }
-                },
+                favouriteFunction: () { favourite_on_click(context);},
 
-                
-                //TODO: تعديل بحيث يدخل على الشات فورا
-                chatFunction: () {
-                    GetInformationCubit.get(context)
-                          .getInformationUserModel
-                          .isInMyContacts!
-                      ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserConversationScreen(
-                                 typeUser: 1,
-                                gender: GetInformationCubit.get(context)
-                                    .getInformationUserModel
-                                    .userSubSpecifications!.gender!,
-                                  userId: GetInformationCubit.get(context)
-                                      .getInformationUserModel
-                                      .userSubSpecifications!
-                                      .id!,
-                                  userName: GetInformationCubit.get(context)
-                                      .getInformationUserModel
-                                      .userSubSpecifications!
-                                      .userName!)))
-                      : GetInformationCubit.get(context).addChattRequest(
-                          userId: GetInformationCubit.get(context)
-                              .getInformationUserModel
-                              .userSubSpecifications!
-                              .id!);
-                },
+                chatFunction: () { enter_chatt_screen(context); },
                 isFavourite: GetInformationCubit.get(context)
                     .getInformationUserModel
                     .isFavorate!,
+
                 height: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!
+                    .otherUser!
                     .height
                     .toString(),
                 weight: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!
+                    .otherUser!
                     .weight
                     .toString(),
                 gender: int.parse(GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!
+                    .otherUser!
                     .gender
                     .toString()),
                 age: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!
+                    .otherUser!
                     .age
                     .toString(),
                 city: GetInformationCubit.get(context)
                         .getInformationUserModel
-                        .userSubSpecifications!
+                        .otherUser!
                         .city ?? " ",
                 email: GetInformationCubit.get(context)
                         .getInformationUserModel
-                        .userSubSpecifications!
+                        .otherUser!
                         .email ?? " ",
                 name: GetInformationCubit.get(context)
                     .getInformationUserModel
-                    .userSubSpecifications!
+                    .otherUser!
                     .userName!,
                 nationality: GetInformationCubit.get(context)
                         .getInformationUserModel
-                        .userSubSpecifications!
+                        .otherUser!
                         .nationality ?? " ",
                 messageVisibility: messageVisibility,
               ),
@@ -267,13 +212,84 @@ class DetailsUserScreen extends StatelessWidget
         ),
       ),
     );
+  }//
+
+  void favourite_on_click(BuildContext context) 
+  {
+    if (GetInformationCubit
+          .get(context)
+          .getInformationUserModel.isFavorate!) 
+    {
+      GetInformationCubit
+        .get(context)
+        .deleteFromFavourite(
+            userId: GetInformationCubit.get(context)
+                .getInformationUserModel
+                .otherUser!
+                .id!
+        );
+    }else 
+    {
+      GetInformationCubit
+        .get(context)
+        .addToFavourite(
+          userId: GetInformationCubit.get(context)
+              .getInformationUserModel
+              .otherUser!
+              .id!
+        );
+    }
+  }//favourite_on_click
+
+  void enter_chatt_screen(BuildContext context) 
+  {
+    // حسب طلب صاحب التطبيق ان يتم الدخول على الشات مباشرة بدون طلب
+    GetInformationCubit
+      .get(context)
+      .addHimToMyContacts(
+        userId: GetInformationCubit.get(context)
+            .getInformationUserModel
+            .otherUser!
+            .id!);
+
+
+
+    // if(GetInformationCubit.get(context).getInformationUserModel.isInMyContacts!)
+    // {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConversationScreen(
+              typeUser: 1,
+              gender: GetInformationCubit.get(context)
+                  .getInformationUserModel
+                  .otherUser!.gender!,
+              userId: GetInformationCubit.get(context)
+                    .getInformationUserModel
+                    .otherUser!
+                    .id!,
+              userName: GetInformationCubit.get(context)
+                    .getInformationUserModel
+                    .otherUser!
+                    .userName!
+            ))
+      );
+    // }else{
+    //   GetInformationCubit
+    //     .get(context)
+    //     .addChattRequest(
+    //       userId: GetInformationCubit.get(context)
+    //           .getInformationUserModel
+    //           .userSubSpecifications!
+    //           .id!);
+    // }
   }
   
   void blockUser_pressed(BuildContext context)
   {
     //TODO: كتابة الكووود الخاص بعملية الحظر
     showToast(msg: "تم حظر المستخدم", state: ToastStates.SUCCESS);
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
   }
   
   void ReportAnIssuePressed(BuildContext context)

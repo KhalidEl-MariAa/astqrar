@@ -1,4 +1,4 @@
-import '../../layout/layout.dart';
+import '../../modules/home/layout/layout.dart';
 import '../styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,7 +51,7 @@ shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             ),
             InkWell(
               onTap: (){
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
               },
               child: Center(
                   child: Text(

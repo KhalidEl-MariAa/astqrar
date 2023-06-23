@@ -82,7 +82,7 @@ class MoreScreen extends StatelessWidget {
                               ),
                               Text(
                                 email ?? "",
-                                style: TextStyle(color: Colors.grey[500]),
+                                style: TextStyle(color: Colors.black87),
                               )
                             ],
                           ),
@@ -247,6 +247,7 @@ class MoreScreen extends StatelessWidget {
 
     if (state is RemoveAccountSuccessState) {
       if (state.statusCode == 200) {
+        showToast(msg: "تم حذف الحساب!!", state: ToastStates.SUCCESS);
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const LoginScreen()),

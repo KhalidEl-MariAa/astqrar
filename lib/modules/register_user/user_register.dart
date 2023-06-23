@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../layout/cubit/cubit.dart';
-import '../../layout/cubit/states.dart';
+import '../home/layout/cubit/cubit.dart';
+import '../home/layout/cubit/states.dart';
 import '../../models/user.dart';
 import '../../shared/components/checkedbox_register.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/header_logo.dart';
+import '../../shared/components/logo/normal_logo.dart';
 import '../../shared/components/radiobuttonregister.dart';
 import '../../shared/styles/colors.dart';
 import '../terms/terms.dart';
@@ -71,6 +72,12 @@ class _UserRegisterState extends State<UserRegister>
           builder: (context, state) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(100),
+                  child: NormalLogo(
+                    appbarTitle: "تسجيل جديد",
+                    isBack: true,
+              )),  
               backgroundColor: backGround,
               body: SafeArea(
                 child: Padding(
@@ -82,16 +89,16 @@ class _UserRegisterState extends State<UserRegister>
                         spacing: 10,
                         runSpacing: 10,
                           children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                onTap: (){ Navigator.pop(context); },
-                                child: Text("رجوع",
-                                  style: TextStyle(color: white, fontSize: 12.sp),
-                                ),
-                              )]
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     InkWell(
+                          //       onTap: (){ Navigator.pop(context); },
+                          //       child: Text("رجوع",
+                          //         style: TextStyle(color: white, fontSize: 12.sp),
+                          //       ),
+                          //     )]
+                          // ),
                           
                           const HeaderLogo(),
 

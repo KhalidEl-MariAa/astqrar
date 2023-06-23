@@ -23,13 +23,13 @@ class ConversationCubit extends Cubit<ConversationStates>
     emit(GetMessagesLoadingState());
     
     initializeDateFormatting('ar_SA', null);
-    UserConversationScreenState.messages = [
+    ConversationScreenState.messages = [
       typeUserChat?
       "                              نظام مكافحة جريمة التحرش \n\n                                              المادة الاولى: \n\n يقصد بجريمة التحرش, لغرض تطبيق احكام هذا النظام كل قول او فعل او اشارة ذات مدلول جنسي تصدر من شخص تجاه اي شخص اخر , تمس جسده او عرضه , او تخدش حياءه , بأي وسيلة كانت ,بما فما ذلك وسائل التقنية الحديثة."
    :"لا يحق طلب استرجاع المبلغ المدفوع في الحالات التالية :\n\n-الغاء الخطابة . \n\n-الانسحاب من التطبيق. \n\n-حذف العضوية بسبب مخالفة شروط و احكام التطبيق. \n\n-تواصل العميل مع الخطابة او دفع مبلغ السعي للخطابة خارج التطبيق. \n\n-في حال عدم الرد العميل لمدة تتجاوز الشهر ." ];
-    UserConversationScreenState.senderIdList = [id!];
-    UserConversationScreenState.messagesMine = [true];
-    UserConversationScreenState.dateMessages = ["1/1/2002"];
+    ConversationScreenState.senderIdList = [id!];
+    ConversationScreenState.messagesMine = [true];
+    ConversationScreenState.dateMessages = ["1/1/2002"];
 
     DioHelper.postData(url: GETMESSAGES, data: {
       "SenderId": id,
@@ -42,19 +42,19 @@ class ConversationCubit extends Cubit<ConversationStates>
       getMessagesModel = GetMessagesModel.fromJson(value.data);
       for (int i = 0; i < getMessagesModel.data.length; i++) {
         print(getMessagesModel.data[i].senderId);
-        UserConversationScreenState.messages
+        ConversationScreenState.messages
             .add(getMessagesModel.data[i].message!);
-        UserConversationScreenState.senderIdList
+        ConversationScreenState.senderIdList
             .add(getMessagesModel.data[i].senderId.toString());
-        UserConversationScreenState.dateMessages.add(
+        ConversationScreenState.dateMessages.add(
             DateFormat('  dd / MM/ yyyy  HH : mm', 'ar_SA')
                 .format(DateTime.parse(getMessagesModel.data[i].date!)));
-        log(UserConversationScreenState.senderIdList.toString());
+        log(ConversationScreenState.senderIdList.toString());
         if (id == getMessagesModel.data[i].senderId) {
           getMessagesModel.data[i].isMine = true;
-          UserConversationScreenState.messagesMine.add(true);
+          ConversationScreenState.messagesMine.add(true);
         } else {
-          UserConversationScreenState.messagesMine.add(false);
+          ConversationScreenState.messagesMine.add(false);
           getMessagesModel.data[i].isMine = false;
         }
       }
@@ -93,19 +93,20 @@ late ChatModel chat;
     emit(ReceiveMessageSuccessState());
   }*/
 
-  send() {
+  void send() {
     log(DateTime.now().toString());
     log(DateFormat('HH:mm', 'ar_SA').format(DateTime.now()));
-    UserConversationScreenState.messages
-        .add(UserConversationScreenState.messagecontroller.text);
-    UserConversationScreenState.messagesMine.add(true);
-    UserConversationScreenState.senderIdList.add(id!);
-    UserConversationScreenState.dateMessages
+    ConversationScreenState.messages
+        .add(ConversationScreenState.messagecontroller.text);
+    ConversationScreenState.messagesMine.add(true);
+    ConversationScreenState.senderIdList.add(id!);
+    ConversationScreenState.dateMessages
         .add(DateFormat('HH : mm', 'ar_SA').format(DateTime.now()));
 
-    UserConversationScreenState.messagecontroller.clear();
+    ConversationScreenState.messagecontroller.clear();
     emit(SendMessageSuccessState());
   }
+  
 /*sendMessage({required String userId})async {
   if (UserConversationScreenState().hubConnection.state == HubConnectionState.Connected) {
     await UserConversationScreenState().hubConnection.invoke('SendMessagee', args: [

@@ -1,4 +1,4 @@
-import '../../layout/layout.dart';
+import '../home/layout/layout.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import '../login/login.dart';
@@ -31,7 +31,7 @@ class ContactUS extends StatelessWidget
               if(isFromLogin){              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginScreen()), (route) => false);
               }
               else{
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
           //  }
           }}
         },

@@ -86,7 +86,10 @@ class DioHelper
       'token': token ?? '',
       'Authorization': "Bearer " + token.toString(),
     };
-    return await dio.get(url, queryParameters: query!.isEmpty ? null : query);
+    
+    return await dio.get(
+      url, 
+      queryParameters: query!.isEmpty ? null : query);
   }
   /* static Future<Response> getDataWithQuery(
       {required String url,

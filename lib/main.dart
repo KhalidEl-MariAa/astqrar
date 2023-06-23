@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'layout/cubit/cubit.dart';
+import 'modules/home/layout/cubit/cubit.dart';
 import 'modules/about_app/cubit/cubit.dart';
 import 'modules/ads/cubit/cubit.dart';
 import 'modules/details_user/cubit/cubit.dart';

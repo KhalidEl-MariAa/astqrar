@@ -40,8 +40,7 @@ class DialogLogout extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        SettingsCubit.get(context)
-                            .removeAccount();
+                        SettingsCubit.get(context).removeAccount();
                       },
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(start: 1.w),
@@ -57,8 +56,7 @@ class DialogLogout extends StatelessWidget {
                           child: Center(
                             child: Text(
                               'تاكيد الحذف',
-                              style: GoogleFonts.almarai(
-                                  color: white, fontSize: 12.sp),
+                              style: GoogleFonts.almarai(color: white, fontSize: 12.sp),
                               softWrap: false,
                             ),
                           ),

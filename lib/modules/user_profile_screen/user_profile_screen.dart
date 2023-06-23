@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import '../../layout/layout.dart';
+import '../home/layout/layout.dart';
 import '../change_password/change_password.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -15,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../layout/cubit/cubit.dart';
+import '../home/layout/cubit/cubit.dart';
 import '../../models/user.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -85,13 +85,16 @@ class UserProfileScreenState extends State<UserProfileScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //    const HeaderLogo(),
-                        SizedBox(
-                          height: 4.h,
-                        ),
+                        SizedBox(height: 4.h,),
 
-                        SizedBox(
-                          height: 1.5.h,
+                        Text("id: " + current_user.id.toString(),
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w900),
                         ),
+                        
+                        SizedBox(height: 1.5.h,),
                         defaultTextFormField(
                             context: context,
                             controller: emailController,
@@ -630,9 +633,9 @@ class UserProfileScreenState extends State<UserProfileScreen>
                         Center(
                           child: 
                             ConditionalBuilder(
-                              condition: state is UpdateUserDataLoadingState,
+                              condition: state is UpdateUserDataLoadingState,                              
+                              builder: (context) => CircularProgressIndicator(),
                               fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
-                              builder: (context) => CircularProgressIndicator()
                           ),
                         ),
 
@@ -754,7 +757,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
             
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            MaterialPageRoute(builder: (context) => const LayoutScreen()),
             (route) => false);
       } else {
         showToast(msg: "حدث خطا ما", state: ToastStates.ERROR);

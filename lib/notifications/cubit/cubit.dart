@@ -22,8 +22,8 @@ class NotificationCubit extends Cubit<NotificationStates>
     emit(GetNotificationLoadingState());
 
     DioHelper.getDataWithBearerToken(
-      url: GETNOTIFICATIONS,token: 
-      token.toString()
+      url: GETNOTIFICATIONS,
+      token: token.toString()
     ).then((value) {
 
       log(value.toString());
@@ -38,7 +38,7 @@ class NotificationCubit extends Cubit<NotificationStates>
   }
 
 
-  acceptChattRequest({required String userId})
+  void acceptChattRequest({required String userId})
   {
     //accept request
     late ServerResponse res;
@@ -69,7 +69,7 @@ class NotificationCubit extends Cubit<NotificationStates>
     });
   }
 
-  ignoreRequest({required String userId})
+  void ignoreRequest({required String userId})
   {
     //ignore request
     late ServerResponse res;

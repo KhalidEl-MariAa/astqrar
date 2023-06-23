@@ -1,18 +1,21 @@
 
-class GetInformationUserModel {
+class GetInformationUserModel 
+{
   bool? isFavorate;
   bool? isInMyContacts;
   InformationDetailsModel? information;
-  UserSubSpecificationModel? userSubSpecifications;
+  OtherUserModel? otherUser;
 
   GetInformationUserModel.fromJson(Map<String, dynamic> json) {
     isFavorate = json['isFavorate'];
     isInMyContacts = json['isInMyContacts'];
+
     information = json['information'] != null
         ? InformationDetailsModel.fromJson(json['information'])
         : null;
-    userSubSpecifications = json['userSubSpecification'] != null
-        ? UserSubSpecificationModel.fromJson(json['userSubSpecification'])
+
+    otherUser = json['otherUser'] != null
+        ? OtherUserModel.fromJson(json['otherUser'])
         : null;
   }
 }
@@ -45,7 +48,7 @@ class InformationDetailsModel {
   }
 }
 
-class UserSubSpecificationModel 
+class OtherUserModel 
 {
     String? id;
     String? userName;
@@ -58,11 +61,11 @@ class UserSubSpecificationModel
     String? dowry;
     String? terms;
     String? nationality;
-    bool?specialNeeds;
+    bool?   specialNeeds;
 
     List<UserSubSpecificationDtoModel>userSubSpecificationDto=[];
     
-    UserSubSpecificationModel.fromJson(Map<String, dynamic> json) {
+    OtherUserModel.fromJson(Map<String, dynamic> json) {
       id = json['id'];
       userName = json['userName'];
       email = json['email'];
@@ -76,13 +79,14 @@ class UserSubSpecificationModel
       terms = json['terms'];
       specialNeeds=json['specialNeeds'];
       
-      json['userSubSpecificationDto'].forEach((element) {
-        userSubSpecificationDto.add(UserSubSpecificationDtoModel.fromJson(element));
+      json['userSubSpecificationDto'].forEach((e) {
+        userSubSpecificationDto.add( UserSubSpecificationDtoModel.fromJson(e) );
       });
   }
 }
 
-class UserSubSpecificationDtoModel {
+class UserSubSpecificationDtoModel 
+{
   int? id;
   String?name;
   String?value;

@@ -60,14 +60,14 @@ class UserItemWidget extends StatelessWidget
                     ],
                   )),
             ),
-       if(typeOfUser==2&&visibileRemoveIcon)     Positioned(
+        if(typeOfUser==2&&visibileRemoveIcon)     
+          Positioned(
                 top:1,
                 left: 0,
                 child: InkWell(
-                    onTap: (){
-                 removeUser();
-                    },
-                    child: Icon(Icons.remove_circle,color: Colors.red,size: 19.sp,)))
+                    onTap: (){ removeUser(); },
+                    child: Icon(Icons.remove_circle,color: Colors.red,size: 19.sp,)
+                ))
           ],
         ),
       ),
