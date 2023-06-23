@@ -1,20 +1,20 @@
 import 'dart:developer';
 
-import '../home/layout/layout.dart';
-import '../conversation/conversation.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/loading_gif.dart';
-import '../../shared/components/user/details_user/details.dart';
-import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../contact_us/contact_us.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/loading_gif.dart';
+import '../../shared/components/user/details_user/details.dart';
+import '../../shared/styles/colors.dart';
+import '../conversation/conversation.dart';
+import '../home/4_more/3_contact_us/contact_us.dart';
+import '../home/layout/layout.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class DetailsUserScreen extends StatelessWidget 
 {

@@ -1,5 +1,5 @@
-import 'package:astarar/models/user.dart';
-import 'package:astarar/modules/details_user/cubit/states.dart';
+import '../../../../models/user.dart';
+import '../../../../modules/details_user/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 import '../../../../models/get_information_user.dart';

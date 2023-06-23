@@ -1,9 +1,10 @@
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import 'payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'payment_screen.dart';
 
 class Web extends StatelessWidget 
 {

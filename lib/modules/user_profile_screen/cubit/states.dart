@@ -1,5 +1,4 @@
 import '../../../models/login.dart';
-
 import '../../../models/user.dart';
 
 abstract class UserProfileStates {}

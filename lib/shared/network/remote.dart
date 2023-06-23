@@ -1,7 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/contants/constants.dart';
+import '../contants/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 

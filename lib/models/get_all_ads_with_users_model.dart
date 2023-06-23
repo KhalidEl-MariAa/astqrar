@@ -41,7 +41,8 @@ class UserDataOfAdsModel {
   }
 }
 
-class UserSubSpecificationsDetailsWithAds {
+class UserSubSpecificationsDetailsWithAds 
+{
   String? name;
   String? specificationValue;
 

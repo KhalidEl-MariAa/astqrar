@@ -1,7 +1,8 @@
-import '../login/login.dart';
-import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../shared/styles/colors.dart';
+import '../login/login.dart';
 
 class AlreadyHaveAccountText extends StatelessWidget 
 {

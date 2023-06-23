@@ -1,14 +1,14 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import '../login/login.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/header_logo.dart';
-import '../../shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../shared/components/components.dart';
+import '../../shared/components/header_logo.dart';
+import '../../shared/styles/colors.dart';
+import '../login/login.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class ResetPassword extends StatelessWidget {
   final String code;

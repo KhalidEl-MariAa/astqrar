@@ -1,9 +1,9 @@
 
-import 'package:astarar/models/server_response_model.dart';
-import 'package:astarar/modules/register_user/states.dart';
-import 'package:astarar/shared/contants/constants.dart';
-import 'package:astarar/shared/network/end_points.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../../models/server_response_model.dart';
+import 'states.dart';
+import '../../shared/contants/constants.dart';
+import '../../shared/network/end_points.dart';
+import '../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/user.dart';

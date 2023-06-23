@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class NotiticationWidget {
+class NotiticationWidget 
+{
   final context1;
   static final FlutterLocalNotificationsPlugin _notification =
   FlutterLocalNotificationsPlugin();

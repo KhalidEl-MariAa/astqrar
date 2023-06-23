@@ -1,16 +1,17 @@
 import 'dart:developer';
-import '../home/layout/cubit/cubit.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
 import '../../models/user.dart';
-import 'cubit/states.dart';
-import 'result.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/logo/normal_logo.dart';
 import '../../shared/components/radiobuttonregister.dart';
 import '../../shared/styles/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
+import '../home/layout/cubit/cubit.dart';
 import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class FilterSearchScreen extends StatefulWidget {
   final String textSearch;

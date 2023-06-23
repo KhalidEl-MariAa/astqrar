@@ -1,27 +1,28 @@
 import 'dart:io';
 
-import 'modules/home/layout/cubit/cubit.dart';
-import 'modules/about_app/cubit/cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
 import 'modules/ads/cubit/cubit.dart';
 import 'modules/details_user/cubit/cubit.dart';
-import 'modules/home/cubit/cubit.dart';
-import 'modules/more/cubit/cubit.dart';
+import 'modules/home/1_notifications/cubit/cubit.dart';
+import 'modules/home/2_home_tab/cubit/cubit.dart';
+import 'modules/home/4_more/1_about/cubit/cubit.dart';
+import 'modules/home/4_more/cubit/cubit.dart';
+import 'modules/home/layout/cubit/cubit.dart';
 import 'modules/packages/cubit/cubit.dart';
 import 'modules/payment/cubit/cubit.dart';
 import 'modules/search/cubit/cubit.dart';
 import 'modules/section%20men%20_women/cubit/cubit.dart';
 import 'modules/splash_screen/splash_screen.dart';
-import 'notifications/cubit/cubit.dart';
 import 'shared/contants/constants.dart';
 import 'shared/network/bloc_observer.dart';
 import 'shared/network/local.dart';
 import 'shared/network/remote.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

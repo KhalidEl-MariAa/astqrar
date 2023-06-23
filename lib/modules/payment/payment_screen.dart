@@ -1,17 +1,18 @@
-import '../home/cubit/cubit.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import 'webb.dart';
-import '../../shared/components/accept_success_dialog.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/logo/normal_logo.dart';
-import '../../shared/components/text/default_text.dart';
-import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../shared/components/accept_success_dialog.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/logo/normal_logo.dart';
+import '../../shared/components/text/default_text.dart';
+import '../../shared/styles/colors.dart';
+import '../home/2_home_tab/cubit/cubit.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'webb.dart';
 
 class PaymentScreen extends StatelessWidget 
 {

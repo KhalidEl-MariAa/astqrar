@@ -1,9 +1,10 @@
-import '../../shared/components/logo/normal_logo.dart';
-import '../packages/packages.dart';
-import '../../shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../shared/components/components.dart';
+import '../../shared/components/logo/normal_logo.dart';
+import '../packages/packages.dart';
 
 class NotSubscribedScreen extends StatefulWidget {
 

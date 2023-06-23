@@ -1,11 +1,11 @@
 import 'dart:developer';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../models/user_item.dart';
-import 'states.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/remote.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'states.dart';
 
 class SearchCubit extends Cubit<SearchStates> {
   SearchCubit() : super(SearchInitialState());

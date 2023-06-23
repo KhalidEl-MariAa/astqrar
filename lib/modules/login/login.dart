@@ -1,27 +1,26 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
-
-import '../contact_us/contact_us.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import 'not_subscribed_screen.dart';
-import '../register_user/user_register.dart';
-import '../../notifications/cubit/cubit.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/header_logo.dart';
-import '../../shared/network/local.dart';
-import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-import '../home/layout/layout.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/header_logo.dart';
 import '../../shared/contants/constants.dart';
+import '../../shared/network/local.dart';
 import '../../shared/network/remote.dart';
+import '../../shared/styles/colors.dart';
 import '../forgetpassword/forgetpassword.dart';
+import '../home/1_notifications/cubit/cubit.dart';
+import '../home/4_more/3_contact_us/contact_us.dart';
+import '../home/layout/layout.dart';
+import '../register_user/user_register.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'not_subscribed_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

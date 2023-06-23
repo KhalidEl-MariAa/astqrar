@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:astarar/shared/components/components.dart';
+import '../../shared/components/components.dart';
 
 import '../../models/chatModel.dart';
 import 'cubit/cubit.dart';

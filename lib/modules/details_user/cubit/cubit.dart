@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:astarar/models/server_response_model.dart';
+import '../../../models/server_response_model.dart';
 
 import '../../../models/add_to_favourite.dart';
 import '../../../models/get_information_user.dart';

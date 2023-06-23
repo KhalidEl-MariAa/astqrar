@@ -1,14 +1,15 @@
 import 'dart:developer';
 
-import '../../../models/user.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../models/login.dart';
-import 'states.dart';
+import '../../../models/user.dart';
 import '../../../shared/contants/constants.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'states.dart';
 
 class UserProfileCubit extends Cubit<UserProfileStates> 
 {

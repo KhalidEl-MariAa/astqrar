@@ -1,5 +1,5 @@
 
-import 'package:astarar/modules/home/layout/cubit/cubit.dart';
+import '../modules/home/layout/cubit/cubit.dart';
 
 class User 
 {

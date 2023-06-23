@@ -1,12 +1,13 @@
-import '../home/layout/layout.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import '../more/more_screen.dart';
-import '../../shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../shared/components/components.dart';
+import '../home/4_more/more_tab.dart';
+import '../home/layout/layout.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class ChangePassword extends StatelessWidget 
 {
@@ -20,9 +21,9 @@ class ChangePassword extends StatelessWidget
         listener: (context,state){
           if(state is ChangePasswordSuccessState){
             if(state.changePasswordModel.key==1){
-              MoreScreen.passwordController.clear();
-              MoreScreen.confirmPasswordController.clear();
-              MoreScreen.oldPasswordController.clear();
+              MoreTab.passwordController.clear();
+              MoreTab.confirmPasswordController.clear();
+              MoreTab.oldPasswordController.clear();
               showToast(msg: state.changePasswordModel.msg!, state: ToastStates.SUCCESS);
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
             }
@@ -42,7 +43,7 @@ class ChangePassword extends StatelessWidget
                    EdgeInsetsDirectional.only(start: 4.w, top: 1.h, end: 4.w),
               child: SingleChildScrollView(
                 child: Form(
-                  key: MoreScreen.form,
+                  key: MoreTab.form,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -61,7 +62,7 @@ class ChangePassword extends StatelessWidget
                           container: Colors.grey[100],
                           context: context,
                           styleText: Colors.black,
-                          controller: MoreScreen.oldPasswordController,
+                          controller: MoreTab.oldPasswordController,
                           type: TextInputType.text,
                           validate: (String? value) {
                             return (value!.isEmpty)? "من فضلك ادخل كلمة المرور القديمة": null;
@@ -78,7 +79,7 @@ class ChangePassword extends StatelessWidget
                           container: Colors.grey[100],
                           context: context,
                           styleText: Colors.black,
-                          controller: MoreScreen.passwordController,
+                          controller: MoreTab.passwordController,
                           type: TextInputType.text,
                           validate: (String? value) {
                             return (value!.isEmpty)? "من فضلك ادخل كلمة المرور الجديدة": null;
@@ -95,12 +96,12 @@ class ChangePassword extends StatelessWidget
                           container: Colors.grey[100],
                           context: context,
                           styleText: Colors.black,
-                          controller: MoreScreen.confirmPasswordController,
+                          controller: MoreTab.confirmPasswordController,
                           type: TextInputType.text,
                           validate: (String? value) {
                             if(value!.isEmpty){
                               return "من فضلك قم بتاكيد كلمة المرور";
-                            }else if(MoreScreen.passwordController.text !=MoreScreen.confirmPasswordController.text){
+                            }else if(MoreTab.passwordController.text !=MoreTab.confirmPasswordController.text){
                               return " كلمة المرور الجديدة و تاكيد كلمة المرور غير متشابهان";
                             }else{
                               return null;
@@ -111,9 +112,9 @@ class ChangePassword extends StatelessWidget
                         height: 2.h,
                       ),
                       doubleInfinityMaterialButton(onPressed: () {
-                        if(MoreScreen.form.currentState!.validate()){
-                         ChangePasswordCubit.get(context).changePassword(oldPassword:MoreScreen.oldPasswordController.text,
-                             newPassword: MoreScreen.passwordController.text);
+                        if(MoreTab.form.currentState!.validate()){
+                         ChangePasswordCubit.get(context).changePassword(oldPassword:MoreTab.oldPasswordController.text,
+                             newPassword: MoreTab.passwordController.text);
                         }
                       }, text: "تاكيد"),
                       SizedBox(height: 1.h,),
