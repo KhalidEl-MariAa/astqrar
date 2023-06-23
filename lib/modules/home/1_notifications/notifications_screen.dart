@@ -1,20 +1,20 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../../shared/components/accept_success_dialog.dart';
+import '../../../shared/styles/colors.dart';
 import '../../user_details/cubit/cubit.dart';
 import '../../user_details/user_details.dart';
-import '../../../shared/components/accept_success_dialog.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'widgets/accepted_notification.dart';
 
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
-import '../../../shared/styles/colors.dart';
-
-class NotificationTab extends StatelessWidget 
+class NotificationScreen extends StatelessWidget 
 {
-  const NotificationTab({Key? key}) : super(key: key);
+  const NotificationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

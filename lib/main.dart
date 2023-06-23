@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import 'constants.dart';
 import 'modules/ads/cubit/cubit.dart';
-import 'modules/details_user/cubit/cubit.dart';
 import 'modules/home/1_notifications/cubit/cubit.dart';
 import 'modules/home/2_home_tab/cubit/cubit.dart';
 import 'modules/home/4_more/1_about/cubit/cubit.dart';
@@ -19,7 +19,7 @@ import 'modules/payment/cubit/cubit.dart';
 import 'modules/search/cubit/cubit.dart';
 import 'modules/section%20men%20_women/cubit/cubit.dart';
 import 'modules/splash_screen/splash_screen.dart';
-import 'shared/contants/constants.dart';
+import 'modules/user_details/cubit/cubit.dart';
 import 'shared/network/bloc_observer.dart';
 import 'shared/network/local.dart';
 import 'shared/network/remote.dart';

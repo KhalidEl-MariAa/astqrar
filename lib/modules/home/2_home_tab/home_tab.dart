@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../notification.dart';
 import '../../../shared/components/loading_gif.dart';
-import '../../../shared/contants/constants.dart';
+import '../../../constants.dart';
 import '../../../shared/styles/colors.dart';
 import '../../ads/ads.dart';
 import '../../login/login.dart';
@@ -255,7 +255,7 @@ class _HomeTabState extends State<HomeTab>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("تواصل معنا لتعلن عن صفحتك الشخصية",
+                    Text("أعلن عن صفحتك الشخصية",
                         style: GoogleFonts.almarai(
                             color: grey, 
                             fontSize: 9.6.sp,
@@ -265,7 +265,7 @@ class _HomeTabState extends State<HomeTab>
                     ),
                     InkWell(
                       child: Text(
-                        "تواصل معنا",
+                        "من هنا",
                         style: GoogleFonts.almarai(
                             color: primary,
                             decoration: TextDecoration.underline,
@@ -275,7 +275,8 @@ class _HomeTabState extends State<HomeTab>
                       onTap: () {
                         Navigator.push(
                           context,
-                           MaterialPageRoute(builder: (context) => AdsScreen()));
+                           MaterialPageRoute(builder: (context) => AdsScreen())
+                        );
                       },
                     )
                   ],

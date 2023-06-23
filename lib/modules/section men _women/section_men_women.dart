@@ -1,11 +1,11 @@
-import '../details_user/cubit/cubit.dart';
-import '../details_user/details_user.dart';
+import '../user_details/cubit/cubit.dart';
+import '../user_details/user_details.dart';
 import '../login/login.dart';
 import '../section%20men%20_women/cubit/cubit.dart';
 import '../section%20men%20_women/cubit/states.dart';
 import '../../shared/components/loading_gif.dart';
 import '../../shared/components/user/user_item.dart';
-import '../../shared/contants/constants.dart';
+import '../../constants.dart';
 import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -266,19 +266,23 @@ class SectionMenOrWomen extends StatelessWidget
                             children: List.generate(
                                 GetUserByGenderCubit.get(context).users.length,
                                 (index) {
-                              return Center(
-                                  child: UserItemWidget(
-                                visibileRemoveIcon: false,
-                                removeUser: () {},
-                                onclickUser: () { onClickUserItem(context, index); },
-                                genderValue: GetUserByGenderCubit.get(context)
-                                    .users[index]
-                                    .gender!,
-                                username: GetUserByGenderCubit.get(context)
-                                    .users[index]
-                                    .user_Name!,
-                              ));
-                            }))
+                                  return Center(
+                                      child: UserItemWidget(
+                                          visibileRemoveIcon: false,
+                                          removeUser: () {},
+                                          onclickUser: () { onClickUserItem(context, index); },
+                                          genderValue: GetUserByGenderCubit.get(context)
+                                              .users[index]
+                                              .gender!,
+                                          username: GetUserByGenderCubit.get(context)
+                                              .users[index]
+                                              .user_Name!,
+                                  )
+                                );
+                              }
+                            )
+
+                      )
                     ],
                   ),
                 ),
@@ -310,7 +314,7 @@ class SectionMenOrWomen extends StatelessWidget
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => DetailsUserScreen(
+            builder: (context) => UserDetailsScreen(
                   messageVisibility: true,
                 )));
   }

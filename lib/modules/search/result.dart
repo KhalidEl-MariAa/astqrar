@@ -1,20 +1,21 @@
-import '../../models/user_item.dart';
-import '../details_user/cubit/cubit.dart';
-import '../details_user/details_user.dart';
-import '../login/login.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import 'filter_search.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/user/user_item.dart';
-import '../../shared/contants/constants.dart';
-import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../constants.dart';
+import '../../models/user_item.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/user/user_item.dart';
+import '../../shared/styles/colors.dart';
+import '../login/login.dart';
+import '../user_details/cubit/cubit.dart';
+import '../user_details/user_details.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+import 'filter_search.dart';
 
 class ResultScreen extends StatefulWidget 
 {
@@ -375,7 +376,7 @@ class _ResultScreenState extends State<ResultScreen>
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    DetailsUserScreen(
+                    UserDetailsScreen(
                       messageVisibility:
                           true,
                     )));

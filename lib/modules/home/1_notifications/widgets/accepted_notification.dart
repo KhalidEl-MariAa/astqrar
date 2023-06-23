@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../shared/contants/constants.dart';
+import '../../../../constants.dart';
 import '../../../../shared/styles/colors.dart';
 import '../cubit/cubit.dart';
 import 'status_button.dart';

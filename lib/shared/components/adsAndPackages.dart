@@ -3,12 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../modules/ads/cubit/cubit.dart';
-import '../../../../modules/payment/payment_screen.dart';
-import '../../components.dart';
-import '../../custom_dialog.dart';
+import '../../modules/ads/cubit/cubit.dart';
+import '../../modules/payment/payment_screen.dart';
+import 'components.dart';
+import 'custom_dialog.dart';
 
-class AdsAndPackages extends StatelessWidget {
+class AdsAndPackages extends StatelessWidget 
+{
   final List packages;
   final bool isPackages;
 
@@ -123,10 +124,9 @@ class AdsAndPackages extends StatelessWidget {
                           height: 7.h,
                           color: const Color(0xffC4A54C),
                           child: Center(
-                              child: Text(
-                            'اشترك',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(color: Colors.white),
+                              child: Text('اشترك',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(color: Colors.white),
                           )),
                         )),
                   )

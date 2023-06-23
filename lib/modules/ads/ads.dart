@@ -6,16 +6,18 @@ import 'package:sizer/sizer.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/loading_gif.dart';
 import '../../shared/components/logo/normal_logo.dart';
-import '../../shared/components/user/adsAndPackages/adsAndPackages.dart';
+import '../../shared/components/adsAndPackages.dart';
 import '../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class AdsScreen extends StatelessWidget {
+class AdsScreen extends StatelessWidget 
+{
   const AdsScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocConsumer<AdsCubit, AdsStates>(
       listener: (context, state) {
         if(state is AddAdsSuccessState){

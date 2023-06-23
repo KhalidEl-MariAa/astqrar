@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoadingGif extends StatelessWidget {
+class LoadingGif extends StatelessWidget 
+{
   const LoadingGif({Key? key}) : super(key: key);
 
   @override

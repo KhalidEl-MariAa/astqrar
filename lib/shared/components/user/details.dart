@@ -1,18 +1,18 @@
-import '../../../../models/user.dart';
-import '../../../../modules/details_user/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-
-import '../../../../models/get_information_user.dart';
-import '../../dialog_please_login.dart';
-import '../details_item.dart';
-import '../../../contants/constants.dart';
-import '../../../styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
-class DetailsItemScreen extends StatelessWidget 
+import '../../../constants.dart';
+import '../../../models/get_information_user.dart';
+import '../../../models/user.dart';
+import '../../../modules/user_details/cubit/states.dart';
+import '../../styles/colors.dart';
+import '../dialog_please_login.dart';
+import 'details_item.dart';
+
+class DetailWidget extends StatelessWidget 
 {
   final bool messageVisibility;
   final String name;
@@ -35,7 +35,7 @@ class DetailsItemScreen extends StatelessWidget
 
   final GetInformationStates state;
 
-  DetailsItemScreen({
+  DetailWidget({
     required this.state,
     required this.userSubSpecificationDto,
     required this.dowry,

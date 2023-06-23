@@ -1,23 +1,24 @@
 
-import '../home/layout/layout.dart';
-import '../change_password/change_password.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/loading_gif.dart';
-import '../../shared/components/logo/normal_logo.dart';
-import '../../shared/components/radiobuttonregister.dart';
-import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../home/layout/cubit/cubit.dart';
 import '../../models/user.dart';
+import '../../shared/components/components.dart';
+import '../../shared/components/loading_gif.dart';
+import '../../shared/components/logo/normal_logo.dart';
+import '../../shared/components/radiobuttonregister.dart';
+import '../../shared/styles/colors.dart';
+import '../change_password/change_password.dart';
+import '../home/layout/cubit/cubit.dart';
+import '../home/layout/layout.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
-class UserProfileScreen extends StatefulWidget {
+class UserProfileScreen extends StatefulWidget 
+{
 
   const UserProfileScreen({Key? key}) : super(key: key);
 

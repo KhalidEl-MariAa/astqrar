@@ -1,15 +1,16 @@
 
 
-import '../../../details_user/cubit/cubit.dart';
-import '../../../details_user/details_user.dart';
-import '../cubit/cubit.dart';
-import '../../../../shared/contants/constants.dart';
-import '../../../../shared/styles/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../../constants.dart';
+import '../../../../shared/styles/colors.dart';
+import '../../../user_details/cubit/cubit.dart';
+import '../../../user_details/user_details.dart';
+import '../cubit/cubit.dart';
 
 class SliderAds extends StatelessWidget 
 {
@@ -50,7 +51,7 @@ class SliderAds extends StatelessWidget
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            DetailsUserScreen(
+                            UserDetailsScreen(
                               messageVisibility: true,
                             )));
               },

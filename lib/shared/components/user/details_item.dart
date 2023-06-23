@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+/**
+ * Example:
+ *  DetailsItem(title: 'الجنسية', subTitle: "هندي"))
+ */
 class DetailsItem extends StatelessWidget 
 {
   final String title;

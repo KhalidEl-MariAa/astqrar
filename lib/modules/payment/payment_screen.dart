@@ -6,8 +6,8 @@ import 'package:sizer/sizer.dart';
 
 import '../../shared/components/accept_success_dialog.dart';
 import '../../shared/components/components.dart';
+import '../../shared/components/default_text.dart';
 import '../../shared/components/logo/normal_logo.dart';
-import '../../shared/components/text/default_text.dart';
 import '../../shared/styles/colors.dart';
 import '../home/2_home_tab/cubit/cubit.dart';
 import 'cubit/cubit.dart';

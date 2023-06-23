@@ -5,12 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../constants.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/logo/normal_logo.dart';
-import '../../../shared/contants/constants.dart';
 import '../../../shared/styles/colors.dart';
 import '../../login/login.dart';
-import '../../user_profile_screen/user_profile_screen.dart';
+import '../../user_profile/user_profile.dart';
 import '1_about/about.dart';
 import '2_terms/terms.dart';
 import '3_contact_us/contact_us.dart';

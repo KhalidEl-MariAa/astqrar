@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../shared/components/dialog_please_login.dart';
-import '../../../shared/contants/constants.dart';
+import '../../../constants.dart';
 import '../../../shared/styles/colors.dart';
 import '../0_favourites/favourites_tab.dart';
 import '../1_notifications/notifications_tab.dart';
@@ -17,9 +17,10 @@ class LayoutScreen extends StatefulWidget {
   _LayoutScreenState createState() => _LayoutScreenState();
 }
 
-class _LayoutScreenState extends State<LayoutScreen> {
+class _LayoutScreenState extends State<LayoutScreen> 
+{
   int _selectedTab = 2;
-  // late Widget _selectedWidget;
+
   List widgetList = [
     FavouritesTab(),
     NotificationTab(),
@@ -130,9 +131,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                width: 48,
-              ),
+              
+              SizedBox( width: 48,),
+              
               InkWell(
                 onTap: () {
                   if (isLogin == false) {

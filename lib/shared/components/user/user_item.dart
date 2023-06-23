@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../contants/constants.dart';
+import '../../../constants.dart';
 
 class UserItemWidget extends StatelessWidget 
 {
@@ -17,7 +17,8 @@ class UserItemWidget extends StatelessWidget
       {required this.username,
       required this.genderValue,
       required this.onclickUser,
-      required this.removeUser,required this.visibileRemoveIcon});
+      required this.removeUser,
+      required this.visibileRemoveIcon});
 
   @override
   Widget build(BuildContext context) {

@@ -1,16 +1,17 @@
-import '../../details_user/cubit/cubit.dart';
-import '../../details_user/details_user.dart';
-import 'cubit/cubit.dart';
-import 'cubit/state.dart';
-import '../../../shared/components/favourite_item.dart';
-import '../../../shared/components/logo/normal_logo.dart';
-import '../../../shared/contants/constants.dart';
-import '../../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../constants.dart';
+import '../../../shared/components/favourite_item.dart';
+import '../../../shared/components/logo/normal_logo.dart';
+import '../../../shared/styles/colors.dart';
+import '../../user_details/cubit/cubit.dart';
+import '../../user_details/user_details.dart';
+import 'cubit/cubit.dart';
+import 'cubit/state.dart';
 
 
 class FavouritesTab extends StatelessWidget 
@@ -65,7 +66,7 @@ class FavouritesTab extends StatelessWidget
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  DetailsUserScreen(
+                                                  UserDetailsScreen(
                                                     messageVisibility: true,
                                                   )));
                                     },

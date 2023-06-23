@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class HeaderLogo extends StatelessWidget {
+class HeaderLogo extends StatelessWidget 
+{
   const HeaderLogo({Key? key}) : super(key: key);
 
   @override

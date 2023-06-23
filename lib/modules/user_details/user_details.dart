@@ -8,21 +8,21 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/components/loading_gif.dart';
-import '../../shared/components/user/details_user/details.dart';
+import '../../shared/components/user/details.dart';
 import '../../shared/styles/colors.dart';
-import '../conversation/conversation.dart';
+import '../chatt/chatt.dart';
 import '../home/4_more/3_contact_us/contact_us.dart';
 import '../home/layout/layout.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class DetailsUserScreen extends StatelessWidget 
+class UserDetailsScreen extends StatelessWidget 
 {
   final bool messageVisibility;
   final String?delegateId;
   final String?delegateName;
 
-  DetailsUserScreen({Key? key, required this.messageVisibility, this.delegateId, this.delegateName}) : super(key: key);
+  UserDetailsScreen({Key? key, required this.messageVisibility, this.delegateId, this.delegateName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) 
@@ -116,7 +116,7 @@ class DetailsUserScreen extends StatelessWidget
               ),
             ),
             body: SingleChildScrollView(
-              child: DetailsItemScreen(
+              child: DetailWidget(
                 state: state,
                 dowry: GetInformationCubit.get(context)
                     .getInformationUserModel

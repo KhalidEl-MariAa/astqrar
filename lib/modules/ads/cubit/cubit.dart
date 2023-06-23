@@ -2,12 +2,13 @@ import 'dart:developer';
 import '../../../models/add_to_favourite.dart';
 import '../../../models/get_ads_model.dart';
 import 'states.dart';
-import '../../../shared/contants/constants.dart';
+import '../../../constants.dart';
 import '../../../shared/network/end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AdsCubit extends Cubit<AdsStates> {
+class AdsCubit extends Cubit<AdsStates> 
+{
   AdsCubit() : super(AdsInitialState());
 
   static AdsCubit get(context) => BlocProvider.of(context);

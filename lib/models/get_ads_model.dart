@@ -1,10 +1,13 @@
 
-class GetAdsModel {
+class GetAdsModel 
+{
   int? key;
   List<DataAdsModel> data = [];
   
-  GetAdsModel.fromJson(Map<String, dynamic> json) {
+  GetAdsModel.fromJson(Map<String, dynamic> json) 
+  {
     key = json['key'];
+    
     json['data'].forEach((element) {
       data.add(DataAdsModel.fromJson(element));
     });

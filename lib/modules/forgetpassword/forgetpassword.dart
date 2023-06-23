@@ -5,9 +5,9 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
+import '../../constants.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/header_logo.dart';
-import '../../shared/contants/constants.dart';
 import '../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
