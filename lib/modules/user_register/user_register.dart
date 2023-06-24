@@ -78,7 +78,7 @@ class _UserRegisterState extends State<UserRegister>
                     appbarTitle: "تسجيل جديد",
                     isBack: true,
               )),  
-              backgroundColor: backGround,
+              backgroundColor: BG_DARK_COLOR,
               body: SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
@@ -111,14 +111,14 @@ class _UserRegisterState extends State<UserRegister>
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  color: backGround,
+                                  color: BG_DARK_COLOR,
                                 ),
                                 child: DropdownButton(
                                   underline: Text(" "),
                                   isExpanded: true,
                                   elevation: 10,
                                   iconDisabledColor: Colors.grey,
-                                  iconEnabledColor: primary,
+                                  iconEnabledColor: PRIMARY,
                                   icon: Padding(
                                     padding: EdgeInsetsDirectional.only(end: 2.w, top: 1.h),
                                     child: const Icon(Icons.arrow_circle_down_sharp),
@@ -225,7 +225,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           // "الاسم ينتهي"
                           Text(AppCubit.Specifications[SpecificationIDs.name_end_with]["nameAr"],
-                            style: TextStyle(color: white),
+                            style: TextStyle(color: WHITE),
                           ),
 
                           GridView.count(
@@ -302,7 +302,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           // "لون الشعر"
                           Text(AppCubit.Specifications[SpecificationIDs.hair_colour]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -316,7 +316,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           // "نوع الشعر"
                           Text(AppCubit.Specifications[SpecificationIDs.hair_type]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -330,7 +330,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           //"لون البشرة"
                           Text(AppCubit.Specifications[SpecificationIDs.skin_colour]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -344,7 +344,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           //"من عرق"
                           Text(AppCubit.Specifications[SpecificationIDs.strain]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -359,7 +359,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           // "الموهل العلمي"
                           Text(AppCubit.Specifications[SpecificationIDs.qualification]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -374,7 +374,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           //الوظيفة                          
                           Text(AppCubit.Specifications[SpecificationIDs.job]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -390,7 +390,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           //الحالة الصحية
                           Text(AppCubit.Specifications[SpecificationIDs.health_status]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -419,7 +419,7 @@ class _UserRegisterState extends State<UserRegister>
                           
                           //الحالة الاجتماعية
                           Text(AppCubit.Specifications[SpecificationIDs.social_status]["nameAr"] ,
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -435,7 +435,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           //هل لديك اطفال
                           Text(AppCubit.Specifications[SpecificationIDs.have_children]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -472,7 +472,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           // "نبذة عن مظهرك"
                           Text(AppCubit.Specifications[SpecificationIDs.appearance]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -488,7 +488,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           // "الوضع المالي"
                           Text(AppCubit.Specifications[SpecificationIDs.financial_situation]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
 
                           GridView.count(
@@ -504,7 +504,7 @@ class _UserRegisterState extends State<UserRegister>
 
                           // "نوع الزواج"
                           Text(AppCubit.Specifications[SpecificationIDs.marriage_Type]["nameAr"],
-                            style: TextStyle(color: white, fontSize: 11.sp),
+                            style: TextStyle(color: WHITE, fontSize: 11.sp),
                           ),
                           GridView.count(
                             shrinkWrap: true,
@@ -536,7 +536,7 @@ class _UserRegisterState extends State<UserRegister>
                             },
                             decoration: InputDecoration(
                               hintText: "شروطك",
-                              hintStyle: TextStyle(color: white, fontSize: 12),
+                              hintStyle: TextStyle(color: WHITE, fontSize: 12),
                               hintMaxLines: 5,
                               enabled: true,
                               border: OutlineInputBorder(
@@ -547,12 +547,12 @@ class _UserRegisterState extends State<UserRegister>
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               filled: true,
-                              fillColor: backGround,
+                              fillColor: BG_DARK_COLOR,
                             ),
                             keyboardType: TextInputType.multiline,
                             maxLines: 3,
                             minLines: 1,
-                            style: TextStyle(color: white),
+                            style: TextStyle(color: WHITE),
                           ),
 
                           defaultTextFormField(
@@ -600,8 +600,8 @@ class _UserRegisterState extends State<UserRegister>
                               },
                               text: "اقسم بالله ان المعلومات التي قمت بادخلها صحيحة و التطبيق غير مسئول عن اي معلومات اخري غير صحيحة",
                               isSelected: isDataConfirmed,
-                              focusColor: primary,
-                              TextColor: white),
+                              focusColor: PRIMARY,
+                              TextColor: WHITE),
 
                           Row(
                             children: [
@@ -610,15 +610,15 @@ class _UserRegisterState extends State<UserRegister>
                                   onChanged: (bool? value) {
                                     setState(() { isTermsConfirmed = !isTermsConfirmed; });
                                   },
-                                  focusColor: primary,
+                                  focusColor: PRIMARY,
                                   autofocus: true,
                               ),
                               Text("اوافق علي  ",
-                                  style: TextStyle( color: primary, fontSize: 10.sp)),
+                                  style: TextStyle( color: PRIMARY, fontSize: 10.sp)),
                               InkWell(
                                 child: Text("الشروط و الاحكام",
                                     style: TextStyle(
-                                        color: primary,
+                                        color: PRIMARY,
                                         fontSize: 10.sp,
                                         decoration: TextDecoration.underline)),
                                 onTap: () {

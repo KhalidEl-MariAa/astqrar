@@ -45,24 +45,24 @@ class MoreTab extends StatelessWidget
                 SizedBox(
                   height: 1.5.h,
                 ),
-                if (isLogin)
+                if (IS_LOGIN)
                   Container(
                     height: 9.h,
                     decoration: BoxDecoration(
-                        color: primary,
+                        color: PRIMARY,
                         borderRadius: BorderRadius.circular(30)),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 2.w),
                       child: Row(
                         children: [
-                          if (isLogin)
+                          if (IS_LOGIN)
                             Container(
                               height: 8.h,
                               width: 12.w,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
-                                      image: genderUser == 1
+                                      image: GENDER_USER == 1
                                           ? AssetImage(maleImage)
                                           : AssetImage(femaleImage))),
                             ),
@@ -76,26 +76,26 @@ class MoreTab extends StatelessWidget
                                 height: 1.h,
                               ),
                               Text(
-                                name ?? "",
-                                style: TextStyle(color: white, fontSize: 10.sp),
+                                NAME ?? "",
+                                style: TextStyle(color: WHITE, fontSize: 10.sp),
                               ),
                               SizedBox(
                                 height: 1.3.h,
                               ),
                               Text(
-                                email ?? "",
+                                EMAIL ?? "",
                                 style: TextStyle(color: Colors.black87),
                               )
                             ],
                           ),
                           const Spacer(),
-                          if (isLogin)
+                          if (IS_LOGIN)
                             InkWell(
                               onTap: () { SettingsCubit.get(context).logOut(); },
                               child: Text(
                                 "تسجيل الخروج",
                                 style: TextStyle(
-                                    color: white,
+                                    color: WHITE,
                                     fontSize: 11.sp,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -112,9 +112,9 @@ class MoreTab extends StatelessWidget
                   shadowColor: Colors.grey,
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
-                    height: isLogin ? 55.h : 35.h,
+                    height: IS_LOGIN ? 55.h : 35.h,
                     decoration: BoxDecoration(
-                        color: white, borderRadius: BorderRadius.circular(12)),
+                        color: WHITE, borderRadius: BorderRadius.circular(12)),
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(
                         top: 2.h,
@@ -124,7 +124,7 @@ class MoreTab extends StatelessWidget
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (isLogin)
+                          if (IS_LOGIN)
                             Text("الاعدادات",
                               style: GoogleFonts.poppins(
                                 fontSize: 13.sp, color: Colors.grey[600]
@@ -138,11 +138,11 @@ class MoreTab extends StatelessWidget
                               image: "assets/man-user.png",
                               text: "صورة الملف الشخصي",
                               value: false),*/
-                          if (isLogin)
+                          if (IS_LOGIN)
                             SizedBox(
                               height: 2.h,
                             ),
-                          if (isLogin)
+                          if (IS_LOGIN)
                             InkWell(
                                 child: DefaultRaw(
                                     image: "assets/man-user.png",
@@ -175,7 +175,7 @@ class MoreTab extends StatelessWidget
                           
                           SizedBox(height: 1.h,),
 
-                          if (isLogin)
+                          if (IS_LOGIN)
                             InkWell(
                                 onTap: () {
                                   showCupertinoDialog(

@@ -64,13 +64,13 @@ class _LayoutScreenState extends State<LayoutScreen>
             children: [
               InkWell(
                 onTap: () {
-                  if (isLogin == false) {
+                  if (IS_LOGIN == false) {
                     showDialog(
                         context: context,
                         builder: (context) => DialogPleaseLogin());
                   }
                   setState(() {
-                    if (isLogin) _selectedTab = 0;
+                    if (IS_LOGIN) _selectedTab = 0;
                   });
                 },
                 child: Column(
@@ -81,14 +81,14 @@ class _LayoutScreenState extends State<LayoutScreen>
                       child: Image.asset(
                         'assets/Favourite.png',
                         color:
-                            _selectedTab == 0 ? primary : Color(0xff707B81),
+                            _selectedTab == 0 ? PRIMARY : Color(0xff707B81),
                       ),
                     ),
                     Text(
                       "المفضلة",
                       style: TextStyle(
                           color: _selectedTab == 0
-                              ? primary
+                              ? PRIMARY
                               : Color(0xff707B81),
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w600),
@@ -98,14 +98,14 @@ class _LayoutScreenState extends State<LayoutScreen>
               ),
               InkWell(
                 onTap: () {
-                  if (isLogin == false) {
+                  if (IS_LOGIN == false) {
                     showDialog(
                         context: context,
                         builder: (context) => DialogPleaseLogin());
                   }
 
                   setState(() {
-                    if (isLogin) _selectedTab = 1;
+                    if (IS_LOGIN) _selectedTab = 1;
                   });
                 },
                 child: Column(
@@ -114,7 +114,7 @@ class _LayoutScreenState extends State<LayoutScreen>
                       padding: EdgeInsetsDirectional.only(
                           start: 1.8.w, top: 0.5.h),
                       child: Image.asset('assets/notification.png',
-                          color: _selectedTab == 1 ? primary : customGrey),
+                          color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY),
                     ),
                     SizedBox(
                       height: 0.3.h,
@@ -123,7 +123,7 @@ class _LayoutScreenState extends State<LayoutScreen>
                       "الاشعارات",
                       style: TextStyle(
                           color: _selectedTab == 1
-                              ? primary
+                              ? PRIMARY
                               : Color(0xff707B81),
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w600),
@@ -136,13 +136,13 @@ class _LayoutScreenState extends State<LayoutScreen>
               
               InkWell(
                 onTap: () {
-                  if (isLogin == false) {
+                  if (IS_LOGIN == false) {
                     showDialog(
                         context: context,
                         builder: (context) => DialogPleaseLogin());
                   }
                   setState(() {
-                    if (isLogin) { _selectedTab = 3; }
+                    if (IS_LOGIN) { _selectedTab = 3; }
                   });
                 },
                 child: Column(
@@ -150,13 +150,13 @@ class _LayoutScreenState extends State<LayoutScreen>
                     Container(
                       padding: EdgeInsetsDirectional.only( start: 1.8.w, top: 0.5.h),
                       child: Image.asset('assets/chat.png',
-                          color: _selectedTab == 3 ? primary : customGrey),
+                          color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY),
                     ),
                     SizedBox( height: 0.3.h, ),
                     Text(
                       "المحادثات",
                       style: TextStyle(
-                          color: _selectedTab == 3 ? primary : customGrey,
+                          color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY,
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w600),
                     )
@@ -174,13 +174,13 @@ class _LayoutScreenState extends State<LayoutScreen>
                       padding: EdgeInsetsDirectional.only(
                           start: 1.8.w, top: 0.5.h, end: 1.w),
                       child: Image.asset('assets/more.png',
-                          color: _selectedTab == 4 ? primary : customGrey),
+                          color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY),
                     ),
                     SizedBox(height: 0.3.h),
                     Text(
                       "المزيد",
                       style: TextStyle(
-                          color: _selectedTab == 4 ? primary : customGrey,
+                          color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY,
                           fontSize: 10.sp,
                           fontWeight: FontWeight.w600),
                     )
@@ -202,11 +202,11 @@ class _LayoutScreenState extends State<LayoutScreen>
 
       child: Container(
         width: 10.w,
-        color: primary,
+        color: PRIMARY,
         child: Image.asset('assets/home.png'),
       ),
 
-      backgroundColor: primary,
+      backgroundColor: PRIMARY,
     );
   }
 }//------------------

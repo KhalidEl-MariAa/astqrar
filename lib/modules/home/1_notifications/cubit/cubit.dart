@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../constants.dart';
 import '../../../../models/get_notifications.dart';
 import '../../../../models/server_response_model.dart';
-import '../../../../shared/network/end_points.dart';
+import '../../../../end_points.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -23,7 +23,7 @@ class NotificationCubit extends Cubit<NotificationStates>
 
     DioHelper.getDataWithBearerToken(
       url: GETNOTIFICATIONS,
-      token: token.toString()
+      token: TOKEN.toString()
     ).then((value) {
 
       log(value.toString());
@@ -49,7 +49,7 @@ class NotificationCubit extends Cubit<NotificationStates>
       data: {
         "userId":userId,
     },
-    token: token.toString()
+    token: TOKEN.toString()
     ).then((value) {
       log(value.toString());
       res = ServerResponse.fromJson(value.data);
@@ -60,7 +60,7 @@ class NotificationCubit extends Cubit<NotificationStates>
       sendNotification(
         userid: userId, 
         type: 1,
-        body: "تم قبول طلب المحادثة من قبل $name", 
+        body: "تم قبول طلب المحادثة من قبل $NAME", 
         title: ""
       );
     }).catchError((error){
@@ -79,7 +79,7 @@ class NotificationCubit extends Cubit<NotificationStates>
       data: {
         "userId":userId,
       },
-      token: token.toString()
+      token: TOKEN.toString()
     ).then((value) {
       log(value.toString());
       res = ServerResponse.fromJson(value.data);
@@ -90,7 +90,7 @@ class NotificationCubit extends Cubit<NotificationStates>
       sendNotification(
         userid: userId, 
         type: 2,
-        body: "تم رفض طلب المحادثة من قبل $name", 
+        body: "تم رفض طلب المحادثة من قبل $NAME", 
         title: "");
     }).catchError((error){
       log(error.toString());
@@ -101,7 +101,7 @@ class NotificationCubit extends Cubit<NotificationStates>
   //send notification
   sendNotification({required String userid,required int type,required String body,required String title}){
     emit(SendNotificationLoadingState());
-    DioHelper.postDataWithBearearToken(token: token.toString(),url: SENDNOTIFICATION, data: {
+    DioHelper.postDataWithBearearToken(token: TOKEN.toString(),url: SENDNOTIFICATION, data: {
       "userId":userid,
       "projectName":"استقرار",
       "deviceType":Platform.isIOS?"ios":"android",

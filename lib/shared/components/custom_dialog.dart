@@ -42,7 +42,7 @@ class CustomDialog extends StatelessWidget
           height: 13.h,
           width: 90.w,
           decoration: BoxDecoration(
-              color: white,
+              color: WHITE,
               borderRadius:
               BorderRadius.circular(
                   15)),
@@ -65,7 +65,7 @@ class CustomDialog extends StatelessWidget
                       "السعر :${price}  ريال",
                       style:
                       GoogleFonts.almarai(
-                          color: primary,
+                          color: PRIMARY,
                           fontSize: 12.sp,
                           fontWeight:
                           FontWeight
@@ -118,12 +118,12 @@ class CustomDialog extends StatelessWidget
                         Radius
                             .circular(
                             12.0)),
-                    color: primary),
+                    color: PRIMARY),
                 child: MaterialButton(
                     child: Text(
                       "اضغط هنا لمراسلة الادمن لتاكيد الدفع",
                       style: TextStyle(
-                          color: white),
+                          color: WHITE),
                     ),
 
                     onPressed: () async 
@@ -131,7 +131,7 @@ class CustomDialog extends StatelessWidget
                       // Convert the WhatsAppUnilink instance to a Uri.
                       // The "launch" method is part of "url_launcher".
                       final link = WhatsAppUnilink(
-                        phoneNumber: mobilePhone,
+                        phoneNumber: MOBILE_PHONE,
                         text: text,
                       );
 

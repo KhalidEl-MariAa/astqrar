@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 import '../../../models/get-messages-model.dart';
-import '../../../shared/network/end_points.dart';
+import '../../../end_points.dart';
 import '../../../shared/network/remote.dart';
 import '../chatt.dart';
 import 'states.dart';
@@ -28,12 +28,12 @@ class ConversationCubit extends Cubit<ConversationStates>
       typeUserChat?
       "                              نظام مكافحة جريمة التحرش \n\n                                              المادة الاولى: \n\n يقصد بجريمة التحرش, لغرض تطبيق احكام هذا النظام كل قول او فعل او اشارة ذات مدلول جنسي تصدر من شخص تجاه اي شخص اخر , تمس جسده او عرضه , او تخدش حياءه , بأي وسيلة كانت ,بما فما ذلك وسائل التقنية الحديثة."
    :"لا يحق طلب استرجاع المبلغ المدفوع في الحالات التالية :\n\n-الغاء الخطابة . \n\n-الانسحاب من التطبيق. \n\n-حذف العضوية بسبب مخالفة شروط و احكام التطبيق. \n\n-تواصل العميل مع الخطابة او دفع مبلغ السعي للخطابة خارج التطبيق. \n\n-في حال عدم الرد العميل لمدة تتجاوز الشهر ." ];
-    ConversationScreenState.senderIdList = [id!];
+    ConversationScreenState.senderIdList = [ID!];
     ConversationScreenState.messagesMine = [true];
     ConversationScreenState.dateMessages = ["1/1/2002"];
 
     DioHelper.postData(url: GETMESSAGES, data: {
-      "SenderId": id,
+      "SenderId": ID,
       "ReceiverId": userId,
       "OrderId": 0,
       "Type": 1,
@@ -51,7 +51,7 @@ class ConversationCubit extends Cubit<ConversationStates>
             DateFormat('  dd / MM/ yyyy  HH : mm', 'ar_SA')
                 .format(DateTime.parse(getMessagesModel.data[i].date!)));
         log(ConversationScreenState.senderIdList.toString());
-        if (id == getMessagesModel.data[i].senderId) {
+        if (ID == getMessagesModel.data[i].senderId) {
           getMessagesModel.data[i].isMine = true;
           ConversationScreenState.messagesMine.add(true);
         } else {
@@ -100,7 +100,7 @@ late ChatModel chat;
     ConversationScreenState.messages
         .add(ConversationScreenState.messagecontroller.text);
     ConversationScreenState.messagesMine.add(true);
-    ConversationScreenState.senderIdList.add(id!);
+    ConversationScreenState.senderIdList.add(ID!);
     ConversationScreenState.dateMessages
         .add(DateFormat('HH : mm', 'ar_SA').format(DateTime.now()));
 

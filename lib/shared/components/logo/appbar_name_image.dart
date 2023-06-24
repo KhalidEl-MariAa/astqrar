@@ -26,24 +26,24 @@ class AppBarWithNameAndImage extends StatelessWidget {
               height: 3.h,
             ),
             Text(
-              isLogin?name!:"اهلا بك ",
-              style: TextStyle(color: white,fontSize: 11.sp),
+              IS_LOGIN?NAME!:"اهلا بك ",
+              style: TextStyle(color: WHITE,fontSize: 11.sp),
             ),
 
-            if(isLogin)    Text(
-              age! + " " + "عاما",
+            if(IS_LOGIN)    Text(
+              AGE! + " " + "عاما",
               textAlign: TextAlign.start,
               style:
-              TextStyle(color: customGrey, fontSize: 11.sp),
+              TextStyle(color: CUSTOME_GREY, fontSize: 11.sp),
             ),
-            if(isLogin==false)
+            if(IS_LOGIN==false)
               Row(
                 children: [
                   Text(
                     "سجل دخول",
                     textAlign: TextAlign.start,
                     style:
-                    TextStyle(color: white, fontSize: 10.sp),
+                    TextStyle(color: WHITE, fontSize: 10.sp),
                   ),
                   SizedBox(width: 1.w,),
                   InkWell(
@@ -54,7 +54,7 @@ class AppBarWithNameAndImage extends StatelessWidget {
                       "من هنا",
                       textAlign: TextAlign.start,
                       style:
-                      TextStyle(color: white, fontSize: 10.sp,decoration:TextDecoration.underline),
+                      TextStyle(color: WHITE, fontSize: 10.sp,decoration:TextDecoration.underline),
                     ),
                   ),
                 ],
@@ -76,7 +76,7 @@ class AppBarWithNameAndImage extends StatelessWidget {
                 padding: EdgeInsetsDirectional.only(start: 3.w,top:0.h ),
                 child: Icon(
                   Icons.arrow_back_ios,
-                  color: white,
+                  color: WHITE,
                   size: 13.sp,
                 ),
               ),
@@ -92,7 +92,7 @@ class AppBarWithNameAndImage extends StatelessWidget {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: genderUser == 1
+                        image: GENDER_USER == 1
                             ? AssetImage(maleImage)
                             : AssetImage(
                             femaleImage))),

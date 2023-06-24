@@ -65,7 +65,7 @@ class ConversationScreenState extends State<ConversationScreen>
         log(e.toString()); 
       } );
 
-    hub.invoke('Connect', args: [id!])
+    hub.invoke('Connect', args: [ID!])
       .then((value) => print("connected user success"))
       .catchError( (e)  { 
         log('USER is DISCONNECTED.......') ;
@@ -157,7 +157,7 @@ class ConversationScreenState extends State<ConversationScreen>
                           ),
                           Text(
                             widget.userName,
-                            style: TextStyle(color: white,fontSize: 11.5.sp),
+                            style: TextStyle(color: WHITE,fontSize: 11.5.sp),
                           ),
                           SizedBox(
                             height: 0.2.h,
@@ -165,7 +165,7 @@ class ConversationScreenState extends State<ConversationScreen>
                           Text(
                             status,
                             style: GoogleFonts.almarai(
-                                color: customGrey, fontSize: 11.sp),
+                                color: CUSTOME_GREY, fontSize: 11.sp),
                           )
                         ],
                       ),
@@ -267,9 +267,9 @@ class ConversationScreenState extends State<ConversationScreen>
                                       bottom: 2.h),
                                   decoration: BoxDecoration(
                                       color: index == messages.length - 1 ? 
-                                          backGround 
+                                          BG_DARK_COLOR 
                                           : 
-                                          messagesMine.reversed.toList()[index]? primary: white,
+                                          messagesMine.reversed.toList()[index]? PRIMARY: WHITE,
                                       borderRadius:
                                         BorderRadius.only(
                                             bottomLeft: messagesMine
@@ -292,8 +292,8 @@ class ConversationScreenState extends State<ConversationScreen>
                                     style: GoogleFonts.almarai(
                                         color: messagesMine.reversed
                                                 .toList()[index]
-                                            ? white
-                                            : black,fontSize: index==messages.length-1?10.sp:null),
+                                            ? WHITE
+                                            : BLACK,fontSize: index==messages.length-1?10.sp:null),
                                   ),
                                 ),
                                 Visibility(
@@ -392,7 +392,7 @@ class ConversationScreenState extends State<ConversationScreen>
                         },
                         child: Icon(
                           Icons.send,
-                          color: white,
+                          color: WHITE,
                         ),
                       ),
                       hintText: "اكتب رسالة",
@@ -407,7 +407,7 @@ class ConversationScreenState extends State<ConversationScreen>
                               const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(20)),
                       filled: true,
-                      fillColor: primary,
+                      fillColor: PRIMARY,
                       hintStyle:
                           GoogleFonts.almarai(fontSize: 10.sp)),
                 ),
@@ -432,7 +432,7 @@ class ConversationScreenState extends State<ConversationScreen>
 
     await hub.invoke(
       'SendMessagee', 
-      args: [id!, widget.userId, messagecontroller.text, 0, 1, 1]
+      args: [ID!, widget.userId, messagecontroller.text, 0, 1, 1]
     ).then((value) {
       log("ggggg");
       ConversationCubit.get(context).send();

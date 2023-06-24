@@ -7,7 +7,7 @@ import '../../../models/add_to_favourite.dart';
 import '../../../models/get_information_user.dart';
 import 'states.dart';
 import '../../../constants.dart';
-import '../../../shared/network/end_points.dart';
+import '../../../end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +22,7 @@ class GetInformationCubit extends Cubit<GetInformationStates>
 
   userOrVisitorToGetInformation({required String userId})
   {
-    if(isLogin){
+    if(IS_LOGIN){
       getInformationUser(otherId: userId);
     }else{
       getInformationUserByVisitor(userId: userId);
@@ -36,12 +36,12 @@ class GetInformationCubit extends Cubit<GetInformationStates>
       DioHelper.getDataWithQuery(
               url: GETINFORMATIONUSER,
               query: {"otherId": otherId},
-              token: token.toString())
+              token: TOKEN.toString())
     .then((value) 
     {
       getInformationUserModel = GetInformationUserModel.fromJson(value.data);
       emit(GetInformationSuccessState());
-      sendNotification(userid: otherId, type: 3, body:"تمت زيارة صفحتك من قبل $name", title: "");
+      sendNotification(userid: otherId, type: 3, body:"تمت زيارة صفحتك من قبل $NAME", title: "");
     }).catchError((error) 
     {
       emit(GetInformationErrorState(error.toString()));
@@ -77,10 +77,10 @@ class GetInformationCubit extends Cubit<GetInformationStates>
     DioHelper.postDataWithBearearToken(
       url: ADDTOFAVOURITE,
       data: {
-        "CurrentUserId": id,
+        "CurrentUserId": ID,
         "FavUserId": userId,
       },
-      token: token.toString()
+      token: TOKEN.toString()
     ).then((value) 
     {
       log(value.toString());
@@ -103,11 +103,11 @@ class GetInformationCubit extends Cubit<GetInformationStates>
     DioHelper.postDataWithBearearToken(
         url: DELETEFROMFAVOURITE,
         data: {
-          "CurrentUserId": id,
+          "CurrentUserId": ID,
           "FavUserId": userId,
           "IsDeleted":true
         },
-        token: token.toString())
+        token: TOKEN.toString())
         .then((value) {
       // log(value.toString());
       deleteFromFavouriteModel = AddToFavouriteModel.fromJson(value.data);
@@ -148,7 +148,7 @@ class GetInformationCubit extends Cubit<GetInformationStates>
     DioHelper.postDataWithBearearToken(
       url: ADD_HIM_TO_MY_CONTACTS, 
       data: { "userId":userId }, 
-      token: token.toString())
+      token: TOKEN.toString())
     .then((value) {
       res = ServerResponse.fromJson(value.data);
       if( res.key == 0){
@@ -165,7 +165,7 @@ class GetInformationCubit extends Cubit<GetInformationStates>
       sendNotification(
         userid: userId, 
         type: 0, 
-        body:  "قام " + name! + " بإضافتك الى قائمته وبإمكانك بدء المحادثه معه ", 
+        body:  "قام " + NAME! + " بإضافتك الى قائمته وبإمكانك بدء المحادثه معه ", 
         title: "طلب محادثة");
 
       emit(AddHimToMyContactsLoadingSuccess( res.msg! ));
@@ -181,7 +181,7 @@ class GetInformationCubit extends Cubit<GetInformationStates>
       emit(SendNotificationLoadingState());
 
       DioHelper.postDataWithBearearToken(
-        token: token.toString(),
+        token: TOKEN.toString(),
         url: SENDNOTIFICATION, 
         data: {
           "userId":userid,

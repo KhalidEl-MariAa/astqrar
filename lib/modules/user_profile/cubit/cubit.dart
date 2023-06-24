@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/login.dart';
 import '../../../models/user.dart';
 import '../../../constants.dart';
-import '../../../shared/network/end_points.dart';
+import '../../../end_points.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
@@ -27,12 +27,12 @@ class UserProfileCubit extends Cubit<UserProfileStates>
     DioHelper.postDataWithBearearToken(
             url: GETPROFILEDATA, 
             data: {}, 
-            token: token.toString()
+            token: TOKEN.toString()
     ).then((value) {
 
       user = User.fromJson(value.data["data"]);
 
-      genderUser = user.gender!;
+      GENDER_USER = user.gender!;
       print("-----------9-9-9-9-9-9-9-9-9-9-9-9-9-9-");
 
       emit(GetUserDataSucccessState(user));
@@ -78,7 +78,7 @@ class UserProfileCubit extends Cubit<UserProfileStates>
     DioHelper.postDataWithImage(
       url: UPDATEUSERDATA,
       data: formData,
-      token: token.toString(),
+      token: TOKEN.toString(),
       length: 0      
     )
     .then((value) {
@@ -86,9 +86,9 @@ class UserProfileCubit extends Cubit<UserProfileStates>
 
       updateUserDataModel = LoginModel.fromJson(value.data);
       
-      name = CacheHelper.getData(key: "name");
-      age = CacheHelper.getData(key: "age");
-      email = CacheHelper.getData(key: "email");
+      NAME = CacheHelper.getData(key: "name");
+      AGE = CacheHelper.getData(key: "age");
+      EMAIL = CacheHelper.getData(key: "email");
 
       CacheHelper.saveData(key: "name", value: updateUserDataModel.data!.userName);
       CacheHelper.saveData(key: "age", value: updateUserDataModel.data!.age.toString());

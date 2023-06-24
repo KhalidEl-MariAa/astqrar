@@ -44,7 +44,7 @@ class ForgetPasswordScreen extends StatelessWidget
         builder: (context, state) => Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            backgroundColor: backGround,
+            backgroundColor: BG_DARK_COLOR,
             body: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.3.h),
               child: SingleChildScrollView(
@@ -53,7 +53,7 @@ class ForgetPasswordScreen extends StatelessWidget
                     SizedBox(height: 3.h, ),
                     const  HeaderLogo(),
                     Text( "طلب استعادة كلمة المرور",
-                      style: TextStyle(color: primary, fontSize: 15.sp),
+                      style: TextStyle(color: PRIMARY, fontSize: 15.sp),
                     ),
                     SizedBox( height: 4.5.h, ),                    
                     
@@ -110,7 +110,7 @@ class ForgetPasswordScreen extends StatelessWidget
                       text: "مراسلة الادمن لاستعادة كلمة السر ",
                       onPressed: () async {
                         final link = WhatsAppUnilink(
-                          phoneNumber: mobilePhone,
+                          phoneNumber: MOBILE_PHONE,
                           text: "مرحبا \n اريد استعادة كلمة المرور ",
                         );
                   

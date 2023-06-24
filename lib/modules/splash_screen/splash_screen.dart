@@ -23,7 +23,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    if(isLogin && typeOfUser==1){
+    if(IS_LOGIN && TYPE_OF_USER==1){
       checkuserIsExpired();
     }
     checkingData();
@@ -33,7 +33,7 @@ class _SplashState extends State<Splash> {
   checkingData() async {
     //  GlobalNotification.instance.setupNotification(context);
     Future.delayed(const Duration(seconds: 4), (() {
-      if(isLogin == false) 
+      if(IS_LOGIN == false) 
       {
         Navigator.pushAndRemoveUntil(
           context,
@@ -42,7 +42,7 @@ class _SplashState extends State<Splash> {
         );
       }
 
-      if(isLogin==true && typeOfUser==1)
+      if(IS_LOGIN==true && TYPE_OF_USER==1)
       {
         if(isExpired==true || IS_DEVELOPMENT_MODE){
           Navigator.pushAndRemoveUntil(
@@ -85,8 +85,8 @@ class _SplashState extends State<Splash> {
 
   checkuserIsExpired(){
   DioHelper.postDataWithBearearToken(
-    url: "api/v1/CheckUserIsExpiret?userId=$id", 
-    data: {},token: token.toString())
+    url: "api/v1/CheckUserIsExpiret?userId=$ID", 
+    data: {},token: TOKEN.toString())
   .then((value) {
     log(value.toString());
     isExpired=value.data['isActive'];
@@ -101,11 +101,11 @@ class _SplashState extends State<Splash> {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
-        backgroundColor: HexColor("303031"),
+        backgroundColor: BG_DARK_COLOR,
         body: Container(
           height: MediaQuery.of(context).size.height,
           alignment: Alignment.bottomCenter,
-          color: backGround,
+          color: BG_DARK_COLOR,
           child: Center(
             child: AnimatedContainer(
               curve: Curves.easeInCirc,

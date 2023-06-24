@@ -21,7 +21,7 @@ class StatusButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: white,
+            color: WHITE,
             fontSize: 12.sp,
           ),
         ),

@@ -29,11 +29,11 @@ class SliderAds extends StatelessWidget
             width: double.infinity,
             height: 25.h,
             decoration: BoxDecoration(
-                color: HexColor("303031"),
+                color: BG_DARK_COLOR,
                 borderRadius: BorderRadius.circular(15)),
             child: InkWell(
               onTap: (){
-                if(isLogin==true){
+                if(IS_LOGIN==true){
                   GetInformationCubit.get(context)
                       .getInformationUser(
                       otherId:
@@ -91,7 +91,7 @@ class SliderAds extends StatelessWidget
                             .data[realindex]
                             .userName!,
                         style: TextStyle(
-                            color: white, fontSize: 11.sp),
+                            color: WHITE, fontSize: 11.sp),
                       ),
                       SizedBox(
                         height: 2.h,
@@ -110,7 +110,7 @@ class SliderAds extends StatelessWidget
                                     .toString()
                                 ,
                                 textAlign: TextAlign.start,
-                                style: GoogleFonts.almarai(color: HexColor("A4A4A4"))
+                                style: GoogleFonts.almarai(color: CUSTOME_GREY_2)
                             ),
                             Text(
                                 "الجنسية : "+HomeCubit.get(context)
@@ -120,7 +120,7 @@ class SliderAds extends StatelessWidget
                                     .toString()
                                 ,
                                 textAlign: TextAlign.start,
-                                style: GoogleFonts.almarai(color: HexColor("A4A4A4"))
+                                style: GoogleFonts.almarai(color: CUSTOME_GREY_2)
                             ),
                             SizedBox(height: 0.5.h,),
 
@@ -128,7 +128,7 @@ class SliderAds extends StatelessWidget
                             Text(
                                 "نوع الزواج : " + "--------",
                                 textAlign: TextAlign.start,
-                                style: GoogleFonts.almarai(color: HexColor("A4A4A4"),fontSize: 10.sp)
+                                style: GoogleFonts.almarai(color: CUSTOME_GREY_2,fontSize: 10.sp)
                             ),
                             
                             // Text(
@@ -139,7 +139,7 @@ class SliderAds extends StatelessWidget
                             //         .toString()
                             //     ,
                             //     textAlign: TextAlign.start,
-                            //     style: GoogleFonts.almarai(color: HexColor("A4A4A4"),fontSize: 10.sp)
+                            //     style: GoogleFonts.almarai(color: customGrey2,fontSize: 10.sp)
                             // ),
                           ],
                         ),

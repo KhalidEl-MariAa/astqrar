@@ -39,11 +39,11 @@ class SectionMenOrWomen extends StatelessWidget
       builder: (context, state) => 
         ConditionalBuilder(
           condition: state is GetUserByGenderLoadingState,
-          builder: (context) => Scaffold(backgroundColor: white, body: const LoadingGif()),
+          builder: (context) => Scaffold(backgroundColor: WHITE, body: const LoadingGif()),
           fallback: (context) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
-              backgroundColor: HexColor("#FFFFFF"),
+              backgroundColor: Colors.white,
               body: Container(
                 width: double.infinity,
                 child: SingleChildScrollView(
@@ -79,24 +79,24 @@ class SectionMenOrWomen extends StatelessWidget
                                         height: 1.h,
                                       ),
                                       Text(
-                                        isLogin ? name! : "اهلا بك ",
+                                        IS_LOGIN ? NAME! : "اهلا بك ",
                                         style: TextStyle(
-                                            color: white, fontSize: 11.sp),
+                                            color: WHITE, fontSize: 11.sp),
                                       ),
-                                      if (isLogin)
+                                      if (IS_LOGIN)
                                         Text(
-                                          age! + " " + "عاما",
+                                          AGE! + " " + "عاما",
                                           style: TextStyle(
-                                              color: customGrey, fontSize: 10.sp),
+                                              color: CUSTOME_GREY, fontSize: 10.sp),
                                         ),
-                                      if (isLogin == false)
+                                      if (IS_LOGIN == false)
                                         Row(
                                           children: [
                                             Text(
                                               "سجل دخول",
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
-                                                  color: white, fontSize: 10.sp),
+                                                  color: WHITE, fontSize: 10.sp),
                                             ),
                                             SizedBox(
                                               width: 1.w,
@@ -113,7 +113,7 @@ class SectionMenOrWomen extends StatelessWidget
                                                 "من هنا",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    color: white,
+                                                    color: WHITE,
                                                     fontSize: 10.sp,
                                                     decoration:
                                                         TextDecoration.underline),
@@ -138,7 +138,7 @@ class SectionMenOrWomen extends StatelessWidget
                                           padding: EdgeInsetsDirectional.only(start: 3.w,top:0.h ),
                                           child: Icon(
                                             Icons.arrow_back_ios,
-                                            color: white,
+                                            color: WHITE,
                                             size: 13.sp,
                                           ),
                                         ),
@@ -154,7 +154,7 @@ class SectionMenOrWomen extends StatelessWidget
                                                 decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     image: DecorationImage(
-                                                        image: genderUser == 1
+                                                        image: GENDER_USER == 1
                                                             ? AssetImage(maleImage)
                                                             : AssetImage(
                                                                 femaleImage))),
@@ -176,7 +176,7 @@ class SectionMenOrWomen extends StatelessWidget
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) => ChoiceChip (
-                                  selectedColor: primary,
+                                  selectedColor: PRIMARY,
                                   onSelected: (bool value) 
                                   {
                                     GetUserByGenderCubit.get(context)
@@ -208,7 +208,7 @@ class SectionMenOrWomen extends StatelessWidget
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) => ChoiceChip(
-                              selectedColor: primary,
+                              selectedColor: PRIMARY,
                               onSelected: (bool value) {
                                 GetUserByGenderCubit.get(context)
                                     .changeindextwosection(
@@ -239,7 +239,7 @@ class SectionMenOrWomen extends StatelessWidget
                             itemCount: threeSection.length,
                             separatorBuilder: (context, index) => SizedBox(width: 1.w,),
                             itemBuilder: (context, index) => ChoiceChip(
-                              selectedColor: primary,
+                              selectedColor: PRIMARY,
                               onSelected: (bool value) {
                                 GetUserByGenderCubit.get(context)
                                     .changeindexthreesection(
@@ -295,7 +295,7 @@ class SectionMenOrWomen extends StatelessWidget
 
   void onClickUserItem(BuildContext context, int index) 
   {
-    if (isLogin == true) 
+    if (IS_LOGIN == true) 
      {
       GetInformationCubit.get(context)
           .getInformationUser(

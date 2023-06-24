@@ -20,7 +20,7 @@ class EmptySlider extends StatelessWidget
             width: double.infinity,
             height: 35.h,
             decoration: BoxDecoration(
-                color: backGround,
+                color: BG_DARK_COLOR,
                 borderRadius: BorderRadius.circular(15)),
             child: InkWell(
               onTap: (){ },

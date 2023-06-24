@@ -49,7 +49,7 @@ class NameWithTitleWithRATE extends StatelessWidget {
                       " ",
                       textAlign: TextAlign.start,
                       style: GoogleFonts.poppins(
-                          color: black, fontSize: 8.sp)),
+                          color: BLACK, fontSize: 8.sp)),
                 ],
               ),
            const   Spacer(),
@@ -58,7 +58,7 @@ class NameWithTitleWithRATE extends StatelessWidget {
                   Text(userRate,style: GoogleFonts.poppins(fontSize: 8.sp),),
                   Icon(
                     Icons.star,
-                    color: primary,
+                    color: PRIMARY,
                   )
                 ],
               )

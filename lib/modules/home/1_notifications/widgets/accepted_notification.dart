@@ -90,7 +90,7 @@ class AcceptNotification extends StatelessWidget
                               //     context: context,
                               //     builder: (context) => SuccessDialog());
                             },
-                            child: StatusButton(text: "قبول", color: primary)),
+                            child: StatusButton(text: "قبول", color: PRIMARY)),
                         SizedBox(
                           width: 3.w,
                         ),
@@ -106,7 +106,7 @@ class AcceptNotification extends StatelessWidget
                       DateFormat.yMMMMd().format(DateTime.parse(time)),
                       //    "12 Aug , 5:20 Pm",
                       style: GoogleFonts.poppins(
-                          color: customGrey, fontSize: 7.sp),
+                          color: CUSTOME_GREY, fontSize: 7.sp),
                     )
                 ],
               ),
@@ -114,7 +114,7 @@ class AcceptNotification extends StatelessWidget
               if (notificationType == 0)
                 Text(
                   DateFormat.yMMMEd().format(DateTime.parse(time)),
-                  style: GoogleFonts.poppins(color: customGrey, fontSize: 7.sp),
+                  style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 7.sp),
                 )
             ],
           ),

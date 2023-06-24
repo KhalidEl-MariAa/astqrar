@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants.dart';
 import '../../models/server_response_model.dart';
 import '../../models/user.dart';
-import '../../shared/network/end_points.dart';
+import '../../end_points.dart';
 import '../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -29,9 +29,9 @@ class RegisterCubit extends Cubit<RegisterState>
     }
  
     Map registeration_data = newUser.toMap();
-    registeration_data['deviceIdReg']= token;
-    registeration_data['deviceType']= token;
-    registeration_data['projectName']= token;
+    registeration_data['deviceIdReg']= TOKEN;
+    registeration_data['deviceType']= TOKEN;
+    registeration_data['projectName']= TOKEN;
 
     DioHelper.postData(
       url: REGISTERCLIENT, 

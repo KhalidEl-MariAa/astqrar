@@ -46,7 +46,7 @@ class _ResultScreenState extends State<ResultScreen>
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
-              backgroundColor: white,
+              backgroundColor: WHITE,
               body: Container(
                 width: double.infinity,
                 child: SingleChildScrollView(
@@ -62,7 +62,7 @@ class _ResultScreenState extends State<ResultScreen>
                             top: 0,
                             right: 0,
                             left: 0,
-                            bottom: isLogin ? 3.h : 4.h,
+                            bottom: IS_LOGIN ? 3.h : 4.h,
                             child: PreferredSize(
                               preferredSize: Size.fromHeight(18.h),
                               child: Container(
@@ -80,28 +80,28 @@ class _ResultScreenState extends State<ResultScreen>
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: isLogin? 2.h : 0,
+                                        height: IS_LOGIN? 2.h : 0,
                                       ),
                                       Text(
-                                        isLogin? name! : "اهلا بك ",
+                                        IS_LOGIN? NAME! : "اهلا بك ",
                                         style: TextStyle(
-                                            color: white, fontSize: 11.sp),
+                                            color: WHITE, fontSize: 11.sp),
                                       ),
-                                      if (isLogin)
+                                      if (IS_LOGIN)
                                         Text(
-                                          age! + " " + "عاما",
+                                          AGE! + " " + "عاما",
                                           style: TextStyle(
-                                              color: customGrey,
+                                              color: CUSTOME_GREY,
                                               fontSize: 11.sp),
                                         ),
-                                      if (isLogin == false)
+                                      if (IS_LOGIN == false)
                                         Row(
                                           children: [
                                             Text(
                                               "سجل دخول",
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
-                                                  color: white,
+                                                  color: WHITE,
                                                   fontSize: 10.sp),
                                             ),
                                             SizedBox(
@@ -119,7 +119,7 @@ class _ResultScreenState extends State<ResultScreen>
                                                 "من هنا",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
-                                                    color: white,
+                                                    color: WHITE,
                                                     fontSize: 10.sp,
                                                     decoration: TextDecoration
                                                         .underline),
@@ -144,7 +144,7 @@ class _ResultScreenState extends State<ResultScreen>
                                           padding: EdgeInsetsDirectional.only(start: 3.w,top:0.h ),
                                           child: Icon(
                                             Icons.arrow_back_ios,
-                                            color: white,
+                                            color: WHITE,
                                             size: 13.sp,
                                           ),
                                         ),
@@ -160,7 +160,7 @@ class _ResultScreenState extends State<ResultScreen>
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
-                                                  image: genderUser == 1
+                                                  image: GENDER_USER == 1
                                                       ? AssetImage(maleImage)
                                                       : AssetImage(
                                                       femaleImage))),
@@ -280,9 +280,9 @@ class _ResultScreenState extends State<ResultScreen>
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: 
                         defaultTextFormField(
-                            labelTextcolor: primary,
-                            borderColor: primary,
-                            container: backGround,
+                            labelTextcolor: PRIMARY,
+                            borderColor: PRIMARY,
+                            container: BG_DARK_COLOR,
                             onsubmit: (value) { start_searching(context); },
                             suffixPressed: () { start_searching(context); },
                             onchange: (value) { },
@@ -363,7 +363,7 @@ class _ResultScreenState extends State<ResultScreen>
       visibileRemoveIcon: false,
       removeUser: () {},
       onclickUser: () {
-        if (isLogin) {
+        if (IS_LOGIN) {
           GetInformationCubit.get(context)
               .getInformationUser(
                   otherId: this.searchResult[index].id!);

@@ -32,17 +32,17 @@ class StackLogo extends StatelessWidget {
                            onTap: (){
                              Navigator.pop(context);
                            },
-                             child: Icon(Icons.arrow_back_ios,color: white,size: 13.sp,)),
+                             child: Icon(Icons.arrow_back_ios,color: WHITE,size: 13.sp,)),
                         SizedBox(width:2.w),
                         Text(
                           appbarTitle,
-                          style: TextStyle(color: white),
+                          style: TextStyle(color: WHITE),
                         ),
                       ],
                     ),
                     leadingWidth: 2.w ,
                     centerTitle: false,
-                    backgroundColor: backGround,
+                    backgroundColor: BG_DARK_COLOR,
                     elevation: 0,
                     leading:
                     Container()
@@ -93,7 +93,7 @@ class StackLogo extends StatelessWidget {
                         child: Container(
                             height: 1.h,
                             width: 5.w,
-                            decoration: BoxDecoration(color: primary,shape: BoxShape.circle)),
+                            decoration: BoxDecoration(color: PRIMARY,shape: BoxShape.circle)),
                       ),
                       SizedBox(width: 0.2.w,),
                       Container(

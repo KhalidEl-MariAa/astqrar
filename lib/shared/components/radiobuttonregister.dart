@@ -10,8 +10,8 @@ class RadioButtonRegister extends StatelessWidget
   final String title;
   final Function changeFunction;
   
-  final Color unselectedWidgetColor = white;
-  final Color textWidgetColor = white;
+  final Color unselectedWidgetColor = WHITE;
+  final Color textWidgetColor = WHITE;
 
   //Constructor
   RadioButtonRegister({
@@ -32,7 +32,7 @@ class RadioButtonRegister extends StatelessWidget
             ),
             
             child: Radio<int>(
-              activeColor: primary,
+              activeColor: PRIMARY,
               value: value,
               groupValue: groupvalue,
               onChanged: (value) { changeFunction(); },
@@ -65,6 +65,6 @@ class WhiteRadioButton extends RadioButtonRegister
     changeFunction: changeFunction
   );
 
-  final Color unselectedWidgetColor = grey;
-  final Color textWidgetColor = black;
+  final Color unselectedWidgetColor = GREY;
+  final Color textWidgetColor = BLACK;
 }

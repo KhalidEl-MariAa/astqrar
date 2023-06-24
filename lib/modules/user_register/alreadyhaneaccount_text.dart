@@ -18,7 +18,7 @@ class AlreadyHaveAccountText extends StatelessWidget
         child: Text(
           "لدي حساب بالفعل ؟  تسجيل الدخول ",
           style: TextStyle(
-              color: primary,
+              color: PRIMARY,
               fontSize: 9.sp,
               fontWeight: FontWeight.w500),
         ),

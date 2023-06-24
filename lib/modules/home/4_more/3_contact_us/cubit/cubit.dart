@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../models/server_response_model.dart';
-import '../../../../../shared/network/end_points.dart';
+import '../../../../../end_points.dart';
 import '../../../../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -25,7 +25,7 @@ class ContactUsCubit extends Cubit<ContactUsStates>
         "phone":phone,
         "msg":message
       },
-      token: token.toString()
+      token: TOKEN.toString()
     )
     .then((value) {
       log(value.toString());

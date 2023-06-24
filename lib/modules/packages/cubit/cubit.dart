@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants.dart';
 import '../../../models/add_to_favourite.dart';
 import '../../../models/get_packages_model.dart';
-import '../../../shared/network/end_points.dart';
+import '../../../end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -39,8 +39,8 @@ class GetPackagesCubit extends Cubit<GetPackagesStates> {
     emit(AddPackageLoadingState());
     DioHelper.postDataWithBearearToken(
             url: ADDPACKAGE,
-            data: {"PakageId": packageId, "UserId": id},
-            token: token.toString())
+            data: {"PakageId": packageId, "UserId": ID},
+            token: TOKEN.toString())
         .then((value) {
       log(value.toString());
       addPackageModel = AddToFavouriteModel.fromJson(value.data);

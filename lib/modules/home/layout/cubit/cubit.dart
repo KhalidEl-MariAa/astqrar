@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';
 import '../../../../models/get_specifications_model.dart';
-import '../../../../shared/network/end_points.dart';
+import '../../../../end_points.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -25,7 +25,7 @@ class AppCubit extends Cubit<AppStates>
     GetSpecificationsModel getSpecificationsModel;
     await DioHelper.getDataWithBearerToken(
         url: SUBSPECIFICATIONS,
-        token: token.toString(),)
+        token: TOKEN.toString(),)
     .then((value) {
         //  print(value.toString());
         getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
@@ -79,11 +79,13 @@ class AppCubit extends Cubit<AppStates>
 
   void getPhone()
   {
-    DioHelper.postData(url: GetPhoneNumber, data: {})
+    DioHelper.postData(
+      url: GET_PHONE_NUMBER, 
+      data: {})
     .then((value) {
       // log(value.toString());
-      mobilePhone=value.data['mobilePhone'];
-      log("phonee" + mobilePhone.toString());
+      MOBILE_PHONE=value.data['mobilePhone'];
+      log("phonee" + MOBILE_PHONE.toString());
       emit(GetPhoneSuccessState());    
     }).catchError((error){
       // log(error.toString());

@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/login.dart';
 import '../../../shared/components/components.dart';
 import '../../../constants.dart';
-import '../../../shared/network/end_points.dart';
+import '../../../end_points.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
@@ -40,7 +40,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
       data: {
         "NationalID": nationalId,
         "password": password,
-        "deviceId": deviceToken
+        "deviceId": DEVICE_TOKEN
       })
       .then((value) async {
         // log(value.toString());
@@ -67,15 +67,15 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
           CacheHelper.saveData(key: "isLogin", value: false);
         }
         
-        isLogin = CacheHelper.getData(key: "isLogin");
-        phone = CacheHelper.getData(key: "phone");
-        token = CacheHelper.getData(key: "token");
-        typeOfUser = CacheHelper.getData(key: "typeUser");
-        id = CacheHelper.getData(key: "id");
-        name = CacheHelper.getData(key: "name");
-        age = CacheHelper.getData(key: "age");
-        email = CacheHelper.getData(key: "email");
-        genderUser = CacheHelper.getData(key: "gender");
+        IS_LOGIN = CacheHelper.getData(key: "isLogin");
+        PHONE = CacheHelper.getData(key: "phone");
+        TOKEN = CacheHelper.getData(key: "token");
+        TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
+        ID = CacheHelper.getData(key: "id");
+        NAME = CacheHelper.getData(key: "name");
+        AGE = CacheHelper.getData(key: "age");
+        EMAIL = CacheHelper.getData(key: "email");
+        GENDER_USER = CacheHelper.getData(key: "gender");
 
         emit(ShopLoginSuccessState(loginModel));
 

@@ -95,7 +95,7 @@ class _HomeTabState extends State<HomeTab>
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
-        backgroundColor: white,
+        backgroundColor: WHITE,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,23 +128,23 @@ class _HomeTabState extends State<HomeTab>
                                 height: 2.h,
                               ),
                               Text(
-                                isLogin? name??"XX" :"اهلا بك ",
-                                style: TextStyle(color: white,fontSize: 11.sp),
+                                IS_LOGIN? NAME??"XX" :"اهلا بك ",
+                                style: TextStyle(color: WHITE,fontSize: 11.sp),
                               ),
-                          if(isLogin)    Text(
-                              age! + " " + "عاما",
+                          if(IS_LOGIN)    Text(
+                              AGE! + " " + "عاما",
                                 textAlign: TextAlign.start,
                                 style:
-                                    TextStyle(color: customGrey, fontSize: 11.sp),
+                                    TextStyle(color: CUSTOME_GREY, fontSize: 11.sp),
                               ),
-                              if(isLogin==false)
+                              if(IS_LOGIN==false)
                                 Row(
                                   children: [
                                     Text(
                                      "سجل دخول",
                                       textAlign: TextAlign.start,
                                       style:
-                                      TextStyle(color: white, fontSize: 10.sp),
+                                      TextStyle(color: WHITE, fontSize: 10.sp),
                                     ),
                                     SizedBox(width: 1.w,),
                                     InkWell(
@@ -155,7 +155,7 @@ class _HomeTabState extends State<HomeTab>
                                         "من هنا",
                                         textAlign: TextAlign.start,
                                         style:
-                                        TextStyle(color: white, fontSize: 10.sp,decoration:TextDecoration.underline),
+                                        TextStyle(color: WHITE, fontSize: 10.sp,decoration:TextDecoration.underline),
                                       ),
                                     ),
                                   ],
@@ -176,7 +176,7 @@ class _HomeTabState extends State<HomeTab>
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: genderUser == 1
+                                        image: GENDER_USER == 1
                                             ? AssetImage(maleImage)
                                             : AssetImage(femaleImage))),
                               )),
@@ -237,7 +237,7 @@ class _HomeTabState extends State<HomeTab>
                                   borderSide: BorderSide(color: Colors.white),
                                   borderRadius: BorderRadius.circular(20)),
                               filled: true,
-                              fillColor: white,
+                              fillColor: WHITE,
                             ),
                           ),
                         ),
@@ -247,9 +247,9 @@ class _HomeTabState extends State<HomeTab>
                 ]),
               ),
               SizedBox(
-                height:isLogin&&typeOfUser==1? 1.h:5.h,
+                height:IS_LOGIN&&TYPE_OF_USER==1? 1.h:5.h,
               ),
-       if(isLogin&&typeOfUser==1)     Padding(
+       if(IS_LOGIN&&TYPE_OF_USER==1)     Padding(
                 padding:
                     EdgeInsetsDirectional.only(start: 5.w, top: 2.h, bottom: 4.h),
                 child: Row(
@@ -257,7 +257,7 @@ class _HomeTabState extends State<HomeTab>
                   children: [
                     Text("أعلن عن صفحتك الشخصية",
                         style: GoogleFonts.almarai(
-                            color: grey, 
+                            color: GREY, 
                             fontSize: 9.6.sp,
                             fontWeight: FontWeight.w600)),
                     SizedBox(
@@ -267,7 +267,7 @@ class _HomeTabState extends State<HomeTab>
                       child: Text(
                         "من هنا",
                         style: GoogleFonts.almarai(
-                            color: primary,
+                            color: PRIMARY,
                             decoration: TextDecoration.underline,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.bold),
@@ -301,7 +301,7 @@ class _HomeTabState extends State<HomeTab>
             //     child: Text(
             //         "تواصل  مع اي خطابة تريد لمساعدتك في ايجاد الشخص المناسب",
             //         style: GoogleFonts.almarai(
-            //             color: HexColor("A4A4A4"), fontSize: 8.8.sp,fontWeight: FontWeight.w600)),
+            //             color: customGrey2, fontSize: 8.8.sp,fontWeight: FontWeight.w600)),
             //   ),
             //   SizedBox(
             //     height: 1.5.h,
@@ -329,7 +329,7 @@ class _HomeTabState extends State<HomeTab>
                 child: Text(
                   ": بامكانك ان تبحث بنفسك هنا",
                   style: GoogleFonts.almarai(
-                    color: grey,
+                    color: GREY,
                     fontWeight: FontWeight.w600)
                 ),
               ),

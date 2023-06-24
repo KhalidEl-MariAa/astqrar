@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../constants.dart';
 import '../../../models/forget_password.dart';
 import '../../../models/server_response_model.dart';
-import '../../../shared/network/end_points.dart';
+import '../../../end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -35,7 +35,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
       }
 
       forgetPasswordModel = ForgetPassword.fromJson(res.data);
-      forgetPasswordId = forgetPasswordModel.data!.userId!;
+      FORGET_PASSWORD_ID = forgetPasswordModel.data!.userId!;
       emit(ForgetPasswordSuccessState(forgetPasswordModel));
     })
     .catchError((error) {
@@ -51,12 +51,12 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
     required String confirmPassword,
     required String code}) 
   {
-    log("changing password for: " + forgetPasswordId!);
+    log("changing password for: " + FORGET_PASSWORD_ID!);
     emit(ChangePasswordByCodeLoadingState());
     DioHelper.postData(
       url: CHANGEPASSWORDBYCODE, 
       data: {
-      "userId": forgetPasswordId,
+      "userId": FORGET_PASSWORD_ID,
       "code": code,
       "newPassword": newPassword,
       "confirmPassword": confirmPassword,

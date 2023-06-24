@@ -7,8 +7,8 @@ class ChangePasswordInitialState extends ChangePasswordStates{}
 class ChangePasswordLoadingState extends ChangePasswordStates{}
 
 class ChangePasswordSuccessState extends ChangePasswordStates{
-  final ServerResponse changePasswordModel;
-  ChangePasswordSuccessState(this.changePasswordModel);
+  final ServerResponse res;
+  ChangePasswordSuccessState(this.res);
   //ShopLoginSuccessState(this.loginModel);
 }
 

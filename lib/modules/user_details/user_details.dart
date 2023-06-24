@@ -46,14 +46,14 @@ class UserDetailsScreen extends StatelessWidget
         child: ConditionalBuilder(
           condition: state is GetInformationLoadingState,
           builder: (context) => Scaffold(
-            backgroundColor: white,
+            backgroundColor: WHITE,
             body: LoadingGif(),
           ),
           fallback: (context) => Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
               iconTheme: IconThemeData(color: Colors.white),
-              backgroundColor: backGround,
+              backgroundColor: BG_DARK_COLOR,
               toolbarHeight: 9.h,
               title: const Text( "التفاصيل", 
                           style: TextStyle(color: Colors.white), ),

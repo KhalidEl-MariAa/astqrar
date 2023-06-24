@@ -22,7 +22,8 @@ import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'not_subscribed.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget 
+{
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -31,7 +32,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> 
 {
-  // const LoginScreen({Key? key}) : super(key: key);
   var passwordController = TextEditingController();
   var phoneController = TextEditingController();
   var loginkey=GlobalKey<FormState>();
@@ -41,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen>
   {
     super.initState();
     FirebaseMessaging.instance.getToken().then((value) {
-      deviceToken = value;
-      CacheHelper.sharedpreferneces.setString("deviceToken", deviceToken!);
+      DEVICE_TOKEN = value;
+      CacheHelper.sharedpreferneces.setString("deviceToken", DEVICE_TOKEN!);
       print("Device Token" + "  " + value.toString());
     });
   }
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen>
           },
           
           builder: (context, state) => Scaffold(
-            backgroundColor: backGround,
+            backgroundColor: BG_DARK_COLOR,
             body: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
               child: SingleChildScrollView(
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen>
                             children: [
                               Text("هل نسيت كلمة المرور؟",
                                 style: TextStyle(
-                                    color: grey,
+                                    color: GREY,
                                     fontSize: 7.8.sp,
                                     // decoration: decoration??TextDecoration.none,
                                     //fontWeight: fontWeight??(WidgetUtils.lang=="ar"?FontWeight.w500:FontWeight.w200),
@@ -191,16 +191,16 @@ class _LoginScreenState extends State<LoginScreen>
                         child: InkWell(
                           onTap: () {
                             CacheHelper.saveData( key: "isLogin", value: false);
-                            isLogin = CacheHelper.getData(key: "isLogin");
-                            print(isLogin);
+                            IS_LOGIN = CacheHelper.getData(key: "isLogin");
+                            print(IS_LOGIN);
                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LayoutScreen()));
                           },
                           child: Container(
                             margin:  EdgeInsets.symmetric(vertical: 2.2.h),
                             child: Text(
-                              "الدخول كزائر"+"11111111111111",
+                              "الدخول كزائر" + "11111111111111",
                               style: TextStyle(
-                                  color: white,
+                                  color: WHITE,
                                   fontSize: 9.2.sp,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -212,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Center( 
                         child: Text(DioHelper.baseUrl,
                               style: TextStyle(
-                                  color: white,
+                                  color: WHITE,
                                   fontSize: 9.2.sp,
                                   fontWeight: FontWeight.w500)
                         ),
@@ -221,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen>
                       Center( 
                         child: Text("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}",
                               style: TextStyle(
-                                  color: white,
+                                  color: WHITE,
                                   fontSize: 9.2.sp,
                                   fontWeight: FontWeight.w500)
                         ),
@@ -237,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen>
                         child: Center(
                           child: Text("ليس لديك حساب ؟ اضغط هنا",
                             style: TextStyle(
-                                color: primary,
+                                color: PRIMARY,
                                 fontSize: 9.2.sp,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -252,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen>
                           Text(
                             "للاستفسارات و الشكاوي",
                             style: TextStyle(
-                                color: white,
+                                color: WHITE,
                                 fontSize: 9.sp,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -267,7 +267,7 @@ class _LoginScreenState extends State<LoginScreen>
                             child: Text("تواصل معنا",
                               style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  color: primary,
+                                  color: PRIMARY,
                                   fontSize: 9.2.sp,
                                   fontWeight: FontWeight.w500),
                             ),

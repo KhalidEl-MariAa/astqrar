@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,20 +17,23 @@ class ChangePassword extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context)=>ChangePasswordCubit(),
-      child: BlocConsumer<ChangePasswordCubit,ChangePasswordStates>(
+      create: (BuildContext context) => ChangePasswordCubit(),
+      child: BlocConsumer<ChangePasswordCubit, ChangePasswordStates>(
         listener: (context,state){
-          if(state is ChangePasswordSuccessState){
-            if(state.changePasswordModel.key==1){
+          if(state is ChangePasswordSuccessState)
+          {
+            if(state.res.key==1){
               MoreTab.passwordController.clear();
               MoreTab.confirmPasswordController.clear();
               MoreTab.oldPasswordController.clear();
-              showToast(msg: state.changePasswordModel.msg!, state: ToastStates.SUCCESS);
+              showToast(msg: state.res.msg!, state: ToastStates.SUCCESS);
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
             }
             else{
-              showToast(msg: state.changePasswordModel.msg!, state: ToastStates.ERROR);
+              showToast(msg: state.res.msg!, state: ToastStates.ERROR);
             }
+          }else if(state is ChangePasswordErrorState){
+            showToast(msg: state.error, state: ToastStates.ERROR);
           }
         },
         builder:(context,state)=> Directionality(
@@ -118,6 +122,16 @@ class ChangePassword extends StatelessWidget
                         }
                       }, text: "تاكيد"),
                       SizedBox(height: 1.h,),
+
+                      Center(
+                        child: 
+                          ConditionalBuilder(
+                            condition: state is ChangePasswordLoadingState,                              
+                            builder: (context) => CircularProgressIndicator(),
+                            fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
+                        ),
+                      ),
+
                     ],
                   ),
                 ),

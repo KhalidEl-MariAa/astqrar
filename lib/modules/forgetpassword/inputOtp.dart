@@ -18,7 +18,7 @@ class InputOtp extends StatelessWidget
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: backGround,
+        backgroundColor: BG_DARK_COLOR,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
           child: SingleChildScrollView(
@@ -30,7 +30,7 @@ class InputOtp extends StatelessWidget
                 const HeaderLogo(),
                 Text(
                   "استعادة كلمة المرور",
-                  style: TextStyle(color: primary, fontSize: 10.sp),
+                  style: TextStyle(color: PRIMARY, fontSize: 10.sp),
                 ),
                 SizedBox(
                   height: 7.h,
@@ -42,7 +42,7 @@ class InputOtp extends StatelessWidget
                       padding: const EdgeInsetsDirectional.only(start: 28),
                       child: Text("كود التحقيق",
                           style: TextStyle(
-                              color: white, fontWeight: FontWeight.w400)),
+                              color: WHITE, fontWeight: FontWeight.w400)),
                     ),
                   ],
                 ),
@@ -59,15 +59,15 @@ class InputOtp extends StatelessWidget
                       height: 7.h,
                       textStyle: TextStyle(
                           fontSize: 13.sp,
-                          color: primary,
+                          color: PRIMARY,
                           fontWeight: FontWeight.w300),
                       decoration: BoxDecoration(
-                        color: backGround,
-                        border: Border.all(color: primary),
+                        color: BG_DARK_COLOR,
+                        border: Border.all(color: PRIMARY),
                         borderRadius: BorderRadius.circular(10),
                       )),
                   cursor: Container(
-                    color: primary,
+                    color: PRIMARY,
                     width: 6.w,
                     height: 0.2.h,
                   ),

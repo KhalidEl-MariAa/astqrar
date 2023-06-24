@@ -23,7 +23,7 @@ class DialogRemoveAcc extends StatelessWidget
         actionsOverflowButtonSpacing: 0,
         content: Container(
             decoration: BoxDecoration(
-                color: white, borderRadius: BorderRadius.circular(20)),
+                color: WHITE, borderRadius: BorderRadius.circular(20)),
             height: 22.h,
             width: 80.w,
             child: Column(
@@ -58,7 +58,7 @@ class DialogRemoveAcc extends StatelessWidget
                           child: Center(
                             child: Text(
                               'تاكيد الحذف',
-                              style: GoogleFonts.almarai(color: white, fontSize: 12.sp),
+                              style: GoogleFonts.almarai(color: WHITE, fontSize: 12.sp),
                               softWrap: false,
                             ),
                           ),

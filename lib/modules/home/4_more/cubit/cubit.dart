@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';
-import '../../../../shared/network/end_points.dart';
+import '../../../../end_points.dart';
 import '../../../../shared/network/local.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
@@ -23,13 +23,13 @@ class SettingsCubit extends Cubit<SettingsStates>
     DioHelper.postDataWithBearearToken(
       url: REMOVEACCOUNT, 
       data: {},token: 
-      token.toString()
+      TOKEN.toString()
     )
     .then((value) 
     {
       if(value.statusCode==200){
         CacheHelper.saveData(key: "isLogin", value: false);
-        isLogin = CacheHelper.getData(key: "isLogin");
+        IS_LOGIN = CacheHelper.getData(key: "isLogin");
       }
       emit(RemoveAccountSuccessState(value.statusCode!));
 
@@ -44,9 +44,9 @@ void logOut(){
   DioHelper.postDataWithBearearToken(
     url: LOGOUT, 
     data: {
-    "deviceId":deviceToken
+    "deviceId":DEVICE_TOKEN
     },
-    token: token.toString()
+    token: TOKEN.toString()
   )
   .then((value) {
     CacheHelper.sharedpreferneces.remove("gender");
@@ -57,7 +57,7 @@ void logOut(){
     CacheHelper.sharedpreferneces.remove("token");
     CacheHelper.saveData(
         key: "isLogin", value: false);
-    isLogin = CacheHelper.getData(key: "isLogin");
+    IS_LOGIN = CacheHelper.getData(key: "isLogin");
     emit(LogoutSuccessState());
   })
   .catchError((error){

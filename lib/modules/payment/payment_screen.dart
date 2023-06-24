@@ -92,7 +92,7 @@ class PaymentScreen extends StatelessWidget
       builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: white,
+          backgroundColor: WHITE,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(10.h),
             child: NormalLogo(appbarTitle: "طرق الدفع",isBack: false),
@@ -116,7 +116,7 @@ class PaymentScreen extends StatelessWidget
                 ),
                 SizedBox( height: 4.h, ),
                 DefaultText(
-                    color: black,
+                    color: BLACK,
                     size: 19,
                     text: "${price}   ريال",
                     fontWeight: FontWeight.w500),
@@ -131,7 +131,7 @@ class PaymentScreen extends StatelessWidget
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DefaultText(
-                            color: black,
+                            color: BLACK,
                             size: 11,
                             text: "PayLink",
                             fontWeight: FontWeight.w500),
@@ -146,7 +146,7 @@ class PaymentScreen extends StatelessWidget
                     const Spacer(),
                     Checkbox(
                       value: PaymentCubit.get(context).isPayment,
-                      activeColor: primary,
+                      activeColor: PRIMARY,
                       // fillColor:MaterialStateColor.resolveWith((states) => Colors.grey) ,
                       onChanged: (value) {
                         PaymentCubit.get(context).changePayment(value: value);

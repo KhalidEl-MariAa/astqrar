@@ -4,7 +4,7 @@ import '../../../../models/add_to_favourite.dart';
 import '../../../../models/get_favourites_model.dart';
 import 'state.dart';
 import '../../../../constants.dart';
-import '../../../../shared/network/end_points.dart';
+import '../../../../end_points.dart';
 import '../../../../shared/network/remote.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,8 +21,8 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
     emit(GetFavouritesLoadingState());
     DioHelper.postDataWithBearearToken(
             url: GETFAVOURITES,
-            data: {"CurrentUserId": id},
-            token: token.toString())
+            data: {"CurrentUserId": ID},
+            token: TOKEN.toString())
         .then((value) {
       log(value.toString());
       getFavouritesModel = GetFavouritesModel.fromJson(value.data);
@@ -54,8 +54,8 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
 
     DioHelper.postDataWithBearearToken(
             url: DELETEFROMFAVOURITE,
-            data: {"CurrentUserId": id, "FavUserId": userId, "IsDeleted": true},
-            token: token.toString())
+            data: {"CurrentUserId": ID, "FavUserId": userId, "IsDeleted": true},
+            token: TOKEN.toString())
         .then((value) {
       log(value.toString());
       deleteFromFavouriteModel = AddToFavouriteModel.fromJson(value.data);

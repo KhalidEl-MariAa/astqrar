@@ -61,7 +61,7 @@ class DetailWidget extends StatelessWidget
   {
     return Column(
       children: [
-        if(messageVisibility==false&&typeOfUser==1) 
+        if(messageVisibility==false&&TYPE_OF_USER==1) 
           InkWell(
             onTap: (){ onClickUser(); },
             child: Padding(
@@ -75,7 +75,7 @@ class DetailWidget extends StatelessWidget
                     "تواصل مع الخطابة",
                     style: GoogleFonts.poppins(
                         fontSize: 16,
-                        color: primary,
+                        color: PRIMARY,
                         decoration: TextDecoration.underline),
                   ),
                 ],
@@ -123,7 +123,7 @@ class DetailWidget extends StatelessWidget
             // ),
               const Spacer(),
               Visibility(
-                visible: messageVisibility && typeOfUser==1,
+                visible: messageVisibility && TYPE_OF_USER==1,
                 child: 
                 ConditionalBuilder(
                   condition: state is AddToFavouriteLoadingState ,
@@ -132,7 +132,7 @@ class DetailWidget extends StatelessWidget
                     InkWell(
                       onTap: () 
                       {
-                        if(isLogin==false){
+                        if(IS_LOGIN==false){
                           showDialog(context: context, builder: (context) => const DialogPleaseLogin());
                           return ;
                         }
@@ -161,7 +161,7 @@ class DetailWidget extends StatelessWidget
                   fallback: (context) =>
                     InkWell(
                       onTap: () {
-                        if(isLogin==false){
+                        if(IS_LOGIN==false){
                           showDialog(context: context, builder: (context) => const DialogPleaseLogin());
                           return;
                         }
@@ -182,7 +182,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(
@@ -203,7 +203,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(
@@ -222,7 +222,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(
@@ -239,7 +239,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(
@@ -261,7 +261,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(
@@ -285,7 +285,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(width: 46.w,child: 
@@ -307,7 +307,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(
@@ -330,7 +330,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(width: 46.w,child: DetailsItem(title: 'عاهه جسدية', subTitle: specialNeeds?"يوجد ":"لا يوجد")),
@@ -350,7 +350,7 @@ class DetailWidget extends StatelessWidget
         Container(
           height: 9.5.h,
           width: double.infinity,
-          decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+          decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               Container(
@@ -369,7 +369,7 @@ class DetailWidget extends StatelessWidget
           child: Container(
             //height: 9.5.h,
             width: double.infinity,
-            decoration: BoxDecoration(color: HexColor("#FFFFFF")),
+            decoration: BoxDecoration(color: Colors.white),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [

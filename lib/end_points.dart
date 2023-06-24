@@ -31,19 +31,44 @@ const GETALLADS="api/v1/GetAds";
 
 const UPDATEUSERDATA="api/v1/UpdateDataUser";
 
-const GETUSERSBYGENDER="api/v2/get-users-by-gender";
-
-const GETINFORMATIONUSER="api/v2/get-information-user";
-
-
-
-const GETINFORMATIONUSERBYVISITOR="api/v2/get-information-user-for-visitor";
-
 const ADDTOFAVOURITE="api/v1/AddToFav";
 
 const DELETEFROMFAVOURITE="api/v1/DeleteFromFav";
 
 const GETFAVOURITES="api/v1/GetAllFav";
+
+
+const ABOUTUS="api/v1/AboutUs";
+
+const CONDITIONS="api/v1/Condtions";
+
+const ADDPACKAGE="api/v1/AddPackageforuser";
+
+const ADDADS="api/v1/AddUserAds";
+
+
+const LOGOUT="api/v1/logout";
+
+const CHECKUSERISEXPIRED="api/v1/CheckUserIsExpiret";
+
+const GET_PHONE_NUMBER="api/v1/GetmobilePhone";
+
+const REMOVEACCOUNT="api/v1/RemoveAccount";
+
+const ADDINVOICE="api/v1/AddInvoice";
+
+const GETINVOICE="api/v1/GetInvoice";
+
+const ACTIVATE="api/v1/Activate";
+
+
+//-------------- API VERSOIN 2 -----------------------------
+
+const GETUSERSBYGENDER="api/v2/get-users-by-gender";
+
+const GETINFORMATIONUSER="api/v2/get-information-user";
+
+const GETINFORMATIONUSERBYVISITOR="api/v2/get-information-user-for-visitor";
 
 const ADDREQUEST="api/v2/add-request";
 
@@ -55,19 +80,11 @@ const ACCEPTREQUEST="api/v2/accept-request";
 
 const IGNOREREQUEST="api/v2/ignore-request";
 
-const GETUSERSBYFILTER="api/v2/get-users-by-filter";
-
-const ABOUTUS="api/v1/AboutUs";
-
-const CONDITIONS="api/v1/Condtions";
-
-const ADDPACKAGE="api/v1/AddPackageforuser";
-
-const ADDADS="api/v1/AddUserAds";
-
 const SEARCH="api/v2/search-users";
 
 const FILTERSEARCH="api/v2/get-users-filter";
+
+const GETUSERSBYFILTER="api/v2/get-users-by-filter";
 
 const SENDNOTIFICATION="api/v2/send-notification";
 
@@ -79,21 +96,9 @@ const GETMESSAGES="api/v2/get-messages-users";
 
 const GETCONTACTS="api/v2/get-my-contacts";
 
-const LOGOUT="api/v1/logout";
-
 const REMOVECHAT="api/v2/remove-chat";
 
-const CHECKUSERISEXPIRED="api/v1/CheckUserIsExpiret";
 
-const GetPhoneNumber="api/v1/GetmobilePhone";
-
-const REMOVEACCOUNT="api/v1/RemoveAccount";
-
-const ADDINVOICE="api/v1/AddInvoice";
-
-const GETINVOICE="api/v1/GetInvoice";
-
-const ACTIVATE="api/v1/Activate";
 
 //delgate
 

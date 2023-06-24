@@ -5,7 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../../constants.dart';
 import '../../../../models/get_my_contacts_model.dart';
-import '../../../../shared/network/end_points.dart';
+import '../../../../end_points.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -22,7 +22,7 @@ class ContactsCubit extends Cubit<ContactsStates>
   void getContacts() {
     initializeDateFormatting('ar_SA', null);
     emit(GetContactsLoadingState());
-    DioHelper.getDataWithBearerToken(url: GETCONTACTS, token: token.toString())
+    DioHelper.getDataWithBearerToken(url: GETCONTACTS, token: TOKEN.toString())
         .then((value) {
       log(value.toString());
       myContactsModel = MyContactsModel.fromJson(value.data);
@@ -42,10 +42,10 @@ class ContactsCubit extends Cubit<ContactsStates>
       DioHelper.postDataWithBearearToken(
             url: REMOVECHAT, 
             data: {
-              "SenderId":id,
+              "SenderId":ID,
               "receiverId":userId,
             }, 
-            token: token.toString()
+            token: TOKEN.toString()
       ).then((value) {
       log(value.toString());
       

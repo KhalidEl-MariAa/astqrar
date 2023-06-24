@@ -42,7 +42,7 @@ class ResetPassword extends StatelessWidget {
         builder: (context, state) => Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            backgroundColor: backGround,
+            backgroundColor: BG_DARK_COLOR,
             body: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
               child: SingleChildScrollView(
@@ -51,13 +51,13 @@ class ResetPassword extends StatelessWidget {
                    SizedBox(height: 3.h,),
                    const  HeaderLogo(),
                     Text("تغيير كلمة المرور",
-                      style: TextStyle(color: primary, fontSize: 15.sp),
+                      style: TextStyle(color: PRIMARY, fontSize: 15.sp),
                     ),
                     SizedBox( height: 7.h,),
                     defaultTextFormField(
                         context: context,
                         controller: passwordController,
-                        container: white,
+                        container: WHITE,
                         styleText: Colors.black,
                         type: TextInputType.number,
                         validate: (String? value) { return ''; },
@@ -70,7 +70,7 @@ class ResetPassword extends StatelessWidget {
                     defaultTextFormField(
                         context: context,
                         controller: confirmpasswordController,
-                        container: white,
+                        container: WHITE,
                         type: TextInputType.number,
                         styleText: Colors.black,
                         validate: (String? value) { return ''; },

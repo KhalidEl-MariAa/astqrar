@@ -22,7 +22,7 @@ class DialogPleaseLogin extends StatelessWidget {
           color: Colors.white.withOpacity(0.0),
           child: CircleAvatar(
             radius: 55,
-            backgroundColor: white,
+            backgroundColor: WHITE,
             child: Image(
               image: Image.asset("assets/2000.gif").image,
               height: 10.h,
@@ -34,7 +34,7 @@ class DialogPleaseLogin extends StatelessWidget {
         actionsPadding: const EdgeInsetsDirectional.only(top: 0),
         actionsOverflowButtonSpacing: 0,
         content: Container(
-            color: white,
+            color: WHITE,
             height: 13.h,
             width: 90.w,
             child: Column(
@@ -48,7 +48,7 @@ class DialogPleaseLogin extends StatelessWidget {
                       child: Text(
                     "انت غير مسجل دخول",
                     style: GoogleFonts.almarai(
-                        color: primary,
+                        color: PRIMARY,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w700),
                   )),
@@ -73,7 +73,7 @@ class DialogPleaseLogin extends StatelessWidget {
                         "استمرار بدون تسجيل الدخول",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.almarai(
-                            color: primary,
+                            color: PRIMARY,
                             fontSize: 9.sp,
                             decoration: TextDecoration.underline),
                       ),

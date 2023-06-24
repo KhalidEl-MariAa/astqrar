@@ -56,16 +56,16 @@ void main() async
 
   await CacheHelper.init();
   
-  token = CacheHelper.getData(key: "token");
-  typeOfUser = CacheHelper.getData(key: "typeUser");
-  id = CacheHelper.getData(key: "id");
-  name = CacheHelper.getData(key: "name");
-  age = CacheHelper.getData(key: "age");
-  email = CacheHelper.getData(key: "email");
-  genderUser = CacheHelper.getData(key: "gender");
-  phone = CacheHelper.getData(key: "phone");
+  TOKEN = CacheHelper.getData(key: "token");
+  TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
+  ID = CacheHelper.getData(key: "id");
+  NAME = CacheHelper.getData(key: "name");
+  AGE = CacheHelper.getData(key: "age");
+  EMAIL = CacheHelper.getData(key: "email");
+  GENDER_USER = CacheHelper.getData(key: "gender");
+  PHONE = CacheHelper.getData(key: "phone");
 
-  isLogin = CacheHelper.getData(key: "isLogin") ?? false;
+  IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
 
   
 

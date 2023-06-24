@@ -49,12 +49,12 @@ Widget defaultTextFormField({
     decoration: InputDecoration(
 
       filled: true,
-      fillColor: container==null?backGround:container,
+      fillColor: container==null?BG_DARK_COLOR:container,
       labelText: labelText != null ? labelText : null,
-      labelStyle: GoogleFonts.almarai(color:  labelTextcolor==null?primary:labelTextcolor,fontSize: 9.sp,fontWeight: FontWeight.w400),
+      labelStyle: GoogleFonts.almarai(color:  labelTextcolor==null?PRIMARY:labelTextcolor,fontSize: 9.sp,fontWeight: FontWeight.w400),
       hintText: label,
       hintStyle: TextStyle(
-        color: grey,
+        color: GREY,
         fontSize: 11.sp,
       ),
       hintMaxLines: isLocation ? 3 : 1,
@@ -62,7 +62,7 @@ Widget defaultTextFormField({
       // borderSide: const BorderSide(color: Colors.white54),
       // borderRadius: BorderRadius.circular(50.0)),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: primary),
+        borderSide: BorderSide(color: PRIMARY),
          borderRadius: BorderRadius.circular(12.0),
       ),
 
@@ -80,9 +80,9 @@ Widget defaultTextFormField({
               onPressed: () {
                 suffixPressed!();
               }),
-      prefixIconColor: grey,
-      focusColor: backGround,
-      iconColor: grey,
+      prefixIconColor: GREY,
+      focusColor: BG_DARK_COLOR,
+      iconColor: GREY,
 
       prefixIcon: (prefixIcon==null && prefixImage==null)? null :
         isImagePrefix? 
@@ -102,7 +102,7 @@ Widget defaultTextFormField({
 
       isDense: true,
       errorBorder:OutlineInputBorder(
-        borderSide: BorderSide(color: primary),
+        borderSide: BorderSide(color: PRIMARY),
         borderRadius: BorderRadius.circular(12.0),
       ) ,
       // Added this
@@ -124,12 +124,12 @@ Widget doubleInfinityMaterialButton({
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-          color: primary
+          color: PRIMARY
       ),
 
       child: MaterialButton(
         child: (text != null)?
-          Text( text, style:  TextStyle(color: white), )
+          Text( text, style:  TextStyle(color: WHITE), )
         :
           child 
         ,
@@ -164,7 +164,7 @@ Color chooseToastColor(ToastStates state)
       color = Colors.green; 
       break;
     case ToastStates.WARNING:
-      color = backGround; 
+      color = BG_DARK_COLOR; 
       break;
     case ToastStates.ERROR:
       color = Colors.red; 

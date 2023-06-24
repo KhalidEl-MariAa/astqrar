@@ -36,7 +36,7 @@ class UserItemWidget extends StatelessWidget
                   height: 19.h,
                   width: 35.w,
                   decoration: BoxDecoration(
-                    color: HexColor("#FFFFFF"),
+                    color: Colors.white,
                   ),
                   child: Column(
                     children: [
@@ -62,7 +62,7 @@ class UserItemWidget extends StatelessWidget
                     ],
                   )),
             ),
-        if(typeOfUser==2&&visibileRemoveIcon)     
+        if(TYPE_OF_USER==2&&visibileRemoveIcon)     
           Positioned(
                 top:1,
                 left: 0,

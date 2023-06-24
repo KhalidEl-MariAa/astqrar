@@ -35,13 +35,13 @@ class NormalLogo extends StatelessWidget {
                       padding:  EdgeInsetsDirectional.only(end: 2.w),
                       child: Icon(
                         Icons.arrow_back_ios,
-                        color: white,
+                        color: WHITE,
                         size: 13.sp,
                       ),
                     )),
                 Text(
                   appbarTitle,
-                  style: TextStyle(color: white),
+                  style: TextStyle(color: WHITE),
                 ),
               ],
             ),

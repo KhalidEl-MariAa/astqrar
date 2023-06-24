@@ -45,7 +45,7 @@ shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             ),
             Text(
             subTitle,
-              style: GoogleFonts.almarai(color: customGrey, fontSize: 10.sp),
+              style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 10.sp),
             ),
             SizedBox(
               height: 4.h,
@@ -57,7 +57,7 @@ shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: Center(
                   child: Text(
                     actionText,
-                    style: GoogleFonts.poppins(color: primary,decoration: TextDecoration.underline),
+                    style: GoogleFonts.poppins(color: PRIMARY,decoration: TextDecoration.underline),
                   )),
             ),
             // Row(

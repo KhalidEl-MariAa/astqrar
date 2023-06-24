@@ -35,7 +35,7 @@ class AdsScreen extends StatelessWidget
       builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: white,
+          backgroundColor: WHITE,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(10.h),
               child: NormalLogo(appbarTitle: "الاعلانات ",isBack: true),

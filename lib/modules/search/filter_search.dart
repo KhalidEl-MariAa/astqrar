@@ -66,7 +66,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
 
                   //الجنس
                   Text("نوع الجنس",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
+                      style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(
                     height: 1.5.h,
                   ),
@@ -97,7 +97,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                   ),
 
                   //الحالة الاجتماعية
-                  Text("الحالة الاجتماعية", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("الحالة الاجتماعية", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox( height: 1.5.h, ),
 
                   GridView.count(
@@ -112,7 +112,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     children: getListofRadioButtons(SpecificationIDs.social_status)
                   ),
 
-                  Text("المظهر", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("المظهر", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                     
                   SizedBox(
                     height: 1.5.h,
@@ -135,7 +135,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                   ),
 
                   //الاطفال
-                  Text("الاطفال", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("الاطفال", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
 
                   SizedBox( height: 1.5.h,),
 
@@ -155,7 +155,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     height: 1.5.h,
                   ),
 
-                  Text("الموهل العلمي", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("الموهل العلمي", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(height: 1.5.h,),
 
                   GridView.count(
@@ -172,7 +172,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
 
                   SizedBox(height: 1.5.h,),
 
-                  Text("الاسم ينتهي ب ", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("الاسم ينتهي ب ", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox( height: 1.5.h,),
 
                   GridView.count(
@@ -191,7 +191,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     height: 1.5.h,
                   ),
 
-                  Text("الوظيفة", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("الوظيفة", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(height: 1.5.h,),
 
                   GridView.count(
@@ -209,7 +209,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                   
                   SizedBox(height: 1.5.h,),
                   
-                  Text("لون البشرة", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("لون البشرة", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(height: 1.5.h,),
 
                   GridView.count(
@@ -228,7 +228,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     SizedBox(height: 1.5.h,),
 
                   //الحالة الصحية
-                  Text("الحالة الصحية", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("الحالة الصحية", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(height: 1.5.h, ),
 
                   GridView.count(
@@ -247,7 +247,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     height: 1.5.h,
                   ),
 
-                  Text("الطول", style: TextStyle(color: black, fontSize: 12.3.sp)),
+                  Text("الطول", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(height: 1.5.h, ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -258,8 +258,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             context: context,
                             controller: minHeight,
                             labelTextcolor: Colors.white54,
-                            borderColor: primary,
-                            container: white,
+                            borderColor: PRIMARY,
+                            container: WHITE,
                             styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
@@ -276,8 +276,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             context: context,
                             controller: maxHeight,
                             labelTextcolor: Colors.white54,
-                            borderColor: primary,
-                            container: white,
+                            borderColor: PRIMARY,
+                            container: WHITE,
                             styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
@@ -293,7 +293,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
 
                   //الوزن
                   Text("الوزن",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
+                      style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(
                     height: 1.5.h,
                   ),
@@ -306,8 +306,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             context: context,
                             controller: minWeight,
                             labelTextcolor: Colors.white54,
-                            borderColor: primary,
-                            container: white,
+                            borderColor: PRIMARY,
+                            container: WHITE,
                             styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
@@ -324,8 +324,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             context: context,
                             controller: maxWeight,
                             labelTextcolor: Colors.white54,
-                            borderColor: primary,
-                            container: white,
+                            borderColor: PRIMARY,
+                            container: WHITE,
                             styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
@@ -340,7 +340,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                   ),
 
                   Text("العمر",
-                      style: TextStyle(color: black, fontSize: 12.3.sp)),
+                      style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(
                     height: 1.5.h,
                   ),
@@ -355,7 +355,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             controller: minAge,
                             labelTextcolor: Colors.white54,
                             styleText: Colors.black87,
-                            borderColor: primary,
+                            borderColor: PRIMARY,
                             container: Colors.white,
                             type: TextInputType.number,
                             validate: (value) {
@@ -374,8 +374,8 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                             context: context,
                             controller: maxAge,
                             labelTextcolor: Colors.white54,
-                            borderColor: primary,
-                            container: white,
+                            borderColor: PRIMARY,
+                            container: WHITE,
                             styleText: Colors.black87,
                             type: TextInputType.number,
                             validate: (value) {
@@ -390,7 +390,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
                     height: 1.5.h,
                   ),
 
-                  Text("نوع الزواج", style: TextStyle(color: black, fontSize: 11.sp),
+                  Text("نوع الزواج", style: TextStyle(color: BLACK, fontSize: 11.sp),
                   ),
                   SizedBox(height: 1.h,),
                   

@@ -1,18 +1,19 @@
 
-String? id;
-String? token;
-String? forgetPasswordId;
-String? name;
-String? age;
-String? userImage;
-String? email;
-int? genderUser;
-String? deviceToken;
-String? phone;
-int? typeOfUser;
-bool isLogin=true;
-String? mobilePhone;
-bool IS_DEVELOPMENT_MODE=true;
+String? ID;
+String? TOKEN;
+String? FORGET_PASSWORD_ID;
+String? NAME;
+String? AGE;
+String? USER_IMAGE;
+String? EMAIL;
+int? GENDER_USER;
+String? DEVICE_TOKEN;
+String? PHONE;
+int? TYPE_OF_USER;
+String? MOBILE_PHONE;
+
+bool IS_LOGIN = true;
+bool IS_DEVELOPMENT_MODE = true;
 
 String BASE_URL = "https://estqrar-001-site1.ctempurl.com/";
 

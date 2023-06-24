@@ -33,7 +33,7 @@ class NotificationScreen extends StatelessWidget
         }
       },
       builder: (context, state) => Scaffold(
-          backgroundColor: white,
+          backgroundColor: WHITE,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(10.h),
             child: Container(
@@ -52,7 +52,7 @@ class NotificationScreen extends StatelessWidget
                     ),
                     Text(
                       "الاشعارات",
-                      style: TextStyle(color: white),
+                      style: TextStyle(color: WHITE),
                     ),
                   ],
                 ),

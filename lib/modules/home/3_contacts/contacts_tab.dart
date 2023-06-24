@@ -32,7 +32,7 @@ class ContactsTab extends StatelessWidget
         builder: (context, state) => Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-              backgroundColor: white,
+              backgroundColor: WHITE,
               appBar: PreferredSize(
                   preferredSize: Size.fromHeight(100),
                   child: NormalLogo(
@@ -58,7 +58,7 @@ class ContactsTab extends StatelessWidget
                                     .id!);
                           },
                           background: Container(
-                            color: primary,
+                            color: PRIMARY,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -66,7 +66,7 @@ class ContactsTab extends StatelessWidget
                                   padding: EdgeInsetsDirectional.only(
                                       start: MediaQuery.of(context).size.width * 0.055),
 
-                                  child: Icon( Icons.delete_outline, color: white,
+                                  child: Icon( Icons.delete_outline, color: WHITE,
                                   ),
                                 ),
                               ],
@@ -92,7 +92,7 @@ class ContactsTab extends StatelessWidget
                                         .contact!
                                         .time!,
                                     style: GoogleFonts.poppins(
-                                        color: customGrey, fontSize: 10.sp),
+                                        color: CUSTOME_GREY, fontSize: 10.sp),
                                   ),
                                   name: ContactsCubit.get(context)
                                               .contacts[index]

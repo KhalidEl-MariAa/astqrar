@@ -5,7 +5,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../../../constants.dart';
 import '../../../models/activate_model.dart';
-import '../../../shared/network/end_points.dart';
+import '../../../end_points.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
@@ -33,12 +33,12 @@ class PaymentCubit extends Cubit<PaymentStates> {
       url: ADDINVOICE, //"api/v1/AddInvoice"
       data: {
         "amount": price,
-        "clientEmail": email,
-        "clientMobile": phone,
-        "clientName": name,
+        "clientEmail": EMAIL,
+        "clientMobile": PHONE,
+        "clientName": NAME,
         "note": "This invoice is for VIP client."
       },
-      token: token.toString()
+      token: TOKEN.toString()
 
     ).then((value) {
       log(value.toString());
@@ -84,7 +84,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
     DioHelper.postDataWithBearearToken(
             url: "api/v1/GetInvoice?transactionNo=$transactionNo",
             data: {},
-            token: token.toString()
+            token: TOKEN.toString()
     )
     .then((value) {
       print(value.toString());
@@ -94,7 +94,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
         if(type==1){
           CacheHelper.saveData(
               key: "isLogin", value: true);
-          isLogin = CacheHelper.getData(key: "isLogin");
+          IS_LOGIN = CacheHelper.getData(key: "isLogin");
         }
       }
 
@@ -116,7 +116,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
         "type":type,
         "id":serviceId
       }, 
-      token: token.toString())
+      token: TOKEN.toString())
     .then((value) {
       print(value.toString());
       activateModel = ActivateModel.fromJson(value.data);
@@ -146,7 +146,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
         "body":body,
         "title":" "
       },
-      token: token.toString())
+      token: TOKEN.toString())
     .then((value) {
           print(value.toString());
           emit(SendNotificationToAllSuccessState());

@@ -23,7 +23,7 @@ class BigButton extends StatelessWidget
         child: Center(
           child: Text(
             text,
-            style: GoogleFonts.almarai(color: primary, fontWeight: FontWeight.w600,fontSize: 11.sp)
+            style: GoogleFonts.almarai(color: PRIMARY, fontWeight: FontWeight.w600,fontSize: 11.sp)
           ),
         ),
       ),

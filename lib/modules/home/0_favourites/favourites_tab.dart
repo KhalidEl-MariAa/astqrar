@@ -28,7 +28,7 @@ class FavouritesTab extends StatelessWidget
         listener: (context, state) {},
         builder: (context, state) =>
             Scaffold(
-              backgroundColor: white,
+              backgroundColor: WHITE,
                 appBar: PreferredSize(
                     preferredSize: Size.fromHeight(10.h),
                     child: NormalLogo(
@@ -48,7 +48,7 @@ class FavouritesTab extends StatelessWidget
                             itemBuilder: (context, index) =>
                                 FavouriteItem(
                                     onClicked: () {
-                                     if(isLogin){ GetInformationCubit.get(context)
+                                     if(IS_LOGIN){ GetInformationCubit.get(context)
                                           .getInformationUser(
                                           otherId: GetFavouritesCubit
                                               .get(context)
@@ -83,7 +83,7 @@ class FavouritesTab extends StatelessWidget
 GetFavouritesCubit.get(context).deleteFromFavourite(userId: GetFavouritesCubit.get(context).favouriteList[index].id!);
                                         },
                                         child: Icon(
-                                          Icons.favorite, color: GetFavouritesCubit.get(context).FavouriteMap[GetFavouritesCubit.get(context).favouriteList[index].id]!?primary:white,)
+                                          Icons.favorite, color: GetFavouritesCubit.get(context).FavouriteMap[GetFavouritesCubit.get(context).favouriteList[index].id]!?PRIMARY:WHITE,)
                                     ),
                                 ),
                             separatorBuilder: (context, index) =>
