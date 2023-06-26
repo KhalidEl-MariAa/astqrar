@@ -1,24 +1,14 @@
 
+import 'package:astarar/models/user.dart';
+
 class GetUsersByFilterModel 
 {
-  List<DataOfUsersByFiltersModel> data = [];
+  List<User> data = [];
   
   GetUsersByFilterModel.fromJson(Map<String, dynamic> json) {
-    json['data'].forEach((element) {
-      data.add(DataOfUsersByFiltersModel.fromJson(element));
+    json['data'].forEach( (e) {
+      data.add( User.fromJson(e) );
     });
   }
 }
 
-class DataOfUsersByFiltersModel 
-{
-  int? gender;
-  String? user_Name;
-  String? id;
-
-  DataOfUsersByFiltersModel.fromJson(Map<String, dynamic> json) {
-    gender = json['gender'];
-    user_Name = json['user_Name'];
-    id = json['id'];
-  }
-}

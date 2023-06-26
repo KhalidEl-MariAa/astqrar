@@ -6,7 +6,7 @@ class User
   String? id;
   int? gender;
   String? email;  
-  String? userName;
+  String? user_Name;
   String? nationalID;
   String? city;
   String? nationality;
@@ -37,11 +37,14 @@ class User
 
   User() { }  
   
-  User.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic>? json) 
+  {
+    if(json == null) return ;
+
     id = json['id'];
     gender = json['gender'];
     email = json['email'];
-    userName = json['userName'];
+    user_Name = json['user_Name'];
     nationalID = json['nationalID'];
     city = json['city'];
     nationality = json['nationality'];
@@ -67,7 +70,7 @@ class User
   {
     
     Map res = {
-      "user_Name": this.userName,
+      "user_Name": this.user_Name,
       "email": this.email,
       "Age": this.age,
       "Gender": this.gender,

@@ -18,23 +18,22 @@ class DioHelper
     Map? data = {};
 
     log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
+    String host = "";
 
     if( IS_DEVELOPMENT_MODE)
     {
-      BASE_URL = "https://10.0.2.2:7054/";
-      data = await fetchData(BASE_URL, "api/v2/ping");      
-      if(data!["status"] == true) return BASE_URL;
+      host = "https://10.0.2.2:7054/";
+      data = await fetchData(host, "api/v2/ping");      
+      if(data!["status"] == true) return host;
 
-      BASE_URL = "http://10.0.2.2:5109/";
-      data = await fetchData(BASE_URL, "api/v2/ping");
-      if(data!["status"] == true) return BASE_URL;
+      host = "http://10.0.2.2:5109/";
+      data = await fetchData(host, "api/v2/ping");
+      if(data!["status"] == true) return host;
     }
         
     data = await fetchData(BASE_URL, "api/v2/ping");
     if(data!["status"]??false == true) 
       log(res.toString());
-    else
-      log("FAILED with BASE_URL: ${BASE_URL}");
 
     return BASE_URL;
   }

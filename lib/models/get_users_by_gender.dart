@@ -1,32 +1,15 @@
 
+import 'package:astarar/models/user.dart';
+
 class GetUsersByGengerModel 
 {
-  List<UserDataDetailsByGenderModel> data = [];
+  List<User> data = [];
 
   GetUsersByGengerModel.fromjson(Map<String, dynamic> json) 
   {
-    json['data'].forEach((element) {
-      data.add(UserDataDetailsByGenderModel.fromjson(element));
+    json['data'].forEach((e) {
+      data.add(User.fromJson(e));
     });
   }
 }
 
-class UserDataDetailsByGenderModel 
-{
-  String? nationalID;
-  String? nationality;
-  String? user_Name;
-  String? id;
-  int? gender;
-  int? age;
-  
-  UserDataDetailsByGenderModel.fromjson(Map<String, dynamic> json) 
-  {
-    nationalID = json['nationalID'];
-    nationality = json['nationality'];
-    user_Name = json['user_Name'];
-    gender = json['gender'];
-    age = json['age'];
-    id = json['id'];
-  }
-}

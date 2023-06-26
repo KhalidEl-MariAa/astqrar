@@ -180,7 +180,7 @@ class _UserRegisterState extends State<UserRegister>
                               controller: userNameController,
                               type: TextInputType.text,
                               validate: (String? value) {
-                                newUser.userName = value;
+                                newUser.user_Name = value;
                                 return (value!.isEmpty)? "من فضلك ادخل الاسم": null;
                               },
                               labelText: "الاسم",

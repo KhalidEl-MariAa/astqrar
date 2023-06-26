@@ -3,7 +3,7 @@
 class GetSpecificationsModel
 {
   int?key;
-  List<DataOfSpecifications> data=[];
+  List<Specification> data=[];
 
   GetSpecificationsModel(){}
   
@@ -12,18 +12,18 @@ class GetSpecificationsModel
       key = json['key'];
       data = [];
       json['data'].forEach( (e) {
-        data.add(DataOfSpecifications.fromJson(e));
+        data.add(Specification.fromJson(e));
       });
   }
 }
 
-class DataOfSpecifications
+class Specification
 {
   int?id;
   String?nameAr;
   String?nameEn;
 
-  DataOfSpecifications.fromJson(Map<String,dynamic>json)
+  Specification.fromJson(Map<String,dynamic>json)
   {
       id=json['id'];
       nameAr=json['nameAr'];

@@ -1,4 +1,6 @@
 
+import 'package:astarar/models/user.dart';
+
 class GetNotificationsModel {
   List<NotificationDataModel> data = [];
   GetNotificationsModel.fromJson(Map<String, dynamic> json) {
@@ -8,25 +10,27 @@ class GetNotificationsModel {
   }
 }
 
-class NotificationDataModel {
+class NotificationDataModel 
+{
   NotificationDetailsModel? notification;
-  UserInformationWhoSendNotification? userInformation;
+  User? userInformation;
+
   NotificationDataModel.fromJson(Map<String, dynamic> json) {
-    userInformation = json['userInformation'] != null
-        ? UserInformationWhoSendNotification.fromJson(json['userInformation'])
-        : null;
-    notification = json['notification'] != null
-        ? NotificationDetailsModel.fromJson(json['notification'])
-        : null;
+    userInformation =  User.fromJson(json['userInformation']) ;
+    notification = NotificationDetailsModel.fromJson(json['notification']) ;
   }
 }
 
-class NotificationDetailsModel {
+class NotificationDetailsModel 
+{
   int? notificationType;
   int? id;
   String? message;
   String? time;
-  NotificationDetailsModel.fromJson(Map<String, dynamic> json) {
+  NotificationDetailsModel.fromJson(Map<String, dynamic>? json) 
+  {
+    if(json == null) return ;
+
     notificationType = json['notificationType'];
     id = json['id'];
     message = json['message'];
@@ -34,15 +38,3 @@ class NotificationDetailsModel {
   }
 }
 
-class UserInformationWhoSendNotification {
-  int? gender;
-  String? user_Name;
-  String? id;
-  int? typeUser;
-  UserInformationWhoSendNotification.fromJson(Map<String, dynamic> json) {
-    gender = json['gender'];
-    user_Name = json['user_Name'];
-    id = json['id'];
-    typeUser = json['typeUser'];
-  }
-}

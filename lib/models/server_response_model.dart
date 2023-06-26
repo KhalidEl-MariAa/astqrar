@@ -4,7 +4,8 @@ class ServerResponse
 {
   int? key;
   String? msg;
-  Map? data = {};
+  Map data = {};
+  // List listing = [];
 
   ServerResponse(this.key, this.msg);
 
@@ -14,4 +15,5 @@ class ServerResponse
     msg = json['msg'];
     data = json['data']?? {};
   }
+
 }

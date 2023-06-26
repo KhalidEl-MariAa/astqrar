@@ -39,6 +39,9 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
       endAge=null;
       nationality=null;
       typeofmarriage=null;
+
+      log(users.length.toString() + " Found !!");
+
       emit(GetUserByGenderSuccessState());
     }).catchError((error) {
       log(error.toString());
@@ -111,9 +114,9 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
   }
 
   //filter
-  late GetUsersByFilterModel getUsersByFilterModel;
-
-  getUsersByFilter({required String gender}) {
+  getUsersByFilter({required String gender}) 
+  {
+    GetUsersByFilterModel getUsersByFilterModel;
     users = [];
     log(startAge.toString());
 

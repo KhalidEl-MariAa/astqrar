@@ -127,7 +127,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             //   labelTextcolor: white,
                             type: TextInputType.text,
                             validate: (String? value) {
-                              current_user.userName = value;
+                              current_user.user_Name = value;
                               return (value!.isEmpty)? "من فضلك ادخل الاسم": null;
                             },
                             labelText: "الاسم",
@@ -729,7 +729,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
     {
       this.current_user = state.current_user;
       emailController.text = current_user.email!;
-      nameController.text = current_user.userName!;
+      nameController.text = current_user.user_Name!;
       personalCardController.text = current_user.nationalID!;
       cityController.text = current_user.city!;
       nationalityController.text = current_user.nationality?? "";

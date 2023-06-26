@@ -55,7 +55,7 @@ class ContactsTab extends StatelessWidget
                                 userId: ContactsCubit.get(context)
                                     .contacts[index]
                                     .userInformation!
-                                    .id);
+                                    .id??"");
                           },
                           background: Container(
                             color: PRIMARY,
@@ -96,13 +96,15 @@ class ContactsTab extends StatelessWidget
                                   ),
                                   name: ContactsCubit.get(context)
                                               .contacts[index]
-                                              .userInformation == null
-                                      ? "مستخدم"
-                                      : ContactsCubit.get(context)
+                                              .userInformation == null? 
+                                        "مستخدم"
+                                        : 
+                                        ContactsCubit.get(context)
                                           .contacts[index]
-                                          .userInformation!
-                                          .user_Name! ,
-                                  gender: 1,
+                                          .userInformation!.user_Name! ,
+                                  gender: ContactsCubit.get(context)
+                                          .contacts[index]
+                                          .userInformation!.gender!,
                                   onClicked: () { user_on_click(context, index); },
                                 )
 
@@ -129,7 +131,7 @@ class ContactsTab extends StatelessWidget
               otherId: ContactsCubit.get(context)
                   .contacts[index]
                   .userInformation!
-                  .id);
+                  .id??"");
 
       Navigator.push(
           context,

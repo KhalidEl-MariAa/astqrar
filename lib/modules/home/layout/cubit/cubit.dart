@@ -11,7 +11,7 @@ import 'states.dart';
 class AppCubit extends Cubit<AppStates> 
 {
   static AppCubit get(context) => BlocProvider.of(context);  
-  static Map<String, int> _specificationId = {};
+  static Map<String, int> specifications = {};
 
   static Map Specifications = {};
 
@@ -23,6 +23,7 @@ class AppCubit extends Cubit<AppStates>
   Future _loadSpecificationId() async
   {
     GetSpecificationsModel getSpecificationsModel;
+
     await DioHelper.getDataWithBearerToken(
         url: SUBSPECIFICATIONS,
         token: TOKEN.toString(),)
@@ -30,7 +31,7 @@ class AppCubit extends Cubit<AppStates>
         //  print(value.toString());
         getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
         getSpecificationsModel.data.forEach( (e) {
-          _specificationId.addAll({e.nameAr!: e.id!});
+          specifications.addAll({e.nameAr!: e.id!});
         });
         emit(GetSpecificationsSuccessState());
     }).catchError((error) {
@@ -71,10 +72,10 @@ class AppCubit extends Cubit<AppStates>
   {
     emit(GetSpecificationsLoadingState());
 
-    if( _specificationId.isEmpty ){
+    if( specifications.isEmpty ){
       _loadSpecificationId();
     }
-    return _specificationId;    
+    return specifications;    
   }
 
   void getPhone()

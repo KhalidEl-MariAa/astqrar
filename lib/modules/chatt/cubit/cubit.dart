@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -16,9 +17,7 @@ class ConversationCubit extends Cubit<ConversationStates>
   ConversationCubit() : super(ConversationInitialState());
 
   static ConversationCubit get(context) => BlocProvider.of(context);
-  late GetMessagesModel getMessagesModel;
-
-
+  
   getMessages({required String userId,  required bool typeUserChat}) 
   {
     emit(GetMessagesLoadingState());
@@ -40,59 +39,36 @@ class ConversationCubit extends Cubit<ConversationStates>
       "Duration": 1
     }).then((value) {
       log(value.toString());
-      getMessagesModel = GetMessagesModel.fromJson(value.data);
-      for (int i = 0; i < getMessagesModel.data.length; i++) {
-        print(getMessagesModel.data[i].senderId);
-        ConversationScreenState.messages
-            .add(getMessagesModel.data[i].message!);
-        ConversationScreenState.senderIdList
-            .add(getMessagesModel.data[i].senderId.toString());
+
+      ServerResponse res = ServerResponse.fromJson(value.data);
+
+      for (var m in res.data['messages']) 
+      {
+        Message msg = Message.fromJson(m);
+        // print(res.data[i].senderId);
+        ConversationScreenState.messages.add(msg.message!);
+        ConversationScreenState.senderIdList.add(msg.senderId.toString());
         ConversationScreenState.dateMessages.add(
-            DateFormat('mm : HH  dd / MM/ yyyy', 'ar_SA')
-                .format(DateTime.parse(getMessagesModel.data[i].date!)));
+            DateFormat('mm : HH  dd / MM/ yyyy', 'ar_SA').format(DateTime.parse(msg.date!))
+        );
+        
         log(ConversationScreenState.senderIdList.toString());
-        if (ID == getMessagesModel.data[i].senderId) {
-          getMessagesModel.data[i].isMine = true;
+        if (ID == msg.senderId) {
+          msg.isMine = true;
           ConversationScreenState.messagesMine.add(true);
         } else {
           ConversationScreenState.messagesMine.add(false);
-          getMessagesModel.data[i].isMine = false;
+          msg.isMine = false;
         }
       }
+
+ 
       emit(GetMessagesSuccessState());
     }).catchError((error) {
       log(error.toString());
       emit(GetMessagesErrorState(error.toString()));
     });
   }
-
-  /*
-late ChatModel chat;
-  connect()async {
-    await UserConversationScreenState.hubConnection.start()?.then((value) => print('connected'));
-    UserConversationScreenState.hubConnection.invoke('Connect',
-        args: [id!]).then((value) => print("connected user success"));
-    UserConversationScreenState.hubConnection.on('receiveMessage', (arguments) {
-      print(arguments);
-      dynamic ss = {};
-
-      ss = jsonEncode(arguments![0]);
-      jsonDecode(ss);
-      chat = ChatModel.fromJson(jsonDecode(ss));
-      receiveMessage();
-    });
-
-}
-  receiveMessage(){
-
-    UserConversationScreenState.messages.add(chat.text.toString());
-    UserConversationScreenState.messagesMine.add(false);
-    UserConversationScreenState.senderIdList.add(chat.senderId.toString());
-    print(DateTime.tryParse(chat.date!));
-    print(DateFormat('yyyy-MM-dd hh:mm:ss').parse(chat.date!).toString());
-
-    emit(ReceiveMessageSuccessState());
-  }*/
 
   void send() {
     log(DateTime.now().toString());
@@ -108,30 +84,6 @@ late ChatModel chat;
     emit(SendMessageSuccessState());
   }
   
-/*sendMessage({required String userId})async {
-  if (UserConversationScreenState().hubConnection.state == HubConnectionState.Connected) {
-    await UserConversationScreenState().hubConnection.invoke('SendMessagee', args: [
-      id!,
-      userId,
-      UserConversationScreenState.messagecontroller.text,
-      0,
-      1,
-      1
-    ]).then((value) {
 
-      print(DateFormat('HH:mm','ar_SA').format(DateTime.now()));
-      UserConversationScreenState.messages.add(UserConversationScreenState.messagecontroller.text);
-      UserConversationScreenState.messagesMine.add(true);
-      UserConversationScreenState.senderIdList.add(id!);
-      UserConversationScreenState.dateMessages.add(DateFormat('HH : mm','ar_SA').format(DateTime.now()));
-
-UserConversationScreenState.messagecontroller.clear();
-    }).catchError((err) {
-      print(err);
-    });
-  }
-
-  emit(SendMessageSuccessState());
-}*/
 
 }
