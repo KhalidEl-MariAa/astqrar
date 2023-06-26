@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants.dart';
@@ -20,17 +19,21 @@ class Splash extends StatefulWidget {
   _SplashState createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashState extends State<Splash> 
+{
   @override
-  void initState() {
-    if(IS_LOGIN && TYPE_OF_USER==1){
+  void initState() 
+  {
+    super.initState();
+    if(IS_LOGIN){
       checkuserIsExpired();
     }
     checkingData();
-    super.initState();
+    
   }
 
-  checkingData() async {
+  checkingData() async 
+  {
     //  GlobalNotification.instance.setupNotification(context);
     Future.delayed(const Duration(seconds: 4), (() {
       if(IS_LOGIN == false) 
@@ -42,7 +45,7 @@ class _SplashState extends State<Splash> {
         );
       }
 
-      if(IS_LOGIN==true && TYPE_OF_USER==1)
+      if(IS_LOGIN==true )
       {
         if(isExpired==true || IS_DEVELOPMENT_MODE){
           Navigator.pushAndRemoveUntil(
@@ -51,7 +54,6 @@ class _SplashState extends State<Splash> {
                 (route) => false,
           );
         }
-
         else if(isExpired==false){
           Navigator.pushAndRemoveUntil(
             context,
@@ -60,7 +62,6 @@ class _SplashState extends State<Splash> {
           );
           showToast(msg: "انتهت صلاحية الباقة لديك", state: ToastStates.WARNING);
         }
-
         else if(isExpired==null)
         {
             Navigator.pushAndRemoveUntil(
@@ -70,13 +71,6 @@ class _SplashState extends State<Splash> {
             );
         }
       }
-      // if(isLogin==true&&typeOfUser==2){
-      //   Navigator.pushAndRemoveUntil(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => const LayoutLinkPerson()),
-      //         (route) => false,
-      //   );
-      // }
 
     }));
   }

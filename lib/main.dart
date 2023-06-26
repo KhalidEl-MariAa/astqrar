@@ -1,5 +1,8 @@
 import 'dart:io';
 
+
+import 'package:upgrader/upgrader.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +20,7 @@ import 'modules/home/layout/cubit/cubit.dart';
 import 'modules/packages/cubit/cubit.dart';
 import 'modules/payment/cubit/cubit.dart';
 import 'modules/search/cubit/cubit.dart';
-import 'modules/section%20men%20_women/cubit/cubit.dart';
+import 'modules/section_men_women/cubit/cubit.dart';
 import 'modules/splash_screen/splash_screen.dart';
 import 'modules/user_details/cubit/cubit.dart';
 import 'shared/network/bloc_observer.dart';
@@ -67,8 +70,6 @@ void main() async
 
   IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
 
-  
-
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
@@ -80,16 +81,19 @@ class MyApp extends StatelessWidget
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Sizer(
-        builder: (context, orientation, devicetype) {
+        builder: (context, orientation, devicetype) 
+        {
           return MultiBlocProvider(
             providers: [
               BlocProvider<AppCubit>(
                   create: (BuildContext context) =>
                   AppCubit()
                     ..loadSpecificationsFromBackend()
-                    ..getPhone()),
+                    ..getPhone()
+              ),
 
               BlocProvider<HomeCubit>(
                   create: (BuildContext context) => HomeCubit()..getUserAds()),
@@ -103,18 +107,14 @@ class MyApp extends StatelessWidget
               BlocProvider<GetUserByGenderCubit>(
                   create: (BuildContext context) => GetUserByGenderCubit()),
 
-              BlocProvider<GetInformationCubit>(
-                  create: (BuildContext context) => GetInformationCubit()),
+              BlocProvider<UserDetailsCubit>(
+                  create: (BuildContext context) => UserDetailsCubit()),
 
               BlocProvider<SettingsCubit>(
                   create: (BuildContext context) => SettingsCubit()),
 
               BlocProvider<SearchCubit>(
                   create: (BuildContext context) => SearchCubit()),
-              // BlocProvider<DelegatesCubit>(
-              //     create: (BuildContext context) =>
-              //     DelegatesCubit()
-              //       ..getDelegates()),
 
               BlocProvider<AboutUsCubit>(
                   create: (BuildContext context) => AboutUsCubit()..aboutUs()),
@@ -125,11 +125,6 @@ class MyApp extends StatelessWidget
               BlocProvider<PaymentCubit>(
                   create: (BuildContext context) => PaymentCubit()),
 
-              // BlocProvider<PaymentDelegateCubit>(
-              //     create: (BuildContext context) => PaymentDelegateCubit()),
-              
-              // BlocProvider<ProfileDeleagateCubit>(
-              //     create: (BuildContext context) => ProfileDeleagateCubit())
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -147,9 +142,25 @@ class MyApp extends StatelessWidget
 
                 primarySwatch: Colors.grey,
               ),
-              home: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Splash()),
+
+              home: 
+               UpgradeAlert(
+                upgrader: Upgrader(
+                  messages: UpgraderMessages(code: 'ar'),
+                  languageCode:"ar",
+                  // minAppVersion: "2.1.1",
+                  canDismissDialog: true,
+                  durationUntilAlertAgain: const Duration(days: 7),
+                  dialogStyle:  Platform.isIOS? UpgradeDialogStyle.cupertino : UpgradeDialogStyle.material
+                ),
+                child: 
+                Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Splash()
+                    ),
+              ),
+              
+              
             ),
           );
         }

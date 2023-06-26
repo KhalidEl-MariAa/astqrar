@@ -1,15 +1,16 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
-import '../../../models/add_to_favourite.dart';
 import '../../../models/get_packages_model.dart';
 import '../../../end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-class GetPackagesCubit extends Cubit<GetPackagesStates> {
+class GetPackagesCubit extends Cubit<GetPackagesStates> 
+{
   GetPackagesCubit() : super(GetPackagesInitialState());
 
   //late LoginModel loginModel;
@@ -33,9 +34,11 @@ class GetPackagesCubit extends Cubit<GetPackagesStates> {
   }
 
   //add package
-  late AddToFavouriteModel addPackageModel;
+  
 
-  addPackage({required String packageId}) {
+  addPackage({required String packageId}) 
+  {
+    ServerResponse res;
     emit(AddPackageLoadingState());
     DioHelper.postDataWithBearearToken(
             url: ADDPACKAGE,
@@ -43,7 +46,11 @@ class GetPackagesCubit extends Cubit<GetPackagesStates> {
             token: TOKEN.toString())
         .then((value) {
       log(value.toString());
-      addPackageModel = AddToFavouriteModel.fromJson(value.data);
+      res = ServerResponse.fromJson(value.data);
+      if(res.key == 0){
+        emit(AddPackageErrorState(res.msg!));
+      }
+
       emit(AddPackageSuccessState(value.statusCode!));
     }).catchError((error) {
       log(error.toString());

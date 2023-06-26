@@ -10,34 +10,53 @@ import '../../shared/components/components.dart';
 import '../../shared/components/loading_gif.dart';
 import '../../shared/components/user/details.dart';
 import '../../shared/styles/colors.dart';
-import '../chatt/chatt.dart';
 import '../home/4_more/3_contact_us/contact_us.dart';
-import '../home/layout/layout.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class UserDetailsScreen extends StatelessWidget 
+class UserDetailsScreen extends StatefulWidget 
 {
   final bool messageVisibility;
-  final String?delegateId;
-  final String?delegateName;
+  
+  UserDetailsScreen({Key? key, required this.messageVisibility}) : super(key: key);
 
-  UserDetailsScreen({Key? key, required this.messageVisibility, this.delegateId, this.delegateName}) : super(key: key);
+  @override
+  State<UserDetailsScreen> createState() => _UserDetailsScreenState();
+}
 
+class _UserDetailsScreenState extends State<UserDetailsScreen> {
   @override
   Widget build(BuildContext context) 
   {
-    return BlocConsumer<GetInformationCubit, GetInformationStates>(
+    return BlocConsumer<UserDetailsCubit, UserDetailsStates>(
       listener: (context, state) {
-        if (state is AddHimToMyContactsLoadingSuccess) 
-        {
-          showToast(
-            msg: state.msg, 
-            state: ToastStates.SUCCESS);
+        if (state is AddHimToMyContactsSuccess ) {
+          showToast(msg: state.msg,  state: ToastStates.SUCCESS);
         }
-        else if (state is AddHimToMyContactsLoadingError)
-        {
+        else if (state is AddHimToMyContactsError){
           showToast(msg: state.error, state: ToastStates.SUCCESS);
+        }else if( state is BlockHimSuccess){
+          showToast(msg: state.msg, state: ToastStates.SUCCESS);
+          
+        }
+        else if (state is BlockHimError){
+          showToast(msg: state.error, state: ToastStates.SUCCESS);
+        }
+        else if (state is AddToFavouriteSuccessState){
+          setState(() {
+            UserDetailsCubit
+            .get(context)
+            .getInformationUserModel.otherUser?.isFavorate = true;
+          });
+          showToast(msg: "تم التحديث", state: ToastStates.SUCCESS);
+        }
+        else if (state is RemoveFromFavouriteSuccessState){
+          setState(() {
+            UserDetailsCubit
+            .get(context)
+            .getInformationUserModel.otherUser?.isFavorate = false;
+          });
+          showToast(msg: "تم التحديث", state: ToastStates.SUCCESS);
         }
       },
 
@@ -81,9 +100,25 @@ class UserDetailsScreen extends StatelessWidget
                                     children: [
                                       InkWell(
                                         child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Text("حظر المستخدم",
-                                            style: TextStyle( fontWeight: FontWeight.w300),
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: 
+                                          
+                                          Row(
+                                            children: [
+                                              Text("حظر المستخدم",
+                                                style: TextStyle( fontWeight: FontWeight.w300),
+                                              ),
+
+                                              SizedBox(width: 1.w,),
+                                              
+                                              ConditionalBuilder(
+                                                condition: state is BlockHimLoading ,
+                                                builder:  (context) => CircularProgressIndicator(),
+                                                fallback: (context)  => Icon(Icons.block, color: PRIMARY,size: 33,)
+                                                ),
+
+
+                                            ],
                                           ),
                                         ),
                                         onTap: () { blockUser_pressed(context); },
@@ -115,190 +150,37 @@ class UserDetailsScreen extends StatelessWidget
                 ),
               ),
             ),
+
             body: SingleChildScrollView(
               child: DetailWidget(
                 state: state,
-                dowry: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!.dowry!, 
-                terms: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!.terms!,
-                    
-                onClickUser: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ConversationScreen(
-                                gender: 2,
-                                userId: delegateId!,
-                                userName: delegateName!,
-                                typeUser: 2,
-                              ))
-                  );
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => UserConversationScreen(
-                  //           gender: 2,
-                  //           userId: GetInformationCubit.get(context)
-                  //               .getInformationUserModel
-                  //               .userSubSpecification!.id!,
-                  //           userName: GetInformationCubit.get(context)
-                  //               .getInformationUserModel
-                  //               .userSubSpecification!.userName!,
-                  //           typeUser:1,
-                  //         )));
-                },
-
-                specialNeeds: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .specialNeeds!,
-
-                userSubSpecificationDto: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .userSubSpecificationDto,
-
-                favouriteFunction: () { favourite_on_click(context);},
-
-                chatFunction: () { enter_chatt_screen(context); },
-                isFavourite: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .isFavorate!,
-
-                height: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .height
-                    .toString(),
-                weight: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .weight
-                    .toString(),
-                gender: int.parse(GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .gender
-                    .toString()),
-                age: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .age
-                    .toString(),
-                city: GetInformationCubit.get(context)
-                        .getInformationUserModel
-                        .otherUser!
-                        .city ?? " ",
-                email: GetInformationCubit.get(context)
-                        .getInformationUserModel
-                        .otherUser!
-                        .email ?? " ",
-                name: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .userName!,
-                nationality: GetInformationCubit.get(context)
-                        .getInformationUserModel
-                        .otherUser!
-                        .nationality ?? " ",
-                messageVisibility: messageVisibility,
+                messageVisibility: widget.messageVisibility,
+                other: UserDetailsCubit.get(context)
+                          .getInformationUserModel.otherUser!,
               ),
+              
             ),
           ),
         ),
       ),
     );
-  }//
-
-  void favourite_on_click(BuildContext context) 
-  {
-    if (GetInformationCubit
-          .get(context)
-          .getInformationUserModel.isFavorate!) 
-    {
-      GetInformationCubit
-        .get(context)
-        .deleteFromFavourite(
-            userId: GetInformationCubit.get(context)
-                .getInformationUserModel
-                .otherUser!
-                .id!
-        );
-    }else 
-    {
-      GetInformationCubit
-        .get(context)
-        .addToFavourite(
-          userId: GetInformationCubit.get(context)
-              .getInformationUserModel
-              .otherUser!
-              .id!
-        );
-    }
-  }//favourite_on_click
-
-  void enter_chatt_screen(BuildContext context) 
-  {
-    // حسب طلب صاحب التطبيق ان يتم الدخول على الشات مباشرة بدون طلب
-    GetInformationCubit
-      .get(context)
-      .addHimToMyContacts(
-        userId: GetInformationCubit.get(context)
-            .getInformationUserModel
-            .otherUser!
-            .id!);
-
-
-
-    // if(GetInformationCubit.get(context).getInformationUserModel.isInMyContacts!)
-    // {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ConversationScreen(
-              typeUser: 1,
-              gender: GetInformationCubit.get(context)
-                  .getInformationUserModel
-                  .otherUser!.gender!,
-              userId: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .id!,
-              userName: GetInformationCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .userName!
-            ))
-      );
-    // }else{
-    //   GetInformationCubit
-    //     .get(context)
-    //     .addChattRequest(
-    //       userId: GetInformationCubit.get(context)
-    //           .getInformationUserModel
-    //           .userSubSpecifications!
-    //           .id!);
-    // }
   }
-  
+//
   void blockUser_pressed(BuildContext context)
   {
-    //TODO: كتابة الكووود الخاص بعملية الحظر
-    showToast(msg: "تم حظر المستخدم", state: ToastStates.SUCCESS);
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
+    UserDetailsCubit.get(context).blockHim(
+      userId: UserDetailsCubit.get(context)
+            .getInformationUserModel.otherUser!.id!);
+
   }
-  
+
   void ReportAnIssuePressed(BuildContext context)
   {
     navigateTo(context: context, widget: ContactUS(
       isFromLogin: false,
     ));
   }
-  
+
   void snapchatPressed(BuildContext context) async 
   {
       Uri url = Uri(

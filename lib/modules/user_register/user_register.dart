@@ -13,6 +13,7 @@ import '../../shared/styles/colors.dart';
 import '../home/4_more/2_terms/terms.dart';
 import '../home/layout/cubit/cubit.dart';
 import '../home/layout/cubit/states.dart';
+import '../login/login.dart';
 import 'alreadyhaneaccount_text.dart';
 import 'cubit.dart';
 import 'states.dart';
@@ -673,16 +674,14 @@ class _UserRegisterState extends State<UserRegister>
         showToast(
           msg: "تم التسجيل بنجاح", state: ToastStates.SUCCESS);
 
-        // TODO: uncomment show LayoutLinkPerson
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const LayoutLinkPerson() ), 
-        //   (route) => false,
-        // );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginScreen() ), 
+          (route) => false,
+        );
 
-        // TODO: uncomment all clear lines.
-        // clearAllFields();
+        clearAllFields();
       }
     }else if(state is RegisterState_Error){
         showToast(

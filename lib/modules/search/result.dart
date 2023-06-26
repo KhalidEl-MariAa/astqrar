@@ -364,11 +364,11 @@ class _ResultScreenState extends State<ResultScreen>
       removeUser: () {},
       onclickUser: () {
         if (IS_LOGIN) {
-          GetInformationCubit.get(context)
+          UserDetailsCubit.get(context)
               .getInformationUser(
                   otherId: this.searchResult[index].id!);
         } else {
-          GetInformationCubit.get(context)
+          UserDetailsCubit.get(context)
               .getInformationUserByVisitor(
                   userId: this.searchResult[index].id!);
         }

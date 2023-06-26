@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import '../../../../models/add_to_favourite.dart';
 import '../../../../models/get_favourites_model.dart';
+import '../../../../models/server_response_model.dart';
 import 'state.dart';
 import '../../../../constants.dart';
 import '../../../../end_points.dart';
@@ -40,9 +40,10 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
   }
 
   //delete from favourite
-  late AddToFavouriteModel deleteFromFavouriteModel;
-
-  deleteFromFavourite({required String userId}) {
+  
+  deleteFromFavourite({required String userId}) 
+  {
+    ServerResponse res;
     FavouriteMap[userId] = false;
     favouriteList = [];
     for (int i = 0; i < getFavouritesModel.data.length; i++) {
@@ -58,7 +59,11 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
             token: TOKEN.toString())
         .then((value) {
       log(value.toString());
-      deleteFromFavouriteModel = AddToFavouriteModel.fromJson(value.data);
+      res = ServerResponse.fromJson(value.data);
+      if(res.key == 0){
+        emit(RemoveFromFavouriteErrorState(res.msg!));
+      }
+
 
       emit(RemoveFromFavouriteSuccessState());
     }).catchError((error) {

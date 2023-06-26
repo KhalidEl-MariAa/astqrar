@@ -1,5 +1,6 @@
 import 'dart:developer';
-import '../../../models/add_to_favourite.dart';
+import 'package:astarar/models/server_response_model.dart';
+
 import '../../../models/get_ads_model.dart';
 import 'states.dart';
 import '../../../constants.dart';
@@ -31,7 +32,7 @@ class AdsCubit extends Cubit<AdsStates>
   }
 
   //add ads
-  late AddToFavouriteModel addAdsModel;
+  late ServerResponse addAdsModel;
 
   addAds({required int adId}) {
     emit(AddAdsLoadingState());
@@ -43,7 +44,7 @@ class AdsCubit extends Cubit<AdsStates>
             token: TOKEN.toString())
         .then((value) {
       log(value.toString());
-      addAdsModel = AddToFavouriteModel.fromJson(value.data);
+      addAdsModel = ServerResponse.fromJson(value.data);
       emit(AddAdsSuccessState(value.statusCode!));
       //    sendNotificationToAll(body: "تمت اضافة اعلان جديد من قبل $name");
     }).catchError((error) {

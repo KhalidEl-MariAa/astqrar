@@ -15,49 +15,48 @@ class DioHelper
   static Future<String> find_the_baseUrl() async 
   {
     var res;
-    String baseurl ="";
     Map? data = {};
 
     log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
 
     if( IS_DEVELOPMENT_MODE)
     {
-      baseurl = "https://10.0.2.2:7054/";
-      data = await fetchData(baseurl, "api/v2/ping");      
-      if(data!["status"] == true) return baseurl;
+      BASE_URL = "https://10.0.2.2:7054/";
+      data = await fetchData(BASE_URL, "api/v2/ping");      
+      if(data!["status"] == true) return BASE_URL;
 
-      baseurl = "http://10.0.2.2:5109/";
-      data = await fetchData(baseurl, "api/v2/ping");
-      if(data!["status"] == true) return baseurl;
+      BASE_URL = "http://10.0.2.2:5109/";
+      data = await fetchData(BASE_URL, "api/v2/ping");
+      if(data!["status"] == true) return BASE_URL;
     }
         
-    baseurl = BASE_URL;
-    data = await fetchData(baseurl, "api/v2/ping");
+    data = await fetchData(BASE_URL, "api/v2/ping");
     if(data!["status"]??false == true) 
       log(res.toString());
     else
       log("FAILED with BASE_URL: ${BASE_URL}");
 
-    return baseurl;
+    return BASE_URL;
   }
 
   static init() async
   {
     
-    DioHelper.baseUrl = await find_the_baseUrl();
-    log('Dio init() -------------------- ' + baseUrl);
+    BASE_URL = await find_the_baseUrl();
+    log('Dio init() -------------------- ' + BASE_URL);
     
     
     dio = Dio(
       BaseOptions(
-      baseUrl: baseUrl, 
+      baseUrl: BASE_URL, 
       receiveDataWhenStatusError: true,
     ));
 
   }
 
   static Future<Response> getData({
-    required String url, String? token, }) async 
+    required String url, 
+    String? token, }) async 
   {
 
     dio.options.headers = {
@@ -107,7 +106,7 @@ class DioHelper
     };
 
     //TODO: remove prints
-    print('-44444444444444444-3-3');    
+    print('POST-44444444444444444-3-3');    
     var res = await dio.post(url, data: data);
     return res;
   } //end postData

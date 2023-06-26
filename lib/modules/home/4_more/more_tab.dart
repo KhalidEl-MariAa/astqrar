@@ -1,7 +1,9 @@
+import 'package:astarar/modules/home/4_more/4_about_version/about_version.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,12 +21,31 @@ import 'cubit/states.dart';
 import 'widgets/default_raw.dart';
 import 'widgets/dialog_remove_acc.dart';
 
-class MoreTab extends StatelessWidget 
+class MoreTab extends StatefulWidget 
 {
   static var oldPasswordController = TextEditingController();
   static var confirmPasswordController = TextEditingController();
   static var passwordController = TextEditingController();
   static var form = GlobalKey<FormState>();
+
+  @override
+  State<MoreTab> createState() => _MoreTabState();
+}
+
+class _MoreTabState extends State<MoreTab> {
+  String appVersion = "------";
+
+  @override
+  void initState() 
+  {
+    super.initState();
+    PackageInfo.fromPlatform().then((info) 
+    {
+      setState(() { appVersion = info.version;  });        
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) 
@@ -226,7 +247,17 @@ class MoreTab extends StatelessWidget
                               },
                               child: DefaultRaw(
                                   image: "assets/sharing.png",
-                                  text: "مشاركة التطبيق"))
+                                  text: "مشاركة التطبيق")),
+
+                          SizedBox( height: 2.h, ),
+                          InkWell(
+                              onTap: () {
+                                navigateTo( context: context, widget: AboutVersion( isFromLogin: false, ) );
+                              },
+                              child: DefaultRaw(
+                                  image: "assets/information.png",
+                                  text: "عن النسخة" + " " + appVersion )),
+
                         ],
                       ),
                     ),

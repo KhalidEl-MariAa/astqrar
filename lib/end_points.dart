@@ -74,6 +74,9 @@ const ADDREQUEST="api/v2/add-request";
 
 const ADD_HIM_TO_MY_CONTACTS="api/v2/add-him-to-my-contacts";
 
+const BLOCK_HIM="api/v2/block-him";
+const UNBLOCK_HIM="api/v2/unblock-him";
+
 const GETNOTIFICATIONS="api/v2/get-my-notifications";
 
 const ACCEPTREQUEST="api/v2/accept-request";

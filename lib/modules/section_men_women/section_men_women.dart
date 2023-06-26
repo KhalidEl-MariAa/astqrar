@@ -1,8 +1,7 @@
+
 import '../user_details/cubit/cubit.dart';
 import '../user_details/user_details.dart';
 import '../login/login.dart';
-import '../section%20men%20_women/cubit/cubit.dart';
-import '../section%20men%20_women/cubit/states.dart';
 import '../../shared/components/loading_gif.dart';
 import '../../shared/components/user/user_item.dart';
 import '../../constants.dart';
@@ -11,8 +10,10 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
+
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class SectionMenOrWomen extends StatelessWidget 
 {
@@ -297,14 +298,14 @@ class SectionMenOrWomen extends StatelessWidget
   {
     if (IS_LOGIN == true) 
      {
-      GetInformationCubit.get(context)
+      UserDetailsCubit.get(context)
           .getInformationUser(
               otherId:
                   GetUserByGenderCubit.get(context)
                       .users[index]
                       .id!);
     }else{
-      GetInformationCubit.get(context)
+      UserDetailsCubit.get(context)
           .getInformationUserByVisitor(
               userId:
                   GetUserByGenderCubit.get(context)

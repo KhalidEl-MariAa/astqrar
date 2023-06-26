@@ -13,7 +13,6 @@ class ContactsCubit extends Cubit<ContactsStates>
 {
   ContactsCubit() : super(ContactsInitialState());
 
-  //late LoginModel loginModel;
   static ContactsCubit get(context) => BlocProvider.of(context);
 
   late MyContactsModel myContactsModel;
@@ -22,13 +21,17 @@ class ContactsCubit extends Cubit<ContactsStates>
   void getContacts() {
     initializeDateFormatting('ar_SA', null);
     emit(GetContactsLoadingState());
-    DioHelper.getDataWithBearerToken(url: GETCONTACTS, token: TOKEN.toString())
-        .then((value) {
+    DioHelper.getDataWithBearerToken(
+      url: GETCONTACTS, 
+      token: TOKEN.toString())
+    .then((value) {
       log(value.toString());
       myContactsModel = MyContactsModel.fromJson(value.data);
-      for(int i=0;i<myContactsModel.data.length;i++){
-        contacts.add(myContactsModel.data[i]);
+
+      for (var item in myContactsModel.data) {
+        contacts.add(item);
       }
+
       emit(GetContactsSuccessState());
     }).catchError((error) {
       log(error.toString());
@@ -39,6 +42,7 @@ class ContactsCubit extends Cubit<ContactsStates>
    void removeChat({required String userId}) 
    {
       emit(RemoveChatLoadingState());
+
       DioHelper.postDataWithBearearToken(
             url: REMOVECHAT, 
             data: {
@@ -46,23 +50,16 @@ class ContactsCubit extends Cubit<ContactsStates>
               "receiverId":userId,
             }, 
             token: TOKEN.toString()
-      ).then((value) {
-      log(value.toString());
-      
-      //TODO: اضافة كود الخاص بحذف مستخدم من قائمة الشات
-      //contacts=[];
-      // for(int i=0;i<myContactsModel.data.length;i++){
-      //   if(userId==myContactsModel.data[i].userInformation!.id){
-      //     myContactsModel.data[i].isInMyContacts=false;
-      //   }
-      //   if(myContactsModel.data[i].isInMyContacts==true){
-      //     contacts.add(myContactsModel.data[i]);
-      //   }
-      // }
-      emit(RemoveChatSuccessState(value.statusCode!));
-    }).catchError((error) {
-      log(error.toString());
-      emit(RemoveChateErrorState(error));
-    });
+      ).then((value) 
+      {
+        log(value.toString());
+
+        contacts.removeWhere( (e) => e.userInformation?.id ==  userId);
+
+        emit(RemoveChatSuccessState(value.statusCode!));
+      }).catchError((error) {
+        log(error.toString());
+        emit(RemoveChateErrorState(error));
+      });
   }
 }

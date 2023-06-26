@@ -123,7 +123,7 @@ class NotificationScreen extends StatelessWidget
                                       .toList()[index]
                                       .userInformation!
                                       .typeUser ==1) {
-                                GetInformationCubit.get(context)
+                                UserDetailsCubit.get(context)
                                     .getInformationUser(
                                         otherId: NotificationCubit.get(context)
                                             .getNotificationsModel

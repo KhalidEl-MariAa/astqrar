@@ -39,9 +39,8 @@ class ConversationScreenState extends State<ConversationScreen>
 {
   static var messagecontroller = new TextEditingController();  
 
-  var hub = HubConnectionBuilder()
-      .withUrl("${BASE_URL}chat",)
-      .build();
+  late var hub;
+  String status = "غير متصل";
 
   static List<String> messages = [];
   static List<bool> messagesMine = [];
@@ -50,31 +49,38 @@ class ConversationScreenState extends State<ConversationScreen>
   static late ChatModel chat;
 
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
+
+    hub = HubConnectionBuilder()
+      .withUrl("${BASE_URL}chat",)
+      .build();
+    
     connect();
   }
 
-  String status = "غير متصل";
+  
 
   void connect() async 
   {
     await hub.start()?.then((value) => log('connected  ✅ 🔗'))
       .catchError( (e) { 
-        log('DISCONNECTED....... ❌ ✂️'); 
+        log('DISCONNECTED....... ❌  *** '); 
         log(e.toString()); 
       } );
 
-    hub.invoke('Connect', args: [ID!])
+    await hub.invoke('Connect', args: [ID!])
       .then((value) => print("connected user success"))
       .catchError( (e)  { 
         log('USER is DISCONNECTED.......') ;
         log(e.toString()); 
       } );
 
-    hub.onclose( ({error}) => log("HUB ERR: " + error.toString() ) );
+    // hub.onclose( ({error}) => log("HUB ERR: " + error.toString() ) );
 
-    hub.on('receiveMessage', (args) async {
+    hub.on('receiveMessage', (args) async 
+    {
       dynamic ss = {};
       ss = jsonEncode(args![0]);
       jsonDecode(ss);
@@ -91,7 +97,8 @@ class ConversationScreenState extends State<ConversationScreen>
       }
     });
 
-    hub.on("connectedUsers", (args) {
+    hub.on("aUserIsConnected", (args) 
+    {
       dynamic list = [];
       print(args!.length);
 
@@ -126,6 +133,28 @@ class ConversationScreenState extends State<ConversationScreen>
         log(e.toString()); 
       });
   }
+
+  Future<void> send_a_message(context) async 
+  {
+    await hub.invoke(
+      'SendMessagee', 
+      args: [ID!, widget.userId, messagecontroller.text, 0, 1, 1]
+    ).then((value) {
+      log("ggggg");
+      ConversationCubit.get(context).send();
+    })
+    .catchError( (e) { 
+      log('Failed to send ....... ❌❌ '); 
+      log(e.toString()); 
+      showToast(
+        msg: "غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً", 
+        state: ToastStates.ERROR);
+    });
+
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -231,29 +260,34 @@ class ConversationScreenState extends State<ConversationScreen>
           Padding(
             padding:
                 EdgeInsetsDirectional.only(bottom: 10.h, end: 5.w),
-            child: ListView.separated(
+            child: 
+              ListView.separated(
                 reverse: true,
                 itemBuilder: (context, index) => Padding(
-                      padding:
-                          EdgeInsetsDirectional.only(start: 3.w),
+                      padding: EdgeInsetsDirectional.only(start: 3.w),
                       child: Container(
-                        alignment: index == messages.length
-                            ? Alignment.center
-                            : messagesMine.reversed.toList()[index]
-                                ? Alignment.centerRight
-                                : Alignment.centerLeft,
+                        alignment: index == messages.length? 
+                          Alignment.center
+                          : 
+                          messagesMine.reversed.toList()[index]? 
+                              Alignment.centerRight
+                              : 
+                              Alignment.centerLeft,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Row(
                               mainAxisAlignment:
-                                  index == messages.length - 1
-                                      ? MainAxisAlignment.center
-                                      : messagesMine.reversed
-                                              .toList()[index]
-                                          ? MainAxisAlignment.start
-                                          : MainAxisAlignment.end,
+                                  index == messages.length - 1? 
+                                    MainAxisAlignment.center
+                                      : 
+                                      messagesMine.reversed.toList()[index]? 
+                                        MainAxisAlignment.start
+                                        : 
+                                        MainAxisAlignment.end,
                               children: [
+
+                                // صندوق الرسالة
                                 Container(
                                   constraints: BoxConstraints(
                                       minWidth: index == messages.length - 1? 18.w : 10.w,
@@ -269,98 +303,102 @@ class ConversationScreenState extends State<ConversationScreen>
                                       color: index == messages.length - 1 ? 
                                           BG_DARK_COLOR 
                                           : 
-                                          messagesMine.reversed.toList()[index]? PRIMARY: WHITE,
+                                          messagesMine.reversed.toList()[index]? 
+                                            PRIMARY
+                                            : 
+                                            WHITE,
                                       borderRadius:
                                         BorderRadius.only(
-                                            bottomLeft: messagesMine
-                                                        .reversed
-                                                        .toList()[index]
-                                                ? Radius.circular(15)
-                                                : Radius.circular(0),
+                                            bottomLeft: messagesMine.reversed.toList()[index]? 
+                                                Radius.circular(15)
+                                                : 
+                                                Radius.circular(0),
                                             topLeft: Radius.circular(15),
                                             topRight: Radius.circular(15),
-                                            bottomRight: index == messages.length - 1
-                                                ? Radius.circular(15)
-                                                : messagesMine
-                                                        .reversed
-                                                        .toList()[index]
-                                                    ? Radius.circular(0)
-                                                    : Radius.circular(20))),
+                                            bottomRight: index == messages.length - 1? 
+                                                  Radius.circular(15)
+                                                  : 
+                                                  messagesMine.reversed.toList()[index]? 
+                                                    Radius.circular(0)
+                                                    : 
+                                                    Radius.circular(20))),
                                   
-                                  child: Text(messages.reversed.toList()[index],
-                                    maxLines: 120,
-                                    style: GoogleFonts.almarai(
-                                        color: messagesMine.reversed
-                                                .toList()[index]
-                                            ? WHITE
-                                            : BLACK,fontSize: index==messages.length-1?10.sp:null),
+                                  child: 
+                                        Text(messages.reversed.toList()[index],
+                                          maxLines: 120,
+                                          style: GoogleFonts.almarai(
+                                          color: messagesMine.reversed.toList()[index]? 
+                                            WHITE
+                                            : 
+                                            BLACK,
+                                          fontSize: index==messages.length-1?10.sp:null),
                                   ),
                                 ),
+
+
+                                //الصورة الشعارية
                                 Visibility(
-                                  visible: index == 0 &&
-                                          messagesMine.reversed
-                                                      .toList()[index] == false
-                                      ? true
-                                      : index <
-                                                  senderIdList
-                                                          .reversed
-                                                          .toList()
-                                                          .length - 1 &&
-                                              messagesMine.reversed.toList()[index] == false
-                                          ? senderIdList.reversed
-                                                      .toList()[index] != senderIdList.reversed
-                                                      .toList()[index - 1]
-                                          : false,
+                                  visible:  index == 0 &&
+                                            messagesMine.reversed.toList()[index] == false? 
+                                            true
+                                            : 
+                                            index < senderIdList.reversed.toList().length - 1 &&
+                                            messagesMine.reversed.toList()[index] == false? 
+                                              senderIdList.reversed.toList()[index] != senderIdList.reversed.toList()[index - 1]
+                                            : 
+                                            false,
                                   child: Container(
                                     height: 5.h,
                                     width: 8.w,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            image: widget.gender == 1
-                                                ? AssetImage(
-                                                    maleImage)
-                                                : AssetImage(
-                                                    femaleImage))),
+                                            image: widget.gender == 1? 
+                                              AssetImage(maleImage)
+                                              : 
+                                              AssetImage(femaleImage))
+                                      ),
                                   ),
                                 )
                               ],
                             ),
+
+                            // تاريخ الرسالة
                             Visibility(
-                                visible: index ==
-                                        messages.length - 1
-                                    ? false
-                                    : index == 0
-                                        ? true
-                                        : index <
-                                                dateMessages
-                                                        .reversed
-                                                        .toList()
-                                                        .length -
-                                                    1
-                                            ? dateMessages.reversed
-                                                        .toList()[
-                                                    index] !=
-                                                dateMessages
-                                                        .reversed
-                                                        .toList()[
-                                                    index - 1]
-                                            : false,
+                                visible: index == messages.length - 1 ? 
+                                    false
+                                    : 
+                                    index == 0? 
+                                      true
+                                      : 
+                                      index < dateMessages.reversed.toList().length - 1 ? 
+                                        dateMessages.reversed.toList()[index] != dateMessages.reversed.toList()[index - 1]
+                                        : 
+                                        false,
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric( horizontal: 5.w),
+                                  padding: EdgeInsets.symmetric( horizontal: 1.w),
                                   child: Row(
-                                    mainAxisAlignment: messagesMine
-                                            .reversed
-                                            .toList()[index]
-                                        ? MainAxisAlignment.start
-                                        : MainAxisAlignment.end,
+                                    mainAxisAlignment: messagesMine.reversed.toList()[index]? 
+                                        MainAxisAlignment.start
+                                        : 
+                                        MainAxisAlignment.end,
                                     children: [
-                                      Text(
+
+                                      Directionality(
+                                        textDirection: TextDirection.ltr, 
+                                        child:                                       Text(
                                         dateMessages.reversed.toList()[index],
                                         style: TextStyle(
-                                            color: Colors.grey[400],
+                                            color: Colors.grey[600],
                                             fontSize: 10.sp),
-                                      ),
+                                      ),),
+
+                                      // Text(
+                                      //   dateMessages.reversed.toList()[index],
+                                      //   style: TextStyle(
+                                      //       color: Colors.grey[600],
+                                      //       fontSize: 10.sp),
+                                      // ),
                                     ],
                                   ),
                                 ))
@@ -368,10 +406,9 @@ class ConversationScreenState extends State<ConversationScreen>
                         ),
                       ),
                     ),
-                separatorBuilder: (context, index) => SizedBox(
-                      height: 0.5.h,
-                    ),
-                itemCount: messages.length),
+                separatorBuilder: (context, index) => SizedBox(height: 0.5.h,),
+                itemCount: messages.length
+              ),
           ),
           Positioned(
             bottom: -2.h,
@@ -420,25 +457,6 @@ class ConversationScreenState extends State<ConversationScreen>
 
   }
 
-  Future<void> send_a_message(context) async 
-  {
-    if (hub.state == HubConnectionState.Disconnected)
-    {
-      showToast(
-        msg: "غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً", 
-        state: ToastStates.ERROR
-      );
-    }
-
-    await hub.invoke(
-      'SendMessagee', 
-      args: [ID!, widget.userId, messagecontroller.text, 0, 1, 1]
-    ).then((value) {
-      log("ggggg");
-      ConversationCubit.get(context).send();
-    });
-
-  }
 
   Widget createShimmer(context)
   {

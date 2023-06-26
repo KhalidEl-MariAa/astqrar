@@ -55,7 +55,7 @@ class ContactsTab extends StatelessWidget
                                 userId: ContactsCubit.get(context)
                                     .contacts[index]
                                     .userInformation!
-                                    .id!);
+                                    .id);
                           },
                           background: Container(
                             color: PRIMARY,
@@ -124,12 +124,12 @@ class ContactsTab extends StatelessWidget
                 .contacts[index]
                 .userInformation != null ) 
     {
-      GetInformationCubit.get(context)
+      UserDetailsCubit.get(context)
           .getInformationUser(
               otherId: ContactsCubit.get(context)
                   .contacts[index]
                   .userInformation!
-                  .id!);
+                  .id);
 
       Navigator.push(
           context,

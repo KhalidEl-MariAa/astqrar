@@ -1,33 +1,43 @@
-abstract class GetInformationStates{}
 
-class GetInformationInitialState extends GetInformationStates{}
 
-class GetInformationLoadingState extends GetInformationStates{}
+abstract class UserDetailsStates{}
 
-class GetInformationSuccessState extends GetInformationStates{}
+class GetInformationInitialState extends UserDetailsStates{}
 
-class GetInformationErrorState extends GetInformationStates{
+class GetInformationLoadingState extends UserDetailsStates{}
+
+class GetInformationSuccessState extends UserDetailsStates{}
+
+class GetInformationErrorState extends UserDetailsStates{
   final String error;
   GetInformationErrorState(this.error);
 }
-class SendNotificationLoadingState extends GetInformationStates{}
+class SendNotificationLoadingState extends UserDetailsStates{}
 
-class SendNotificationSuccessState extends GetInformationStates{}
+class SendNotificationSuccessState extends UserDetailsStates{}
 
-class SendNotificationErrorState extends GetInformationStates{
+class SendNotificationErrorState extends UserDetailsStates{
   final String error;
   SendNotificationErrorState(this.error);
 }
 
 
-class AddToFavouriteLoadingState extends GetInformationStates{}
+class ToggleFavouriteLoading extends UserDetailsStates{}
 
-class AddToFavouriteSuccessState extends GetInformationStates{}
+class AddToFavouriteSuccessState extends UserDetailsStates{}
 
-class AddToFavouriteErrorState extends GetInformationStates{
+class AddToFavouriteErrorState extends UserDetailsStates{
   final String error;
   AddToFavouriteErrorState(this.error);
 }
+
+class RemoveFromFavouriteSuccessState extends UserDetailsStates{}
+
+class RemoveFromFavouriteErrorState extends UserDetailsStates{
+  final String error;
+  RemoveFromFavouriteErrorState(this.error);
+}
+
 
 // class AddChattRequestLoadingState extends GetInformationStates{}
 
@@ -41,14 +51,27 @@ class AddToFavouriteErrorState extends GetInformationStates{
 //   AddChattRequestErrorState(this.error);
 // }
 
-class AddHimToMyContactsLoading extends GetInformationStates{}
+class AddHimToMyContactsLoading extends UserDetailsStates{}
 
-class AddHimToMyContactsLoadingSuccess extends GetInformationStates{
+class AddHimToMyContactsSuccess extends UserDetailsStates{
   final String msg;
-  AddHimToMyContactsLoadingSuccess(this.msg);
+  AddHimToMyContactsSuccess(this.msg);
 }
 
-class AddHimToMyContactsLoadingError extends GetInformationStates{
+class AddHimToMyContactsError extends UserDetailsStates{
   final String error;
-  AddHimToMyContactsLoadingError(this.error);
+  AddHimToMyContactsError(this.error);
+}
+
+
+class BlockHimLoading extends UserDetailsStates{}
+
+class BlockHimSuccess extends UserDetailsStates{
+  final String msg;
+  BlockHimSuccess(this.msg);
+}
+
+class BlockHimError extends UserDetailsStates{
+  final String error;
+  BlockHimError(this.error);
 }

@@ -3,7 +3,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../constants.dart';
@@ -34,13 +33,13 @@ class SliderAds extends StatelessWidget
             child: InkWell(
               onTap: (){
                 if(IS_LOGIN==true){
-                  GetInformationCubit.get(context)
+                  UserDetailsCubit.get(context)
                       .getInformationUser(
                       otherId:
                       HomeCubit.get(context)
                           .getAllAdsWithUsersModel.data[realindex].id!);}
                 else{
-                  GetInformationCubit.get(context)
+                  UserDetailsCubit.get(context)
                       .getInformationUserByVisitor(
                       userId:
                      HomeCubit.get(context)

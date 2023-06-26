@@ -1,26 +1,36 @@
 
 class GetInformationUserModel 
 {
-  bool? isFavorate;
-  bool? isInMyContacts;
+  // bool? isFavorate;
+  // bool? isInMyContacts;
+  // bool? isBlocked;
+
   InformationDetailsModel? information;
   OtherUserModel? otherUser;
 
-  GetInformationUserModel.fromJson(Map<String, dynamic> json) {
-    isFavorate = json['isFavorate'];
-    isInMyContacts = json['isInMyContacts'];
+  GetInformationUserModel.fromJson(Map<String, dynamic> json) 
+  {
+    // isFavorate = json['isFavorate'];
+    // isInMyContacts = json['isInMyContacts'];
+    // isBlocked = json['isBlocked'];
+    
 
     information = json['information'] != null
         ? InformationDetailsModel.fromJson(json['information'])
         : null;
 
-    otherUser = json['otherUser'] != null
-        ? OtherUserModel.fromJson(json['otherUser'])
-        : null;
+    if(json['otherUser'] != null){
+      otherUser =  OtherUserModel.fromJson(json['otherUser']);
+      otherUser?.isFavorate = json['isFavorate'];
+      otherUser?.isInMyContacts = json['isInMyContacts'];
+      otherUser?.isBlocked = json['isBlocked'];
+    }
+
   }
 }
 
-class InformationDetailsModel {
+class InformationDetailsModel 
+{
   String? id;
   String? user_Name;
   dynamic gender;
@@ -62,6 +72,10 @@ class OtherUserModel
     String? terms;
     String? nationality;
     bool?   specialNeeds;
+
+    bool? isFavorate;
+    bool? isInMyContacts;
+    bool? isBlocked;
 
     List<UserSubSpecificationDtoModel>userSubSpecificationDto=[];
     

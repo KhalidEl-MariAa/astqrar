@@ -48,7 +48,7 @@ class ConversationCubit extends Cubit<ConversationStates>
         ConversationScreenState.senderIdList
             .add(getMessagesModel.data[i].senderId.toString());
         ConversationScreenState.dateMessages.add(
-            DateFormat('  dd / MM/ yyyy  HH : mm', 'ar_SA')
+            DateFormat('mm : HH  dd / MM/ yyyy', 'ar_SA')
                 .format(DateTime.parse(getMessagesModel.data[i].date!)));
         log(ConversationScreenState.senderIdList.toString());
         if (ID == getMessagesModel.data[i].senderId) {

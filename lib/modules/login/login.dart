@@ -36,19 +36,23 @@ class _LoginScreenState extends State<LoginScreen>
   var phoneController = TextEditingController();
   var loginkey=GlobalKey<FormState>();
 
+
   @override
   void initState() 
   {
     super.initState();
-    FirebaseMessaging.instance.getToken().then((value) {
+    FirebaseMessaging.instance.getToken().then((value) 
+    {
       DEVICE_TOKEN = value;
       CacheHelper.sharedpreferneces.setString("deviceToken", DEVICE_TOKEN!);
-      print("Device Token" + "  " + value.toString());
+      log("Device TOKEN" + "  " + value.toString());
     });
+
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocProvider(
@@ -271,10 +275,14 @@ class _LoginScreenState extends State<LoginScreen>
                                   fontSize: 9.2.sp,
                                   fontWeight: FontWeight.w500),
                             ),
-                          )
+                          ),
+
+                          
                         ],
                       ),
-                      SizedBox( height: 2.h, )
+                      SizedBox( height: 2.h, ),
+
+
                     ],
                   ),
                 ),
@@ -285,4 +293,6 @@ class _LoginScreenState extends State<LoginScreen>
       ),
     );
   }
+
+
 }

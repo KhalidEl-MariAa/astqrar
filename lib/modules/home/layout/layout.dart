@@ -1,5 +1,9 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:upgrader/upgrader.dart';
 
 import '../../../shared/components/dialog_please_login.dart';
 import '../../../constants.dart';
@@ -10,7 +14,8 @@ import '../2_home_tab/home_tab.dart';
 import '../3_contacts/contacts_tab.dart';
 import '../4_more/more_tab.dart';
 
-class LayoutScreen extends StatefulWidget {
+class LayoutScreen extends StatefulWidget 
+{
   const LayoutScreen({Key? key}) : super(key: key);
 
   @override
@@ -35,16 +40,17 @@ class _LayoutScreenState extends State<LayoutScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        floatingActionButton: floatingActionButton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: createBottomAppBar(context),
-        body: widgetList[_selectedTab],
-      ),
-    );
+  Widget build(BuildContext context) 
+  {
+    return  Directionality(
+              textDirection: TextDirection.rtl,
+              child: Scaffold(
+                floatingActionButton: floatingActionButton(),
+                floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+                bottomNavigationBar: createBottomAppBar(context),
+                body: widgetList[_selectedTab],
+              ),
+            );
   }
 
   BottomAppBar createBottomAppBar(BuildContext context) 

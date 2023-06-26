@@ -1,87 +1,42 @@
+import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants.dart';
 import '../../../models/get_information_user.dart';
 import '../../../models/user.dart';
+import '../../../modules/chatt/chatt.dart';
+import '../../../modules/user_details/cubit/cubit.dart';
 import '../../../modules/user_details/cubit/states.dart';
-import '../../styles/colors.dart';
 import '../dialog_please_login.dart';
 import 'details_item.dart';
 
-class DetailWidget extends StatelessWidget 
+class DetailWidget extends StatefulWidget 
 {
   final bool messageVisibility;
-  final String name;
-  final String age;
-  final String email;
-  final String nationality;
-  final String city;
-  final int gender;
-  final String height;
-  final String weight;
-
-  final List<UserSubSpecificationDtoModel> userSubSpecificationDto;
-  final Function favouriteFunction;
-  final Function chatFunction;
-  final bool isFavourite;
-  final bool specialNeeds;
-  final String dowry;
-  final String terms;
-  final Function onClickUser;
-
-  final GetInformationStates state;
+  final UserDetailsStates state;
+  final OtherUserModel other;
 
   DetailWidget({
     required this.state,
-    required this.userSubSpecificationDto,
-    required this.dowry,
-    required this.terms,
-    required this.specialNeeds,
     required this.messageVisibility,
-    required this.gender,
-    required this.onClickUser,
-    required this.height,
-    required this.isFavourite,
-    required this.favouriteFunction,
-    required this.chatFunction,
-    required this.weight,
-    required this.city,
-    required this.age,
-    required this.nationality,
-    required this.email,
-    required this.name, 
+    required this.other
   });
 
+  @override
+  State<DetailWidget> createState() => _DetailWidgetState();
+}
+
+class _DetailWidgetState extends State<DetailWidget> 
+{
+  // DetailWidget({
   @override
   Widget build(BuildContext context) 
   {
     return Column(
       children: [
-        if(messageVisibility==false&&TYPE_OF_USER==1) 
-          InkWell(
-            onTap: (){ onClickUser(); },
-            child: Padding(
-              padding: EdgeInsetsDirectional.only( top: 2.h,start: 4.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset("assets/chat (7).png"),
-                  SizedBox( width: 3.w, ),
-                  Text(
-                    "تواصل مع الخطابة",
-                    style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: PRIMARY,
-                        decoration: TextDecoration.underline),
-                  ),
-                ],
-              ),
-            ),
-          ),
         
         Padding(
           padding: EdgeInsetsDirectional.only(top: 1.h),
@@ -93,7 +48,7 @@ class DetailWidget extends StatelessWidget
                   color: Colors.white,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: gender == 1 ? AssetImage(maleImage,) : AssetImage(femaleImage),
+                    image: widget.other.gender == 1 ? AssetImage(maleImage,) : AssetImage(femaleImage),
                   )),
             ),
           ),
@@ -110,7 +65,7 @@ class DetailWidget extends StatelessWidget
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(start: 4.w),
                   child:
-                      Text(name, style: GoogleFonts.poppins(fontSize: 12.sp)),
+                      Text(widget.other.userName??"--------", style: GoogleFonts.poppins(fontSize: 12.sp)),
                 ),
               ),
               SizedBox(
@@ -122,41 +77,59 @@ class DetailWidget extends StatelessWidget
             //         style: GoogleFonts.poppins(color: Colors.grey[500])),
             // ),
               const Spacer(),
+
+              // ايقونة البلوك
               Visibility(
-                visible: messageVisibility && TYPE_OF_USER==1,
+                visible: widget.other.isBlocked??false,
                 child: 
-                ConditionalBuilder(
-                  condition: state is AddToFavouriteLoadingState ,
-                  builder:  (context) => CircularProgressIndicator(),
-                  fallback: (context)  =>                  
-                    InkWell(
-                      onTap: () 
-                      {
-                        if(IS_LOGIN==false){
-                          showDialog(context: context, builder: (context) => const DialogPleaseLogin());
-                          return ;
-                        }
-                        favouriteFunction();
-                      },
-                      child: Image(
-                          height: 3.5.h, 
-                          image: isFavourite?
-                            const AssetImage("assets/fullFavorite.png")
-                            :
-                            const AssetImage('assets/Frame 146.png')),
+                  ConditionalBuilder(
+                    condition: widget.state is BlockHimLoading ,
+                    builder:  (context) => CircularProgressIndicator(),
+                    fallback: (context)  => 
+                      InkWell(
+                        onTap: () {  UserDetailsCubit.get(context).unblockHim(userId: widget.other.id??""); },
+                        child:  
+                          Icon(Icons.block, color: PRIMARY,size: 33,),
+                      ),                    
                     ),
-                  
-                  ),
+              ),
+
+              SizedBox( width: 3.w,),
+
+              // زر اللايك
+              Visibility(
+                visible: widget.messageVisibility && TYPE_OF_USER==1,
+                child: 
+                  ConditionalBuilder(
+                    condition: widget.state is ToggleFavouriteLoading ,
+                    builder:  (context) => CircularProgressIndicator(),
+                    fallback: (context)  =>                  
+                      InkWell(
+                        onTap: () {
+                          if(IS_LOGIN==false){
+                            showDialog(context: context, builder: (context) => const DialogPleaseLogin());
+                            return ;
+                          }
+                          favourite_on_click(context);
+                        },
+                        child: Image(
+                            height: 3.5.h, 
+                            image: (widget.other.isFavorate??false)?
+                              const AssetImage("assets/fullFavorite.png")
+                              :
+                              const AssetImage('assets/Frame 146.png')),
+                      ),
+                    ),
               ),
               Visibility(
-                visible: messageVisibility,
+                visible: widget.messageVisibility,
                 child: SizedBox( width: 3.w, ),
               ),
               Visibility(
-                visible: messageVisibility,
+                visible: widget.messageVisibility,
                 child: 
                 ConditionalBuilder(
-                  condition: state is AddHimToMyContactsLoading,
+                  condition: widget.state is AddHimToMyContactsLoading,
                   builder: (context) => CircularProgressIndicator(),
                   fallback: (context) =>
                     InkWell(
@@ -165,7 +138,7 @@ class DetailWidget extends StatelessWidget
                           showDialog(context: context, builder: (context) => const DialogPleaseLogin());
                           return;
                         }
-                        chatFunction();
+                        enter_chatt_screen(context);
                       },
                       child: Image(height: 3.h, image: const AssetImage('assets/chat (7).png')),
                     ),
@@ -189,12 +162,12 @@ class DetailWidget extends StatelessWidget
                   width: 46.w,
                   child: DetailsItem(
                     title: 'العمر', 
-                    subTitle: age + "  عام ")),
+                    subTitle: widget.other.age.toString() + "  عام ")),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'المدينة',
-                  subTitle: city,
+                  subTitle: widget.other.city??"--------",
                 ),
               ),
             ],
@@ -208,7 +181,7 @@ class DetailWidget extends StatelessWidget
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'الجنسية', subTitle: nationality)),
+                  child: DetailsItem(title: 'الجنسية', subTitle: widget.other.nationality??"--------")),
               Container(
                 width: 35.w,
                 child: DetailsItem(                  
@@ -227,10 +200,10 @@ class DetailWidget extends StatelessWidget
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'الطول', subTitle: "${height} سم")),
+                  child: DetailsItem(title: 'الطول', subTitle: "${widget.other.height} سم")),
               Container(
                 width: 35.w,
-                child: DetailsItem(title: 'الوزن', subTitle: "${weight} ك",
+                child: DetailsItem(title: 'الوزن', subTitle: "${widget.other.weight} ك",
                 ),
               ),
             ],
@@ -333,7 +306,9 @@ class DetailWidget extends StatelessWidget
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
-              Container(width: 46.w,child: DetailsItem(title: 'عاهه جسدية', subTitle: specialNeeds?"يوجد ":"لا يوجد")),
+              Container(width: 46.w,child: 
+                  DetailsItem(title: 'عاهه جسدية', 
+                  subTitle: (widget.other.specialNeeds??false)? "يوجد " : "لا يوجد")),
 
               Container(
                 width: 35.w,
@@ -360,7 +335,7 @@ class DetailWidget extends StatelessWidget
                   subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.marriage_Type)                   
                   )),
 
-              Container(width: 46.w,child: DetailsItem(title: 'قيمة المهر', subTitle:dowry )),
+              Container(width: 46.w,child: DetailsItem(title: 'قيمة المهر', subTitle: widget.other.dowry.toString() )),
             ],
           ),
         ),
@@ -378,7 +353,7 @@ class DetailWidget extends StatelessWidget
                 Container(
                   width: 80.w,
                   child: DetailsItem(
-                    subTitle:terms,
+                    subTitle: widget.other.terms??"--------",
                     title: 'الشروط',
                   ),
                 ),
@@ -390,12 +365,82 @@ class DetailWidget extends StatelessWidget
       ],
     );
   }
-  
+
+  //-----------------------------------------------
+  void favourite_on_click(BuildContext context) 
+  {
+    if (UserDetailsCubit
+          .get(context)
+          .getInformationUserModel.otherUser?.isFavorate??false) 
+    {
+      UserDetailsCubit
+        .get(context)
+        .deleteFromFavourite(
+            userId: UserDetailsCubit.get(context)
+                .getInformationUserModel
+                .otherUser!
+                .id!
+        );
+    }else 
+    {
+      UserDetailsCubit
+        .get(context)
+        .addToFavourite(
+          userId: UserDetailsCubit.get(context)
+              .getInformationUserModel
+              .otherUser!
+              .id!
+        );
+    }
+  }
+//favourite_on_click
+  void enter_chatt_screen(BuildContext context) 
+  {
+    // حسب طلب صاحب التطبيق ان يتم الدخول على الشات مباشرة بدون طلب
+    UserDetailsCubit
+      .get(context)
+      .addHimToMyContacts(
+        userId: UserDetailsCubit.get(context)
+            .getInformationUserModel.otherUser!.id!);
+
+
+
+    // if(GetInformationCubit.get(context).getInformationUserModel.isInMyContacts!)
+    // {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConversationScreen(
+              typeUser: 1,
+              gender: UserDetailsCubit.get(context)
+                  .getInformationUserModel
+                  .otherUser!.gender!,
+              userId: UserDetailsCubit.get(context)
+                    .getInformationUserModel
+                    .otherUser!
+                    .id!,
+              userName: UserDetailsCubit.get(context)
+                    .getInformationUserModel
+                    .otherUser!
+                    .userName!
+            ))
+      );
+    // }else{
+    //   GetInformationCubit
+    //     .get(context)
+    //     .addChattRequest(
+    //       userId: GetInformationCubit.get(context)
+    //           .getInformationUserModel
+    //           .userSubSpecifications!
+    //           .id!);
+    // }
+  }
+
   findSubSpecificationOrEmptyStr(int specId) 
   {
 
     var subkeys = SpecificationIDs.getSubSpecificationKeys(specId);
-    return userSubSpecificationDto
+    return widget.other.userSubSpecificationDto
                   .firstWhere(
                     (ss) => subkeys.contains(ss.id),
                             orElse: ( ) => UserSubSpecificationDtoModel(0, "X", "---------") )

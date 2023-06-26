@@ -13,12 +13,13 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../notification.dart';
 import '../../../shared/components/loading_gif.dart';
 import '../../../constants.dart';
+import '../../../shared/network/remote.dart';
 import '../../../shared/styles/colors.dart';
 import '../../ads/ads.dart';
 import '../../login/login.dart';
 import '../../search/result.dart';
-import '../../section%20men%20_women/cubit/cubit.dart';
-import '../../section%20men%20_women/section_men_women.dart';
+import '../../section_men_women/cubit/cubit.dart';
+import '../../section_men_women/section_men_women.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'widgets/big_button.dart';
@@ -333,9 +334,8 @@ class _HomeTabState extends State<HomeTab>
                     fontWeight: FontWeight.w600)
                 ),
               ),
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox( height: 3.h, ),
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 3.w),
                 child: Row(
@@ -357,10 +357,21 @@ class _HomeTabState extends State<HomeTab>
                           onTap: () { WomenSectionClick(context); },
                           child: BigButton(text: "قسم النساء")
                       ),
-                    )
+                    ),
+
+
                   ],
                 ),
-              )
+              ),
+              
+              SizedBox( height: 3.h, ),
+
+              if(IS_DEVELOPMENT_MODE)
+                InkWell(
+                  onTap: () { DioHelper.init(); },
+                  child: Text("RECONNECT"),
+                ),
+
             ],
           ),
         ),

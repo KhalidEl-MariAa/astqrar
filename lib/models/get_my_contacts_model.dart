@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
-class MyContactsModel {
+class MyContactsModel 
+{
   List<DataOfMyContactDetails> data = [];
   MyContactsModel.fromJson(Map<String, dynamic> json) {
     json['data'].forEach((element) {
@@ -9,10 +10,12 @@ class MyContactsModel {
   }
 }
 
-class DataOfMyContactDetails {
+class DataOfMyContactDetails 
+{
   UserInformationContactData? userInformation;
   ContactData? contact;
   bool isInMyContacts = true;
+
   DataOfMyContactDetails.fromJson(Map<String, dynamic> json) {
     userInformation = json['userInformation'] != null
         ? UserInformationContactData.fromJson(json['userInformation'])
@@ -24,7 +27,7 @@ class DataOfMyContactDetails {
 
 class UserInformationContactData 
 {
-  String? id;
+  String id='';
   String? user_Name;
   int? typeUser;
 

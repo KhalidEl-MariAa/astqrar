@@ -3,7 +3,8 @@ import 'package:sizer/sizer.dart';
 
 import '../../styles/colors.dart';
 
-class NormalLogo extends StatelessWidget {
+class NormalLogo extends StatelessWidget 
+{
   final String appbarTitle;
   final bool isBack;
 
