@@ -17,12 +17,12 @@ class DetailWidget extends StatefulWidget
 {
   final bool messageVisibility;
   final UserDetailsStates state;
-  final OtherUserModel other;
+  final OtherUser otherUser;
 
   DetailWidget({
     required this.state,
     required this.messageVisibility,
-    required this.other
+    required this.otherUser
   });
 
   @override
@@ -48,7 +48,7 @@ class _DetailWidgetState extends State<DetailWidget>
                   color: Colors.white,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: widget.other.gender == 1 ? AssetImage(maleImage,) : AssetImage(femaleImage),
+                    image: widget.otherUser.gender == 1 ? AssetImage(maleImage,) : AssetImage(femaleImage),
                   )),
             ),
           ),
@@ -65,7 +65,7 @@ class _DetailWidgetState extends State<DetailWidget>
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(start: 4.w),
                   child:
-                      Text(widget.other.userName??"--------", style: GoogleFonts.poppins(fontSize: 12.sp)),
+                      Text(widget.otherUser.user_Name??"--------", style: GoogleFonts.poppins(fontSize: 12.sp)),
                 ),
               ),
               SizedBox(
@@ -80,14 +80,14 @@ class _DetailWidgetState extends State<DetailWidget>
 
               // ايقونة البلوك
               Visibility(
-                visible: widget.other.isBlocked??false,
+                visible: widget.otherUser.isBlocked??false,
                 child: 
                   ConditionalBuilder(
                     condition: widget.state is BlockHimLoading ,
                     builder:  (context) => CircularProgressIndicator(),
                     fallback: (context)  => 
                       InkWell(
-                        onTap: () {  UserDetailsCubit.get(context).unblockHim(userId: widget.other.id??""); },
+                        onTap: () {  UserDetailsCubit.get(context).unblockHim(userId: widget.otherUser.id??""); },
                         child:  
                           Icon(Icons.block, color: PRIMARY,size: 33,),
                       ),                    
@@ -114,7 +114,7 @@ class _DetailWidgetState extends State<DetailWidget>
                         },
                         child: Image(
                             height: 3.5.h, 
-                            image: (widget.other.isFavorate??false)?
+                            image: (widget.otherUser.isFavorate??false)?
                               const AssetImage("assets/fullFavorite.png")
                               :
                               const AssetImage('assets/Frame 146.png')),
@@ -162,12 +162,12 @@ class _DetailWidgetState extends State<DetailWidget>
                   width: 46.w,
                   child: DetailsItem(
                     title: 'العمر', 
-                    subTitle: widget.other.age.toString() + "  عام ")),
+                    subTitle: widget.otherUser.age.toString() + "  عام ")),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'المدينة',
-                  subTitle: widget.other.city??"--------",
+                  subTitle: widget.otherUser.city??"--------",
                 ),
               ),
             ],
@@ -181,7 +181,7 @@ class _DetailWidgetState extends State<DetailWidget>
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'الجنسية', subTitle: widget.other.nationality??"--------")),
+                  child: DetailsItem(title: 'الجنسية', subTitle: widget.otherUser.nationality??"--------")),
               Container(
                 width: 35.w,
                 child: DetailsItem(                  
@@ -200,10 +200,10 @@ class _DetailWidgetState extends State<DetailWidget>
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'الطول', subTitle: "${widget.other.height} سم")),
+                  child: DetailsItem(title: 'الطول', subTitle: "${widget.otherUser.height} سم")),
               Container(
                 width: 35.w,
-                child: DetailsItem(title: 'الوزن', subTitle: "${widget.other.weight} ك",
+                child: DetailsItem(title: 'الوزن', subTitle: "${widget.otherUser.weight} ك",
                 ),
               ),
             ],
@@ -308,7 +308,7 @@ class _DetailWidgetState extends State<DetailWidget>
             children: [
               Container(width: 46.w,child: 
                   DetailsItem(title: 'عاهه جسدية', 
-                  subTitle: (widget.other.specialNeeds??false)? "يوجد " : "لا يوجد")),
+                  subTitle: (widget.otherUser.specialNeeds??false)? "يوجد " : "لا يوجد")),
 
               Container(
                 width: 35.w,
@@ -335,7 +335,7 @@ class _DetailWidgetState extends State<DetailWidget>
                   subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.marriage_Type)                   
                   )),
 
-              Container(width: 46.w,child: DetailsItem(title: 'قيمة المهر', subTitle: widget.other.dowry.toString() )),
+              Container(width: 46.w,child: DetailsItem(title: 'قيمة المهر', subTitle: widget.otherUser.dowry.toString() )),
             ],
           ),
         ),
@@ -353,7 +353,7 @@ class _DetailWidgetState extends State<DetailWidget>
                 Container(
                   width: 80.w,
                   child: DetailsItem(
-                    subTitle: widget.other.terms??"--------",
+                    subTitle: widget.otherUser.terms??"--------",
                     title: 'الشروط',
                   ),
                 ),
@@ -369,27 +369,19 @@ class _DetailWidgetState extends State<DetailWidget>
   //-----------------------------------------------
   void favourite_on_click(BuildContext context) 
   {
-    if (UserDetailsCubit
-          .get(context)
-          .getInformationUserModel.otherUser?.isFavorate??false) 
+    if (widget.otherUser.isFavorate??false) 
     {
       UserDetailsCubit
         .get(context)
         .deleteFromFavourite(
-            userId: UserDetailsCubit.get(context)
-                .getInformationUserModel
-                .otherUser!
-                .id!
+            userId: widget.otherUser.id!
         );
     }else 
     {
       UserDetailsCubit
         .get(context)
         .addToFavourite(
-          userId: UserDetailsCubit.get(context)
-              .getInformationUserModel
-              .otherUser!
-              .id!
+          userId: widget.otherUser.id!
         );
     }
   }
@@ -400,8 +392,7 @@ class _DetailWidgetState extends State<DetailWidget>
     UserDetailsCubit
       .get(context)
       .addHimToMyContacts(
-        userId: UserDetailsCubit.get(context)
-            .getInformationUserModel.otherUser!.id!);
+        userId: widget.otherUser.id!);
 
 
 
@@ -411,19 +402,8 @@ class _DetailWidgetState extends State<DetailWidget>
         context,
         MaterialPageRoute(
             builder: (context) => ConversationScreen(
-              typeUser: 1,
-              gender: UserDetailsCubit.get(context)
-                  .getInformationUserModel
-                  .otherUser!.gender!,
-              userId: UserDetailsCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .id!,
-              userName: UserDetailsCubit.get(context)
-                    .getInformationUserModel
-                    .otherUser!
-                    .userName!
-            ))
+                                      otherUser: widget.otherUser)
+        )
       );
     // }else{
     //   GetInformationCubit
@@ -438,12 +418,12 @@ class _DetailWidgetState extends State<DetailWidget>
 
   findSubSpecificationOrEmptyStr(int specId) 
   {
-
     var subkeys = SpecificationIDs.getSubSpecificationKeys(specId);
-    return widget.other.userSubSpecificationDto
+
+    return widget.otherUser.subSpecifications
                   .firstWhere(
                     (ss) => subkeys.contains(ss.id),
-                            orElse: ( ) => UserSubSpecificationDtoModel(0, "X", "---------") )
+                            orElse: ( ) => SubSpecification(0, "X",0 ,"---------") )
                   .value
                   .toString();
   }

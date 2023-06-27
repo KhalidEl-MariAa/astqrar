@@ -1,3 +1,4 @@
+import 'package:astarar/models/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sizer/sizer.dart';
@@ -9,10 +10,13 @@ import 'resetpassword.dart';
 
 class InputOtp extends StatelessWidget 
 {
-  final String code;
-  InputOtp({required this.code});
+  final ActivationCode activationCode;
+
+  InputOtp({required this.activationCode});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     var smscontroller = TextEditingController();
 
     return Directionality(
@@ -80,12 +84,12 @@ class InputOtp extends StatelessWidget
                 doubleInfinityMaterialButton(
                     text: "تاكيد",
                     onPressed: () {
-                      if (smscontroller.text == code) {
+                      if (smscontroller.text == this.activationCode.code) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ResetPassword(
-                                      code: code,
+                                      activationCode: this.activationCode,
                                     )));
                       } else {
                         showToast(

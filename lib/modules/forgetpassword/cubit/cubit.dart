@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../constants.dart';
 import '../../../models/forget_password.dart';
 import '../../../models/server_response_model.dart';
 import '../../../end_points.dart';
@@ -16,7 +15,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
   //late LoginModel loginModel;
   static ForgetPasswordCubit get(context) => BlocProvider.of(context);
 
-  late ForgetPassword forgetPasswordModel;
+  
 
   sendUserIdentity({required String nationalId, required String phone}) 
   {
@@ -29,14 +28,14 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
       }
     )
     .then((res) {
+      
       if(res.data["key"] == 0){
         emit(ForgetPasswordErrorState(  res.data["msg"] ));
         return;
       }
-
-      forgetPasswordModel = ForgetPassword.fromJson(res.data);
-      FORGET_PASSWORD_ID = forgetPasswordModel.data!.userId!;
-      emit(ForgetPasswordSuccessState(forgetPasswordModel));
+      ActivationCode activationCode = ActivationCode.fromJson(res.data["data"]);
+      
+      emit(ForgetPasswordSuccessState(activationCode));
     })
     .catchError((error) {
       emit(ForgetPasswordErrorState(error.toString()));
@@ -44,19 +43,20 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>
   }
 
   //changepassword
-  late ServerResponse changePasswordByCodeModel;
+  late ServerResponse res;
 
   changePasswordByCode({
+    required String userId,
     required String newPassword, 
     required String confirmPassword,
-    required String code}) 
+    required int code}) 
   {
-    log("changing password for: " + FORGET_PASSWORD_ID!);
+    log("changing password for: " + userId);
     emit(ChangePasswordByCodeLoadingState());
     DioHelper.postData(
       url: CHANGEPASSWORDBYCODE, 
       data: {
-      "userId": FORGET_PASSWORD_ID,
+      "userId": userId,
       "code": code,
       "newPassword": newPassword,
       "confirmPassword": confirmPassword,

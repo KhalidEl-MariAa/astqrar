@@ -7,7 +7,8 @@ class UserItem {
   dynamic age;
   String? id;
 
-  UserItem.fromJson(Map<String, dynamic> json) {
+  UserItem.fromJson(Map<String, dynamic> json) 
+  {
     user_Name = json['user_Name'];
     gender = json['gender'];
     age = json['age'];

@@ -1,3 +1,4 @@
+import 'package:astarar/models/forget_password.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +11,11 @@ import '../login/login.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class ResetPassword extends StatelessWidget {
-  final String code;
+class ResetPassword extends StatelessWidget 
+{
+  final ActivationCode activationCode;
 
-  ResetPassword({required this.code});
+  ResetPassword({required this.activationCode});
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +86,10 @@ class ResetPassword extends StatelessWidget {
                         text: "تغيير كلمة المرور",
                         onPressed: () {
                           ForgetPasswordCubit.get(context).changePasswordByCode(
+                              userId: activationCode.userId!,
                               newPassword: passwordController.text, 
                               confirmPassword: confirmpasswordController.text,
-                              code: code);
+                              code: activationCode.code?? 0 );
                         }),
 
                     SizedBox(height: 1.h, ),

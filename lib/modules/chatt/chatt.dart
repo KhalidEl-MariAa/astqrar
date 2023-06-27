@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:astarar/models/get_information_user.dart';
+
 import '../../shared/components/components.dart';
 
 import '../../models/chatModel.dart';
@@ -18,18 +20,16 @@ import 'package:sizer/sizer.dart';
 
 class ConversationScreen extends StatefulWidget 
 {
-  final String userId;
-  final String userName;
-  final int gender;
-  final int typeUser;
+  final OtherUser otherUser;
+  // final String userId;
+  // final String userName;
+  // final int gender;
+  // final int typeUser;
 
   const ConversationScreen(
       {Key? key,
-      required this.userId,
-      required this.userName,
-      required this.gender,
-      required this.typeUser})
-      : super(key: key);
+      required this.otherUser,
+      }) : super(key: key);
 
   @override
   ConversationScreenState createState() => ConversationScreenState();
@@ -39,7 +39,7 @@ class ConversationScreenState extends State<ConversationScreen>
 {
   static var messagecontroller = new TextEditingController();  
 
-  late var hub;
+  late HubConnection hub;
   String status = "غير متصل";
 
   static List<String> messages = [];
@@ -110,7 +110,7 @@ class ConversationScreenState extends State<ConversationScreen>
       for (int i = 0; i < list!.length; i++) 
       {
         print(list[0]);
-        if (list[i].toString() == widget.userId) {
+        if (list[i].toString() == widget.otherUser.id) {
           setState(() {
             status = " متصل الان";
           });
@@ -138,7 +138,7 @@ class ConversationScreenState extends State<ConversationScreen>
   {
     await hub.invoke(
       'SendMessagee', 
-      args: [ID!, widget.userId, messagecontroller.text, 0, 1, 1]
+      args: [ID!, widget.otherUser.id! , messagecontroller.text, 0, 1, 1]
     ).then((value) {
       log("ggggg");
       ConversationCubit.get(context).send();
@@ -160,7 +160,11 @@ class ConversationScreenState extends State<ConversationScreen>
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) =>
-          ConversationCubit()..getMessages(userId: widget.userId, typeUserChat: widget.typeUser==1?true:false),
+          ConversationCubit()
+            ..getMessages(
+              userId: widget.otherUser.id!, 
+              typeUserChat: widget.otherUser.typeUser==1?true:false),
+
       child: BlocConsumer<ConversationCubit, ConversationStates>(
         listener: (context, state) {},
         builder: (context, state) => Directionality(
@@ -185,7 +189,7 @@ class ConversationScreenState extends State<ConversationScreen>
                             height: 2.h,
                           ),
                           Text(
-                            widget.userName,
+                            widget.otherUser.user_Name?? "------",
                             style: TextStyle(color: WHITE,fontSize: 11.5.sp),
                           ),
                           SizedBox(
@@ -211,9 +215,11 @@ class ConversationScreenState extends State<ConversationScreen>
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                    image: widget.gender == 1
-                                        ? AssetImage(maleImage)
-                                        : AssetImage(femaleImage))),
+                                    image: widget.otherUser.gender == 1 ? 
+                                        AssetImage(maleImage)
+                                        : 
+                                        AssetImage(femaleImage))
+                            ),
                           )),
                       actions: [
                         // if (widget.typeUser == 2) 
@@ -353,7 +359,7 @@ class ConversationScreenState extends State<ConversationScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            image: widget.gender == 1? 
+                                            image: widget.otherUser.gender == 1? 
                                               AssetImage(maleImage)
                                               : 
                                               AssetImage(femaleImage))

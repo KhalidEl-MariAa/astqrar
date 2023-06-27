@@ -16,22 +16,19 @@ class User
   dynamic age;
   dynamic height;
   dynamic weight;
-
   String? nameOfJob;
   String? illnessType;
   int? numberOfKids=0;
-  
-  bool? specialNeeds;
-
   dynamic dowry;
   dynamic terms;
   String? showPassword;
+
+  bool? specialNeeds;
   
   bool? closeNotify;
   bool? status;
   String? imgProfile;
   int typeUser = 1;
-
 
   List<SubSpecification> subSpecifications = [];
 

@@ -31,7 +31,7 @@ class ForgetPasswordScreen extends StatelessWidget
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ResetPassword(code: "0",)  //InputOtp(code: state.forgetPasswordModel.data!.code.toString()
+                    builder: (context) => ResetPassword(activationCode: state.activationCode )  
                   ),
                   (route) => true
                 );

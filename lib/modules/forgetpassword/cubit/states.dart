@@ -8,8 +8,8 @@ class ForgetPasswordInitialState extends ForgetPasswordStates{}
 class ForgetPasswordLoadingState extends ForgetPasswordStates{}
 
 class ForgetPasswordSuccessState extends ForgetPasswordStates{
- final ForgetPassword forgetPasswordModel;
- ForgetPasswordSuccessState(this.forgetPasswordModel);
+ final ActivationCode activationCode;
+ ForgetPasswordSuccessState(this.activationCode);
 
 }
 

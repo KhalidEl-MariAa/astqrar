@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/models/get_information_user.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,13 +25,20 @@ class UserDetailsScreen extends StatefulWidget
   State<UserDetailsScreen> createState() => _UserDetailsScreenState();
 }
 
-class _UserDetailsScreenState extends State<UserDetailsScreen> {
+class _UserDetailsScreenState extends State<UserDetailsScreen> 
+{
+
+  late OtherUser otherUser;
+
   @override
   Widget build(BuildContext context) 
   {
     return BlocConsumer<UserDetailsCubit, UserDetailsStates>(
       listener: (context, state) {
-        if (state is AddHimToMyContactsSuccess ) {
+        if (state is UserDetailsSuccessState){
+          otherUser = state.otherUser!;
+        }
+        else if (state is AddHimToMyContactsSuccess ) {
           showToast(msg: state.msg,  state: ToastStates.SUCCESS);
         }
         else if (state is AddHimToMyContactsError){
@@ -44,17 +52,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         }
         else if (state is AddToFavouriteSuccessState){
           setState(() {
-            UserDetailsCubit
-            .get(context)
-            .getInformationUserModel.otherUser?.isFavorate = true;
+            this.otherUser.isFavorate = true;
           });
           showToast(msg: "تم التحديث", state: ToastStates.SUCCESS);
         }
         else if (state is RemoveFromFavouriteSuccessState){
           setState(() {
-            UserDetailsCubit
-            .get(context)
-            .getInformationUserModel.otherUser?.isFavorate = false;
+            this.otherUser.isFavorate = false;
           });
           showToast(msg: "تم التحديث", state: ToastStates.SUCCESS);
         }
@@ -63,7 +67,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
         child: ConditionalBuilder(
-          condition: state is GetInformationLoadingState,
+          condition: state is UserDetailsLoadingState,
           builder: (context) => Scaffold(
             backgroundColor: WHITE,
             body: LoadingGif(),
@@ -155,8 +159,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
               child: DetailWidget(
                 state: state,
                 messageVisibility: widget.messageVisibility,
-                other: UserDetailsCubit.get(context)
-                          .getInformationUserModel.otherUser!,
+                otherUser: this.otherUser,
               ),
               
             ),
@@ -168,9 +171,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
 //
   void blockUser_pressed(BuildContext context)
   {
-    UserDetailsCubit.get(context).blockHim(
-      userId: UserDetailsCubit.get(context)
-            .getInformationUserModel.otherUser!.id!);
+    UserDetailsCubit.get(context)
+        .blockHim(userId: this.otherUser.id!);
 
   }
 

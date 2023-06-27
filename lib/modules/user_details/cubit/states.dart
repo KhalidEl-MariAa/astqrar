@@ -1,17 +1,26 @@
 
 
+import 'package:astarar/models/get_information_user.dart';
+
 abstract class UserDetailsStates{}
 
-class GetInformationInitialState extends UserDetailsStates{}
+class UserDetailsInitialState extends UserDetailsStates{}
 
-class GetInformationLoadingState extends UserDetailsStates{}
+class UserDetailsLoadingState extends UserDetailsStates{}
 
-class GetInformationSuccessState extends UserDetailsStates{}
-
-class GetInformationErrorState extends UserDetailsStates{
-  final String error;
-  GetInformationErrorState(this.error);
+class UserDetailsSuccessState extends UserDetailsStates
+{
+  final OtherUser? otherUser;
+  UserDetailsSuccessState(OtherUser? this.otherUser);
 }
+
+class UserDetailsErrorState extends UserDetailsStates{
+  final String error;
+  UserDetailsErrorState(this.error);
+}
+
+
+
 class SendNotificationLoadingState extends UserDetailsStates{}
 
 class SendNotificationSuccessState extends UserDetailsStates{}

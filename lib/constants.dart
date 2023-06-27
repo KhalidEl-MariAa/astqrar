@@ -1,7 +1,6 @@
 
 String? ID;
 String? TOKEN;
-String? FORGET_PASSWORD_ID;
 String? NAME;
 String? AGE;
 String? USER_IMAGE;

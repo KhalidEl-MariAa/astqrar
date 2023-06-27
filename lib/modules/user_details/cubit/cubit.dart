@@ -12,38 +12,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserDetailsCubit extends Cubit<UserDetailsStates> 
 {
-  UserDetailsCubit() : super(GetInformationInitialState());
+  UserDetailsCubit() : super(UserDetailsInitialState());
 
   static UserDetailsCubit get(context) => BlocProvider.of(context);
 
   //get information users
-  late GetInformationUserModel getInformationUserModel;
-
-  userOrVisitorToGetInformation({required String userId})
-  {
-    if(IS_LOGIN){
-      getInformationUser(otherId: userId);
-    }else{
-      getInformationUserByVisitor(userId: userId);
-    }
-  }
 
   void getInformationUser({required String otherId}) 
   {
-      // log(token.toString());
-      emit(GetInformationLoadingState());
+      emit(UserDetailsLoadingState());
       DioHelper.getDataWithQuery(
-              url: GETINFORMATIONUSER,
+              url: GETINFORMATIONUSER, 
               query: {"otherId": otherId},
               token: TOKEN.toString())
     .then((value) 
     {
-      getInformationUserModel = GetInformationUserModel.fromJson(value.data);
-      emit(GetInformationSuccessState());
+
+      OtherUser otherUser = OtherUser.fromJson(value.data["data"]["information"]);
+      emit(UserDetailsSuccessState( otherUser ));
       sendNotification(userid: otherId, type: 3, body:"تمت زيارة صفحتك من قبل $NAME", title: "");
     }).catchError((error) 
     {
-      emit(GetInformationErrorState(error.toString()));
+      emit(UserDetailsErrorState(error.toString()));
     });
   }
 
@@ -51,16 +41,18 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
   {
     log(userId);
 
-    emit(GetInformationLoadingState());
+    emit(UserDetailsLoadingState());
     DioHelper.getDataWithQuery(
-        url: GETINFORMATIONUSERBYVISITOR,
-        query: {"userid": userId})
-        .then((value) {
-      getInformationUserModel = GetInformationUserModel.fromJson(value.data);
-      emit(GetInformationSuccessState());
+        url: GETINFORMATIONUSERBYVISITOR, //,
+        query: {"otherId": userId})
+    .then((value) 
+    {
+
+      OtherUser otherUser = OtherUser.fromJson(value.data["data"]["otherUser"]);
+      emit(UserDetailsSuccessState(  otherUser  ));
 
     }).catchError((error) {
-      emit(GetInformationErrorState(error.toString()));
+      emit(UserDetailsErrorState(error.toString()));
     });
   }
 
@@ -178,7 +170,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
       }
 
       //تم اضافة المستخدم الحالي الى قائمة الطرف الاخر
-      if( res.data?['i_am_added_to_his_list'] )
+      if( res.data['i_am_added_to_his_list'] )
       {
         sendNotification(
           userid: userId, 
