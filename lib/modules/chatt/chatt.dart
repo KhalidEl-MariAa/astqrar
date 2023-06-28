@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:astarar/models/get_information_user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../shared/components/components.dart';
 
@@ -81,6 +82,7 @@ class ConversationScreenState extends State<ConversationScreen>
 
     hub.on('receiveMessage', (args) async 
     {
+      // this.otherUser.heBlockedMe = state.heBlockedMe;
       dynamic ss = {};
       ss = jsonEncode(args![0]);
       jsonDecode(ss);
@@ -136,6 +138,13 @@ class ConversationScreenState extends State<ConversationScreen>
 
   Future<void> send_a_message(context) async 
   {
+
+      if(widget.otherUser.isBlockedByMe || widget.otherUser.heBlockedMe  )
+      {
+        showToast(msg: "قام أحد الطرفين بحظر الطرف الاخر", state: ToastStates.ERROR);
+        return;
+      }
+
     await hub.invoke(
       'SendMessagee', 
       args: [ID!, widget.otherUser.id! , messagecontroller.text, 0, 1, 1]
@@ -166,7 +175,15 @@ class ConversationScreenState extends State<ConversationScreen>
               typeUserChat: widget.otherUser.typeUser==1?true:false),
 
       child: BlocConsumer<ConversationCubit, ConversationStates>(
-        listener: (context, state) {},
+        listener: (context, state) 
+        {
+          if(state is SendMessageSuccessState){
+            setState(() {
+              
+            });
+          }
+
+        },
         builder: (context, state) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(

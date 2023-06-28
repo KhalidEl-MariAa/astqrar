@@ -38,28 +38,31 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
         if (state is UserDetailsSuccessState){
           otherUser = state.otherUser!;
         }
+        //UserDetailsErrorState
+        else if (state is UserDetailsErrorState ) {
+          showToast(msg: state.error,  state: ToastStates.ERROR);
+        }
         else if (state is AddHimToMyContactsSuccess ) {
-          showToast(msg: state.msg,  state: ToastStates.SUCCESS);
+          if(state.msg.isNotEmpty) 
+            showToast(msg: state.msg,  state: ToastStates.SUCCESS);
         }
         else if (state is AddHimToMyContactsError){
           showToast(msg: state.error, state: ToastStates.SUCCESS);
         }else if( state is BlockHimSuccess){
+          setState(() { 
+            this.otherUser.isBlockedByMe = state.isBlockedByMe;             
+          });
           showToast(msg: state.msg, state: ToastStates.SUCCESS);
-          
         }
         else if (state is BlockHimError){
           showToast(msg: state.error, state: ToastStates.SUCCESS);
         }
         else if (state is AddToFavouriteSuccessState){
-          setState(() {
-            this.otherUser.isFavorate = true;
-          });
+          setState(() { this.otherUser.isFavorate = true; });
           showToast(msg: "تم التحديث", state: ToastStates.SUCCESS);
         }
         else if (state is RemoveFromFavouriteSuccessState){
-          setState(() {
-            this.otherUser.isFavorate = false;
-          });
+          setState(() { this.otherUser.isFavorate = false; });
           showToast(msg: "تم التحديث", state: ToastStates.SUCCESS);
         }
       },
@@ -78,7 +81,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
               iconTheme: IconThemeData(color: Colors.white),
               backgroundColor: BG_DARK_COLOR,
               toolbarHeight: 9.h,
-              title: const Text( "التفاصيل", 
+              title: Text( this.otherUser.user_Name??  "التفاصيل", 
                           style: TextStyle(color: Colors.white), ),
               actions: [
                 Padding(

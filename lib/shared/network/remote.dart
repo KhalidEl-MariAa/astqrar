@@ -9,12 +9,12 @@ class DioHelper
 {
   static late Dio dio;
 
-  static String baseUrl = "https://10.0.2.2:7054/"; //Tested OK on Debug
+  // static String baseUrl = "https://10.0.2.2:7054/"; //Tested OK on Debug
   // static String baseUrl = "http://10.0.2.2:5109/";   //Tested OK on Run
 
   static Future<String> find_the_baseUrl() async 
   {
-    var res;
+    // var res;
     Map? data = {};
 
     log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
@@ -30,12 +30,12 @@ class DioHelper
       data = await fetchData(host, "api/v2/ping");
       if(data!["status"] == true) return host;
     }
-        
-    data = await fetchData(BASE_URL, "api/v2/ping");
-    if(data!["status"]??false == true) 
-      log(res.toString());
+    
+    host = BASE_URL;
+    data = await fetchData(host, "api/v2/ping");
+    if(data!["status"]??false == true) return host;
 
-    return BASE_URL;
+    return "NoConnection";
   }
 
   static init() async

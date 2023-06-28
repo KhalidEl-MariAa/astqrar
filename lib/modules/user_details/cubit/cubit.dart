@@ -17,7 +17,6 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
   static UserDetailsCubit get(context) => BlocProvider.of(context);
 
   //get information users
-
   void getInformationUser({required String otherId}) 
   {
       emit(UserDetailsLoadingState());
@@ -27,8 +26,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
               token: TOKEN.toString())
     .then((value) 
     {
-
-      OtherUser otherUser = OtherUser.fromJson(value.data["data"]["information"]);
+      OtherUser otherUser = OtherUser.fromJson(value.data["otherUser"]);
       emit(UserDetailsSuccessState( otherUser ));
       sendNotification(userid: otherId, type: 3, body:"تمت زيارة صفحتك من قبل $NAME", title: "");
     }).catchError((error) 
@@ -48,7 +46,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
     .then((value) 
     {
 
-      OtherUser otherUser = OtherUser.fromJson(value.data["data"]["otherUser"]);
+      OtherUser otherUser = OtherUser.fromJson(value.data["otherUser"]);
       emit(UserDetailsSuccessState(  otherUser  ));
 
     }).catchError((error) {
@@ -169,8 +167,13 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
         return;
       }
 
+      if( res.data['he_has_added_to_my_list'] ) {
+          emit(AddHimToMyContactsSuccess( res.msg! ));
+          return;
+      }
+
       //تم اضافة المستخدم الحالي الى قائمة الطرف الاخر
-      if( res.data['i_am_added_to_his_list'] )
+      if( res.data['i_have_added_to_his_list'] )
       {
         sendNotification(
           userid: userId, 
@@ -181,7 +184,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
         return; 
       }
 
-      emit(AddHimToMyContactsSuccess( res.msg! ));
+      emit(AddHimToMyContactsSuccess( "" ));
 
     }).catchError((error) {
       emit(AddHimToMyContactsError(error.toString()));
@@ -203,7 +206,8 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
         return;
       }
 
-      emit(BlockHimSuccess( res.msg! ));
+      announceHimWithBlock(userId);
+      emit(BlockHimSuccess(  res.msg!, true ));
 
     }).catchError((error) {
       emit(BlockHimError(error.toString()));
@@ -225,7 +229,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
         return;
       }
 
-      emit(BlockHimSuccess( res.msg! ));
+      emit(BlockHimSuccess( res.msg!, false ));
 
     }).catchError((error) {
       emit(BlockHimError(error.toString()));
@@ -257,6 +261,27 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
           // log(error.toString());
           emit(SendNotificationErrorState(error.toString()));
       });
+  }
+  
+  void announceHimWithBlock(userId) 
+  {
+
+
+    DioHelper.postDataWithBearearToken(
+      url: "api/v1/announce-block", 
+      data: { 
+        "BlockerId": ID,
+        "BlockedId": userId, 
+      }, 
+      token: TOKEN.toString())
+    .then((value) 
+    {
+      log(value.toString());
+          
+    }).catchError((error) {
+      log(error.toString());
+    });    
+
   }
 
 

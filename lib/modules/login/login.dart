@@ -214,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen>
 
                       // TODO: remove the following 2 Center()
                       Center( 
-                        child: Text(DioHelper.baseUrl,
+                        child: Text(BASE_URL,
                               style: TextStyle(
                                   color: WHITE,
                                   fontSize: 9.2.sp,

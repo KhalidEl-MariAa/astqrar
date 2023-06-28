@@ -17,6 +17,7 @@ class NotificationCubit extends Cubit<NotificationStates>
   static NotificationCubit get(context) => BlocProvider.of(context);
   
   late GetNotificationsModel getNotificationsModel;
+  
   getNotifications()
   {
     emit(GetNotificationLoadingState());

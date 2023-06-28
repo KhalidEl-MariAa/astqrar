@@ -77,7 +77,9 @@ class BlockHimLoading extends UserDetailsStates{}
 
 class BlockHimSuccess extends UserDetailsStates{
   final String msg;
-  BlockHimSuccess(this.msg);
+  bool isBlockedByMe=false;
+  BlockHimSuccess(this.msg, this.isBlockedByMe);
+  
 }
 
 class BlockHimError extends UserDetailsStates{

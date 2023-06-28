@@ -80,7 +80,7 @@ class _DetailWidgetState extends State<DetailWidget>
 
               // ايقونة البلوك
               Visibility(
-                visible: widget.otherUser.isBlocked??false,
+                visible: widget.otherUser.isBlockedByMe??false,
                 child: 
                   ConditionalBuilder(
                     condition: widget.state is BlockHimLoading ,

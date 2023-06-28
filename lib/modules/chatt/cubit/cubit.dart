@@ -70,11 +70,11 @@ class ConversationCubit extends Cubit<ConversationStates>
     });
   }
 
-  void send() {
-    log(DateTime.now().toString());
-    log(DateFormat('HH:mm', 'ar_SA').format(DateTime.now()));
+  void send() 
+  {
+    
     ConversationScreenState.messages
-        .add(ConversationScreenState.messagecontroller.text);
+        .add(ConversationScreenState.  messagecontroller.text);
     ConversationScreenState.messagesMine.add(true);
     ConversationScreenState.senderIdList.add(ID!);
     ConversationScreenState.dateMessages
