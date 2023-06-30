@@ -19,7 +19,8 @@ class ContactsTab extends StatelessWidget
   const ContactsTab({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocProvider(
       create: (BuildContext context) => ContactsCubit()..getContacts(),
       child: BlocConsumer<ContactsCubit, ContactsStates>(

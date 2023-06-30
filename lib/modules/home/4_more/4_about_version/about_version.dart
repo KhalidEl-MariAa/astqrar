@@ -71,7 +71,7 @@ class _AboutVersionState extends State<AboutVersion>
                   appBar: 
                       PreferredSize(
                         preferredSize: Size.fromHeight(11.h),
-                        child: NormalLogo(appbarTitle: "عن هذه النسخة",isBack: true,)
+                        child: NormalLogo(appbarTitle: "عن هذا الإصدار", isBack: true,)
                       ),
                   body: 
                     ListView(
@@ -95,7 +95,7 @@ class _AboutVersionState extends State<AboutVersion>
   Widget _infoTile(String title, String subtitle) {
     return ListTile(
       title: Text(title, 
-                  style: TextStyle( color: BLACK_OPACITY),),
+                  style: TextStyle( color: BLACK, fontSize: 17.0), ),
 
       subtitle: Text(subtitle.isEmpty ? '-------':subtitle, 
                         style: TextStyle(color: BLACK_OPACITY, fontSize: 15 ),),

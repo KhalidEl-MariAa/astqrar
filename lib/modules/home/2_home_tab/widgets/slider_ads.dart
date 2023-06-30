@@ -1,5 +1,6 @@
 
 
+import 'package:astarar/modules/home/layout/cubit/cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -111,13 +112,14 @@ class SliderAds extends StatelessWidget
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.almarai(color: CUSTOME_GREY_2)
                             ),
-                            Text(
-                                "الجنسية : "+HomeCubit.get(context)
-                                    .getAllAdsWithUsersModel
-                                    .data[realindex]
-                                    .nationality
-                                    .toString()
-                                ,
+
+                            Text("الجنسية : " + 
+                              AppCubit.Countries.firstWhere((c) => 
+                                  c.id == HomeCubit.get(context)
+                                        .getAllAdsWithUsersModel
+                                        .data[realindex]
+                                        .countryId)
+                                  .NameAr!,
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.almarai(color: CUSTOME_GREY_2)
                             ),

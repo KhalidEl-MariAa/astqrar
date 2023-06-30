@@ -1,12 +1,22 @@
 
 import 'package:astarar/models/user.dart';
 
-class GetNotificationsModel {
+class GetNotificationsModel 
+{
   List<NotificationDataModel> data = [];
-  GetNotificationsModel.fromJson(Map<String, dynamic> json) {
-    json['data'].forEach((element) {
-      data.add(NotificationDataModel.fromJson(element));
+  GetNotificationsModel.fromJson(Map<String, dynamic> json) 
+  {
+    json['data'].forEach((e) {
+      data.add(NotificationDataModel.fromJson(e));
     });
+
+    json['admin_notes'].forEach((e) {
+      data.add(NotificationDataModel.fromJson(e));
+    });
+
+    // accending a.age.compareTo(b.age)
+    this.data.sort((a, b) => b.notification!.time!.compareTo(a.notification!.time!));
+
   }
 }
 
@@ -27,6 +37,7 @@ class NotificationDetailsModel
   int? id;
   String? message;
   String? time;
+
   NotificationDetailsModel.fromJson(Map<String, dynamic>? json) 
   {
     if(json == null) return ;

@@ -25,7 +25,10 @@ class UserData{
   int?    typeUser;
   int?    gender;
   int?    code;
-  String? nationality;
+  // String? nationality;
+  int?countryId;
+  String?countryName;
+
   String? nationalID;
   String? city;
   dynamic age;
@@ -35,12 +38,10 @@ class UserData{
   String?terms;
   bool?specialNeeds;
   bool?hideImg;
-  int?countryId;
-  String?countryName;
   
   UserData.fromJson(Map<String,dynamic>json){
     id=json['id'];
-    userName=json['userName'];
+    userName=json['user_Name'];
     email=json['email'];
     phone=json['phone'];
     lang=json['lang'];
@@ -48,11 +49,11 @@ class UserData{
     status=json['status'];
     imgProfile=json['imgProfile'];
     token=json['token'];
-    typeUser=json['typeUser']!=2&&json['typeUser']!=1?1:json['typeUser'];
-    countryName=json['countryName'];
+    typeUser=json['typeUser'];
     gender=json['gender'];
-    nationality=json['nationality'];
+    // nationality=json['nationality'];
     countryId=json['countryId'];
+    countryName=json['countryName'];
     hideImg=json['hideImg'];
     specialNeeds=json['specialNeeds'];
     terms=json['terms'];

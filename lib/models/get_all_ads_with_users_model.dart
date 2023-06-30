@@ -21,7 +21,8 @@ class UserDataOfAdsModel {
   String? imgProfile;
   int? gender;
   int? age;
-  String? nationality;
+  // String? nationality;
+  int? countryId;
   List<UserSubSpecificationsDetailsWithAds> userSubSpecificationDto = [];
 
   UserDataOfAdsModel.fromJson(Map<String, dynamic> json) {
@@ -33,7 +34,9 @@ class UserDataOfAdsModel {
     imgProfile = json['imgProfile'];
     gender = json['gender'];
     age = json['age'];
-    nationality = json['nationality'];
+    // nationality = json['nationality'];
+    countryId = json['countryId'];
+
     json['userSubSpecificationDto'].forEach((element) {
       userSubSpecificationDto
           .add(UserSubSpecificationsDetailsWithAds.fromJson(element));

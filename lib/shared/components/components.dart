@@ -44,6 +44,7 @@ Widget defaultTextFormField({
     autocorrect: true,
     validator: validate,
 
+    
     autovalidateMode: AutovalidateMode.onUserInteraction,
     readOnly: isLocation ? true : false,
     decoration: InputDecoration(

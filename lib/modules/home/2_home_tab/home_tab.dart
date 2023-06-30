@@ -125,11 +125,9 @@ class _HomeTabState extends State<HomeTab>
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 2.h,
-                              ),
+                              SizedBox(height: 2.h,),
                               Text(
-                                IS_LOGIN? NAME??"XX" :"اهلا بك ",
+                                IS_LOGIN? NAME??"---------" :"اهلا بك ",
                                 style: TextStyle(color: WHITE,fontSize: 11.sp),
                               ),
                           if(IS_LOGIN)    Text(

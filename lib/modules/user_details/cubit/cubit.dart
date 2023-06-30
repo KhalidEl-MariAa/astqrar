@@ -28,7 +28,11 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
     {
       OtherUser otherUser = OtherUser.fromJson(value.data["otherUser"]);
       emit(UserDetailsSuccessState( otherUser ));
-      sendNotification(userid: otherId, type: 3, body:"تمت زيارة صفحتك من قبل $NAME", title: "");
+      sendNotification(
+        userid: otherId, 
+        type: 3, 
+        body:"تمت زيارة صفحتك من قبل " + NAME!, 
+        title: "");
     }).catchError((error) 
     {
       emit(UserDetailsErrorState(error.toString()));

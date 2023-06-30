@@ -14,7 +14,6 @@ class RegisterCubit extends Cubit<RegisterState>
 {
   RegisterCubit() : super(RegisterState_Initial());
 
-  //late LoginModel loginModel;
   static RegisterCubit get(context) => BlocProvider.of(context);
   
 
@@ -37,8 +36,8 @@ class RegisterCubit extends Cubit<RegisterState>
       url: REGISTERCLIENT, 
       data: registeration_data
     )
-    .then((value) {
-      print('************* ^^^^^^^^^^ *******************');
+    .then((value) 
+    {
       ServerResponse response = ServerResponse.fromJson(value.data);
       if(response.key == 0){
         emit(RegisterState_Error( response.msg.toString() ));  
@@ -47,7 +46,6 @@ class RegisterCubit extends Cubit<RegisterState>
       emit(RegisterState_Success(response));
       
     }).catchError((error) {
-      print('xxxxxxxxxxxxx  xxxxxxxxxx');
       emit(RegisterState_Error(error.toString()));
     });
   }

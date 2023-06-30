@@ -1,3 +1,4 @@
+import 'package:astarar/modules/home/layout/cubit/cubit.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +182,12 @@ class _DetailWidgetState extends State<DetailWidget>
             children: [
               Container(
                   width: 46.w,
-                  child: DetailsItem(title: 'الجنسية', subTitle: widget.otherUser.nationality??"--------")),
+                  child: DetailsItem(
+                    title: 'الجنسية', 
+                    subTitle: AppCubit.Countries
+                              .firstWhere((c) => c.id == widget.otherUser.countryId)
+                              .NameAr??"--------")),
+
               Container(
                 width: 35.w,
                 child: DetailsItem(                  
@@ -423,7 +429,7 @@ class _DetailWidgetState extends State<DetailWidget>
     return widget.otherUser.subSpecifications
                   .firstWhere(
                     (ss) => subkeys.contains(ss.id),
-                            orElse: ( ) => SubSpecification(0, "X",0 ,"---------") )
+                            orElse: ( ) => SubSpecification(0, "-----",0 ,"---------") )
                   .value
                   .toString();
   }

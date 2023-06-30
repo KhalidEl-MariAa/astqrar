@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../models/user.dart';
@@ -29,6 +32,8 @@ class UserRegister extends StatefulWidget
 
 class _UserRegisterState extends State<UserRegister> 
 {
+  List<String> Gender = ['X', 'ذكر', 'أنثى'];
+
   _UserRegisterState() 
   {
     new AppCubit().loadSpecificationsFromBackend();
@@ -37,7 +42,7 @@ class _UserRegisterState extends State<UserRegister>
   var formkey = GlobalKey<FormState>();
   
   User newUser = User();
-  String gender = "ذكر";
+  // String gender = "ذكر";
 
   var emailController = TextEditingController();
   var userNameController = TextEditingController();
@@ -68,9 +73,11 @@ class _UserRegisterState extends State<UserRegister>
     return BlocProvider(
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
-        listener: (context, state) { on_state_changed(context, state); },
-        builder: (context, state) => BlocBuilder<AppCubit, AppStates>(
-          builder: (context, state) => Directionality(
+        listener: (context, state) { 
+          on_state_changed(context, state); 
+        },
+        builder: (context, state) => 
+           Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
               appBar: PreferredSize(
@@ -114,44 +121,55 @@ class _UserRegisterState extends State<UserRegister>
                                   borderRadius: BorderRadius.circular(15),
                                   color: BG_DARK_COLOR,
                                 ),
-                                child: DropdownButton(
+
+
+                                child: DropdownButton<String>(
                                   underline: Text(" "),
                                   isExpanded: true,
                                   elevation: 10,
                                   iconDisabledColor: Colors.grey,
                                   iconEnabledColor: PRIMARY,
                                   icon: Padding(
-                                    padding: EdgeInsetsDirectional.only(end: 2.w, top: 1.h),
+                                    padding: EdgeInsetsDirectional.only(end: 2.w), //, top: 1.h
                                     child: const Icon(Icons.arrow_circle_down_sharp),
                                   ),
 
                                   hint: Padding(
-                                    padding: EdgeInsets.symmetric( horizontal: 2.w, vertical: 0.h),
+                                    padding: EdgeInsets.symmetric( horizontal: 2.w),
                                     child: Text(
-                                      gender,
+                                      this.Gender[newUser.gender??0],
                                       textAlign: TextAlign.start,
-                                      style: TextStyle(color: Colors.grey[600]),
+                                      style: GoogleFonts.almarai(color: PRIMARY, fontSize: 11.sp,fontWeight: FontWeight.w400),
                                     ),
                                   ),
-                                  items: <String>['انثي', 'ذكر'].map((String value) 
+                                  
+                                  onChanged: (String? newValue) {
+                                    setState(() { newUser.gender = this.Gender.indexOf(newValue!); });
+                                  },
+
+                                  items: 
+                                  this.Gender.sublist(1).map( (String g) 
                                   {
+
                                     return DropdownMenuItem<String>(
-                                      value: value,
+                                      value: g,
                                       alignment: Alignment.centerRight,
-                                      child: Material(
-                                        elevation: 5,
-                                        shadowColor: Colors.grey[400],
-                                        child: Container(
-                                            width: double.infinity,
-                                            alignment: Alignment.centerRight,
-                                            child: Text(value,
-                                                textAlign: TextAlign.start)),
-                                      ),
+                                      child:
+                                      Material(
+                                          elevation: 5,
+                                          shadowColor: PRIMARY,
+                                          child: Container(
+                                              width: double.infinity,
+                                              alignment: Alignment.centerRight,
+                                              child: Text(g,
+                                                  textAlign: TextAlign.start,
+                                                  style: GoogleFonts.almarai(color: BLACK, fontSize: 11.sp,fontWeight: FontWeight.w400),
+                                              ),
+                                          ),
+                                        ),
                                     );
                                   }).toList(),
-                                  onChanged: (String? newValue) {
-                                    setState(() { gender = newValue!; });
-                                  },
+
                                 ),
                               ),
                             ),
@@ -169,8 +187,7 @@ class _UserRegisterState extends State<UserRegister>
                                   newUser.email = value;
                                   return null;
                               }
-                            },
-                              
+                            },                              
                             labelText: "البريد الالكتروني",
                             label: "الرجاء ادخال البريد الالكتروني",
                             prefixIcon: Icons.email_outlined),
@@ -199,362 +216,348 @@ class _UserRegisterState extends State<UserRegister>
                               label: "الرجاء ادخال رقم الهوية",
                               prefixIcon: Icons.person_outline),
 
-                          defaultTextFormField(
-                              context: context,
-                              controller: cityController,
-                              type: TextInputType.text,
-                              validate: (String? value) {
-                                newUser.city = value;
-                                return (value!.isEmpty)? "من فضلك ادخل المدينة": null;
-                              },
-                              labelText: "المدينة",
-                              label: "الرجاء ادخال المدينة",
-                              prefixIcon: Icons.person_outline),
+                        Text(
+                            'سيتم تسجيل الدخول عن طريق رقم الهوية',
+                            style: TextStyle(
+                              color: OFF_WHITE,
+                              fontSize: 13,
+                            ),),
 
-                          defaultTextFormField(
-                              context: context,
-                              controller: nationalityController,
-                              type: TextInputType.text,
-                              validate: (String? value) {
-                                newUser.nationality = value;
-                                return (value!.isEmpty)?"من فضلك ادخل الجنسية": null;
-                              },
-                              labelText: "الجنسية",
-                              label: "الرجاء ادخال الجنسية",
-                              prefixIcon: Icons.person_outline
-                          ),
+                        SizedBox(height: 2.h,),
 
-                          // "الاسم ينتهي"
-                          Text(AppCubit.Specifications[SpecificationIDs.name_end_with]["nameAr"],
-                            style: TextStyle(color: WHITE),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 1,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.007.h,
-                            children: getListofRadioButtons(SpecificationIDs.name_end_with),
-                          ),
-
-                          defaultTextFormField(
-                                context: context,
-                                controller: tribeController,
-                                type: TextInputType.text,
-                                validate: (value) {
-                                  newUser.tribe = value; 
-                                  return null;
-                                },
-                                labelText: "العائلة / القبيلة",
-                                label: "ادخل اسم العائلة/القبيلة",
-                                prefixIcon: Icons.person_outline,
-                          ),
-                                
-
-                          defaultTextFormField(
-                              context: context,
-                              controller: phoneController,
-                              type: TextInputType.number,
-                              validate: (String? value) {
-                                newUser.phone = value; 
-                                return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
-                              },
-                              labelText: "رقم الهاتف",
-                              label: "الرجاء ادخال رقم الهاتف",
-                              prefixIcon: Icons.phone),
-
-                          defaultTextFormField(
-                              context: context,
-                              controller: ageController,
-                              type: TextInputType.number,
-                              validate: (String? value) {
-                                newUser.age = value;
-                                return (value!.isEmpty)? "من فضلك ادخل العمر": null;
-                              },
-                              labelText: "العمر",
-                              label: "الرجاء ادخال العمر",
-                              prefixIcon: Icons.person_outline),
-
-
-                          defaultTextFormField(
-                              context: context,
-                              controller: heightController,
-                              type: TextInputType.number,
-                              validate: (String? value) {
-                                newUser.height = value;
-                                return (value!.isEmpty)?"من فضلك ادخل الطول": null;
-                              },
-                              labelText: "الطول",
-                              label: "الرجاء ادخال الطول",
-                              prefixIcon: Icons.person_outline),
-
-                          defaultTextFormField(
-                              context: context,
-                              controller: weightController,
-                              type: TextInputType.number,
-                              validate: (String? value) {
-                                newUser.weight = value;
-                                return (value!.isEmpty)? "من فضلك ادخل الوزن": null;
-                              },
-                              labelText: "الوزن",
-                              label: "الرجاء ادخال الوزن",
-                              prefixIcon: Icons.person_outline),
-
-                          // "لون الشعر"
-                          Text(AppCubit.Specifications[SpecificationIDs.hair_colour]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.015.h,
-                            children: getListofRadioButtons(SpecificationIDs.hair_colour),
-                          ),
-
-                          // "نوع الشعر"
-                          Text(AppCubit.Specifications[SpecificationIDs.hair_type]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.015.h,
-                            children: getListofRadioButtons(SpecificationIDs.hair_type),
-                          ),
-
-                          //"لون البشرة"
-                          Text(AppCubit.Specifications[SpecificationIDs.skin_colour]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.015.h,
-                            children: getListofRadioButtons(SpecificationIDs.skin_colour),
-                          ),
-
-                          //"من عرق"
-                          Text(AppCubit.Specifications[SpecificationIDs.strain]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
-                            padding: EdgeInsets.all(0),
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.015.h,
-                            children: getListofRadioButtons(SpecificationIDs.strain),
-                          ),
-
-                          // "الموهل العلمي"
-                          Text(AppCubit.Specifications[SpecificationIDs.qualification]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 3,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.025.h,
-                            children: getListofRadioButtons(SpecificationIDs.qualification),
-                          ),
-
-                          //الوظيفة                          
-                          Text(AppCubit.Specifications[SpecificationIDs.job]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.02.h,
-                            children: getListofRadioButtons(SpecificationIDs.job ), 
-                          ),
-         
-
-                          //الحالة الصحية
-                          Text(AppCubit.Specifications[SpecificationIDs.health_status]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.02.h,
-                            children: getListofRadioButtons(SpecificationIDs.health_status), 
-                          ),
-
-
-                          defaultTextFormField(
-                              context: context,
-                              controller: illnessTypeController,
-                              type: TextInputType.text,
-                              validate: (String? value) { 
-                                newUser.illnessType = value;  
-                                return null;
-                              },
-                              labelText: "نوع المرض",
-                              label: "الرجاء ادخال نوع المرض (ان وجد)",
-                              prefixIcon: Icons.person),
-
-                          
-                          //الحالة الاجتماعية
-                          Text(AppCubit.Specifications[SpecificationIDs.social_status]["nameAr"] ,
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.6 / 0.02.h,
-                            children: getListofRadioButtons(SpecificationIDs.social_status), 
-                          ),
-
-
-                          //هل لديك اطفال
-                          Text(AppCubit.Specifications[SpecificationIDs.have_children]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
-                            physics: const NeverScrollableScrollPhysics(),
-                            mainAxisSpacing: .05,
-                            childAspectRatio: 0.8 / 0.01.h,
-                            children: getListofRadioButtons(SpecificationIDs.have_children), 
-                          ),
-
-                          defaultTextFormField(
-                              context: context,
-                              controller: numberOfKidsController,
-                              type: TextInputType.number,
-                              validate: (String? value){
-                                bool no_kids = newUser.subSpecifications.any((sub) => sub.id == 77);
-                                bool anyone_is_selected = newUser.subSpecifications.any((sub) => sub.specId == SpecificationIDs.have_children);
-                                // 77 -> 'بدون أطفال'
-                                if( no_kids || !anyone_is_selected) {
-                                  return null;
-                                }else if(value!.isEmpty){
-                                  return "من فضلك اكتب عدد الاطفال";
-                                }
-                                newUser.numberOfKids = int.parse(numberOfKidsController.text);
-                                return null;
-
-                              },
-                              labelText: "عدد الاطفال",
-                              label: "الرجاء ادخال عدد الاطفال (ان وجد)",
-                              prefixIcon: Icons.person),
-
-                          // "نبذة عن مظهرك"
-                          Text(AppCubit.Specifications[SpecificationIDs.appearance]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.8 / 0.02.h,
-                            children: getListofRadioButtons(SpecificationIDs.appearance),
-                          ),
-
-
-                          // "الوضع المالي"
-                          Text(AppCubit.Specifications[SpecificationIDs.financial_situation]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.8 / 0.02.h,
-                            children: getListofRadioButtons(SpecificationIDs.financial_situation),
-                          ),
-
-
-                          // "نوع الزواج"
-                          Text(AppCubit.Specifications[SpecificationIDs.marriage_Type]["nameAr"],
-                            style: TextStyle(color: WHITE, fontSize: 11.sp),
-                          ),
-                          GridView.count(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            crossAxisCount:
-                                (MediaQuery.of(context).orientation ==Orientation.landscape)? 5: 2,
-                            physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 0.8 / 0.02.h,
-                            children: getListofRadioButtons(SpecificationIDs.marriage_Type),
-                          ),
-
-                          defaultTextFormField(
-                              context: context,
-                              labelText: "قيمة المهر",
-                              controller: dowryController,
-                              type: TextInputType.number,
-                              validate: (String? value) {
-                                newUser.dowry = value;
-                                return (value!.isEmpty)? "من فضلك ادخل المهر": null;
-                              },
-                              label: "قيمة المهر(0 الي 100 الف)",
-                              prefixIcon: Icons.person),
-
-                          TextFormField(
-                            controller: termsController,
-                            validator: (String? value) {
-                              newUser.terms = value;
-                              return (value!.isEmpty)? "من فضلك ادخل شروطك": null;
-                            },
-                            decoration: InputDecoration(
-                              hintText: "شروطك",
-                              hintStyle: TextStyle(color: WHITE, fontSize: 12),
-                              hintMaxLines: 5,
-                              enabled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide( width: 1, color: Colors.white),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              filled: true,
-                              fillColor: BG_DARK_COLOR,
-                            ),
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 3,
-                            minLines: 1,
-                            style: TextStyle(color: WHITE),
-                          ),
+                        // defaultTextFormField(
+                        //     context: context,
+                        //     controller: cityController,
+                        //     type: TextInputType.text,
+                        //     validate: (String? value) {
+                        //       newUser.city = value;
+                        //       return (value!.isEmpty)? "من فضلك ادخل المدينة": null;
+                        //     },
+                        //     labelText: "المدينة",
+                        //     label: "الرجاء ادخال المدينة",
+                        //     prefixIcon: Icons.person_outline),
+                              
+                        //   // "الاسم ينتهي"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.name_end_with]["nameAr"],
+                        //     style: TextStyle(color: WHITE),
+                        //   ),
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 1,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.007.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.name_end_with),
+                        //   ),
+                        //   defaultTextFormField(
+                        //         context: context,
+                        //         controller: tribeController,
+                        //         type: TextInputType.text,
+                        //         validate: (value) {
+                        //           newUser.tribe = value; 
+                        //           return null;
+                        //         },
+                        //         labelText: "العائلة / القبيلة",
+                        //         label: "ادخل اسم العائلة/القبيلة",
+                        //         prefixIcon: Icons.person_outline,
+                        //   ),
+                        // 
+                        //   defaultTextFormField(
+                        //       context: context,
+                        //       controller: phoneController,
+                        //       type: TextInputType.number,
+                        //       validate: (String? value) {
+                        //         newUser.phone = value; 
+                        //         return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
+                        //       },
+                        //       labelText: "رقم الهاتف",
+                        //       label: "الرجاء ادخال رقم الهاتف",
+                        //       prefixIcon: Icons.phone),
+                        // 
+                        //   defaultTextFormField(
+                        //       context: context,
+                        //       controller: ageController,
+                        //       type: TextInputType.number,
+                        //       validate: (String? value) {
+                        //         newUser.age = value;
+                        //         return (value!.isEmpty)? "من فضلك ادخل العمر": null;
+                        //       },
+                        //       labelText: "العمر",
+                        //       label: "الرجاء ادخال العمر",
+                        //       prefixIcon: Icons.person_outline),
+                        // 
+                        //   defaultTextFormField(
+                        //       context: context,
+                        //       controller: heightController,
+                        //       type: TextInputType.number,
+                        //       validate: (String? value) {
+                        //         newUser.height = value;
+                        //         return (value!.isEmpty)?"من فضلك ادخل الطول": null;
+                        //       },
+                        //       labelText: "الطول",
+                        //       label: "الرجاء ادخال الطول",
+                        //       prefixIcon: Icons.person_outline),
+                        // 
+                        //   defaultTextFormField(
+                        //       context: context,
+                        //       controller: weightController,
+                        //       type: TextInputType.number,
+                        //       validate: (String? value) {
+                        //         newUser.weight = value;
+                        //         return (value!.isEmpty)? "من فضلك ادخل الوزن": null;
+                        //       },
+                        //       labelText: "الوزن",
+                        //       label: "الرجاء ادخال الوزن",
+                        //       prefixIcon: Icons.person_outline),
+                        // 
+                        //   // "لون الشعر"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.hair_colour]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.015.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.hair_colour),
+                        //   ),
+                        // 
+                        //   // "نوع الشعر"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.hair_type]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.015.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.hair_type),
+                        //   ),
+                        // 
+                        //   //"لون البشرة"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.skin_colour]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.015.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.skin_colour),
+                        //   ),
+                        // 
+                        //   //"من عرق"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.strain]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 4: 2,
+                        //     padding: EdgeInsets.all(0),
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.015.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.strain),
+                        //   ),
+                        // 
+                        //   // "الموهل العلمي"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.qualification]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 3,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.025.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.qualification),
+                        //   ),
+                        // 
+                        //   //الوظيفة                          
+                        //   Text(AppCubit.Specifications[SpecificationIDs.job]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.02.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.job ), 
+                        //   ),
+                        //
+                        // //الحالة الصحية
+                        //   Text(AppCubit.Specifications[SpecificationIDs.health_status]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.02.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.health_status), 
+                        //   ),
+                        // 
+                        //   defaultTextFormField(
+                        //       context: context,
+                        //       controller: illnessTypeController,
+                        //       type: TextInputType.text,
+                        //       validate: (String? value) { 
+                        //         newUser.illnessType = value;  
+                        //         return null;
+                        //       },
+                        //       labelText: "نوع المرض",
+                        //       label: "الرجاء ادخال نوع المرض (ان وجد)",
+                        //       prefixIcon: Icons.person),
+                        // 
+                        //   //الحالة الاجتماعية
+                        //   Text(AppCubit.Specifications[SpecificationIDs.social_status]["nameAr"] ,
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.6 / 0.02.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.social_status), 
+                        //   ),
+                        // 
+                        //   //هل لديك اطفال
+                        //   Text(AppCubit.Specifications[SpecificationIDs.have_children]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 1,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     mainAxisSpacing: .05,
+                        //     childAspectRatio: 0.8 / 0.01.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.have_children), 
+                        //   ),
+                        // 
+                        //   defaultTextFormField(
+                        //       context: context,
+                        //       controller: numberOfKidsController,
+                        //       type: TextInputType.number,
+                        //       validate: (String? value){
+                        //         bool no_kids = newUser.subSpecifications.any((sub) => sub.id == 77);
+                        //         bool anyone_is_selected = newUser.subSpecifications.any((sub) => sub.specId == SpecificationIDs.have_children);
+                        //         // 77 -> 'بدون أطفال'
+                        //         if( no_kids || !anyone_is_selected) {
+                        //           return null;
+                        //         }else if(value!.isEmpty){
+                        //           return "من فضلك اكتب عدد الاطفال";
+                        //         }
+                        //         newUser.numberOfKids = int.parse(numberOfKidsController.text);
+                        //         return null;
+                        // 
+                        //       },
+                        //       labelText: "عدد الاطفال",
+                        //       label: "الرجاء ادخال عدد الاطفال (ان وجد)",
+                        //       prefixIcon: Icons.person),
+                        // 
+                        //   // "نبذة عن مظهرك"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.appearance]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: const EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.8 / 0.02.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.appearance),
+                        //   ),
+                        // 
+                        //   // "الوضع المالي"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.financial_situation]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        // 
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation == Orientation.landscape)? 5: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.8 / 0.02.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.financial_situation),
+                        //   ),
+                        // 
+                        //   // "نوع الزواج"
+                        //   Text(AppCubit.Specifications[SpecificationIDs.marriage_Type]["nameAr"],
+                        //     style: TextStyle(color: WHITE, fontSize: 11.sp),
+                        //   ),
+                        //   GridView.count(
+                        //     shrinkWrap: true,
+                        //     padding: EdgeInsets.all(0),
+                        //     crossAxisCount:
+                        //         (MediaQuery.of(context).orientation ==Orientation.landscape)? 5: 2,
+                        //     physics: const NeverScrollableScrollPhysics(),
+                        //     childAspectRatio: 0.8 / 0.02.h,
+                        //     children: getListofRadioButtons(SpecificationIDs.marriage_Type),
+                        //   ),
+                        // 
+                        //   defaultTextFormField(
+                        //       context: context,
+                        //       labelText: "قيمة المهر",
+                        //       controller: dowryController,
+                        //       type: TextInputType.number,
+                        //       validate: (String? value) {
+                        //         newUser.dowry = value;
+                        //         return (value!.isEmpty)? "من فضلك ادخل المهر": null;
+                        //       },
+                        //       label: "قيمة المهر(0 الي 100 الف)",
+                        //       prefixIcon: Icons.person),
+                        // 
+                        //   TextFormField(
+                        //     controller: termsController,
+                        //     validator: (String? value) {
+                        //       newUser.terms = value;
+                        //       return (value!.isEmpty)? "من فضلك ادخل شروطك": null;
+                        //     },
+                        //     decoration: InputDecoration(
+                        //       hintText: "شروطك",
+                        //       hintStyle: TextStyle(color: WHITE, fontSize: 12),
+                        //       hintMaxLines: 5,
+                        //       enabled: true,
+                        //       border: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(10.0),
+                        //       ),
+                        //       enabledBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide( width: 1, color: Colors.white),
+                        //         borderRadius: BorderRadius.circular(15),
+                        //       ),
+                        //       filled: true,
+                        //       fillColor: BG_DARK_COLOR,
+                        //     ),
+                        //     keyboardType: TextInputType.multiline,
+                        //     maxLines: 3,
+                        //     minLines: 1,
+                        //     style: TextStyle(color: WHITE),
+                        //   ),
 
                           defaultTextFormField(
                             context: context,
@@ -599,7 +602,7 @@ class _UserRegisterState extends State<UserRegister>
                               onchanged: () {
                                 setState(() { isDataConfirmed = !isDataConfirmed; });
                               },
-                              text: "اقسم بالله ان المعلومات التي قمت بادخلها صحيحة و التطبيق غير مسئول عن اي معلومات اخري غير صحيحة",
+                              text: "أتعهد بأن جميع المعلومات المدخلة صحيحة واتحمل كامل المسؤولية والاجراءات القانونية المتخذة في حال ثبت غير ذلك",
                               isSelected: isDataConfirmed,
                               focusColor: PRIMARY,
                               TextColor: WHITE),
@@ -630,16 +633,19 @@ class _UserRegisterState extends State<UserRegister>
                             ],
                           ),
 
-                          doubleInfinityMaterialButton(
-                              text: "تسجيل",
-                              onPressed: () { 
-                                registerOnPressed(context); }),
 
                           SizedBox(height: 1.h,),
+
                           ConditionalBuilder(
                             condition: state is RegisterState_Loading,
-                            fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
-                            builder: (context) => CircularProgressIndicator()
+
+                            builder: (context) => Center(
+                                child: CircularProgressIndicator(),
+                              ),                            
+                            fallback: (context) => 
+                              doubleInfinityMaterialButton(
+                                text: "تسجيل",
+                                onPressed: () { registerOnPressed(context); }),                            
                           ),
 
                           const AlreadyHaveAccountText(),
@@ -652,7 +658,6 @@ class _UserRegisterState extends State<UserRegister>
               ),
             ),
           ),
-        ),
       ),
     );
   }
@@ -674,18 +679,21 @@ class _UserRegisterState extends State<UserRegister>
         showToast(
           msg: "تم التسجيل بنجاح", state: ToastStates.SUCCESS);
 
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LoginScreen() ), 
-          (route) => false,
-        );
+        // TODO: uncomment this.
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => LoginScreen() ), 
+        //   (route) => false,
+        // );
 
-        clearAllFields();
+        // clearAllFields();
       }
     }else if(state is RegisterState_Error){
         showToast(
             msg: state.err_msg, state: ToastStates.ERROR);
+    }else if(state is RegisterState_Loading){
+      log('loading ...............');
     }
       
   }

@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../constants.dart';
 import '../../shared/components/components.dart';
+import '../../shared/components/upgrader.dart';
 import '../../shared/network/remote.dart';
 import '../../shared/styles/colors.dart';
 import '../home/layout/cubit/cubit.dart';
@@ -14,13 +14,17 @@ import '../home/layout/layout.dart';
 import '../login/login.dart';
 import '../packages/packages.dart';
 
-class Splash extends StatefulWidget {
+
+class Splash extends StatefulWidget 
+{
   @override
   _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> 
 {
+  bool? isExpired;
+
   @override
   void initState() 
   {
@@ -35,12 +39,15 @@ class _SplashState extends State<Splash>
   checkingData() async 
   {
     //  GlobalNotification.instance.setupNotification(context);
-    Future.delayed(const Duration(seconds: 4), (() {
+    Future.delayed(const Duration(seconds: 4), (() 
+    {
       if(IS_LOGIN == false) 
       {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute( builder: (context) => const LoginScreen() ),
+          MaterialPageRoute( builder: (context) => 
+            MyUpgrader(context: context, child: const LoginScreen() )
+          ),
           (route) => false,
         );
       }
@@ -50,8 +57,10 @@ class _SplashState extends State<Splash>
         if(isExpired==true || IS_DEVELOPMENT_MODE){
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const LayoutScreen()),
-                (route) => false,
+            MaterialPageRoute(builder: (context) => 
+              MyUpgrader(context: context, child: const LayoutScreen() )
+            ),
+            (route) => false,
           );
         }
         else if(isExpired==false){
@@ -66,7 +75,9 @@ class _SplashState extends State<Splash>
         {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute( builder: (context) => const LoginScreen()),
+              MaterialPageRoute( builder: (context) => 
+                MyUpgrader(context: context, child: const LoginScreen() )
+              ),
               (route) => false,
             );
         }
@@ -75,7 +86,7 @@ class _SplashState extends State<Splash>
     }));
   }
 
-  bool? isExpired;
+  
 
   checkuserIsExpired(){
   DioHelper.postDataWithBearearToken(
@@ -83,7 +94,7 @@ class _SplashState extends State<Splash>
     data: {},token: TOKEN.toString())
   .then((value) {
     log(value.toString());
-    isExpired=value.data['isActive'];
+    isExpired = value.data['isActive'];
     log("expire"+isExpired.toString());
   }).catchError((error){
     log(error.toString());
@@ -91,7 +102,8 @@ class _SplashState extends State<Splash>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(

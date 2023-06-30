@@ -11,10 +11,8 @@ import '../../constants.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/header_logo.dart';
 import '../../shared/network/local.dart';
-import '../../shared/network/remote.dart';
 import '../../shared/styles/colors.dart';
 import '../forgetpassword/forgetpassword.dart';
-import '../home/1_notifications/cubit/cubit.dart';
 import '../home/4_more/3_contact_us/contact_us.dart';
 import '../home/layout/layout.dart';
 import '../user_register/user_register.dart';
@@ -69,28 +67,19 @@ class _LoginScreenState extends State<LoginScreen>
                   msg: "تم تسجيل الدخول بنجاح", 
                   state: ToastStates.SUCCESS);
 
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
-                // if(typeOfUser==1) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
-                // if(typeOfUser==2) Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutLinkPerson()), (route) => false);
-                NotificationCubit.get(context).getNotifications();
-
+                Navigator.pushAndRemoveUntil(
+                  context, 
+                  MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
               }
               
               if( state.loginModel.data!.status == false && kReleaseMode ) 
               {
                 // عميل مسجل لكن غير مشترك
                 showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> NotSubscribedScreen()), (route) => true);
+                Navigator.pushAndRemoveUntil(
+                  context, 
+                  MaterialPageRoute(builder: (context)=> NotSubscribedScreen()), (route) => true);
               }
-
-              
-              // if(state.loginModel.data!.status == false && state.loginModel.data!.typeUser==1) {
-              //   showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-              //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const NotSubscribedScreen()), (route) => false);
-              // }
-              // if(state.loginModel.data!.status==false&&state.loginModel.data!.typeUser==2) {
-              //     showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);
-              // }
 
             }else if (state is ShopLoginErrorState) {
               showToast(msg: state.error, state: ToastStates.ERROR);
@@ -160,8 +149,8 @@ class _LoginScreenState extends State<LoginScreen>
                                     color: GREY,
                                     fontSize: 7.8.sp,
                                     // decoration: decoration??TextDecoration.none,
-                                    //fontWeight: fontWeight??(WidgetUtils.lang=="ar"?FontWeight.w500:FontWeight.w200),
-                                    //fontFamily: fontFamily?? (WidgetUtils.lang=="ar"? GoogleFonts.cairo().fontFamily : GoogleFonts.almarai().fontFamily)
+                                    // fontWeight: fontWeight??(WidgetUtils.lang=="ar"?FontWeight.w500:FontWeight.w200),
+                                    // fontFamily: fontFamily?? (WidgetUtils.lang=="ar"? GoogleFonts.cairo().fontFamily : GoogleFonts.almarai().fontFamily)
                                 ),
                               ),
                             ],
@@ -202,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen>
                           child: Container(
                             margin:  EdgeInsets.symmetric(vertical: 2.2.h),
                             child: Text(
-                              "الدخول كزائر" + "11111111111111",
+                              "الدخول كزائر" + "",
                               style: TextStyle(
                                   color: WHITE,
                                   fontSize: 9.2.sp,
@@ -276,8 +265,6 @@ class _LoginScreenState extends State<LoginScreen>
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
-
-                          
                         ],
                       ),
                       SizedBox( height: 2.h, ),

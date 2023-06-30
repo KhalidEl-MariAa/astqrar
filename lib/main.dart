@@ -92,6 +92,7 @@ class MyApp extends StatelessWidget
                   create: (BuildContext context) =>
                   AppCubit()
                     ..loadSpecificationsFromBackend()
+                    ..loadCountries()
                     ..getPhone()
               ),
 
@@ -119,8 +120,6 @@ class MyApp extends StatelessWidget
               BlocProvider<AboutUsCubit>(
                   create: (BuildContext context) => AboutUsCubit()..aboutUs()),
 
-              BlocProvider<NotificationCubit>(
-                  create: (BuildContext context) => NotificationCubit()..getNotifications()),
 
               BlocProvider<PaymentCubit>(
                   create: (BuildContext context) => PaymentCubit()),
@@ -144,21 +143,11 @@ class MyApp extends StatelessWidget
               ),
 
               home: 
-               UpgradeAlert(
-                upgrader: Upgrader(
-                  messages: UpgraderMessages(code: 'ar'),
-                  languageCode:"ar",
-                  // minAppVersion: "2.1.1",
-                  canDismissDialog: true,
-                  durationUntilAlertAgain: const Duration(days: 7),
-                  dialogStyle:  Platform.isIOS? UpgradeDialogStyle.cupertino : UpgradeDialogStyle.material
-                ),
-                child: 
                 Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Splash()
-                    ),
-              ),
+                  textDirection: TextDirection.rtl,
+                  child: Splash()
+                ),
+
               
               
             ),

@@ -9,7 +9,8 @@ class User
   String? user_Name;
   String? nationalID;
   String? city;
-  String? nationality;
+  // String? nationality;
+  int? countryId;
 
   String? tribe;
   String? phone;
@@ -29,6 +30,7 @@ class User
   bool? status;
   String? imgProfile;
   int typeUser = 1;
+  
 
   List<SubSpecification> subSpecifications = [];
 
@@ -44,7 +46,7 @@ class User
     user_Name = json['user_Name'];
     nationalID = json['nationalID'];
     city = json['city'];
-    nationality = json['nationality'];
+    // nationality = json['nationality'];
     tribe = json['tribe'];
     phone = json['phone'];
     age = json['age'];
@@ -57,6 +59,7 @@ class User
     closeNotify = json['closeNotify'];
     status = json['status'];
     imgProfile = json['imgProfile'];
+    countryId = json['countryId'];
     
     json['userSubSpecificationDto']?.forEach((e) {
       subSpecifications.add( new SubSpecification.fromJson(e) );
@@ -72,7 +75,7 @@ class User
       "Age": this.age,
       "Gender": this.gender,
       "NationalID": this.nationalID,
-      "Nationality": this.nationality,
+      // "Nationality": this.nationality,
       "City": this.city,
       "ShowPassword": this.showPassword,
       "PhoneNumber": this.phone,

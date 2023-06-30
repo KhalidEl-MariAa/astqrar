@@ -100,9 +100,14 @@ class NotificationCubit extends Cubit<NotificationStates>
   }
 
   //send notification
-  sendNotification({required String userid,required int type,required String body,required String title}){
+  sendNotification({required String userid,required int type,required String body,required String title})
+  {
     emit(SendNotificationLoadingState());
-    DioHelper.postDataWithBearearToken(token: TOKEN.toString(),url: SENDNOTIFICATION, data: {
+    
+    DioHelper.postDataWithBearearToken(
+      token: TOKEN.toString(),
+      url: SENDNOTIFICATION, 
+      data: {
       "userId":userid,
       "projectName":"استقرار",
       "deviceType":Platform.isIOS?"ios":"android",
@@ -110,7 +115,7 @@ class NotificationCubit extends Cubit<NotificationStates>
       "body":body,
       "title":title
     })
-        .then((value) {
+    .then((value) {
       log(value.toString());
       emit(SendNotificationSuccessState());
     }).catchError((error){

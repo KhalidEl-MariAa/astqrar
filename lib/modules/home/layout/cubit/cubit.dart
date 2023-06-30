@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/models/country.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';
@@ -11,7 +12,7 @@ import 'states.dart';
 class AppCubit extends Cubit<AppStates> 
 {
   static AppCubit get(context) => BlocProvider.of(context);  
-  static Map<String, int> specifications = {};
+  static Map<String, int> _specifications = {};
 
   static Map Specifications = {};
 
@@ -24,6 +25,8 @@ class AppCubit extends Cubit<AppStates>
   {
     GetSpecificationsModel getSpecificationsModel;
 
+    emit(GetSpecificationsLoadingState());
+
     await DioHelper.getDataWithBearerToken(
         url: SUBSPECIFICATIONS,
         token: TOKEN.toString(),)
@@ -31,7 +34,7 @@ class AppCubit extends Cubit<AppStates>
         //  print(value.toString());
         getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
         getSpecificationsModel.data.forEach( (e) {
-          specifications.addAll({e.nameAr!: e.id!});
+          _specifications.addAll({e.nameAr!: e.id!});
         });
         emit(GetSpecificationsSuccessState());
     }).catchError((error) {
@@ -44,8 +47,9 @@ class AppCubit extends Cubit<AppStates>
     .then((res) {
 
         // fill AppCubit.Specifications object
-        AppCubit.Specifications= {};
-        res.data['specs'].forEach( (spec) {
+        AppCubit.Specifications = {};
+        res.data['specs'].forEach( (spec) 
+        {
           int key = spec['id'];
           AppCubit.Specifications[ key ] = spec;
           Map subspecs = {};
@@ -60,6 +64,8 @@ class AppCubit extends Cubit<AppStates>
             spec['subSpecifications'] = subspecs;
         });
 
+        emit(GetSpecificationsSuccessState());
+
     }).catchError((error) {
         log(error.toString());
         emit(GetSpecificationsErrorState(error.toString()));
@@ -72,10 +78,10 @@ class AppCubit extends Cubit<AppStates>
   {
     emit(GetSpecificationsLoadingState());
 
-    if( specifications.isEmpty ){
+    if( _specifications.isEmpty ){
       _loadSpecificationId();
     }
-    return specifications;    
+    return _specifications;    
   }
 
   void getPhone()
@@ -91,6 +97,29 @@ class AppCubit extends Cubit<AppStates>
     }).catchError((error){
       // log(error.toString());
       emit(GetPhoneErrorState(error.toString()));
+    });
+
+  }
+
+  static List<Country> Countries = [];  
+  loadCountries() 
+  {
+
+    DioHelper.getData(
+      url: GET_COUNTRIES, 
+    )
+    .then((value) {
+      
+      value.data["data"].forEach( (e) {
+        Country c = Country.fromJson(e);
+        Countries.add( c );
+        // log(c.NameAr??"XX");
+      });
+
+      
+    }).catchError((error){
+      log(error.toString());
+      
     });
 
   }

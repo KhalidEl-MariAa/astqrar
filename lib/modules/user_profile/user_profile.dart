@@ -1,4 +1,7 @@
 
+import 'dart:developer';
+
+import 'package:astarar/models/country.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -116,9 +119,9 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             borderColor: PRIMARY,
                             label: "الرجاء ادخال البريد الالكتروني",
                             prefixIcon: Icons.email_outlined),
-                        SizedBox(
-                          height: 1.5.h,
-                        ),
+
+                        SizedBox( height: 1.5.h, ),
+
                         defaultTextFormField(
                             context: context,
                             container: Colors.grey[100],
@@ -155,28 +158,72 @@ class UserProfileScreenState extends State<UserProfileScreen>
                         SizedBox(
                           height: 1.5.h,
                         ),
-                        defaultTextFormField(
-                            context: context,
-                            container: Colors.grey[100],
-                            styleText: Colors.black,
-                            borderColor: PRIMARY,
-                            controller: nationalityController,
-                            type: TextInputType.text,
-                            validate: (String? value) {
-                              current_user.nationality = value;
-                              return (value!.isEmpty)? "من فضلك ادخل الجنسية": null;
-                            },
-                            labelText: "الجنسية",
-                            label: "الرجاء ادخال الجنسية",
-                            prefixIcon: Icons.person_outline),
-                        SizedBox(
-                          height: 1.5.h,
+
+                        // defaultTextFormField(
+                        //     context: context,
+                        //     container: Colors.grey[100],
+                        //     styleText: Colors.black,
+                        //     borderColor: PRIMARY,
+                        //     controller: nationalityController,
+                        //     type: TextInputType.text,
+                        //     validate: (String? value) {
+                        //       current_user.nationality = value;
+                        //       return (value!.isEmpty)? "من فضلك ادخل الجنسية": null;
+                        //     },
+                        //     labelText: "الجنسية",
+                        //     label: "الرجاء ادخال الجنسية",
+                        //     prefixIcon: Icons.person_outline),
+                        
+                        SizedBox( height: 1.5.h,),
+
+                        Row(
+                          children: [
+                            Text(
+                              "الجنسية: ",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            
+                            SizedBox(width: 1.w,),
+                            
+                            DropdownButton<Country>(
+                              value: AppCubit
+                                        .Countries
+                                        .where((e) => e.id == current_user.countryId)
+                                        .firstOrNull?? AppCubit.Countries[0],
+                                        
+                              style: const TextStyle(
+                                          color: BLACK,
+                                          fontSize: 16),
+                              underline: Container(height: 2, color: BLACK,),                          
+                              onChanged: (Country? c) {
+                                  setState(() {
+                                    current_user.countryId = c?.id;
+                                  });
+                              },
+                              items: 
+                                AppCubit.Countries.map<DropdownMenuItem<Country>>((Country c) 
+                                {
+                                    return DropdownMenuItem<Country>(
+                                      value: c,
+                                      child: Text(c.NameAr??"----"),
+                                    );
+                                })
+                                .toList(),
+                            ),
+
+
+                          ],
                         ),
+
+                        SizedBox( height: 1.5.h,),
                         Text(
                           "الاسم ينتهي",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 10.sp,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w500),
                         ),
 
@@ -729,11 +776,11 @@ class UserProfileScreenState extends State<UserProfileScreen>
     if (state is GetUserDataSucccessState)
     {
       this.current_user = state.current_user;
-      emailController.text = current_user.email!;
-      nameController.text = current_user.user_Name!;
-      personalCardController.text = current_user.nationalID!;
-      cityController.text = current_user.city!;
-      nationalityController.text = current_user.nationality?? "";
+      emailController.text = current_user.email??"";
+      nameController.text = current_user.user_Name??"";
+      personalCardController.text = current_user.nationalID??"";
+      cityController.text = current_user.city??"";
+      // nationalityController.text = current_user.nationality?? "";
       lastNameFamilyController.text = current_user.tribe??"XXXX";
 
       ageController.text = current_user.age.toString();
@@ -742,10 +789,10 @@ class UserProfileScreenState extends State<UserProfileScreen>
       weightController.text = current_user.weight.toString();
       jobNameController.text = current_user.nameOfJob?? "";
       illnessTypeController.text = current_user.illnessType?? "";
-      numberOfKidsController.text = current_user.numberOfKids.toString();
+      numberOfKidsController.text = current_user.numberOfKids?.toString()??"";
 
-      conditionsController.text = current_user.terms.toString();
-      dowryController.text = current_user.dowry.toString();
+      conditionsController.text = current_user.terms??"";
+      dowryController.text = current_user.dowry??"";
 
     }
     else if (state is GetUserDataErrorState) {

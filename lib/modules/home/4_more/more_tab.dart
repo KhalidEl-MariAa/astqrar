@@ -63,9 +63,7 @@ class _MoreTabState extends State<MoreTab> {
             padding: EdgeInsets.symmetric(horizontal: 4.w),
             child: Column(
               children: [
-                SizedBox(
-                  height: 1.5.h,
-                ),
+                SizedBox( height: 1.5.h, ),
                 if (IS_LOGIN)
                   Container(
                     height: 9.h,
@@ -133,7 +131,7 @@ class _MoreTabState extends State<MoreTab> {
                   shadowColor: Colors.grey,
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
-                    height: IS_LOGIN ? 55.h : 35.h,
+                    // height: IS_LOGIN ? 55.h : 45.h,
                     decoration: BoxDecoration(
                         color: WHITE, borderRadius: BorderRadius.circular(12)),
                     child: Padding(
@@ -256,7 +254,9 @@ class _MoreTabState extends State<MoreTab> {
                               },
                               child: DefaultRaw(
                                   image: "assets/information.png",
-                                  text: "عن النسخة" + " " + appVersion )),
+                                  text: "عن الإصدار" + " " + appVersion )),
+                          
+                          SizedBox( height: 2.h, ),
 
                         ],
                       ),

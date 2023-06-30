@@ -20,6 +20,12 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
   late GetUsersByGengerModel getUsersByGengerModel;
   List users = [];
 
+  //change one section
+  int? startAge;
+  int? endAge;
+  String? typeofmarriage;
+  String? countryId;
+
   getUserByGender({required int genderValue}) 
   {
     users = [];
@@ -37,7 +43,7 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
       }
       startAge=null;
       endAge=null;
-      nationality=null;
+      countryId=null;
       typeofmarriage=null;
 
       log(users.length.toString() + " Found !!");
@@ -49,12 +55,8 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
     });
   }
 
-  //change one section
-  int? startAge;
-  int? endAge;
-  String? typeofmarriage;
-  String? nationality;
 
+  // TODO fix problem
   changeindexonesection({required int index, required String gender}) 
   {
     SectionMenOrWomen.oneIndexSection = index;
@@ -101,13 +103,13 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
     log(index.toString());
     SectionMenOrWomen.threeIndexSection = index;
     if (SectionMenOrWomen.threeIndexSection == 0) {
-      nationality = null;
+      countryId = null;
     }
     if (SectionMenOrWomen.threeIndexSection == 1) {
-      nationality = "سعودي";
+      countryId = "سعودي";
     }
     if (SectionMenOrWomen.threeIndexSection == 2) {
-      nationality = null;
+      countryId = null;
     }
     getUsersByFilter(gender: gender);
     emit(ChangeIndexSuccessState());
@@ -128,7 +130,7 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
               "startAge": startAge,
               "EndAge": endAge,
               "typeofmarriage": typeofmarriage,
-              "nationality": nationality
+              "countryId": countryId
             },
             token: TOKEN.toString())
         .then((value) {
