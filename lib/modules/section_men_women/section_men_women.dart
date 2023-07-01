@@ -299,7 +299,7 @@ class SectionMenOrWomen extends StatelessWidget
     if (IS_LOGIN == true) 
      {
       UserDetailsCubit.get(context)
-          .getInformationUser(
+          .getOtherUser(
               otherId:
                   GetUserByGenderCubit.get(context)
                       .users[index]

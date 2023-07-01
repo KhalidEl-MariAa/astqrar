@@ -49,7 +49,7 @@ class FavouritesTab extends StatelessWidget
                                 FavouriteItem(
                                     onClicked: () {
                                      if(IS_LOGIN){ UserDetailsCubit.get(context)
-                                          .getInformationUser(
+                                          .getOtherUser(
                                           otherId: GetFavouritesCubit
                                               .get(context)
                                               .favouriteList[index]

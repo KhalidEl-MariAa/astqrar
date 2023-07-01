@@ -36,7 +36,7 @@ class _UserRegisterState extends State<UserRegister>
 
   _UserRegisterState() 
   {
-    new AppCubit().loadSpecificationsFromBackend();
+    new LayoutCubit().loadSpecificationsFromBackend();
   }
 
   var formkey = GlobalKey<FormState>();
@@ -700,7 +700,7 @@ class _UserRegisterState extends State<UserRegister>
 
   List<Widget> getListofRadioButtons(int specificationId) 
   {
-    var Spec = AppCubit.Specifications[ specificationId ];
+    var Spec = LayoutCubit.Specifications[ specificationId ];
 
     if(Spec == null)
       return [Text("No Elements")];

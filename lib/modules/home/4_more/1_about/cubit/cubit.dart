@@ -14,7 +14,8 @@ class AboutUsCubit extends Cubit<AboutUsStates> {
   late AboutUsModel aboutUsModel;
   List splittingAboutUs = [];
 
-  aboutUs() {
+  aboutUs() 
+  {
     emit(AboutUsLoadingState());
     DioHelper.postData(
       url: ABOUTUS, 

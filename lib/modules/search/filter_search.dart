@@ -485,7 +485,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen>
 
   List<Widget> getListofRadioButtons(int specificationId) 
   {
-    var Spec = AppCubit.Specifications[ specificationId ];
+    var Spec = LayoutCubit.Specifications[ specificationId ];
 
     if(Spec == null)
       return [Text("No Elements")];

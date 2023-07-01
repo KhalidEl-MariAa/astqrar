@@ -1,3 +1,5 @@
+import 'package:astarar/models/get_information_user.dart';
+
 abstract class ConversationStates {}
 
 class ConversationInitialState extends ConversationStates {}
@@ -16,7 +18,11 @@ class ReceiveMessageSuccessState extends ConversationStates {}
 
 class GetMessagesLoadingState extends ConversationStates{}
 
-class GetMessagesSuccessState extends ConversationStates{}
+class GetMessagesSuccessState extends ConversationStates
+{
+  final OtherUser otherUser;
+  GetMessagesSuccessState(this.otherUser);
+}
 
 class GetMessagesErrorState extends ConversationStates{
   final String error;

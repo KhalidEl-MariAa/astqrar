@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:astarar/models/get_information_user.dart';
+import 'package:astarar/modules/user_details/cubit/cubit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../shared/components/components.dart';
@@ -19,18 +20,19 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class ConversationScreen extends StatefulWidget 
 {
-  final OtherUser otherUser;
-  // final String userId;
-  // final String userName;
-  // final int gender;
-  // final int typeUser;
+  OtherUser? otherUser =null;
+  String? otherId =null;
+ 
+  ConversationScreen({Key? key, this.otherUser, }) : super(key: key);
 
-  const ConversationScreen(
-      {Key? key,
-      required this.otherUser,
-      }) : super(key: key);
+  ConversationScreen.byOtherId({Key? key, otherId }) : super(key: key)
+  {
+    this.otherId = otherId;
+  }
+  
 
   @override
   ConversationScreenState createState() => ConversationScreenState();
@@ -112,7 +114,7 @@ class ConversationScreenState extends State<ConversationScreen>
       for (int i = 0; i < list!.length; i++) 
       {
         print(list[0]);
-        if (list[i].toString() == widget.otherUser.id) {
+        if (list[i].toString() == widget.otherUser?.id) {
           setState(() {
             status = " متصل الان";
           });
@@ -139,7 +141,7 @@ class ConversationScreenState extends State<ConversationScreen>
   Future<void> send_a_message(context) async 
   {
 
-      if(widget.otherUser.isBlockedByMe || widget.otherUser.heBlockedMe  )
+      if(widget.otherUser!.isBlockedByMe || widget.otherUser!.heBlockedMe  )
       {
         showToast(msg: "قام أحد الطرفين بحظر الطرف الاخر", state: ToastStates.ERROR);
         return;
@@ -147,7 +149,7 @@ class ConversationScreenState extends State<ConversationScreen>
 
     await hub.invoke(
       'SendMessagee', 
-      args: [ID!, widget.otherUser.id! , messagecontroller.text, 0, 1, 1]
+      args: [ID!, widget.otherUser!.id! , messagecontroller.text, 0, 1, 1]
     ).then((value) {
       log("ggggg");
       ConversationCubit.get(context).send();
@@ -166,25 +168,39 @@ class ConversationScreenState extends State<ConversationScreen>
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
+    
+    // log( widget.otherId??"XXXXXXXXXX");
+    // log( widget.otherUser?.id);
+    
     return BlocProvider(
-      create: (BuildContext context) =>
-          ConversationCubit()
-            ..getMessages(
-              userId: widget.otherUser.id!, 
-              typeUserChat: widget.otherUser.typeUser==1?true:false),
+      create: (BuildContext context) 
+      {
+          ConversationCubit cub = ConversationCubit();
 
+          if(widget.otherUser == null){
+            cub.getMessages(userId: widget.otherId??"");
+          }else{
+            cub.getMessages(userId: widget.otherUser!.id??"");
+          }
+          return cub;
+      },
       child: BlocConsumer<ConversationCubit, ConversationStates>(
         listener: (context, state) 
         {
-          if(state is SendMessageSuccessState){
+          if(state is GetMessagesSuccessState)
+          {
+            if(widget.otherUser!= null)return;
             setState(() {
-              
+              widget.otherUser = state.otherUser;
             });
           }
 
         },
-        builder: (context, state) => Directionality(
+        builder: (context, state) => 
+        
+          Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
                 appBar: PreferredSize(
@@ -206,7 +222,7 @@ class ConversationScreenState extends State<ConversationScreen>
                             height: 2.h,
                           ),
                           Text(
-                            widget.otherUser.user_Name?? "------",
+                            widget.otherUser?.user_Name?? "------",
                             style: TextStyle(color: WHITE,fontSize: 11.5.sp),
                           ),
                           SizedBox(
@@ -232,7 +248,7 @@ class ConversationScreenState extends State<ConversationScreen>
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                    image: widget.otherUser.gender == 1 ? 
+                                    image: widget.otherUser?.gender == 1 ? 
                                         AssetImage(maleImage)
                                         : 
                                         AssetImage(femaleImage))
@@ -376,7 +392,7 @@ class ConversationScreenState extends State<ConversationScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            image: widget.otherUser.gender == 1? 
+                                            image: widget.otherUser?.gender == 1? 
                                               AssetImage(maleImage)
                                               : 
                                               AssetImage(femaleImage))
@@ -409,11 +425,11 @@ class ConversationScreenState extends State<ConversationScreen>
 
                                       Directionality(
                                         textDirection: TextDirection.ltr, 
-                                        child:                                       Text(
-                                        dateMessages.reversed.toList()[index],
+                                        child:  Text(
+                                          dateMessages.reversed.toList()[index],
                                         style: TextStyle(
-                                            color: Colors.grey[600],
-                                            fontSize: 10.sp),
+                                            color: Colors.grey[700], // Colors.red,
+                                            fontSize: 11.sp),
                                       ),),
 
                                       // Text(

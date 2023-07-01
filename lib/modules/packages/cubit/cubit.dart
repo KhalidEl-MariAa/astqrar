@@ -21,6 +21,7 @@ class GetPackagesCubit extends Cubit<GetPackagesStates>
 
   void getPackages() 
   {
+    log('GETPACKAGES ^^^^^^^^^^^^^^');
     emit(GetPackagesLoadingState());
     DioHelper.postData(url: GETPACKAGES, data: {}).then((value) {
       log(value.toString());

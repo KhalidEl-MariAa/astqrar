@@ -17,7 +17,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
   static UserDetailsCubit get(context) => BlocProvider.of(context);
 
   //get information users
-  void getInformationUser({required String otherId}) 
+  void getOtherUser({required String otherId}) 
   {
       emit(UserDetailsLoadingState());
       DioHelper.getDataWithQuery(

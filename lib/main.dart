@@ -1,10 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 
 
-import 'package:upgrader/upgrader.dart';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,6 @@ import 'package:sizer/sizer.dart';
 
 import 'constants.dart';
 import 'modules/ads/cubit/cubit.dart';
-import 'modules/home/1_notifications/cubit/cubit.dart';
 import 'modules/home/2_home_tab/cubit/cubit.dart';
 import 'modules/home/4_more/1_about/cubit/cubit.dart';
 import 'modules/home/4_more/cubit/cubit.dart';
@@ -21,21 +18,13 @@ import 'modules/packages/cubit/cubit.dart';
 import 'modules/payment/cubit/cubit.dart';
 import 'modules/search/cubit/cubit.dart';
 import 'modules/section_men_women/cubit/cubit.dart';
-import 'modules/splash_screen/splash_screen.dart';
+import 'modules/splash/splash.dart';
 import 'modules/user_details/cubit/cubit.dart';
 import 'shared/network/bloc_observer.dart';
-import 'shared/network/local.dart';
-import 'shared/network/remote.dart';
 
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  if (kDebugMode) {
-    print("Handling a background message: ${message.notification?.body}");
-  }
-}
-
-class MyHttpOverrides extends HttpOverrides {
+class MyHttpOverrides extends HttpOverrides 
+{
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
@@ -44,7 +33,7 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() async 
+void main()  
 {
   IS_DEVELOPMENT_MODE = !kReleaseMode; 
 
@@ -52,25 +41,8 @@ void main() async
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-
   Bloc.observer = MyBlocObserver();
-  await DioHelper.init();
-
-  await CacheHelper.init();
   
-  TOKEN = CacheHelper.getData(key: "token");
-  TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
-  ID = CacheHelper.getData(key: "id");
-  NAME = CacheHelper.getData(key: "name");
-  AGE = CacheHelper.getData(key: "age");
-  EMAIL = CacheHelper.getData(key: "email");
-  GENDER_USER = CacheHelper.getData(key: "gender");
-  PHONE = CacheHelper.getData(key: "phone");
-
-  IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
-
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }
@@ -88,9 +60,9 @@ class MyApp extends StatelessWidget
         {
           return MultiBlocProvider(
             providers: [
-              BlocProvider<AppCubit>(
+              BlocProvider<LayoutCubit>(
                   create: (BuildContext context) =>
-                  AppCubit()
+                  LayoutCubit()
                     ..loadSpecificationsFromBackend()
                     ..loadCountries()
                     ..getPhone()
@@ -124,32 +96,18 @@ class MyApp extends StatelessWidget
               BlocProvider<PaymentCubit>(
                   create: (BuildContext context) => PaymentCubit()),
 
+              BlocProvider<SplashCubit>(
+                  create: (BuildContext context) => SplashCubit()),
             ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'استقرار',
-              theme: ThemeData(
-                // This is the theme of your application.
-                //
-                // Try running your application with "flutter run". You'll see the
-                // application has a blue toolbar. Then, without quitting the app, try
-                // changing the primarySwatch below to Colors.green and then invoke
-                // "hot reload" (press "r" in the console where you ran "flutter run",
-                // or simply save your changes to "hot reload" in a Flutter IDE).
-                // Notice that the counter didn't reset back to zero; the application
-                // is not restarted.
-
-                primarySwatch: Colors.grey,
-              ),
-
-              home: 
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Splash()
+            child: 
+              MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'استقرار',
+                home: Splash(),
+                theme: ThemeData(
+                  primarySwatch: Colors.grey,
                 ),
 
-              
-              
             ),
           );
         }

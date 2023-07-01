@@ -163,12 +163,12 @@ abstract class SpecificationIDs
 
   static  Map get(int specId)
   {
-    return AppCubit.Specifications[specId];
+    return LayoutCubit.Specifications[specId];
   }
 
   static List getSubSpecificationKeys(int specId)
   {
-    return AppCubit.Specifications[specId]["subSpecifications"].keys.toList();
+    return LayoutCubit.Specifications[specId]["subSpecifications"].keys.toList();
   }
 
 }

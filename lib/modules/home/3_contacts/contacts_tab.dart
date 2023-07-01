@@ -4,19 +4,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../models/contacts.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/favourite_item.dart';
 import '../../../shared/components/loading_gif.dart';
 import '../../../shared/components/logo/normal_logo.dart';
 import '../../../shared/styles/colors.dart';
-import '../../user_details/cubit/cubit.dart';
-import '../../user_details/user_details.dart';
+import '../../chatt/chatt.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class ContactsTab extends StatelessWidget 
+
+class ContactsTab extends StatefulWidget 
 {
-  const ContactsTab({Key? key}) : super(key: key);
+
+  ContactsTab({Key? key}) : super(key: key);
+
+  @override
+  State<ContactsTab> createState() => _ContactsTabState();
+}
+
+class _ContactsTabState extends State<ContactsTab> 
+{
+  late List<ContactDetails> contacts;
 
   @override
   Widget build(BuildContext context) 
@@ -26,6 +36,9 @@ class ContactsTab extends StatelessWidget
       child: BlocConsumer<ContactsCubit, ContactsStates>(
         listener: (context, state) 
         {
+          if (state is GetContactsSuccessState){
+            this.contacts = state.contacts;
+          }
           if (state is RemoveChatSuccessState) {
               showToast( msg: "تم حذف المحادثة بنجاح", state: ToastStates.SUCCESS);
           }
@@ -87,24 +100,31 @@ class ContactsTab extends StatelessWidget
                                   ),
                                 
                                 FavouriteItem(
-                                  widget: Text(
-                                    ContactsCubit.get(context)
-                                        .contacts[index]
-                                        .contact!
-                                        .time!,
-                                    style: GoogleFonts.poppins(
-                                        color: CUSTOME_GREY, fontSize: 10.sp),
-                                  ),
-                                  name: ContactsCubit.get(context)
-                                              .contacts[index]
+                                  widget: 
+                                  Column(children: [
+                                    SizedBox(height: 2.h,),
+                                    Text(
+                                      this.contacts[index].contact!.time!,
+                                      style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 10.sp),
+                                    ),
+                                    SizedBox(height: 2.h,),
+
+                                    Row(
+                                      children: [
+                                        Icon(Icons.delete, color: Colors.red,),
+                                        Text(" 👈️",
+                                          style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 15.sp),
+                                        ),
+                                      ],
+                                    )
+                                  ],),
+                                  name: this.contacts[index]
                                               .userInformation == null? 
                                         "مستخدم"
                                         : 
-                                        ContactsCubit.get(context)
-                                          .contacts[index]
+                                        this.contacts[index]
                                           .userInformation!.user_Name! ,
-                                  gender: ContactsCubit.get(context)
-                                          .contacts[index]
+                                  gender: this.contacts[index]
                                           .userInformation!.gender!,
                                   onClicked: () { user_on_click(context, index); },
                                 )
@@ -113,7 +133,7 @@ class ContactsTab extends StatelessWidget
                         ),
                       separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
 
-                      itemCount: ContactsCubit.get(context).contacts.length),
+                      itemCount: this.contacts.length),
                 ),
               )),
         ),
@@ -123,23 +143,34 @@ class ContactsTab extends StatelessWidget
 
   void user_on_click(BuildContext context, int index) 
   {
-    if (ContactsCubit.get(context)
-                .contacts[index]
+    if (this.contacts[index]
                 .userInformation != null ) 
     {
-      UserDetailsCubit.get(context)
-          .getInformationUser(
-              otherId: ContactsCubit.get(context)
-                  .contacts[index]
-                  .userInformation!
-                  .id??"");
+
+      
+      // UserDetailsCubit.get(context)
+      //     .getOtherUser(
+      //         otherId: this.contacts[index]
+      //             .userInformation!
+      //             .id??"");
 
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => UserDetailsScreen( messageVisibility: true,)
-          )
+        context,
+        MaterialPageRoute(
+            builder: (context) => 
+                ConversationScreen.byOtherId(
+                          otherId: this.contacts[index]
+                                      .userInformation!
+                                      .id??"")
+        )
       );
+
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => UserDetailsScreen( messageVisibility: true,)
+      //     )
+      // );
     }
 
   }

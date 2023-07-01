@@ -225,6 +225,7 @@ class _HomeTabState extends State<HomeTab>
                                   MaterialPageRoute(
                                       builder: (context) => ResultScreen() ));
                             },
+
                             decoration: InputDecoration(
                               prefixIcon:const  Icon(Icons.search),
                               hintText: "ابحث الان",
@@ -238,6 +239,7 @@ class _HomeTabState extends State<HomeTab>
                               filled: true,
                               fillColor: WHITE,
                             ),
+                            
                           ),
                         ),
                       ),
@@ -290,9 +292,8 @@ class _HomeTabState extends State<HomeTab>
                                           :
                                           EmptySlider(),
               ),
-              SizedBox(
-                height: 5.h,
-              ),
+
+              SizedBox( height: 5.h, ),
 
             // if(typeOfUser==1||isLogin==false)
             //   Padding(

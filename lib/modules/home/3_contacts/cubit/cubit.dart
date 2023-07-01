@@ -35,7 +35,7 @@ class ContactsCubit extends Cubit<ContactsStates>
         contacts.add( cont );
       }
 
-      emit(GetContactsSuccessState());
+      emit(GetContactsSuccessState( contacts ));
     }).catchError((error) {
       log(error.toString());
       emit(GetContactsErrorState(error.toString()));

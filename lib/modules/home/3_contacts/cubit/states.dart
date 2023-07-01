@@ -1,10 +1,16 @@
+import 'package:astarar/models/contacts.dart';
+
 abstract class ContactsStates{}
 
 class ContactsInitialState extends ContactsStates{}
 
 class GetContactsLoadingState extends ContactsStates{}
 
-class GetContactsSuccessState extends ContactsStates{}
+class GetContactsSuccessState extends ContactsStates
+{
+  List<ContactDetails> contacts=[];
+  GetContactsSuccessState(this.contacts);
+}
 
 class GetContactsErrorState extends ContactsStates{
   final String error;

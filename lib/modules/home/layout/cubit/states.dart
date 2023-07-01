@@ -1,19 +1,19 @@
-abstract class AppStates{}
+abstract class LayoutStates{}
 
-class AppInitialState extends AppStates{}
+class LayoutInitialState extends LayoutStates{}
 
-class GetSpecificationsLoadingState extends AppStates{}
+class GetSpecificationsLoadingState extends LayoutStates{}
 
-class GetSpecificationsSuccessState extends AppStates{ }
+class GetSpecificationsSuccessState extends LayoutStates{ }
 
-class GetSpecificationsErrorState extends AppStates{
+class GetSpecificationsErrorState extends LayoutStates{
   final String error;
   GetSpecificationsErrorState(this.error);
 }
 
-class GetPhoneSuccessState extends AppStates{}
+class GetPhoneSuccessState extends LayoutStates{}
 
-class GetPhoneErrorState extends AppStates{
+class GetPhoneErrorState extends LayoutStates{
   final String error;
   GetPhoneErrorState(this.error);
 }

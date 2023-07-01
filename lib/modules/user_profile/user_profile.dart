@@ -1,7 +1,9 @@
 
 import 'dart:developer';
 
+import 'package:astarar/constants.dart';
 import 'package:astarar/models/country.dart';
+import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,7 +60,10 @@ class UserProfileScreenState extends State<UserProfileScreen>
   late User current_user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
+    
+
     return BlocProvider(
       create: (BuildContext context) => UserProfileCubit()..getUserData(),
       child: BlocConsumer<UserProfileCubit, UserProfileStates>(
@@ -90,12 +95,13 @@ class UserProfileScreenState extends State<UserProfileScreen>
                         //    const HeaderLogo(),
                         SizedBox(height: 4.h,),
 
-                        Text("id: " + current_user.id.toString(),
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w900),
-                        ),
+                        if(IS_DEVELOPMENT_MODE)
+                          Text("id: " + current_user.id.toString(),
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w900),
+                          ),
                         
                         SizedBox(height: 1.5.h,),
                         defaultTextFormField(
@@ -189,10 +195,10 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             SizedBox(width: 1.w,),
                             
                             DropdownButton<Country>(
-                              value: AppCubit
+                              value: LayoutCubit
                                         .Countries
                                         .where((e) => e.id == current_user.countryId)
-                                        .firstOrNull?? AppCubit.Countries[0],
+                                        .firstOrNull?? LayoutCubit.Countries[0],
                                         
                               style: const TextStyle(
                                           color: BLACK,
@@ -204,7 +210,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                                   });
                               },
                               items: 
-                                AppCubit.Countries.map<DropdownMenuItem<Country>>((Country c) 
+                                LayoutCubit.Countries.map<DropdownMenuItem<Country>>((Country c) 
                                 {
                                     return DropdownMenuItem<Country>(
                                       value: c,
@@ -734,7 +740,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
 
   List<Widget> getListofRadioButtons(int specificationId) 
   {    
-    var Spec = AppCubit.Specifications[ specificationId ];
+    var Spec = LayoutCubit.Specifications[ specificationId ];
 
     if(Spec == null)
       return [Text("No Elements")];

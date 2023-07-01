@@ -85,7 +85,7 @@ const ACCEPTREQUEST="api/v2/accept-request";
 
 const IGNOREREQUEST="api/v2/ignore-request";
 
-const SEARCH="api/v2/search-users";
+const SEARCHBYTEXT="api/v2/search-users-by-text";
 
 const FILTERSEARCH="api/v2/get-users-filter";
 

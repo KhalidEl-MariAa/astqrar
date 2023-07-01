@@ -365,7 +365,7 @@ class _ResultScreenState extends State<ResultScreen>
       onclickUser: () {
         if (IS_LOGIN) {
           UserDetailsCubit.get(context)
-              .getInformationUser(
+              .getOtherUser(
                   otherId: this.searchResult[index].id!);
         } else {
           UserDetailsCubit.get(context)

@@ -21,7 +21,8 @@ class HomeCubit extends Cubit<HomeStates> {
   //ads
   late GetAllAdsWithUsersModel getAllAdsWithUsersModel;
 
-  getUserAds() {
+  void getUserAds() 
+  {
     emit(GetUserAdsLoadingState());
     DioHelper.postDataWithBearearToken(
           url: GETUSERADS, 

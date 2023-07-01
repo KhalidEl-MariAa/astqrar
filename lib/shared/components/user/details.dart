@@ -122,6 +122,8 @@ class _DetailWidgetState extends State<DetailWidget>
                       ),
                     ),
               ),
+
+              // زر الشات
               Visibility(
                 visible: widget.messageVisibility,
                 child: SizedBox( width: 3.w, ),
@@ -184,7 +186,7 @@ class _DetailWidgetState extends State<DetailWidget>
                   width: 46.w,
                   child: DetailsItem(
                     title: 'الجنسية', 
-                    subTitle: AppCubit.Countries
+                    subTitle: LayoutCubit.Countries
                               .firstWhere((c) => c.id == widget.otherUser.countryId)
                               .NameAr??"--------")),
 

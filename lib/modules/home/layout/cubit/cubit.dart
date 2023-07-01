@@ -9,14 +9,15 @@ import '../../../../end_points.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 
-class AppCubit extends Cubit<AppStates> 
+class LayoutCubit extends Cubit<LayoutStates> 
 {
-  static AppCubit get(context) => BlocProvider.of(context);  
+  static LayoutCubit get(context) => BlocProvider.of(context);  
+  
   static Map<String, int> _specifications = {};
 
   static Map Specifications = {};
 
-  AppCubit() : super(AppInitialState())
+  LayoutCubit() : super(LayoutInitialState())
   {
     _loadSpecificationId();
   }
@@ -31,7 +32,7 @@ class AppCubit extends Cubit<AppStates>
         url: SUBSPECIFICATIONS,
         token: TOKEN.toString(),)
     .then((value) {
-        //  print(value.toString());
+        log("SUBSPECIFICATIONS OK ^^^^^^^^^^^^^^^^^^^^^^");
         getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
         getSpecificationsModel.data.forEach( (e) {
           _specifications.addAll({e.nameAr!: e.id!});
@@ -47,11 +48,11 @@ class AppCubit extends Cubit<AppStates>
     .then((res) {
 
         // fill AppCubit.Specifications object
-        AppCubit.Specifications = {};
+        LayoutCubit.Specifications = {};
         res.data['specs'].forEach( (spec) 
         {
           int key = spec['id'];
-          AppCubit.Specifications[ key ] = spec;
+          LayoutCubit.Specifications[ key ] = spec;
           Map subspecs = {};
 
           // log(spec['subSpecifications'].toString());
@@ -76,8 +77,6 @@ class AppCubit extends Cubit<AppStates>
   
   Map<String, int> loadSpecificationsFromBackend() 
   {
-    emit(GetSpecificationsLoadingState());
-
     if( _specifications.isEmpty ){
       _loadSpecificationId();
     }
@@ -86,6 +85,7 @@ class AppCubit extends Cubit<AppStates>
 
   void getPhone()
   {
+    log("GET_PHONE_NUMBER OK ^^^^^^^^^^^^^^^^^^^^^^");
     DioHelper.postData(
       url: GET_PHONE_NUMBER, 
       data: {})
@@ -104,6 +104,7 @@ class AppCubit extends Cubit<AppStates>
   static List<Country> Countries = [];  
   loadCountries() 
   {
+    log("GET_COUNTRIES OK ^^^^^^^^^^^^^^^^^^^^^^");
 
     DioHelper.getData(
       url: GET_COUNTRIES, 

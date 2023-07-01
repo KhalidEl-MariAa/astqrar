@@ -52,7 +52,7 @@ class NotificationWiget extends StatelessWidget
         if (this.user.typeUser ==1) 
         {
           UserDetailsCubit.get(context)
-              .getInformationUser( otherId: this.user.id!);
+              .getOtherUser( otherId: this.user.id!);
 
           Navigator.push(
               context,
