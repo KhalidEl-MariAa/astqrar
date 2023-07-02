@@ -13,6 +13,7 @@ class CustomDialog extends StatelessWidget
 {
   final String text;
   final String price;
+  
   const CustomDialog({Key? key,required this.text,required this.price}) : super(key: key);
 
   @override
@@ -72,32 +73,6 @@ class CustomDialog extends StatelessWidget
                               .w700),
                     )),
               ),
-/*
-              Center(child: Text(
-                "قم بتسجيل الدخول لاستخدام كل مميزات استقرار",
-                style: TextStyle(color: Colors.grey[400],
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12),)),
-              Center(
-                child: InkWell(
-                  onTap: () {
-
-                  },
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                        top: 5, start: 0),
-                    child: Text(
-
-                      "استمرار بدون تسجيل الدخول",
-                      textAlign: TextAlign.center
-                      ,
-
-                      style:GoogleFonts.almarai(color: primary,fontSize: 9.sp,decoration: TextDecoration.underline),
-                    ),
-                  ),
-                ),
-              ),
-*/
             ],
           )),
       actions:  [

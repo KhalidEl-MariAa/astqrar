@@ -1,25 +1,25 @@
-abstract class GetUserByGenderStates{}
+abstract class MenWomenStates{}
 
-class GetUserByGenderInitialState extends GetUserByGenderStates{}
+class MenWomenInitialState extends MenWomenStates{}
 
-class GetUserByGenderLoadingState extends GetUserByGenderStates{}
+class MenWomenLoadingState extends MenWomenStates{}
 
-class GetUserByGenderSuccessState extends GetUserByGenderStates{}
+class MenWomenSuccessState extends MenWomenStates{}
 
-class GetUserByGenderErrorState extends GetUserByGenderStates{
+class MenWomenErrorState extends MenWomenStates{
   final String error;
-  GetUserByGenderErrorState(this.error);
+  MenWomenErrorState(this.error);
 }
 
-class ChangeIndexSuccessState extends GetUserByGenderStates{}
+class ChangeIndexSuccessState extends MenWomenStates{}
 
-class FiltersIndexSuccessState extends GetUserByGenderStates{}
+class FiltersIndexSuccessState extends MenWomenStates{}
 
-class GetUsersByFilterLoadingState extends GetUserByGenderStates{}
+class QuickFilterLoading extends MenWomenStates{}
 
-class GetUsersByFilterSuccessState extends GetUserByGenderStates{}
+class QuickFilterSuccess extends MenWomenStates{}
 
-class GetUsersByFilterErrorState extends GetUserByGenderStates{
+class QuickFilterError extends MenWomenStates{
   final String error;
-  GetUsersByFilterErrorState(this.error);
+  QuickFilterError(this.error);
 }

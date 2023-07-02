@@ -1,5 +1,6 @@
 
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -80,9 +81,21 @@ class _AboutVersionState extends State<AboutVersion>
                       _infoTile('Package name', _packageInfo.packageName),
                       _infoTile('App version', _packageInfo.version),
                       _infoTile('Build number', _packageInfo.buildNumber),
-                      _infoTile('Build signature', _packageInfo.buildSignature),
-                      _infoTile('Installer store', _packageInfo.installerStore ?? 'not available',
-                      ),
+                      // _infoTile('Build signature', _packageInfo.buildSignature),
+                      // _infoTile('Installer store', _packageInfo.installerStore ?? 'not available',),
+                      _infoTile("برمجة وإعداد", "م/ سامي الفتني"),
+                      ListTile(
+                        title: Text("📧 Sami_alfattani@hotmail.com",                       
+                                style: GoogleFonts.almarai(color: BLACK_OPACITY, fontSize: 14.sp)
+                                ),
+                      ),                      
+
+                      ListTile(
+                        title: Text("📞 00966-564599127",
+                                style: GoogleFonts.almarai(color: BLACK_OPACITY, fontSize: 14.sp)
+                                ),
+                      ),                      
+
                     ],
                   ),
                 )          
@@ -95,10 +108,11 @@ class _AboutVersionState extends State<AboutVersion>
   Widget _infoTile(String title, String subtitle) {
     return ListTile(
       title: Text(title, 
-                  style: TextStyle( color: BLACK, fontSize: 17.0), ),
+                  style: TextStyle( color: BLACK, fontSize: 19.0, fontWeight: FontWeight.w700 ), ),
 
       subtitle: Text(subtitle.isEmpty ? '-------':subtitle, 
-                        style: TextStyle(color: BLACK_OPACITY, fontSize: 15 ),),
+                        style: GoogleFonts.almarai(color: BLACK_OPACITY, fontSize: 14.sp)
+                  ),
     );
   }
 

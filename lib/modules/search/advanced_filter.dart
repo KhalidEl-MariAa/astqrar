@@ -13,16 +13,17 @@ import '../home/layout/cubit/cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class FilterSearchScreen extends StatefulWidget {
+class AdvancedFilterScreen extends StatefulWidget 
+{
   final String textSearch;
 
-  const FilterSearchScreen({Key? key, required this.textSearch}): super(key: key);
+  const AdvancedFilterScreen({Key? key, required this.textSearch}): super(key: key);
 
   @override
-  _FilterSearchScreenState createState() => _FilterSearchScreenState();
+  _AdvancedFilterScreenState createState() => _AdvancedFilterScreenState();
 }
 
-class _FilterSearchScreenState extends State<FilterSearchScreen> 
+class _AdvancedFilterScreenState extends State<AdvancedFilterScreen> 
 {
   List<SubSpecification> selectedSubSpecs = [];
 

@@ -33,13 +33,12 @@ class PaymentScreen extends StatelessWidget
     return BlocConsumer<PaymentCubit, PaymentStates>(
       listener: (context, state) async 
       {
-        if (state is AddInvoiceSuccessState) {
+        if (state is AddInvoiceSuccessState) 
+        {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Web(
-                      price: price, idService: idService, serviceType: serviceType,
-                    )
+                builder: (context) => Web(price: price, idService: idService, serviceType: serviceType,)
               ));
         }
 
@@ -98,9 +97,9 @@ class PaymentScreen extends StatelessWidget
             child: NormalLogo(appbarTitle: "طرق الدفع",isBack: false),
           ),
           body: ConditionalBuilder(
-            condition: state is! GetInvoiceStatusLoadingState,
-            fallback: (context)=>Center(child: CircularProgressIndicator(),),
-            builder:(context)=> Column(
+            condition: state is GetInvoiceStatusLoadingState,
+            builder: (context)=>Center(child: CircularProgressIndicator(),),
+            fallback:(context)=> Column(
               children: [
                 SizedBox( height: 3.h, ),
                 Center(
@@ -169,6 +168,7 @@ class PaymentScreen extends StatelessWidget
                     padding: EdgeInsetsDirectional.only(bottom: 4.h),
                     child: doubleInfinityMaterialButton(
                         text: "الدفع",
+                        
                         onPressed: () async {
                           PaymentCubit.get(context).addInvoice(price: price!);
                         }),

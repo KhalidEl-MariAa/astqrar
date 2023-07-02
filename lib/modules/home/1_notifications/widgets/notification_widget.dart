@@ -47,20 +47,20 @@ class NotificationWiget extends StatelessWidget
   {
     return InkWell(
       onTap: () {
-        // clickUser();
 
-        if (this.user.typeUser ==1) 
-        {
-          UserDetailsCubit.get(context)
-              .getOtherUser( otherId: this.user.id!);
-
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => UserDetailsScreen(
-                        messageVisibility: true,
-                      )));
+        //Mesage from admin
+        if (this.note.notificationType == 10){
+          return;
         }
+        UserDetailsCubit.get(context)
+            .getOtherUser( otherId: this.user.id!);
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => UserDetailsScreen(
+                      messageVisibility: true,
+                    )));
 
       },
       child: Padding(

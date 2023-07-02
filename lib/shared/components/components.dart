@@ -130,7 +130,9 @@ Widget doubleInfinityMaterialButton({
 
       child: MaterialButton(
         child: (text != null)?
-          Text( text, style:  TextStyle(color: WHITE), )
+          Text( text, 
+            style: GoogleFonts.almarai(color: WHITE, fontSize: 14.sp),
+          )
         :
           child 
         ,

@@ -1,35 +1,38 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
+import 'package:astarar/modules/home/layout/cubit/cubit.dart';
 import 'package:astarar/modules/section_men_women/cubit/states.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
-import '../../../models/get_users_by_filters.dart';
-import '../../../models/get_users_by_gender.dart';
 import '../../../end_points.dart';
+import '../../../models/user.dart';
 import '../../../shared/network/remote.dart';
 import '../section_men_women.dart';
 
-class GetUserByGenderCubit extends Cubit<GetUserByGenderStates> 
+class MenWomenCubit extends Cubit<MenWomenStates> 
 {
-  GetUserByGenderCubit() : super(GetUserByGenderInitialState());
+  MenWomenCubit() : super(MenWomenInitialState());
 
   //late LoginModel loginModel;
-  static GetUserByGenderCubit get(context) => BlocProvider.of(context);
+  static MenWomenCubit get(context) => BlocProvider.of(context);
 
-  late GetUsersByGengerModel getUsersByGengerModel;
-  List users = [];
+  
+  List<User> users = [];
 
   //change one section
   int? startAge;
   int? endAge;
-  String? typeofmarriage;
-  String? countryId;
+  String typeOfMarriage = "";
+  List<int> countryIds = [];
 
   getUserByGender({required int genderValue}) 
   {
+    ServerResponse res;
     users = [];
-    emit(GetUserByGenderLoadingState());
+    emit(MenWomenLoadingState());
     
     DioHelper.getDataWithQuery(
         url: GETUSERSBYGENDER,
@@ -37,47 +40,56 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
         query: {"gender": genderValue})
     .then((value) {
 
-      getUsersByGengerModel = GetUsersByGengerModel.fromjson(value.data);
-      for (int i = 0; i < getUsersByGengerModel.data.length; i++) {
-        users.add(getUsersByGengerModel.data[i]);
+      res = ServerResponse.fromJson(value.data);
+
+      for (var u in res.data) 
+      {
+        User user = User.fromJson(u);
+        users.add(user);
       }
       startAge=null;
       endAge=null;
-      countryId=null;
-      typeofmarriage=null;
+      countryIds=[];
+      typeOfMarriage="";
 
       log(users.length.toString() + " Found !!");
 
-      emit(GetUserByGenderSuccessState());
+      emit(MenWomenSuccessState());
     }).catchError((error) {
       log(error.toString());
-      emit(GetUserByGenderErrorState(error.toString()));
+      emit(MenWomenErrorState(error.toString()));
     });
   }
 
 
-  // TODO fix problem
   changeindexonesection({required int index, required String gender}) 
   {
+    if(SectionMenOrWomen.oneIndexSection == index) 
+      return;
+
     SectionMenOrWomen.oneIndexSection = index;
     if (SectionMenOrWomen.oneIndexSection == 0) {
-      typeofmarriage = null;
+      typeOfMarriage = "";
     }
     if (SectionMenOrWomen.oneIndexSection == 1) {
-      typeofmarriage = "علني";
+      typeOfMarriage = "علني";
     }
     if (SectionMenOrWomen.oneIndexSection == 2) {
-      typeofmarriage = "تعدد";
+      typeOfMarriage = "تعدد";
     }
     if (SectionMenOrWomen.oneIndexSection == 3) {
-      typeofmarriage = "مسيار";
+      typeOfMarriage = "مسيار";
     }
     getUsersByFilter(gender: gender);
     emit(ChangeIndexSuccessState());
   }
 
-  changeindextwosection({required int index, required String gender}) {
-    log(index.toString());
+  changeindextwosection({required int index, required String gender}) 
+  {
+    // log(index.toString());
+    if(SectionMenOrWomen.twoIndexSection == index)
+      return;
+
     SectionMenOrWomen.twoIndexSection = index;
     if (SectionMenOrWomen.twoIndexSection == 0) {
       startAge = null;
@@ -85,11 +97,11 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
     }
     if (SectionMenOrWomen.twoIndexSection == 1) {
       startAge = 18;
-      endAge = 29;
+      endAge = 30;
     }
     if (SectionMenOrWomen.twoIndexSection == 2) {
       startAge = 30;
-      endAge = 39;
+      endAge = 40;
     }
     if (SectionMenOrWomen.twoIndexSection == 3) {
       startAge = 40;
@@ -99,17 +111,24 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
     emit(ChangeIndexSuccessState());
   }
 
-  changeindexthreesection({required int index, required String gender}) {
-    log(index.toString());
+  changeindexthreesection({required int index, required String gender}) 
+  {
+    // log(index.toString());
+    if(SectionMenOrWomen.threeIndexSection == index)
+      return;
+
     SectionMenOrWomen.threeIndexSection = index;
     if (SectionMenOrWomen.threeIndexSection == 0) {
-      countryId = null;
+      countryIds = [];
     }
     if (SectionMenOrWomen.threeIndexSection == 1) {
-      countryId = "سعودي";
+      countryIds = [3];
     }
     if (SectionMenOrWomen.threeIndexSection == 2) {
-      countryId = null;
+      countryIds = LayoutCubit.Countries
+                        .where((c) => c.id != 3)
+                        .map((e) => e.id!)
+                        .toList();
     }
     getUsersByFilter(gender: gender);
     emit(ChangeIndexSuccessState());
@@ -118,37 +137,36 @@ class GetUserByGenderCubit extends Cubit<GetUserByGenderStates>
   //filter
   getUsersByFilter({required String gender}) 
   {
-    GetUsersByFilterModel getUsersByFilterModel;
+    ServerResponse res;
     users = [];
     log(startAge.toString());
 
-    emit(GetUsersByFilterLoadingState());
+    emit(QuickFilterLoading());
     DioHelper.postDataWithBearearToken(
-            url: GETUSERSBYFILTER,
-            data: {
-              "gender": gender,
-              "startAge": startAge,
-              "EndAge": endAge,
-              "typeofmarriage": typeofmarriage,
-              "countryId": countryId
-            },
-            token: TOKEN.toString())
-        .then((value) {
-      log(value.toString());
-      getUsersByFilterModel = GetUsersByFilterModel.fromJson(value.data);
-      if (getUsersByFilterModel.data.isNotEmpty) {
-        for (int i = 0; i < getUsersByFilterModel.data.length; i++) {
-          users.add(getUsersByFilterModel.data[i]);
-
-        }
-      } else {
-        users = [];
+      url: QUICKFILTER,
+      data: {
+        "gender": gender,
+        "startAge": startAge,
+        "EndAge": endAge,
+        "typeofmarriage": typeOfMarriage,
+        "countryId": countryIds
+      },
+      token: TOKEN.toString()
+    ).
+    then( (value) 
+    {
+      // log(value.toString());
+      res = ServerResponse.fromJson(value.data);
+      for (var u in res.data) 
+      {
+        User user = User.fromJson(u);
+        users.add(user);
       }
-      log(users.length.toString());
-      emit(GetUsersByFilterSuccessState());
+      // log(users.length.toString());
+      emit(QuickFilterSuccess());
     }).catchError((error) {
       log(error.toString());
-      emit(GetUsersByFilterErrorState(error.toString()));
+      emit(QuickFilterError(error.toString()));
     });
   }
 }

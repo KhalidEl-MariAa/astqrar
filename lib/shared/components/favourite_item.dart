@@ -3,9 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants.dart';
+import '../../modules/user_details/cubit/cubit.dart';
+import '../../modules/user_details/user_details.dart';
 
 class FavouriteItem extends StatelessWidget 
 {
+  final String otherId;
   final String name;
   final int gender;
   final Function onClicked;
@@ -14,14 +17,16 @@ class FavouriteItem extends StatelessWidget
   const FavouriteItem(
       {Key? key,
       required this.widget,
+      required this.otherId,
       required this.name,
       required this.gender,
       required this.onClicked}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return InkWell(
-      onTap: () { onClicked(); },
+      onTap: () { this.onClicked(); },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2.w),
         child: Container(
@@ -34,24 +39,38 @@ class FavouriteItem extends StatelessWidget
             padding: EdgeInsets.symmetric(horizontal: 1.h),
             child: Row(
               children: [
-                Image(
-                  width: 14.w, height: 14.h,
-                  image: gender == 1? AssetImage(maleImage): AssetImage(femaleImage),
-                ),
+                InkWell(
+                  onTap: (){
+                      UserDetailsCubit.get(context)
+                          .getOtherUser(otherId: this.otherId);
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserDetailsScreen( messageVisibility: true,)
+                          )
+                      );
+                  },
+                  child:
+                    Image(
+                      width: 14.w, height: 14.h,
+                      image: this.gender == 1? AssetImage(maleImage): AssetImage(femaleImage),
+                    ),
+                )
+                ,
                 SizedBox( width: 3.w, ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text( name,
-                      style: GoogleFonts.poppins(fontSize: 10.sp),
+                    Text( this.name, style: GoogleFonts.almarai(fontSize: 12.sp),
                     ),
                     SizedBox( height: 1.h, ),
                   ],
                 ),
 
                 const Spacer(),
-                widget,
+                this.widget,
               ],
             ),
           ),

@@ -15,7 +15,7 @@ import '../user_details/cubit/cubit.dart';
 import '../user_details/user_details.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
-import 'filter_search.dart';
+import 'advanced_filter.dart';
 
 class ResultScreen extends StatefulWidget 
 {
@@ -396,7 +396,7 @@ class _ResultScreenState extends State<ResultScreen>
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  FilterSearchScreen(
+                  AdvancedFilterScreen(
                     textSearch: searchTextController.text,
                   )));
 

@@ -17,7 +17,8 @@ class SliderAds extends StatelessWidget
   const SliderAds({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20.0),
       child: 
@@ -26,6 +27,20 @@ class SliderAds extends StatelessWidget
               .getAllAdsWithUsersModel
               .data
               .length,
+          options: CarouselOptions(
+            height: 20.h,
+            reverse: false,
+            aspectRatio: 20 / 9,
+            enlargeCenterPage: true,
+            enableInfiniteScroll: true,
+            initialPage: 0,
+            //viewportFraction: 1.0,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 5),
+            autoPlayAnimationDuration: const Duration(seconds: 5),
+            autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+            scrollDirection: Axis.horizontal,
+          ),
           itemBuilder: (context, realindex, index) => 
             Container(
               width: double.infinity,
@@ -40,12 +55,12 @@ class SliderAds extends StatelessWidget
                         .getOtherUser(
                         otherId:
                         HomeCubit.get(context)
-                            .getAllAdsWithUsersModel.data[realindex].id!);}
+                            .getAllAdsWithUsersModel.data[realindex].id!);
+                  }
                   else{
                     UserDetailsCubit.get(context)
                         .getInformationUserByVisitor(
-                        userId:
-                      HomeCubit.get(context)
+                        userId: HomeCubit.get(context)
                             .getAllAdsWithUsersModel.data[realindex]
                             .id!);
                   }
@@ -91,21 +106,18 @@ class SliderAds extends StatelessWidget
                           HomeCubit.get(context)
                               .getAllAdsWithUsersModel
                               .data[realindex]
-                              .userName!,
-                          style: TextStyle(
-                              color: WHITE, fontSize: 11.sp),
+                              .user_Name,
+                          style: GoogleFonts.almarai(color: PRIMARY, fontSize: 16, fontWeight: FontWeight.w600 )
                         ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
+                        SizedBox(height: 2.h,),
                         Container(
-                          height: 7.h,
-                          width: 45.w,
+                          // height: 7.h,
+                          // width: 45.w,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                  "العمر : "+HomeCubit.get(context)
+                                  "العمر : " + HomeCubit.get(context)
                                       .getAllAdsWithUsersModel
                                       .data[realindex]
                                       .age
@@ -116,11 +128,17 @@ class SliderAds extends StatelessWidget
                               ),
 
                               Text("الجنسية : " + 
-                                LayoutCubit.Countries.firstWhere((c) => 
-                                    c.id == HomeCubit.get(context)
-                                          .getAllAdsWithUsersModel
-                                          .data[realindex]
-                                          .countryId)
+                                  // HomeCubit.get(context)
+                                  //                 .getAllAdsWithUsersModel
+                                  //                 .data[realindex]
+                                  //                 .countryId.toString(),
+                                  LayoutCubit.Countries
+                                    .where((c) => 
+                                        c.id == HomeCubit.get(context)
+                                              .getAllAdsWithUsersModel
+                                              .data[realindex]
+                                              .countryId)
+                                    .first
                                     .NameAr!,
                                   textAlign: TextAlign.start,
                                   style: GoogleFonts.almarai(color: CUSTOME_GREY_2)
@@ -129,21 +147,15 @@ class SliderAds extends StatelessWidget
 
                               //TODO edit userSubSpecificationDto
                               Text(
-                                  "نوع الزواج : " + "--------",
+                                  "نوع الزواج : " + HomeCubit.get(context)
+                                          .getAllAdsWithUsersModel
+                                          .data[realindex]
+                                          .typeOfMarriage
+                                          ,
                                   textAlign: TextAlign.start,
                                   style: GoogleFonts.almarai(color: CUSTOME_GREY_2,fontSize: 10.sp)
                               ),
                               
-                              // Text(
-                              //     "نوع الزواج : " + HomeCubit.get(context)
-                              //         .getAllAdsWithUsersModel
-                              //         .data[realindex]
-                              //         .userSubSpecificationDto[12].specificationValue
-                              //         .toString()
-                              //     ,
-                              //     textAlign: TextAlign.start,
-                              //     style: GoogleFonts.almarai(color: customGrey2,fontSize: 10.sp)
-                              // ),
                             ],
                           ),
                         )
@@ -153,20 +165,7 @@ class SliderAds extends StatelessWidget
                 ),
               ),
             ),
-          options: CarouselOptions(
-            height: 20.h,
-            reverse: false,
-            aspectRatio: 20 / 9,
-            enlargeCenterPage: true,
-            enableInfiniteScroll: true,
-            initialPage: 0,
-            //viewportFraction: 1.0,
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 5),
-            autoPlayAnimationDuration: const Duration(seconds: 5),
-            autoPlayCurve: Curves.fastLinearToSlowEaseIn,
-            scrollDirection: Axis.horizontal,
-          )),
+        ),
     );
   }
 }

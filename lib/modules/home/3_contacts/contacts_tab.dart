@@ -33,6 +33,7 @@ class _ContactsTabState extends State<ContactsTab>
   {
     return BlocProvider(
       create: (BuildContext context) => ContactsCubit()..getContacts(),
+
       child: BlocConsumer<ContactsCubit, ContactsStates>(
         listener: (context, state) 
         {
@@ -59,100 +60,117 @@ class _ContactsTabState extends State<ContactsTab>
                 builder: (context) => LoadingGif(),
                 fallback: (context) => Padding(
                   padding: const EdgeInsetsDirectional.only(top: 20),
-                  child: ListView.separated(
-                      itemBuilder: (context, index) => 
-                        Dismissible(
-                          key: UniqueKey(),
-                          onDismissed: (value) 
-                          {
-                            ContactsCubit.get(context).removeChat(
-                                userId: ContactsCubit.get(context)
-                                    .contacts[index]
-                                    .userInformation!
-                                    .id??"");
-                          },
-                          background: Container(
-                            color: PRIMARY,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.only(
-                                      start: MediaQuery.of(context).size.width * 0.055),
-
-                                  child: Icon( Icons.delete_outline, color: WHITE,
-                                  ),
-                                ),
-                              ],
+                  child: 
+                    Column(
+                      children: [
+                        Row(                          
+                          children: [
+                            SizedBox(width: 2.w,),
+                            Icon(Icons.delete, color: Colors.red,),
+                            Text("لحذف المحادثة اسحب لليسار", 
+                              style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
                             ),
-                          ),
-                          child: 
-                            Stack(
-                              children: [
-                                if (state is RemoveChatLoadingState)
-                                  Positioned.fill(
-                                    child: Container(
-                                      color: Colors.black54,
-                                      child: Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    ),
-                                  ),
-                                
-                                FavouriteItem(
-                                  widget: 
-                                  Column(children: [
-                                    SizedBox(height: 2.h,),
-                                    Text(
-                                      this.contacts[index].contact!.time!,
-                                      style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 10.sp),
-                                    ),
-                                    SizedBox(height: 2.h,),
+                            
+                            Icon(Icons.arrow_forward_rounded, color: Colors.red,),
+                          ],
+                        ),
 
-                                    Row(
+                        Expanded(
+                          child: 
+                            ListView.separated(
+                              separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
+                              itemCount: this.contacts.length,
+                              itemBuilder: (context, index) => 
+                                Dismissible(
+                                  key: UniqueKey(),
+                                  onDismissed: (value) 
+                                  {
+                                    ContactsCubit.get(context).removeChat(
+                                        userId: ContactsCubit.get(context)
+                                            .contacts[index]
+                                            .userInformation!
+                                            .id??"");
+                                  },
+                                  background: Container(
+                                    color: PRIMARY,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Icon(Icons.delete, color: Colors.red,),
-                                        Text(" 👈️",
-                                          style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 15.sp),
+                                        Padding(
+                                          padding: EdgeInsetsDirectional.only(
+                                              start: MediaQuery.of(context).size.width * 0.055),
+
+                                          child: Icon( Icons.delete_outline, color: WHITE,
+                                          ),
                                         ),
                                       ],
-                                    )
-                                  ],),
-                                  name: this.contacts[index]
-                                              .userInformation == null? 
-                                        "مستخدم"
-                                        : 
-                                        this.contacts[index]
-                                          .userInformation!.user_Name! ,
-                                  gender: this.contacts[index]
-                                          .userInformation!.gender!,
-                                  onClicked: () { user_on_click(context, index); },
-                                )
+                                    ),
+                                  ),
+                                  child: 
+                                    Stack(
+                                      children: [
+                                        if (state is RemoveChatLoadingState)
+                                          Positioned.fill(
+                                            child: Container(
+                                              color: Colors.black54,
+                                              child: Center(
+                                                child: CircularProgressIndicator(),
+                                              ),
+                                            ),
+                                          ),
+                                        
+                                        FavouriteItem(
+                                          widget: 
+                                            Column(children: [
+                                              SizedBox(height: 2.h,),
+                                              Text(
+                                                this.contacts[index].contact!.time!,
+                                                style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 10.sp),
+                                              ),
+                                              SizedBox(height: 2.h,),
 
-                            ],)
-                        ),
-                      separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
+                                              Row(
+                                                children: [
+                                                  Icon(Icons.chat, color: PRIMARY,),
+                                                  SizedBox(width: 6.w,),
 
-                      itemCount: this.contacts.length),
+                                                  // Text(" 👈️",
+                                                  //   style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 15.sp),
+                                                  // ),
+                                                ],
+                                              )
+                                            ],),
+
+                                          otherId: this.contacts[index].userInformation!.id!,
+                                          name: this.contacts[index].userInformation == null? 
+                                                "مستخدم"
+                                                : 
+                                                this.contacts[index].userInformation!.user_Name! ,
+                                          gender: this.contacts[index]
+                                                  .userInformation!.gender!,
+                                          onClicked: () { user_on_click(context, index); },
+                                        ),
+
+                                    ],)
+                                ),
+                            ),
+
+                        )
+                      ],
+                    )
+
+                    ),
                 ),
               )),
         ),
-      ),
     );
   }
 
   void user_on_click(BuildContext context, int index) 
   {
-    if (this.contacts[index]
-                .userInformation != null ) 
+    if (this.contacts[index].userInformation != null ) 
     {
-
       
-      // UserDetailsCubit.get(context)
-      //     .getOtherUser(
-      //         otherId: this.contacts[index]
-      //             .userInformation!
-      //             .id??"");
 
       Navigator.push(
         context,
@@ -165,12 +183,6 @@ class _ContactsTabState extends State<ContactsTab>
         )
       );
 
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => UserDetailsScreen( messageVisibility: true,)
-      //     )
-      // );
     }
 
   }

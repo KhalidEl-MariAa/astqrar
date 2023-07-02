@@ -27,6 +27,7 @@ class RegisterCubit extends Cubit<RegisterState>
       return;
     }
  
+    newUser.countryId = 3; //default to SA
     Map registeration_data = newUser.toMap();
     registeration_data['deviceIdReg']= TOKEN;
     registeration_data['deviceType']= TOKEN;

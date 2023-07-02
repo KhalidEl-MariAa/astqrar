@@ -117,7 +117,7 @@ class LayoutCubit extends Cubit<LayoutStates>
         // log(c.NameAr??"XX");
       });
 
-      
+      log("GET_COUNTRIES OK Done Done Done Done Done Done ");
     }).catchError((error){
       log(error.toString());
       

@@ -41,7 +41,7 @@ class User
     if(json == null) return ;
 
     id = json['id'];
-    gender = json['gender'];
+    gender = json['gender']?? 1;
     email = json['email'];
     user_Name = json['user_Name'];
     nationalID = json['nationalID'];
@@ -76,6 +76,7 @@ class User
       "Gender": this.gender,
       "NationalID": this.nationalID,
       // "Nationality": this.nationality,
+      "CountryId" : this.countryId,
       "City": this.city,
       "ShowPassword": this.showPassword,
       "PhoneNumber": this.phone,

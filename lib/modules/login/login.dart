@@ -61,7 +61,8 @@ class _LoginScreenState extends State<LoginScreen>
             if (state is ShopLoginSuccessState) 
             {
               log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
-              if(state.loginModel.data!.status! || IS_DEVELOPMENT_MODE)
+
+              if(state.loginModel.data!.status! ) //|| IS_DEVELOPMENT_MODE 
               {
                 showToast( 
                   msg: "تم تسجيل الدخول بنجاح", 
@@ -72,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen>
                   MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
               }
               
-              if( state.loginModel.data!.status == false && kReleaseMode ) 
+              if( state.loginModel.data!.status == false  ) 
               {
                 // عميل مسجل لكن غير مشترك
                 showToast(msg: state.loginModel.msg!, state: ToastStates.ERROR);

@@ -89,7 +89,7 @@ const SEARCHBYTEXT="api/v2/search-users-by-text";
 
 const FILTERSEARCH="api/v2/get-users-filter";
 
-const GETUSERSBYFILTER="api/v2/get-users-by-filter";
+const QUICKFILTER="api/v2/get-users-by-quick-filter";
 
 const SENDNOTIFICATION="api/v2/send-notification";
 

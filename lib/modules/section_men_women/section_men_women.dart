@@ -34,12 +34,16 @@ class SectionMenOrWomen extends StatelessWidget
   SectionMenOrWomen({required this.gender});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<GetUserByGenderCubit, GetUserByGenderStates>(
-      listener: (context, state) {},
+  Widget build(BuildContext context) 
+  {
+    return BlocConsumer<MenWomenCubit, MenWomenStates>(
+      listener: (context, state) 
+      {
+
+      },
       builder: (context, state) => 
         ConditionalBuilder(
-          condition: state is GetUserByGenderLoadingState,
+          condition: state is MenWomenLoadingState,
           builder: (context) => Scaffold(backgroundColor: WHITE, body: const LoadingGif()),
           fallback: (context) => Directionality(
             textDirection: TextDirection.rtl,
@@ -129,6 +133,7 @@ class SectionMenOrWomen extends StatelessWidget
                                   centerTitle: false,
                                   backgroundColor: Colors.transparent,
                                   elevation: 0,
+
                                   leading: Row(
                                     children: [
                                       InkWell(
@@ -157,8 +162,7 @@ class SectionMenOrWomen extends StatelessWidget
                                                     image: DecorationImage(
                                                         image: GENDER_USER == 1
                                                             ? AssetImage(maleImage)
-                                                            : AssetImage(
-                                                                femaleImage))),
+                                                            : AssetImage(femaleImage))),
                                               ),
                                             ),
                                     ],
@@ -176,45 +180,47 @@ class SectionMenOrWomen extends StatelessWidget
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) => ChoiceChip (
-                                  selectedColor: PRIMARY,
-                                  onSelected: (bool value) 
-                                  {
-                                    GetUserByGenderCubit.get(context)
-                                        .changeindexonesection(
-                                            index: index,
-                                            gender: gender == 1 ? "1" : "2");
-                                  },
-                                  label: Text(oneSection[index],
-                                      style: GoogleFonts.poppins(fontSize: 9.5.sp)),
-                                  backgroundColor: Colors.grey[400],
-                                  selected: index == oneIndexSection,
-                                ),
                                 itemCount: oneSection.length,
-                                separatorBuilder: (context, index) => SizedBox(
-                                  width: 2.w,
-                                ),
+                                separatorBuilder: (context, index) => SizedBox(width: 2.w,),
+                                itemBuilder: (context, index) => 
+
+                                  // البادج حق الفلتر
+                                  ChoiceChip (
+                                    selectedColor: PRIMARY,
+                                    onSelected: (bool value) 
+                                    {
+                                      MenWomenCubit.get(context)
+                                          .changeindexonesection(
+                                              index: index,
+                                              gender: this.gender == 1 ? "1" : "2");
+                                    },
+                                    label: Text(oneSection[index],
+                                        style: GoogleFonts.poppins(fontSize: 9.5.sp)),
+                                    backgroundColor: Colors.grey[400],
+                                    selected: index == oneIndexSection,
+                                  ),                                  
                               ),
+
                             ),
                           ),
                         ]),
                       ),
-                      SizedBox(
-                        height: 0.5.h,
-                      ),
+
+                      SizedBox(height: 0.5.h, ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 3.3.w),
                         child: Container(
                           height: 4.5.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => ChoiceChip(
+                            itemBuilder: (context, index) => 
+                            ChoiceChip(
                               selectedColor: PRIMARY,
                               onSelected: (bool value) {
-                                GetUserByGenderCubit.get(context)
+                                MenWomenCubit.get(context)
                                     .changeindextwosection(
                                         index: index,
-                                        gender: gender == 1 ? "1" : "2");
+                                        gender: this.gender == 1 ? "1" : "2");
                               },
                               label: Text(twoSection[index],
                                   style: GoogleFonts.poppins(fontSize: 9.5.sp)),
@@ -228,9 +234,9 @@ class SectionMenOrWomen extends StatelessWidget
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 0.8.h,
-                      ),
+
+                      SizedBox(height: 0.8.h,),
+
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 3.3.w),
                         child: Container(
@@ -242,10 +248,10 @@ class SectionMenOrWomen extends StatelessWidget
                             itemBuilder: (context, index) => ChoiceChip(
                               selectedColor: PRIMARY,
                               onSelected: (bool value) {
-                                GetUserByGenderCubit.get(context)
+                                MenWomenCubit.get(context)
                                     .changeindexthreesection(
                                         index: index,
-                                        gender: gender == 1 ? "1" : "2");
+                                        gender: this.gender == 1 ? "1" : "2");
                               },
                               label: Text(threeSection[index],
                                   style: GoogleFonts.poppins(fontSize: 9.5.sp)),
@@ -256,36 +262,41 @@ class SectionMenOrWomen extends StatelessWidget
                         ),
                       ),
 
-                      if (GetUserByGenderCubit.get(context).users.isNotEmpty)
+
+                      Padding(
+                        padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
+                        child: Text( 'النتائج' + " ( ${MenWomenCubit.get(context).users.length} )",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w200,
+                                fontSize: 19)),
+                      ),
+                                            
+                      //if (MenWomenCubit.get(context).users.isNotEmpty)
                         GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             childAspectRatio: 1 / 0.15.h,
                             crossAxisCount: 3,
                             crossAxisSpacing: 0.0,
-                            mainAxisSpacing: 1.h,
-                            children: List.generate(
-                                GetUserByGenderCubit.get(context).users.length,
+                            mainAxisSpacing: 0.5.h,
+                            children: 
+                            List.generate(
+                                MenWomenCubit.get(context).users.length,
                                 (index) {
                                   return Center(
                                       child: UserItemWidget(
                                           visibileRemoveIcon: false,
                                           removeUser: () {},
                                           onclickUser: () { onClickUserItem(context, index); },
-                                          genderValue: GetUserByGenderCubit.get(context)
-                                              .users[index]
-                                              .gender!,
-                                          username: GetUserByGenderCubit.get(context)
-                                              .users[index]
-                                              .user_Name!,
+                                          genderValue: MenWomenCubit.get(context).users[index].gender!,
+                                          username: MenWomenCubit.get(context).users[index].user_Name!,
                                   )
                                 );
                               }
                             )
-
                       )
-                    ],
-                  ),
+
+                    ],),
                 ),
               ),
             ),
@@ -301,14 +312,14 @@ class SectionMenOrWomen extends StatelessWidget
       UserDetailsCubit.get(context)
           .getOtherUser(
               otherId:
-                  GetUserByGenderCubit.get(context)
+                  MenWomenCubit.get(context)
                       .users[index]
                       .id!);
     }else{
       UserDetailsCubit.get(context)
           .getInformationUserByVisitor(
               userId:
-                  GetUserByGenderCubit.get(context)
+                  MenWomenCubit.get(context)
                       .users[index]
                       .id!);
     }

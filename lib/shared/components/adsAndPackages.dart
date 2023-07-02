@@ -1,3 +1,4 @@
+import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -80,7 +81,8 @@ class AdsAndPackages extends StatelessWidget
                       )),
                   Positioned(
                     bottom: 0,
-                    child: GestureDetector(
+                    child: 
+                    GestureDetector(
                         onTap: () {
                           if (isPackages) {
                             navigateTo(context: context, widget: PaymentScreen(
@@ -101,17 +103,17 @@ class AdsAndPackages extends StatelessWidget
                                             .id!,
                             ));
 
-                            showDialog(
-                                context: context,
-                                builder: (context) => CustomDialog(
-                                      price: AdsCubit.get(context)
-                                          .getAdsModel
-                                          .data[index]
-                                          .price
-                                          .toString(),
-                                      text:
-                                          "اسم العميل :name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
-                                    ));
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (context) => CustomDialog(
+                            //           price: AdsCubit.get(context)
+                            //               .getAdsModel
+                            //               .data[index]
+                            //               .price
+                            //               .toString(),
+                            //           text:
+                            //               "اسم العميل :name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
+                            //         ));
                             AdsCubit.get(context).addAds(
                                 adId: AdsCubit.get(context)
                                     .getAdsModel
@@ -122,11 +124,11 @@ class AdsAndPackages extends StatelessWidget
                         child: Container(
                           width: 46.5.w,
                           height: 7.h,
-                          color: const Color(0xffC4A54C),
+                          color: PRIMARY, 
                           child: Center(
                               child: Text('اشترك',
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(color: Colors.white),
+                                style: GoogleFonts.almarai(color: WHITE, fontSize: 18.sp),
                           )),
                         )),
                   )

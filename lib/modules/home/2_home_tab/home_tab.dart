@@ -20,6 +20,7 @@ import '../../login/login.dart';
 import '../../search/result.dart';
 import '../../section_men_women/cubit/cubit.dart';
 import '../../section_men_women/section_men_women.dart';
+import '../layout/cubit/cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'widgets/big_button.dart';
@@ -94,7 +95,14 @@ class _HomeTabState extends State<HomeTab>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {},
+      listener: (context, state) 
+      {
+        if(state is GetUserAdsSuccessState)
+        {
+
+        }
+
+      },
       builder: (context, state) => Scaffold(
         backgroundColor: WHITE,
         body: SingleChildScrollView(
@@ -287,10 +295,19 @@ class _HomeTabState extends State<HomeTab>
             ConditionalBuilder(
                 condition: state is GetUserAdsLoadingState,
                 builder: (context) => LoadingGif(),
-                fallback: (context) =>  HomeCubit.get(context).getAllAdsWithUsersModel.data.length > 0? 
-                                          SliderAds()
-                                          :
-                                          EmptySlider(),
+                fallback: (context) 
+                {
+                  log(LayoutCubit.Countries.toString());
+                  if(HomeCubit.get(context).getAllAdsWithUsersModel.data.length > 0){
+                    return SliderAds();}
+                  else{
+                    return EmptySlider();
+                  }
+                  
+                }  
+                                          
+                                          
+                                          ,
               ),
 
               SizedBox( height: 5.h, ),
@@ -384,7 +401,7 @@ class _HomeTabState extends State<HomeTab>
     SectionMenOrWomen.twoIndexSection = 0;
     SectionMenOrWomen.threeIndexSection = 0;
 
-    GetUserByGenderCubit.get(context).getUserByGender(genderValue: 2);
+    MenWomenCubit.get(context).getUserByGender(genderValue: 2);
 
     Navigator.push(
         context,
@@ -403,7 +420,7 @@ class _HomeTabState extends State<HomeTab>
     SectionMenOrWomen.oneIndexSection=0;
     SectionMenOrWomen.twoIndexSection=0;
     SectionMenOrWomen.threeIndexSection=0;
-    GetUserByGenderCubit.get(context).getUserByGender(genderValue: 1);
+    MenWomenCubit.get(context).getUserByGender(genderValue: 1);
 
     Navigator.push(
         context,

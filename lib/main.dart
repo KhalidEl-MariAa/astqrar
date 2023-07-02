@@ -77,8 +77,8 @@ class MyApp extends StatelessWidget
               BlocProvider<AdsCubit>(
                   create: (BuildContext context) => AdsCubit()..getAds()),
 
-              BlocProvider<GetUserByGenderCubit>(
-                  create: (BuildContext context) => GetUserByGenderCubit()),
+              BlocProvider<MenWomenCubit>(
+                  create: (BuildContext context) => MenWomenCubit()),
 
               BlocProvider<UserDetailsCubit>(
                   create: (BuildContext context) => UserDetailsCubit()),

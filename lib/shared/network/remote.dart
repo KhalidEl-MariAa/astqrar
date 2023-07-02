@@ -98,12 +98,6 @@ class DioHelper
       url, 
       queryParameters: query!.isEmpty ? null : query);
   }
-  /* static Future<Response> getDataWithQuery(
-      {required String url,
-       required Map<String,dynamic>query,
-      }) async {
-    return await dio.get(url,queryParameters: query);
-  }*/
 
   static Future<Response> postData({
       required String url, required var data }) async 
@@ -156,7 +150,6 @@ class DioHelper
     };
     log("token: ${token.toString()}");
     var res = await dio.post(url, data: data);
-    print(res);
     return res;
   }
 

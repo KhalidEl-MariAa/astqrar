@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/modules/home/layout/layout.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -679,14 +680,14 @@ class _UserRegisterState extends State<UserRegister>
         showToast(
           msg: "تم التسجيل بنجاح", state: ToastStates.SUCCESS);
 
-        // TODO: uncomment this.
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => LoginScreen() ), 
-        //   (route) => false,
-        // );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginScreen() ), 
+          (route) => false,
+        );
 
+        // TODO: uncomment this.
         // clearAllFields();
       }
     }else if(state is RegisterState_Error){

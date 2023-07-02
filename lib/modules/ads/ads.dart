@@ -38,7 +38,7 @@ class AdsScreen extends StatelessWidget
           backgroundColor: WHITE,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(10.h),
-              child: NormalLogo(appbarTitle: "الاعلانات ",isBack: true),
+              child: NormalLogo(appbarTitle: "باقات الإعلانات", isBack: true),
             ),
             body: ConditionalBuilder(
                 condition: state is GetAdsLoadingState,

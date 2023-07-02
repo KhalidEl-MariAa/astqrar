@@ -4,7 +4,7 @@ class ServerResponse
 {
   int? key;
   String? msg;
-  Map data = {};
+  dynamic data = {};
   // List listing = [];
 
   ServerResponse(this.key, this.msg);

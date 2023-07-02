@@ -70,6 +70,10 @@ class FavouritesTab extends StatelessWidget
                                                     messageVisibility: true,
                                                   )));
                                     },
+                                    otherId: GetFavouritesCubit
+                                              .get(context)
+                                              .favouriteList[index]
+                                              .id!,
                                     name: GetFavouritesCubit
                                         .get(context)
                                         .favouriteList[index]
