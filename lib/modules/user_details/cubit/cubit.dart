@@ -84,12 +84,12 @@ class UserDetailsCubit extends Cubit<UserDetailsStates>
       }
 
 
-      //TODO: اضافة تنبيه للطرف الاخر بان احدهم قد اعجب به
-      //   sendNotification(
-      //     userid: userId, 
-      //     type: 0, 
-      //     body:  "قام " + NAME! + " بالإعجاب بك واضافتك الى قائمة المفضلة ", 
-      //     title: "طلب محادثة");
+      // TODO: اضافة تنبيه للطرف الاخر بان احدهم قد اعجب به
+        sendNotification(
+          userid: userId, 
+          type: 0, 
+          body:  "قام " + NAME! + " بالإعجاب بك واضافتك الى قائمة المفضلة ", 
+          title: "طلب محادثة");
 
       emit(AddToFavouriteSuccessState());
     }).catchError((error) {

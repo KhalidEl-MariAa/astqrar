@@ -6,8 +6,7 @@ import '../../modules/login/login.dart';
 import '../styles/colors.dart';
 import 'components.dart';
 
-class DialogPleaseLogin extends StatelessWidget 
-{
+class DialogPleaseLogin extends StatelessWidget {
   const DialogPleaseLogin({Key? key}) : super(key: key);
 
   @override
@@ -25,7 +24,7 @@ class DialogPleaseLogin extends StatelessWidget
             radius: 55,
             backgroundColor: WHITE,
             child: Image(
-              image: Image.asset("assets/logoawamer.png").image,
+              image: Image.asset("assets/2000.gif").image,
               height: 10.h,
               width: 80.w,
             ),

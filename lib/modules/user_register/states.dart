@@ -12,6 +12,13 @@ class RegisterState_Success extends RegisterState{
   
 }
 
+class LoginAfterRegisterState extends RegisterState{
+  // final ServerResponse response;
+  // RegisterState_Success(this.response);
+  
+}
+
+
 class RegisterState_Error extends RegisterState{
   final String err_msg;
   RegisterState_Error(this.err_msg);

@@ -145,7 +145,6 @@ class SliderAds extends StatelessWidget
                               ),
                               SizedBox(height: 0.5.h,),
 
-                              //TODO edit userSubSpecificationDto
                               Text(
                                   "نوع الزواج : " + HomeCubit.get(context)
                                           .getAllAdsWithUsersModel

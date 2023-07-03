@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants.dart';
@@ -31,7 +32,7 @@ class LoginScreen extends StatefulWidget
 class _LoginScreenState extends State<LoginScreen> 
 {
   var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
+  var nationalIdController = TextEditingController();
   var loginkey=GlobalKey<FormState>();
 
 
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen>
                           context: context,
                           borderColor: Colors.white10,
                           labelTextcolor: Colors.white54,
-                          controller: phoneController,
+                          controller: nationalIdController,
                           type: TextInputType.number,
                           validate: (value) {
                             return (value!.isEmpty)? "من فضلك ادخل رقم الهوية": null;
@@ -175,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen>
                               if(loginkey.currentState!.validate()) 
                               {
                                 ShopLoginCubit.get(context).UserLogin(
-                                    nationalId: phoneController.text,
+                                    nationalId: nationalIdController.text,
                                     password: passwordController.text);
                               }
                             }),
@@ -193,34 +194,46 @@ class _LoginScreenState extends State<LoginScreen>
                             margin:  EdgeInsets.symmetric(vertical: 2.2.h),
                             child: Text(
                               "الدخول كزائر" + "",
-                              style: TextStyle(
-                                  color: WHITE,
-                                  fontSize: 9.2.sp,
-                                  fontWeight: FontWeight.w500),
+                              style: GoogleFonts.almarai(
+                                color: WHITE,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w600,),
+                              ),
+
                             ),
                           ),
                         ),
-                      ),
-
-                      // TODO: remove the following 2 Center()
-                      Center( 
-                        child: Text(BASE_URL,
-                              style: TextStyle(
-                                  color: WHITE,
-                                  fontSize: 9.2.sp,
-                                  fontWeight: FontWeight.w500)
-                        ),
-                      ),
                       
-                      Center( 
-                        child: Text("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}",
-                              style: TextStyle(
-                                  color: WHITE,
-                                  fontSize: 9.2.sp,
-                                  fontWeight: FontWeight.w500)
-                        ),
-                      ),
 
+                      if( BASE_URL == "NoConnection" )
+                        Center( 
+                          child: Text(BASE_URL,
+                                style: TextStyle(
+                                    color: Colors.yellow,
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w900)
+                          ),
+                        ),
+
+                      if( IS_DEVELOPMENT_MODE )
+                        Center( 
+                          child: Text(BASE_URL,
+                                style: TextStyle(
+                                    color: WHITE,
+                                    fontSize: 9.2.sp,
+                                    fontWeight: FontWeight.w500)
+                          ),
+                        ),
+
+                      if( IS_DEVELOPMENT_MODE )                        
+                        Center( 
+                          child: Text("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}",
+                                style: TextStyle(
+                                    color: WHITE,
+                                    fontSize: 9.2.sp,
+                                    fontWeight: FontWeight.w500)
+                          ),
+                        ),
 
 
                       SizedBox( height: 3.2.h, ),

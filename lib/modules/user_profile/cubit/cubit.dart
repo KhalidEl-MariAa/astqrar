@@ -11,8 +11,7 @@ import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-class UserProfileCubit extends Cubit<UserProfileStates> 
-{
+class UserProfileCubit extends Cubit<UserProfileStates> {
   UserProfileCubit() : super(UserProfileInitialState());
 
   static UserProfileCubit get(context) => BlocProvider.of(context);
@@ -20,35 +19,31 @@ class UserProfileCubit extends Cubit<UserProfileStates>
   //get user data
   late User user;
 
-  getUserData() 
-  {
+  getUserData() {
     emit(GetUserDataLoadingState());
 
     DioHelper.postDataWithBearearToken(
-            url: GETPROFILEDATA, 
-            data: {}, 
-            token: TOKEN.toString()
-    ).then((value) {
-
+            url: GETPROFILEDATA, data: {}, token: TOKEN.toString())
+        .then((value) {
       user = User.fromJson(value.data["data"]);
 
       GENDER_USER = user.gender!;
       print("-----------9-9-9-9-9-9-9-9-9-9-9-9-9-9-");
 
       emit(GetUserDataSucccessState(user));
-      
     }).catchError((error) {
       log(error.toString());
       emit(GetUserDataErrorState(error.toString()));
     });
   }
 
-   //update user data
+  //update user data
   late LoginModel updateUserDataModel;
 
-  void updateUserData(User current_user) 
-  {
+  void updateUserData(User current_user) {
     emit(UpdateUserDataLoadingState());
+
+    log(current_user.subSpecifications.toString());
 
     //Creates readable "multipart/form-data" streams.
     FormData formData = FormData.fromMap({
@@ -65,34 +60,35 @@ class UserProfileCubit extends Cubit<UserProfileStates>
       "nameOfJob": current_user.nameOfJob,
       "illnessType": current_user.illnessType,
       "numberOfKids": current_user.numberOfKids,
-      
+
       "Dowry": current_user.dowry,
       "Terms": current_user.terms,
-      "UserSpecifications": current_user
-                              .subSpecifications
-                              .map( (e) => e.toMap(UserId: current_user.id) )
-                              .toList(),
+      "UserSpecifications": current_user.subSpecifications
+          .map((e) => e.toMap(UserId: current_user.id))
+          .toList(),
       //"type":"image/png"
     });
 
     DioHelper.postDataWithImage(
-      url: UPDATEUSERDATA,
-      data: formData,
-      token: TOKEN.toString(),
-      length: 0      
-    )
-    .then((value) {
+            url: UPDATEUSERDATA,
+            data: formData,
+            token: TOKEN.toString(),
+            length: 0)
+        .then((value) {
       // log(value.toString());
 
       updateUserDataModel = LoginModel.fromJson(value.data);
-      
+
       NAME = CacheHelper.getData(key: "name");
       AGE = CacheHelper.getData(key: "age");
       EMAIL = CacheHelper.getData(key: "email");
 
-      CacheHelper.saveData(key: "name", value: updateUserDataModel.data!.userName);
-      CacheHelper.saveData(key: "age", value: updateUserDataModel.data!.age.toString());
-      CacheHelper.saveData(key: "email", value: updateUserDataModel.data!.email);
+      CacheHelper.saveData(
+          key: "name", value: updateUserDataModel.data!.userName);
+      CacheHelper.saveData(
+          key: "age", value: updateUserDataModel.data!.age.toString());
+      CacheHelper.saveData(
+          key: "email", value: updateUserDataModel.data!.email);
 
       emit(UpdateUserDataSucccessState(updateUserDataModel));
     }).catchError((error) {

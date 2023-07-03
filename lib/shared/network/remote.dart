@@ -100,7 +100,8 @@ class DioHelper
   }
 
   static Future<Response> postData({
-      required String url, required var data }) async 
+      required String url, 
+      required var data }) async 
   {
     dio.options.headers = {
       'Connection': 'keep-alive',

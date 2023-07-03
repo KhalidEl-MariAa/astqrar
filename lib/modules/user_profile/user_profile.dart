@@ -6,6 +6,7 @@ import 'package:astarar/models/country.dart';
 import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -308,7 +309,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             type: TextInputType.number,
                             validate: (String? value) {
                               current_user.height = value;
-                              return (value!.isEmpty)? "من فضلك ادخل الطول": null;
+                              // return (value!.isEmpty)? "من فضلك ادخل الطول": null;
                             },
                             labelText: "الطول",
                             label: "الرجاء ادخال الطول",
@@ -325,7 +326,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             type: TextInputType.number,
                             validate: (String? value) {
                               current_user.weight = value;
-                              return (value!.isEmpty)? "من فضلك ادخل الوزن": null;
+                              // return (value!.isEmpty)? "من فضلك ادخل الوزن": null;
                             },
                             labelText: "الوزن",
                             label: "الرجاء ادخال الوزن",
@@ -630,7 +631,7 @@ class UserProfileScreenState extends State<UserProfileScreen>
                             type: TextInputType.number,
                             validate: (String? value) {
                               current_user.dowry = value;
-                              return (value!.isEmpty)? "من فضلك ادخل المهر": null;
+                              // return (value!.isEmpty)? "من فضلك ادخل المهر": null;
                             },
                             labelText: "قيمة المهر",
                             label: "قيمة المهر(0 الي 100 الف)",
@@ -638,12 +639,18 @@ class UserProfileScreenState extends State<UserProfileScreen>
                         SizedBox(
                           height: 1.5.h,
                         ),
+
                         TextFormField(
                           controller: conditionsController,
                           validator: (String? value) {
                             current_user.terms = value;
-                            return (value!.isEmpty)? "من فضلك ادخل شروطك": null;
+                            // return (value!.isEmpty)? "من فضلك ادخل شروطك": null;
                           },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp('[\u0600-\u06FF\s]'), // Arabic Unicode range
+                            ),                            
+                          ],
                           decoration: InputDecoration(
                             hintText: "شروطك",
                             hintStyle: TextStyle(color: BLACK, fontSize: 12),
@@ -653,9 +660,8 @@ class UserProfileScreenState extends State<UserProfileScreen>
                               borderSide: BorderSide(
                                 color: PRIMARY,
                               ),
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(10.0),                            
                             ),
-
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(width: 1, color: PRIMARY),
                               borderRadius: BorderRadius.circular(15),
@@ -787,12 +793,12 @@ class UserProfileScreenState extends State<UserProfileScreen>
       personalCardController.text = current_user.nationalID??"";
       cityController.text = current_user.city??"";
       // nationalityController.text = current_user.nationality?? "";
-      lastNameFamilyController.text = current_user.tribe??"XXXX";
+      lastNameFamilyController.text = current_user.tribe??"";
 
       ageController.text = current_user.age.toString();
       //  UserProfileScreenState.phoneController.text=current_user.phone??" ";
-      heightController.text = current_user.height.toString();
-      weightController.text = current_user.weight.toString();
+      heightController.text = current_user.height??"";
+      weightController.text = current_user.weight??"";
       jobNameController.text = current_user.nameOfJob?? "";
       illnessTypeController.text = current_user.illnessType?? "";
       numberOfKidsController.text = current_user.numberOfKids?.toString()??"";
