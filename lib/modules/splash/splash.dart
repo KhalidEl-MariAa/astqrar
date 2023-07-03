@@ -163,7 +163,7 @@ class _SplashState extends State<Splash>
                     Image.asset("assets/logo.png", width: 300,),
                     
                     SizedBox(height: 5.h),
-                    Image.asset("assets/quraan.PNG", height: 6.h),
+                    Image.asset("assets/quraan1.png", height: 6.h),
                     
                     const Spacer(),
                   ],
