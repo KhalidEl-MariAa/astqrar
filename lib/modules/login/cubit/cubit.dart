@@ -11,9 +11,7 @@ import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-
-class ShopLoginCubit extends Cubit<ShopLoginStates> 
-{
+class ShopLoginCubit extends Cubit<ShopLoginStates> {
   ShopLoginCubit() : super(ShopLoginInitialState());
 
   //late LoginModel loginModel;
@@ -30,55 +28,52 @@ class ShopLoginCubit extends Cubit<ShopLoginStates>
   }
 
   //to login user
-  Future UserLogin({required String nationalId, required String password}) async 
-  {
+  Future UserLogin(
+      {required String nationalId, required String password}) async {
     emit(ShopLoginLoadingState());
     log(LOGIN);
 
-    await DioHelper.postData(
-      url: LOGIN, 
-      data: {
-        "NationalID": nationalId,
-        "password": password,
-        "deviceId": DEVICE_TOKEN
-      })
-      .then((value) async {
-        // log(value.toString());
-        loginModel = LoginModel.fromJson(value.data);
+    await DioHelper.postData(url: LOGIN, data: {
+      "NationalID": nationalId,
+      "password": password,
+      "deviceId": DEVICE_TOKEN
+    }).then((value) async {
+      // log(value.toString());
+      loginModel = LoginModel.fromJson(value.data);
 
-        if (loginModel.key==0){
-          emit(ShopLoginErrorState(loginModel.msg!));
-          return;
-        }
+      if (loginModel.key == 0) {
+        emit(ShopLoginErrorState(loginModel.msg!));
+        return;
+      }
 
-        CacheHelper.saveData( key: "phone", value: loginModel.data!.phone);
-        CacheHelper.saveData( key: "token", value: loginModel.data!.token);
-        CacheHelper.saveData( key: "typeUser", value: loginModel.data!.typeUser!);
-        CacheHelper.saveData( key: "id", value: loginModel.data!.id);
-        CacheHelper.saveData( key: "name", value: loginModel.data!.userName);
-        CacheHelper.saveData( key: "age", value: loginModel.data!.age.toString());
-        CacheHelper.saveData( key: "email", value: loginModel.data!.email);
-        CacheHelper.saveData( key: "gender", value: loginModel.data!.gender);
+      CacheHelper.saveData(key: "phone", value: loginModel.data!.phone);
+      CacheHelper.saveData(key: "token", value: loginModel.data!.token);
+      CacheHelper.saveData(key: "typeUser", value: loginModel.data!.typeUser!);
+      CacheHelper.saveData(key: "id", value: loginModel.data!.id);
+      CacheHelper.saveData(key: "name", value: loginModel.data!.userName);
+      CacheHelper.saveData(key: "age", value: loginModel.data!.age.toString());
+      CacheHelper.saveData(key: "email", value: loginModel.data!.email);
+      CacheHelper.saveData(key: "gender", value: loginModel.data!.gender);
 
-        if( loginModel.data!.status==true || IS_DEVELOPMENT_MODE) 
-        {
-          CacheHelper.saveData( key: "isLogin", value: true);
-        }else {
-          CacheHelper.saveData(key: "isLogin", value: false);
-        }
-        
-        IS_LOGIN = CacheHelper.getData(key: "isLogin");
-        PHONE = CacheHelper.getData(key: "phone");
-        TOKEN = CacheHelper.getData(key: "token");
-        TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
-        ID = CacheHelper.getData(key: "id");
-        NAME = CacheHelper.getData(key: "name");
-        AGE = CacheHelper.getData(key: "age");
-        EMAIL = CacheHelper.getData(key: "email");
-        GENDER_USER = CacheHelper.getData(key: "gender");
+      PHONE = CacheHelper.getData(key: "phone");
+      TOKEN = CacheHelper.getData(key: "token");
+      TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
+      ID = CacheHelper.getData(key: "id");
+      NAME = CacheHelper.getData(key: "name");
+      AGE = CacheHelper.getData(key: "age");
+      EMAIL = CacheHelper.getData(key: "email");
+      GENDER_USER = CacheHelper.getData(key: "gender");
 
-        emit(ShopLoginSuccessState(loginModel));
+      if (loginModel.data!.status == true) //|| IS_DEVELOPMENT_MODE
+      {
+        CacheHelper.saveData(key: "isLogin", value: true);
+        emit(ShopLoginSuccessAndActiveState(loginModel));
+      } else {
+        CacheHelper.saveData(key: "isLogin", value: false);
+        emit(ShopLoginSuccessButInActiveState(loginModel));
+      }
 
+      IS_LOGIN = CacheHelper.getData(key: "isLogin");
     }).catchError((error) {
       log(error.toString());
       showToast(msg: "حصلت مشكلة ", state: ToastStates.ERROR);

@@ -63,17 +63,28 @@ class _ContactsTabState extends State<ContactsTab>
                   child: 
                     Column(
                       children: [
-                        Row(                          
-                          children: [
-                            SizedBox(width: 2.w,),
-                            Icon(Icons.delete, color: Colors.red,),
-                            Text("لحذف المحادثة اسحب لليسار", 
-                              style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
-                            ),
-                            
-                            Icon(Icons.arrow_forward_rounded, color: Colors.red,),
-                          ],
-                        ),
+                        if(this.contacts.length == 0)
+                          Row(                          
+                            children: [
+                              SizedBox(width: 5.w,),
+                              Text("لا توجد محادثات حالياً", 
+                                style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 20.sp),
+                              ),
+                            ],
+                          ),
+
+                        if(this.contacts.length >= 1)
+                          Row(                          
+                            children: [
+                              SizedBox(width: 2.w,),
+                              Icon(Icons.delete, color: Colors.red,),
+                              Text("لحذف المحادثة اسحب لليسار", 
+                                style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
+                              ),
+                              
+                              Icon(Icons.arrow_forward_rounded, color: Colors.red,),
+                            ],
+                          ),
 
                         Expanded(
                           child: 

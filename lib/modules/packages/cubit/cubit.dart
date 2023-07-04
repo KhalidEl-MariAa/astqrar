@@ -9,19 +9,16 @@ import '../../../end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-class GetPackagesCubit extends Cubit<GetPackagesStates> 
-{
+class GetPackagesCubit extends Cubit<GetPackagesStates> {
   GetPackagesCubit() : super(GetPackagesInitialState());
 
   //late LoginModel loginModel;
   static GetPackagesCubit get(context) => BlocProvider.of(context);
 
   late GetPackgesModel getPackgesModel;
-  
 
-  void getPackages() 
-  {
-    log('GETPACKAGES ^^^^^^^^^^^^^^');
+  void getPackages() {
+    // log('GETPACKAGES ^^^^^^^^^^^^^^');
     emit(GetPackagesLoadingState());
     DioHelper.postData(url: GETPACKAGES, data: {}).then((value) {
       log(value.toString());
@@ -35,10 +32,8 @@ class GetPackagesCubit extends Cubit<GetPackagesStates>
   }
 
   //add package
-  
 
-  addPackage({required String packageId}) 
-  {
+  addPackage({required String packageId}) {
     ServerResponse res;
     emit(AddPackageLoadingState());
     DioHelper.postDataWithBearearToken(
@@ -48,8 +43,9 @@ class GetPackagesCubit extends Cubit<GetPackagesStates>
         .then((value) {
       log(value.toString());
       res = ServerResponse.fromJson(value.data);
-      if(res.key == 0){
+      if (res.key == 0) {
         emit(AddPackageErrorState(res.msg!));
+        return;
       }
 
       emit(AddPackageSuccessState(value.statusCode!));

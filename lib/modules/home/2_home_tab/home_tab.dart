@@ -297,7 +297,7 @@ class _HomeTabState extends State<HomeTab>
                 builder: (context) => LoadingGif(),
                 fallback: (context) 
                 {
-                  log(LayoutCubit.Countries.toString());
+                  // log(LayoutCubit.Countries.toString());
                   if(HomeCubit.get(context).getAllAdsWithUsersModel.data.length > 0){
                     return SliderAds();}
                   else{

@@ -32,7 +32,6 @@ class LayoutCubit extends Cubit<LayoutStates>
         url: SUBSPECIFICATIONS,
         token: TOKEN.toString(),)
     .then((value) {
-        log("SUBSPECIFICATIONS OK ^^^^^^^^^^^^^^^^^^^^^^");
         getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
         getSpecificationsModel.data.forEach( (e) {
           _specifications.addAll({e.nameAr!: e.id!});
@@ -85,7 +84,6 @@ class LayoutCubit extends Cubit<LayoutStates>
 
   void getPhone()
   {
-    log("GET_PHONE_NUMBER OK ^^^^^^^^^^^^^^^^^^^^^^");
     DioHelper.postData(
       url: GET_PHONE_NUMBER, 
       data: {})
@@ -104,7 +102,7 @@ class LayoutCubit extends Cubit<LayoutStates>
   static List<Country> Countries = [];  
   loadCountries() 
   {
-    log("GET_COUNTRIES OK ^^^^^^^^^^^^^^^^^^^^^^");
+    // log("GET_COUNTRIES OK ^^^^^^^^^^^^^^^^^^^^^^");
 
     DioHelper.getData(
       url: GET_COUNTRIES, 

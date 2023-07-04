@@ -20,18 +20,17 @@ Widget defaultTextFormField({
   required String? Function(String? val)? validate,
   required String label,
   IconData? prefixIcon,
-  Color styleText=Colors.white,
+  Color styleText = Colors.white,
   Function? prefixPressed,
   IconData? suffix,
   Function? suffixPressed,
   bool isImage = false,
   bool isImagePrefix = false,
-  String?prefixImage,
-  Color borderColor=Colors.white,
+  String? prefixImage,
+  Color borderColor = Colors.white,
   // Function? ontap,
   // bool ?autofocus,
-}) 
-{
+}) {
   return TextFormField(
     style: TextStyle(color: styleText),
     controller: controller,
@@ -44,32 +43,35 @@ Widget defaultTextFormField({
     autocorrect: true,
     validator: validate,
 
-    
     autovalidateMode: AutovalidateMode.onUserInteraction,
     readOnly: isLocation ? true : false,
     decoration: InputDecoration(
-
       filled: true,
-      fillColor: container==null?BG_DARK_COLOR:container,
+      fillColor: container == null ? BG_DARK_COLOR : container,
       labelText: labelText != null ? labelText : null,
-      labelStyle: GoogleFonts.almarai(color:  labelTextcolor==null?PRIMARY:labelTextcolor,fontSize: 9.sp,fontWeight: FontWeight.w400),
+      labelStyle: GoogleFonts.almarai(
+          color: labelTextcolor == null ? PRIMARY : labelTextcolor,
+          fontSize: 9.sp,
+          fontWeight: FontWeight.w400),
       hintText: label,
       hintStyle: TextStyle(
         color: GREY,
         fontSize: 11.sp,
       ),
       hintMaxLines: isLocation ? 3 : 1,
-      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: borderColor),borderRadius: BorderRadius.circular(12)),
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: borderColor),
+          borderRadius: BorderRadius.circular(12)),
       // borderSide: const BorderSide(color: Colors.white54),
       // borderRadius: BorderRadius.circular(50.0)),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: PRIMARY),
-         borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
 
       suffixIcon: isImage
           ? Padding(
-              padding:  EdgeInsetsDirectional.only(end: 3.w),
+              padding: EdgeInsetsDirectional.only(end: 3.w),
               child: const Image(
                 image: AssetImage("images/phoneIcon.png"),
                 height: 10,
@@ -85,27 +87,28 @@ Widget defaultTextFormField({
       focusColor: BG_DARK_COLOR,
       iconColor: GREY,
 
-      prefixIcon: (prefixIcon==null && prefixImage==null)? null :
-        isImagePrefix? 
-          Padding(
-              padding:  EdgeInsetsDirectional.only(end: 3.w),
-              child: Image(
-                image: AssetImage(prefixImage!),
-                height: 10,
-                width: 10,
-              ),
-            )
-          : 
-          IconButton(
-            icon: Icon(prefixIcon),
-            onPressed: () { prefixPressed!(); }
-          ),
+      prefixIcon: (prefixIcon == null && prefixImage == null)
+          ? null
+          : isImagePrefix
+              ? Padding(
+                  padding: EdgeInsetsDirectional.only(end: 3.w),
+                  child: Image(
+                    image: AssetImage(prefixImage!),
+                    height: 10,
+                    width: 10,
+                  ),
+                )
+              : IconButton(
+                  icon: Icon(prefixIcon),
+                  onPressed: () {
+                    prefixPressed!();
+                  }),
 
       isDense: true,
-      errorBorder:OutlineInputBorder(
+      errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: PRIMARY),
         borderRadius: BorderRadius.circular(12.0),
-      ) ,
+      ),
       // Added this
       contentPadding: const EdgeInsets.all(5),
     ),
@@ -117,40 +120,37 @@ Widget doubleInfinityMaterialButton({
   String? text,
   Widget? child,
   required Function onPressed,
-  
 }) {
   return Padding(
-    padding:  EdgeInsetsDirectional.only(start: 3.w, end: 3.w),
+    padding: EdgeInsetsDirectional.only(start: 3.w, end: 3.w),
     child: Container(
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-          color: PRIMARY
-      ),
-
+          color: PRIMARY),
       child: MaterialButton(
-        child: (text != null)?
-          Text( text, 
-            style: GoogleFonts.almarai(color: WHITE, fontSize: 14.sp),
-          )
-        :
-          child 
-        ,
-        
-      onPressed: () { onPressed(); },
+        child: (text != null)
+            ? Text(
+                text,
+                style: GoogleFonts.almarai(color: WHITE, fontSize: 14.sp),
+              )
+            : child,
+        onPressed: () {
+          onPressed();
+        },
       ),
     ),
   );
 }
 
-navigateTo({required BuildContext context,required widget})=>
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>widget));
+navigateTo({required BuildContext context, required widget}) =>
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 
 enum ToastStates { SUCCESS, ERROR, WARNING }
 
 showToast({required String msg, required ToastStates state}) =>
     Fluttertoast.showToast(
-      msg: msg,
+      msg: chooseToastIcon(state) + msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 2,
@@ -159,18 +159,31 @@ showToast({required String msg, required ToastStates state}) =>
       fontSize: 12.sp,
     );
 
-Color chooseToastColor(ToastStates state) 
-{
+String chooseToastIcon(ToastStates state) {
+  switch (state) {
+    case ToastStates.SUCCESS:
+      return "✅ ";
+    case ToastStates.WARNING:
+      return "⚠️ ";
+    case ToastStates.ERROR:
+      return "❌ ";
+    default:
+      break;
+  }
+  return " ";
+}
+
+Color chooseToastColor(ToastStates state) {
   late Color color;
   switch (state) {
     case ToastStates.SUCCESS:
-      color = Colors.green; 
+      color = Colors.green;
       break;
     case ToastStates.WARNING:
-      color = BG_DARK_COLOR; 
+      color = BG_DARK_COLOR;
       break;
     case ToastStates.ERROR:
-      color = Colors.red; 
+      color = Colors.red;
       break;
   }
   return color;

@@ -40,9 +40,8 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
   }
 
   //delete from favourite
-  
-  deleteFromFavourite({required String userId}) 
-  {
+
+  deleteFromFavourite({required String userId}) {
     ServerResponse res;
     FavouriteMap[userId] = false;
     favouriteList = [];
@@ -60,17 +59,16 @@ class GetFavouritesCubit extends Cubit<GetFavouritesStates> {
         .then((value) {
       log(value.toString());
       res = ServerResponse.fromJson(value.data);
-      if(res.key == 0){
+      if (res.key == 0) {
         emit(RemoveFromFavouriteErrorState(res.msg!));
+        return;
       }
-
 
       emit(RemoveFromFavouriteSuccessState());
     }).catchError((error) {
       FavouriteMap[userId] = true;
       log(error.toString());
       emit(RemoveFromFavouriteErrorState(error.toString()));
-      
     });
   }
 }

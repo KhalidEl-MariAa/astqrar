@@ -51,7 +51,7 @@ const ADDADS="api/v1/AddUserAds";
 
 const LOGOUT="api/v1/logout";
 
-const CHECKUSERISEXPIRED="api/v1/CheckUserIsExpiret";
+// const CHECKUSERISEXPIRED="api/v1/CheckUserIsExpiret";
 
 const GET_PHONE_NUMBER="api/v1/GetmobilePhone";
 
