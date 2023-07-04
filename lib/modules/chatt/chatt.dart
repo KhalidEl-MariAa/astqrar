@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:astarar/models/get_information_user.dart';
-import 'package:astarar/modules/user_details/cubit/cubit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../models/get_information_user.dart';
 
 import '../../shared/components/components.dart';
 

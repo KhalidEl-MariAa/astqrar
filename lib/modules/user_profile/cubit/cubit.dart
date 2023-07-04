@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/login.dart';
-import '../../../models/user.dart';
 import '../../../constants.dart';
 import '../../../end_points.dart';
+import '../../../models/login.dart';
+import '../../../models/user.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
+import '../../end_points.dart';
 import '../../models/server_response_model.dart';
 import '../../models/user.dart';
-import '../../end_points.dart';
 import '../../shared/network/remote.dart';
 import 'states.dart';
 

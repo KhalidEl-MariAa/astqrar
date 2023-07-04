@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../models/about_us_model.dart';
 import '../../../../../end_points.dart';
+import '../../../../../models/about_us_model.dart';
 import '../../../../../shared/network/remote.dart';
 import 'states.dart';
 

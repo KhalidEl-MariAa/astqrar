@@ -1,14 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
-import '../../../models/server_response_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/get_information_user.dart';
-import 'states.dart';
 import '../../../constants.dart';
 import '../../../end_points.dart';
+import '../../../models/get_information_user.dart';
+import '../../../models/server_response_model.dart';
 import '../../../shared/network/remote.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'states.dart';
 
 class UserDetailsCubit extends Cubit<UserDetailsStates> {
   UserDetailsCubit() : super(UserDetailsInitialState());

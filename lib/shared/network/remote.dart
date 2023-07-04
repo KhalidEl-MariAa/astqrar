@@ -108,8 +108,6 @@ class DioHelper
       "Content-Type": "application/json",
     };
 
-    //TODO: remove prints
-    print('POST-44444444444444444-3-3');    
     var res = await dio.post(url, data: data);
     return res;
   } //end postData
@@ -163,9 +161,9 @@ class DioHelper
         BaseOptions(
         baseUrl: baseurl, 
         receiveDataWhenStatusError: true,
-        connectTimeout: 3000,
-        receiveTimeout: 3000,
-        sendTimeout: 3000,
+        connectTimeout: Duration(seconds: 3),
+        receiveTimeout: Duration(seconds: 3),
+        sendTimeout: Duration(seconds: 3),
       ));
 
     // Dio dio1 = Dio();

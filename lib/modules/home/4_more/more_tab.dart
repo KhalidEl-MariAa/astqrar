@@ -1,4 +1,4 @@
-import 'package:astarar/modules/home/4_more/4_about_version/about_version.dart';
+import '4_about_version/about_version.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

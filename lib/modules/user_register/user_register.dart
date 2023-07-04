@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/modules/login/cubit/states.dart';
+import '../login/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +18,8 @@ import '../../shared/components/radiobuttonregister.dart';
 import '../../shared/styles/colors.dart';
 import '../home/4_more/2_terms/terms.dart';
 import '../home/layout/cubit/cubit.dart';
-import '../home/layout/cubit/states.dart';
 import '../home/layout/layout.dart';
 import '../login/cubit/cubit.dart';
-import '../login/login.dart';
 import '../login/not_subscribed.dart';
 import 'alreadyhaneaccount_text.dart';
 import 'cubit.dart';

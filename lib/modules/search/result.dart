@@ -13,9 +13,9 @@ import '../../shared/styles/colors.dart';
 import '../login/login.dart';
 import '../user_details/cubit/cubit.dart';
 import '../user_details/user_details.dart';
+import 'advanced_filter.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
-import 'advanced_filter.dart';
 
 class ResultScreen extends StatefulWidget 
 {

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
+import 'cubit/splash_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';

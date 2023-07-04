@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../modules/login/login.dart';
 import '../../../constants.dart';
+import '../../../modules/login/login.dart';
 import '../../styles/colors.dart';
 
 class AppBarWithNameAndImage extends StatelessWidget {

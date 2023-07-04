@@ -1,5 +1,5 @@
-import 'package:astarar/modules/home/layout/cubit/cubit.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../../../modules/home/layout/cubit/cubit.dart';
+import '../../styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -81,7 +81,7 @@ class _DetailWidgetState extends State<DetailWidget>
 
               // ايقونة البلوك
               Visibility(
-                visible: widget.otherUser.isBlockedByMe??false,
+                visible: widget.otherUser.isBlockedByMe,
                 child: 
                   ConditionalBuilder(
                     condition: widget.state is BlockHimLoading ,

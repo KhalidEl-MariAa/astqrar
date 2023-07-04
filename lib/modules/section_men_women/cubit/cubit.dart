@@ -1,9 +1,8 @@
 import 'dart:developer';
 
-import 'package:astarar/models/server_response_model.dart';
-import 'package:astarar/modules/home/layout/cubit/cubit.dart';
-import 'package:astarar/modules/section_men_women/cubit/states.dart';
-import 'package:dio/dio.dart';
+import '../../../models/server_response_model.dart';
+import '../../home/layout/cubit/cubit.dart';
+import 'states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';

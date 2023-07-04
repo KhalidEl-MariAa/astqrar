@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/models/server_response_model.dart';
+import '../../../models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +10,6 @@ import '../../../models/get-messages-model.dart';
 import '../../../end_points.dart';
 import '../../../models/get_information_user.dart';
 import '../../../shared/network/remote.dart';
-import '../../user_details/cubit/cubit.dart';
 import '../chatt.dart';
 import 'states.dart';
 

@@ -1,4 +1,3 @@
-import 'package:astarar/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -6,8 +5,8 @@ import 'package:sizer/sizer.dart';
 
 import '../../modules/ads/cubit/cubit.dart';
 import '../../modules/payment/payment_screen.dart';
+import '../styles/colors.dart';
 import 'components.dart';
-import 'custom_dialog.dart';
 
 class AdsAndPackages extends StatelessWidget 
 {

@@ -1,4 +1,4 @@
-import 'package:astarar/models/user.dart';
+import 'user.dart';
 import 'package:intl/intl.dart';
 
 class ContactDetails 

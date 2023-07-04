@@ -1,9 +1,7 @@
 
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:upgrader/upgrader.dart';
 
 import '../../../shared/components/dialog_please_login.dart';
 import '../../../constants.dart';

@@ -1,10 +1,11 @@
 
 
-import 'package:google_fonts/google_fonts.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../../../shared/components/logo/normal_logo.dart';
 import '../../../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';

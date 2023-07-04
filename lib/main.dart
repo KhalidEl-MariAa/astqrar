@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 
-import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
+import 'modules/splash/cubit/splash_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

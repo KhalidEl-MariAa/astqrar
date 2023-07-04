@@ -20,7 +20,6 @@ import '../../login/login.dart';
 import '../../search/result.dart';
 import '../../section_men_women/cubit/cubit.dart';
 import '../../section_men_women/section_men_women.dart';
-import '../layout/cubit/cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'widgets/big_button.dart';

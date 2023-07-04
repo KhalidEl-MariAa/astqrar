@@ -1,4 +1,4 @@
-import 'package:astarar/models/contacts.dart';
+import '../../../../models/contacts.dart';
 
 abstract class ContactsStates{}
 

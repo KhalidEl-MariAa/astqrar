@@ -1,4 +1,4 @@
-import 'package:astarar/models/get_information_user.dart';
+import '../../../models/get_information_user.dart';
 
 abstract class ConversationStates {}
 

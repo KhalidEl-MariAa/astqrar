@@ -1,5 +1,5 @@
 
-import 'package:astarar/models/user.dart';
+import 'user.dart';
 
 
 class OtherUser extends User

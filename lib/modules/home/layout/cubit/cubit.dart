@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/models/country.dart';
+import '../../../../models/country.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';
