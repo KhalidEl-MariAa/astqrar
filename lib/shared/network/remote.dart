@@ -118,7 +118,9 @@ class DioHelper
       String? token,
       //  String ?image,
       // Map<String, dynamic>? query,
-      required var data}) async {
+      required var data}) async 
+    {
+
     dio.options.headers = {
       // 'token':token??'',
       //'Accept':"application/json",

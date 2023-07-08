@@ -83,42 +83,7 @@ class AdsAndPackages extends StatelessWidget
                     child: 
                     GestureDetector(
                         onTap: () {
-                          if (isPackages) {
-                            navigateTo(context: context, widget: PaymentScreen(
-                              price: packages[index].price,
-                              serviceType: "package",
-                              idService: packages[index].id,
-                            ));
-                          } else {
-                            navigateTo(context: context, widget: PaymentScreen(
-                              price: AdsCubit.get(context)
-                                            .getAdsModel
-                                            .data[index]
-                                            .price,
-                              serviceType: "Ads",
-                              idService: AdsCubit.get(context)
-                                            .getAdsModel
-                                            .data[index]
-                                            .id!,
-                            ));
-
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (context) => CustomDialog(
-                            //           price: AdsCubit.get(context)
-                            //               .getAdsModel
-                            //               .data[index]
-                            //               .price
-                            //               .toString(),
-                            //           text:
-                            //               "اسم العميل :name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
-                            //         ));
-                            AdsCubit.get(context).addAds(
-                                adId: AdsCubit.get(context)
-                                    .getAdsModel
-                                    .data[index]
-                                    .id!);
-                          }
+                          Subscribe_click(context, index);
                         },
                         child: Container(
                           width: 46.5.w,
@@ -136,5 +101,46 @@ class AdsAndPackages extends StatelessWidget
             ),
           );
         }));
+  }
+
+  void Subscribe_click(BuildContext context, int index) 
+  {
+    if (isPackages) {
+      navigateTo(context: context, 
+        widget: PaymentScreen(
+          price: packages[index].price,
+          serviceType: "package",
+          idService: packages[index].id,
+        ));
+    } else {
+      navigateTo(context: context, widget: PaymentScreen(
+        price: AdsCubit.get(context)
+                      .getAdsModel
+                      .data[index]
+                      .price,
+        serviceType: "Ads",
+        idService: AdsCubit.get(context)
+                      .getAdsModel
+                      .data[index]
+                      .id!,
+      ));
+    
+      // showDialog(
+      //     context: context,
+      //     builder: (context) => CustomDialog(
+      //           price: AdsCubit.get(context)
+      //               .getAdsModel
+      //               .data[index]
+      //               .price
+      //               .toString(),
+      //           text:
+      //               "اسم العميل :name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
+      //         ));
+      AdsCubit.get(context).addAds(
+          adId: AdsCubit.get(context)
+              .getAdsModel
+              .data[index]
+              .id!);
+    }
   }
 }

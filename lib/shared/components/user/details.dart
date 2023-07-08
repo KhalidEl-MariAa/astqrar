@@ -14,31 +14,26 @@ import '../../../modules/user_details/cubit/states.dart';
 import '../dialog_please_login.dart';
 import 'details_item.dart';
 
-class DetailWidget extends StatefulWidget 
-{
+class DetailWidget extends StatefulWidget {
   final bool messageVisibility;
   final UserDetailsStates state;
   final OtherUser otherUser;
 
-  DetailWidget({
-    required this.state,
-    required this.messageVisibility,
-    required this.otherUser
-  });
+  DetailWidget(
+      {required this.state,
+      required this.messageVisibility,
+      required this.otherUser});
 
   @override
   State<DetailWidget> createState() => _DetailWidgetState();
 }
 
-class _DetailWidgetState extends State<DetailWidget> 
-{
+class _DetailWidgetState extends State<DetailWidget> {
   // DetailWidget({
   @override
-  Widget build(BuildContext context) 
-  {
+  Widget build(BuildContext context) {
     return Column(
       children: [
-        
         Padding(
           padding: EdgeInsetsDirectional.only(top: 1.h),
           child: Center(
@@ -49,14 +44,18 @@ class _DetailWidgetState extends State<DetailWidget>
                   color: Colors.white,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: widget.otherUser.gender == 1 ? AssetImage(maleImage,) : AssetImage(femaleImage),
+                    image: widget.otherUser.gender == 1
+                        ? AssetImage(
+                            maleImage,
+                          )
+                        : AssetImage(femaleImage),
                   )),
             ),
           ),
         ),
-
-        SizedBox( height: 2.h, ),
-
+        SizedBox(
+          height: 2.h,
+        ),
         Padding(
           padding: EdgeInsetsDirectional.only(end: 2.w),
           child: Row(
@@ -65,90 +64,96 @@ class _DetailWidgetState extends State<DetailWidget>
                 width: 35.w,
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(start: 4.w),
-                  child:
-                      Text(widget.otherUser.user_Name??"--------", style: GoogleFonts.poppins(fontSize: 12.sp)),
+                  child: Text(widget.otherUser.user_Name ?? "--------",
+                      style: GoogleFonts.poppins(fontSize: 12.sp)),
                 ),
               ),
               SizedBox(
                 width: 2.w,
               ),
-            // Container(
-            //     width: 28.w,
-            //     child: Text('أخر ظهور:3:26',
-            //         style: GoogleFonts.poppins(color: Colors.grey[500])),
-            // ),
+              // Container(
+              //     width: 28.w,
+              //     child: Text('أخر ظهور:3:26',
+              //         style: GoogleFonts.poppins(color: Colors.grey[500])),
+              // ),
               const Spacer(),
 
               // ايقونة البلوك
               Visibility(
                 visible: widget.otherUser.isBlockedByMe,
-                child: 
-                  ConditionalBuilder(
-                    condition: widget.state is BlockHimLoading ,
-                    builder:  (context) => CircularProgressIndicator(),
-                    fallback: (context)  => 
-                      InkWell(
-                        onTap: () {  UserDetailsCubit.get(context).unblockHim(userId: widget.otherUser.id??""); },
-                        child:  
-                          Icon(Icons.block, color: PRIMARY,size: 33,),
-                      ),                    
+                child: ConditionalBuilder(
+                  condition: widget.state is BlockHimLoading,
+                  builder: (context) => CircularProgressIndicator(),
+                  fallback: (context) => InkWell(
+                    onTap: () {
+                      UserDetailsCubit.get(context)
+                          .unblockHim(userId: widget.otherUser.id ?? "");
+                    },
+                    child: Icon(
+                      Icons.block,
+                      color: PRIMARY,
+                      size: 33,
                     ),
+                  ),
+                ),
               ),
 
-              SizedBox( width: 3.w,),
+              SizedBox(
+                width: 3.w,
+              ),
 
               // زر اللايك
               Visibility(
-                visible: widget.messageVisibility && TYPE_OF_USER==1,
-                child: 
-                  ConditionalBuilder(
-                    condition: widget.state is ToggleFavouriteLoading ,
-                    builder:  (context) => CircularProgressIndicator(),
-                    fallback: (context)  =>                  
-                      InkWell(
-                        onTap: () {
-                          if(IS_LOGIN==false){
-                            showDialog(context: context, builder: (context) => const DialogPleaseLogin());
-                            return ;
-                          }
-                          favourite_on_click(context);
-                        },
-                        child: Image(
-                            height: 3.5.h, 
-                            image: (widget.otherUser.isFavorate??false)?
-                              const AssetImage("assets/fullFavorite.png")
-                              :
-                              const AssetImage('assets/Frame 146.png')),
-                      ),
-                    ),
+                visible: widget.messageVisibility && TYPE_OF_USER == 1,
+                child: ConditionalBuilder(
+                  condition: widget.state is ToggleFavouriteLoading,
+                  builder: (context) => CircularProgressIndicator(),
+                  fallback: (context) => InkWell(
+                    onTap: () {
+                      if (IS_LOGIN == false) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => const DialogPleaseLogin());
+                        return;
+                      }
+                      favourite_on_click(context);
+                    },
+                    child: Image(
+                        height: 3.5.h,
+                        image: (widget.otherUser.isFavorate ?? false)
+                            ? const AssetImage("assets/fullFavorite.png")
+                            : const AssetImage('assets/Frame 146.png')),
+                  ),
+                ),
               ),
 
               // زر الشات
               Visibility(
                 visible: widget.messageVisibility,
-                child: SizedBox( width: 3.w, ),
+                child: SizedBox(
+                  width: 3.w,
+                ),
               ),
               Visibility(
-                visible: widget.messageVisibility,
-                child: 
-                ConditionalBuilder(
-                  condition: widget.state is AddHimToMyContactsLoading,
-                  builder: (context) => CircularProgressIndicator(),
-                  fallback: (context) =>
-                    InkWell(
+                  visible: widget.messageVisibility,
+                  child: ConditionalBuilder(
+                    condition: widget.state is AddHimToMyContactsLoading,
+                    builder: (context) => CircularProgressIndicator(),
+                    fallback: (context) => InkWell(
                       onTap: () {
-                        if(IS_LOGIN==false){
-                          showDialog(context: context, builder: (context) => const DialogPleaseLogin());
+                        if (IS_LOGIN == false) {
+                          showDialog(
+                              context: context,
+                              builder: (context) => const DialogPleaseLogin());
                           return;
                         }
                         enter_chatt_screen(context);
                       },
-                      child: Image(height: 3.h, image: const AssetImage('assets/chat (7).png')),
+                      child: Image(
+                          height: 3.h,
+                          image: const AssetImage('assets/chat (7).png')),
                     ),
-
-                  )
-                ),
-
+                  )),
             ],
           ),
         ),
@@ -164,13 +169,13 @@ class _DetailWidgetState extends State<DetailWidget>
               Container(
                   width: 46.w,
                   child: DetailsItem(
-                    title: 'العمر', 
-                    subTitle: widget.otherUser.age.toString() + "  عام ")),
+                      title: 'العمر',
+                      subTitle: widget.otherUser.age.toString() + "  عام ")),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'المدينة',
-                  subTitle: widget.otherUser.city??"--------",
+                  subTitle: widget.otherUser.city ?? "--------",
                 ),
               ),
             ],
@@ -185,55 +190,17 @@ class _DetailWidgetState extends State<DetailWidget>
               Container(
                   width: 46.w,
                   child: DetailsItem(
-                    title: 'الجنسية', 
-                    subTitle: LayoutCubit.Countries
-                              .firstWhere((c) => c.id == widget.otherUser.countryId)
-                              .NameAr??"--------")),
-
-              Container(
-                width: 35.w,
-                child: DetailsItem(                  
-                  title: 'الاسم ينتهي',
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.name_end_with),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
-              Container(
-                  width: 46.w,
-                  child: DetailsItem(title: 'الطول', subTitle: "${widget.otherUser.height} سم")),
-              Container(
-                width: 35.w,
-                child: DetailsItem(title: 'الوزن', subTitle: "${widget.otherUser.weight} ك",
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
-              Container(
-                  width: 46.w,
-                  child: DetailsItem(
-                    title: 'لون الشعر', 
-                    subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.hair_colour),                  
-                    )),
+                      title: 'الجنسية',
+                      subTitle: LayoutCubit.Countries.firstWhere(
+                                  (c) => c.id == widget.otherUser.countryId)
+                              .NameAr ??
+                          "--------")),
               Container(
                 width: 35.w,
                 child: DetailsItem(
-                  title: 'من عرق',
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.strain),                  
+                  title: 'الاسم ينتهي',
+                  subTitle: findSubSpecificationOrEmptyStr(
+                      SpecificationIDs.name_end_with),
                 ),
               ),
             ],
@@ -248,16 +215,64 @@ class _DetailWidgetState extends State<DetailWidget>
               Container(
                   width: 46.w,
                   child: DetailsItem(
-                    title: 'مؤهل علمي', 
-                    subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.qualification),
-                  )
+                      title: 'الطول',
+                      subTitle: widget.otherUser.height == null
+                          ? "------"
+                          : "${widget.otherUser.height} سم")),
+              Container(
+                width: 35.w,
+                child: DetailsItem(
+                  title: 'الوزن',
+                  subTitle: widget.otherUser.weight == null
+                      ? "-----"
+                      : "${widget.otherUser.weight} ك",
+                ),
               ),
-
+            ],
+          ),
+        ),
+        Container(
+          height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 46.w,
+                  child: DetailsItem(
+                    title: 'لون الشعر',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.hair_colour),
+                  )),
+              Container(
+                  width: 46.w,
+                  child: DetailsItem(
+                    title: 'نوع الشعر',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.hair_type),
+                  )),
+            ],
+          ),
+        ),
+        Container(
+          height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 46.w,
+                  child: DetailsItem(
+                    title: 'مؤهل علمي',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.qualification),
+                  )),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'الوظيفة',
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.job),
+                  subTitle:
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.job),
                 ),
               ),
             ],
@@ -269,17 +284,44 @@ class _DetailWidgetState extends State<DetailWidget>
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
-              Container(width: 46.w,child: 
-                DetailsItem(
-                  title: 'الحالة الصحية', 
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.health_status),
-                )
+              Container(
+                width: 46.w,
+                child: DetailsItem(
+                  title: 'من عرق',
+                  subTitle:
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.strain),
+                ),
               ),
+              Container(
+                width: 35.w,
+                child: DetailsItem(
+                  title: 'لون البشرة',
+                  subTitle: findSubSpecificationOrEmptyStr(
+                      SpecificationIDs.skin_colour),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 46.w,
+                  child: DetailsItem(
+                    title: 'الحالة الصحية',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.health_status),
+                  )),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'الحالة الاجتماعية',
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.social_status),
+                  subTitle: findSubSpecificationOrEmptyStr(
+                      SpecificationIDs.social_status),
                 ),
               ),
             ],
@@ -292,17 +334,18 @@ class _DetailWidgetState extends State<DetailWidget>
           child: Row(
             children: [
               Container(
-                width: 46.w,
-                child: DetailsItem(
-                  title: 'هل لديك اطفال', 
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.have_children),)
-              ),
-
+                  width: 46.w,
+                  child: DetailsItem(
+                    title: 'هل لديك اطفال',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.have_children),
+                  )),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'نبذة عن مظهرك',
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.job),
+                  subTitle:
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.job),
                 ),
               ),
             ],
@@ -314,17 +357,19 @@ class _DetailWidgetState extends State<DetailWidget>
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
             children: [
-              Container(width: 46.w,child: 
-                  DetailsItem(title: 'عاهه جسدية', 
-                  subTitle: (widget.otherUser.specialNeeds??false)? "يوجد " : "لا يوجد")),
-
+              Container(
+                  width: 46.w,
+                  child: DetailsItem(
+                      title: 'عاهه جسدية',
+                      subTitle: (widget.otherUser.specialNeeds ?? false)
+                          ? "يوجد "
+                          : "لا يوجد")),
               Container(
                 width: 35.w,
                 child: DetailsItem(
                   title: 'الوضع المالي',
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.financial_situation),
-
-                  
+                  subTitle: findSubSpecificationOrEmptyStr(
+                      SpecificationIDs.financial_situation),
                 ),
               ),
             ],
@@ -337,18 +382,21 @@ class _DetailWidgetState extends State<DetailWidget>
           child: Row(
             children: [
               Container(
-                width: 46.w,
-                child: DetailsItem(
-                  title: 'نوع الزواج',                   
-                  subTitle: findSubSpecificationOrEmptyStr(SpecificationIDs.marriage_Type)                   
-                  )),
-
-              Container(width: 46.w,child: DetailsItem(title: 'قيمة المهر', subTitle: widget.otherUser.dowry.toString() )),
+                  width: 46.w,
+                  child: DetailsItem(
+                      title: 'نوع الزواج',
+                      subTitle: findSubSpecificationOrEmptyStr(
+                          SpecificationIDs.marriage_Type))),
+              Container(
+                  width: 46.w,
+                  child: DetailsItem(
+                      title: 'قيمة المهر',
+                      subTitle: widget.otherUser.dowry.toString())),
             ],
           ),
         ),
         Padding(
-          padding:  EdgeInsetsDirectional.only(bottom: 2.h),
+          padding: EdgeInsetsDirectional.only(bottom: 2.h),
           child: Container(
             //height: 9.5.h,
             width: double.infinity,
@@ -356,12 +404,10 @@ class _DetailWidgetState extends State<DetailWidget>
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
-
-
                 Container(
                   width: 80.w,
                   child: DetailsItem(
-                    subTitle: widget.otherUser.terms??"--------",
+                    subTitle: widget.otherUser.terms ?? "--------",
                     title: 'الشروط',
                   ),
                 ),
@@ -369,50 +415,37 @@ class _DetailWidgetState extends State<DetailWidget>
             ),
           ),
         ),
-
       ],
     );
   }
 
   //-----------------------------------------------
-  void favourite_on_click(BuildContext context) 
-  {
-    if (widget.otherUser.isFavorate??false) 
-    {
-      UserDetailsCubit
-        .get(context)
-        .deleteFromFavourite(
-            userId: widget.otherUser.id!
-        );
-    }else 
-    {
-      UserDetailsCubit
-        .get(context)
-        .addToFavourite(
-          userId: widget.otherUser.id!
-        );
+  void favourite_on_click(BuildContext context) {
+    if (widget.otherUser.isFavorate ?? false) {
+      UserDetailsCubit.get(context)
+          .deleteFromFavourite(userId: widget.otherUser.id!);
+    } else {
+      UserDetailsCubit.get(context)
+          .addToFavourite(userId: widget.otherUser.id!);
     }
   }
+
 //favourite_on_click
-  void enter_chatt_screen(BuildContext context) 
-  {
+  void enter_chatt_screen(BuildContext context) {
     // حسب طلب صاحب التطبيق ان يتم الدخول على الشات مباشرة بدون طلب
-    UserDetailsCubit
-      .get(context)
-      .addHimToMyContacts(
-        userId: widget.otherUser.id!);
-
-
+    UserDetailsCubit.get(context)
+        .addHimToMyContacts(userId: widget.otherUser.id!);
 
     // if(GetInformationCubit.get(context).getInformationUserModel.isInMyContacts!)
     // {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ConversationScreen(
-                                      otherUser: widget.otherUser)
-        )
-      );
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ConversationScreen(otherUser: widget.otherUser)
+      ),
+      (route) => true,
+      
+    );
     // }else{
     //   GetInformationCubit
     //     .get(context)
@@ -424,15 +457,13 @@ class _DetailWidgetState extends State<DetailWidget>
     // }
   }
 
-  findSubSpecificationOrEmptyStr(int specId) 
-  {
+  findSubSpecificationOrEmptyStr(int specId) {
     var subkeys = SpecificationIDs.getSubSpecificationKeys(specId);
 
     return widget.otherUser.subSpecifications
-                  .firstWhere(
-                    (ss) => subkeys.contains(ss.id),
-                            orElse: ( ) => SubSpecification(0, "-----",0 ,"---------") )
-                  .value
-                  .toString();
+        .firstWhere((ss) => subkeys.contains(ss.id),
+            orElse: () => SubSpecification(0, "-----", 0, "---------"))
+        .value
+        .toString();
   }
 }

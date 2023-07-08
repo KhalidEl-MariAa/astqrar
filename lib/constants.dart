@@ -1,4 +1,3 @@
-
 String? ID;
 String? TOKEN;
 String? NAME;
@@ -16,6 +15,6 @@ bool IS_DEVELOPMENT_MODE = true;
 
 String BASE_URL = "https://estqrar-001-site1.ctempurl.com/";
 
-String maleImage="assets/male.jpg";
+String maleImage = "assets/male.png";
 
-String femaleImage="assets/female.jpg";
+String femaleImage = "assets/female.png";

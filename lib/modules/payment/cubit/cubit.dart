@@ -26,7 +26,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
     emit( ChangePaymentState() );
   }
 
-  addInvoice({required double price}) 
+  void addInvoice({required double price}) 
   {
     emit(AddInvoiceLoadingState());
     DioHelper.postDataWithBearearToken (
@@ -79,7 +79,8 @@ class PaymentCubit extends Cubit<PaymentStates> {
 
   String? orderSatus;
 
-  getInvoiceStatus({required dynamic  serviceId,required int type}) {
+  getInvoiceStatus({required dynamic  serviceId,required int type}) 
+  {
     emit(GetInvoiceStatusLoadingState());
     DioHelper.postDataWithBearearToken(
             url: "api/v1/GetInvoice?transactionNo=$transactionNo",
@@ -92,8 +93,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
       if(orderSatus=="Paid"){
         activate(serviceId: serviceId, type: type);
         if(type==1){
-          CacheHelper.saveData(
-              key: "isLogin", value: true);
+          CacheHelper.saveData(key: "isLogin", value: true);
           IS_LOGIN = CacheHelper.getData(key: "isLogin");
         }
       }
@@ -107,7 +107,8 @@ class PaymentCubit extends Cubit<PaymentStates> {
 
   late ActivateModel activateModel;
 
-  activate({required dynamic serviceId,required int type}) {
+  activate({required dynamic serviceId,required int type}) 
+  {
     print(serviceId);
     emit(ActivateLoadingState());
     DioHelper.postDataWithBearearToken(

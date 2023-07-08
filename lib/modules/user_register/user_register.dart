@@ -20,6 +20,7 @@ import '../home/4_more/2_terms/terms.dart';
 import '../home/layout/cubit/cubit.dart';
 import '../home/layout/layout.dart';
 import '../login/cubit/cubit.dart';
+import '../login/login.dart';
 import '../login/not_subscribed.dart';
 import 'alreadyhaneaccount_text.dart';
 import 'cubit.dart';
@@ -680,7 +681,7 @@ class _UserRegisterState extends State<UserRegister> {
                                       ),
                                     ),
                                 fallback: (context) => Text(
-                                      "ssssss",
+                                      "",
                                       style: TextStyle(color: WHITE),
                                     )),
                           ),
@@ -715,20 +716,21 @@ class _UserRegisterState extends State<UserRegister> {
       if (state.response.key == 1) {
         showToast(msg: "تم التسجيل بنجاح", state: ToastStates.SUCCESS);
 
+        // clearAllFields();
+
         // Navigator.pushAndRemoveUntil(
         //   context,
         //   MaterialPageRoute(builder: (context) => LoginScreen()),
         //   (route) => false,
         // );
-
-        // TODO: uncomment1234567
-        // clearAllFields();
+        
       }
     } else if (state is RegisterState_Error) {
       showToast(msg: state.err_msg, state: ToastStates.ERROR);
     } else if (state is RegisterState_Loading) {
       log('loading ...............');
-    } else if (state is LoginAfterRegisterState) {
+    } else if (state is LoginAfterRegisterState) 
+    {
       context.read<ShopLoginCubit>().UserLogin(
           nationalId: nationalIdController.text,
           password: passwordController.text);

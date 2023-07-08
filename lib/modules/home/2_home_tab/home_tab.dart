@@ -26,19 +26,16 @@ import 'widgets/big_button.dart';
 import 'widgets/empty_slider.dart';
 import 'widgets/slider_ads.dart';
 
-class HomeTab extends StatefulWidget 
-{
+class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
 
   @override
   _HomeTabState createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> 
-{
+class _HomeTabState extends State<HomeTab> {
   @override
-  void initState() 
-  {
+  void initState() {
     super.initState();
     NotiticationWidget(context).init();
     if (Platform.isIOS) {
@@ -54,15 +51,14 @@ class _HomeTabState extends State<HomeTab>
         log("empty");
       }
     });
-    
+
     FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
     );
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) 
-    {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       //foreground
@@ -94,13 +90,8 @@ class _HomeTabState extends State<HomeTab>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) 
-      {
-        if(state is GetUserAdsSuccessState)
-        {
-
-        }
-
+      listener: (context, state) {
+        if (state is GetUserAdsSuccessState) {}
       },
       builder: (context, state) => Scaffold(
         backgroundColor: WHITE,
@@ -121,7 +112,7 @@ class _HomeTabState extends State<HomeTab>
                       preferredSize: Size.fromHeight(19.h),
                       child: Container(
                         height: 12.h,
-                        decoration:const  BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/appbarimage.png"),
                             fit: BoxFit.cover,
@@ -132,41 +123,52 @@ class _HomeTabState extends State<HomeTab>
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               Text(
-                                IS_LOGIN? NAME??"---------" :"اهلا بك ",
-                                style: TextStyle(color: WHITE,fontSize: 11.sp),
+                                IS_LOGIN ? NAME ?? "---------" : "اهلا بك ",
+                                style: TextStyle(color: WHITE, fontSize: 11.sp),
                               ),
-                          if(IS_LOGIN)    Text(
-                              AGE! + " " + "عاما",
-                                textAlign: TextAlign.start,
-                                style:
-                                    TextStyle(color: CUSTOME_GREY, fontSize: 11.sp),
-                              ),
-                              if(IS_LOGIN==false)
+                              if (IS_LOGIN)
+                                Text(
+                                  AGE! + " " + "عاما",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      color: CUSTOME_GREY, fontSize: 11.sp),
+                                ),
+                              if (IS_LOGIN == false)
                                 Row(
                                   children: [
                                     Text(
-                                     "سجل دخول",
+                                      "سجل دخول",
                                       textAlign: TextAlign.start,
-                                      style:
-                                      TextStyle(color: WHITE, fontSize: 10.sp),
+                                      style: TextStyle(
+                                          color: WHITE, fontSize: 10.sp),
                                     ),
-                                    SizedBox(width: 1.w,),
+                                    SizedBox(
+                                      width: 1.w,
+                                    ),
                                     InkWell(
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginScreen()));
                                       },
                                       child: Text(
                                         "من هنا",
                                         textAlign: TextAlign.start,
-                                        style:
-                                        TextStyle(color: WHITE, fontSize: 10.sp,decoration:TextDecoration.underline),
+                                        style: TextStyle(
+                                            color: WHITE,
+                                            fontSize: 10.sp,
+                                            decoration:
+                                                TextDecoration.underline),
                                       ),
                                     ),
                                   ],
                                 ),
-
                             ],
                           ),
                           //   titleSpacing: -10,
@@ -188,17 +190,19 @@ class _HomeTabState extends State<HomeTab>
                               )),
                           actions: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.only(end: 3.w, top: 2.h),
+                              padding: EdgeInsetsDirectional.only(
+                                  end: 3.w, top: 2.h),
                               child: InkWell(
-                                  onTap: () async 
-                                  {
+                                  onTap: () async {
                                     Uri url = Uri(
-                                      scheme: "https", 
-                                      path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
-                                    );
-                                    if (await launchUrl(url, mode: LaunchMode.platformDefault)) {} 
-                                    else { throw 'Could not launch ${url}'; }
+                                        scheme: "https",
+                                        path:
+                                            "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE");
+                                    if (await launchUrl(url,
+                                        mode: LaunchMode.platformDefault)) {
+                                    } else {
+                                      throw 'Could not launch ${url}';
+                                    }
                                   },
                                   child: Image(
                                     image: AssetImage("assets/snapchat.png"),
@@ -230,11 +234,10 @@ class _HomeTabState extends State<HomeTab>
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ResultScreen() ));
+                                      builder: (context) => ResultScreen()));
                             },
-
                             decoration: InputDecoration(
-                              prefixIcon:const  Icon(Icons.search),
+                              prefixIcon: const Icon(Icons.search),
                               hintText: "ابحث الان",
                               contentPadding: EdgeInsets.zero,
                               enabledBorder: OutlineInputBorder(
@@ -246,7 +249,6 @@ class _HomeTabState extends State<HomeTab>
                               filled: true,
                               fillColor: WHITE,
                             ),
-                            
                           ),
                         ),
                       ),
@@ -255,138 +257,144 @@ class _HomeTabState extends State<HomeTab>
                 ]),
               ),
               SizedBox(
-                height:IS_LOGIN&&TYPE_OF_USER==1? 1.h:5.h,
+                height: IS_LOGIN && TYPE_OF_USER == 1 ? 1.h : 5.h,
               ),
-       if(IS_LOGIN&&TYPE_OF_USER==1)     Padding(
-                padding:
-                    EdgeInsetsDirectional.only(start: 5.w, top: 2.h, bottom: 4.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("أعلن عن صفحتك الشخصية",
-                        style: GoogleFonts.almarai(
-                            color: GREY, 
-                            fontSize: 9.6.sp,
-                            fontWeight: FontWeight.w600)),
-                    SizedBox(
-                      width: 1.w,
-                    ),
-                    InkWell(
-                      child: Text(
-                        "من هنا",
-                        style: GoogleFonts.almarai(
-                            color: PRIMARY,
-                            decoration: TextDecoration.underline,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold),
+              if (IS_LOGIN && TYPE_OF_USER == 1)
+                Padding(
+                  padding: EdgeInsetsDirectional.only(
+                      start: 5.w, top: 2.h, bottom: 4.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("أعلن عن صفحتك الشخصية",
+                          style: GoogleFonts.almarai(
+                              color: GREY,
+                              fontSize: 9.6.sp,
+                              fontWeight: FontWeight.w600)),
+                      SizedBox(
+                        width: 1.w,
                       ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                           MaterialPageRoute(builder: (context) => AdsScreen())
-                        );
-                      },
-                    )
-                  ],
+                      InkWell(
+                        child: Text(
+                          "من هنا",
+                          style: GoogleFonts.almarai(
+                              color: PRIMARY,
+                              decoration: TextDecoration.underline,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AdsScreen()));
+                        },
+                      )
+                    ],
+                  ),
                 ),
-              ),
 
-            ConditionalBuilder(
+              ConditionalBuilder(
                 condition: state is GetUserAdsLoadingState,
                 builder: (context) => LoadingGif(),
-                fallback: (context) 
-                {
+                fallback: (context) {
                   // log(LayoutCubit.Countries.toString());
-                  if(HomeCubit.get(context).getAllAdsWithUsersModel.data.length > 0){
-                    return SliderAds();}
-                  else{
+                  if (HomeCubit.get(context)
+                          .getAllAdsWithUsersModel
+                          .data
+                          .length >
+                      0) {
+                    return SliderAds();
+                  } else {
                     return EmptySlider();
                   }
-                  
-                }  
-                                          
-                                          
-                                          ,
+                },
               ),
 
-              SizedBox( height: 5.h, ),
+              SizedBox(
+                height: 5.h,
+              ),
 
-            // if(typeOfUser==1||isLogin==false)
-            //   Padding(
-            //     padding: EdgeInsetsDirectional.only(start: 3.w),
-            //     child: Text(
-            //         "تواصل  مع اي خطابة تريد لمساعدتك في ايجاد الشخص المناسب",
-            //         style: GoogleFonts.almarai(
-            //             color: customGrey2, fontSize: 8.8.sp,fontWeight: FontWeight.w600)),
-            //   ),
-            //   SizedBox(
-            //     height: 1.5.h,
-            //   ),
-            // if(typeOfUser==1||isLogin==false) Padding(
-            //   padding: EdgeInsetsDirectional.only(start: 3.w),
-            //   child: InkWell(
-            //     onTap: () {
-            //       navigateTo(context: context, widget: DelegatesSection());
-            //     },
-            //     child: Text(
-            //       "تواصل مع الخطابة",
-            //       style: GoogleFonts.almarai(
-            //           color: primary,
-            //           decoration: TextDecoration.underline,
-            //           fontSize: 12.sp,
-            //           fontWeight: FontWeight.bold),
-            //     ),
-            //   ),
-            // ),
+              // if(typeOfUser==1||isLogin==false)
+              //   Padding(
+              //     padding: EdgeInsetsDirectional.only(start: 3.w),
+              //     child: Text(
+              //         "تواصل  مع اي خطابة تريد لمساعدتك في ايجاد الشخص المناسب",
+              //         style: GoogleFonts.almarai(
+              //             color: customGrey2, fontSize: 8.8.sp,fontWeight: FontWeight.w600)),
+              //   ),
+              //   SizedBox(
+              //     height: 1.5.h,
+              //   ),
+              // if(typeOfUser==1||isLogin==false) Padding(
+              //   padding: EdgeInsetsDirectional.only(start: 3.w),
+              //   child: InkWell(
+              //     onTap: () {
+              //       navigateTo(context: context, widget: DelegatesSection());
+              //     },
+              //     child: Text(
+              //       "تواصل مع الخطابة",
+              //       style: GoogleFonts.almarai(
+              //           color: primary,
+              //           decoration: TextDecoration.underline,
+              //           fontSize: 12.sp,
+              //           fontWeight: FontWeight.bold),
+              //     ),
+              //   ),
+              // ),
 
-              SizedBox(height: 4.h, ),
+              SizedBox(
+                height: 4.h,
+              ),
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10),
-                child: Text(
-                  ": بامكانك ان تبحث بنفسك هنا",
-                  style: GoogleFonts.almarai(
-                    color: GREY,
-                    fontWeight: FontWeight.w600)
-                ),
+                child: Text(": بامكانك ان تبحث بنفسك هنا",
+                    style: GoogleFonts.almarai(
+                        color: GREY, fontWeight: FontWeight.w600)),
               ),
-              SizedBox( height: 3.h, ),
+              SizedBox(
+                height: 3.h,
+              ),
 
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 3.w),
                 child: Row(
                   children: [
-                    
                     Expanded(
                       child: InkWell(
-                        onTap: () async { MenSectionClick(context); },
+                        onTap: () async {
+                          MenSectionClick(context);
+                        },
                         child: BigButton(
                           text: "قسم الرجال",
                         ),
                       ),
                     ),
-                    
-                    SizedBox( width: 6.w,),
-
+                    SizedBox(
+                      width: 6.w,
+                    ),
                     Expanded(
                       child: InkWell(
-                          onTap: () { WomenSectionClick(context); },
-                          child: BigButton(text: "قسم النساء")
-                      ),
+                          onTap: () {
+                            WomenSectionClick(context);
+                          },
+                          child: BigButton(text: "قسم النساء")),
                     ),
-
-
                   ],
                 ),
               ),
-              
-              SizedBox( height: 3.h, ),
 
-              if(IS_DEVELOPMENT_MODE)
+              SizedBox(
+                height: 3.h,
+              ),
+
+              if (IS_DEVELOPMENT_MODE)
                 InkWell(
-                  onTap: () { DioHelper.init(); },
+                  onTap: () {
+                    DioHelper.init();
+                  },
                   child: Text("RECONNECT"),
                 ),
-
             ],
           ),
         ),
@@ -394,37 +402,30 @@ class _HomeTabState extends State<HomeTab>
     );
   }
 
-  void WomenSectionClick(BuildContext context) 
-  {
+  void WomenSectionClick(BuildContext context) {
     SectionMenOrWomen.oneIndexSection = 0;
     SectionMenOrWomen.twoIndexSection = 0;
     SectionMenOrWomen.threeIndexSection = 0;
 
     MenWomenCubit.get(context).getUserByGender(genderValue: 2);
 
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => SectionMenOrWomen(gender: 2)
-        )
-    );
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => SectionMenOrWomen(gender: 2)));
   }
 
-  void MenSectionClick(BuildContext context) 
-  {
-    HubConnectionBuilder()
-      .withUrl("${BASE_URL}chatHub")
-      .build();
-    
-    SectionMenOrWomen.oneIndexSection=0;
-    SectionMenOrWomen.twoIndexSection=0;
-    SectionMenOrWomen.threeIndexSection=0;
+  void MenSectionClick(BuildContext context) {
+    HubConnectionBuilder().withUrl("${BASE_URL}chatHub").build();
+
+    SectionMenOrWomen.oneIndexSection = 0;
+    SectionMenOrWomen.twoIndexSection = 0;
+    SectionMenOrWomen.threeIndexSection = 0;
     MenWomenCubit.get(context).getUserByGender(genderValue: 1);
 
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SectionMenOrWomen(gender: 1,))
-    );
+            builder: (context) => SectionMenOrWomen(
+                  gender: 1,
+                )));
   }
 }

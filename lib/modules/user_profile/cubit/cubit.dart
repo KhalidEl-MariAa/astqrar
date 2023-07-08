@@ -28,7 +28,6 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       user = User.fromJson(value.data["data"]);
 
       GENDER_USER = user.gender!;
-      print("-----------9-9-9-9-9-9-9-9-9-9-9-9-9-9-");
 
       emit(GetUserDataSucccessState(user));
     }).catchError((error) {
@@ -40,7 +39,8 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   //update user data
   late LoginModel updateUserDataModel;
 
-  void updateUserData(User current_user) {
+  void updateUserData(User current_user) 
+  {
     emit(UpdateUserDataLoadingState());
 
     log(current_user.subSpecifications.toString());
@@ -66,15 +66,17 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       "UserSpecifications": current_user.subSpecifications
           .map((e) => e.toMap(UserId: current_user.id))
           .toList(),
+
       //"type":"image/png"
     });
 
     DioHelper.postDataWithImage(
-            url: UPDATEUSERDATA,
-            data: formData,
-            token: TOKEN.toString(),
-            length: 0)
-        .then((value) {
+      length: 0,
+      token: TOKEN.toString(),
+      url: UPDATEUSERDATA,
+      data: formData,
+    )
+    .then((value) {
       // log(value.toString());
 
       updateUserDataModel = LoginModel.fromJson(value.data);
@@ -84,11 +86,14 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       EMAIL = CacheHelper.getData(key: "email");
 
       CacheHelper.saveData(
-          key: "name", value: updateUserDataModel.data!.userName);
+          key: "name", 
+          value: updateUserDataModel.data!.userName);
       CacheHelper.saveData(
-          key: "age", value: updateUserDataModel.data!.age.toString());
+          key: "age", 
+          value: updateUserDataModel.data!.age.toString() );
       CacheHelper.saveData(
-          key: "email", value: updateUserDataModel.data!.email);
+          key: "email", 
+          value: updateUserDataModel.data!.email);
 
       emit(UpdateUserDataSucccessState(updateUserDataModel));
     }).catchError((error) {

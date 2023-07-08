@@ -254,7 +254,8 @@ class _MoreTabState extends State<MoreTab> {
                               },
                               child: DefaultRaw(
                                   image: "assets/information.png",
-                                  text: "عن الإصدار" + " " + appVersion )),
+                                  //+ " " + appVersion
+                                  text: "عن الإصدار وفريق البرمجة"  )),
                           
                           SizedBox( height: 2.h, ),
 

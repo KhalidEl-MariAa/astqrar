@@ -41,7 +41,8 @@ class Web extends StatelessWidget
       builder: (context, state) => 
         Scaffold(
           key: scaffoldKey,
-          body: InAppWebView(
+          body: 
+          InAppWebView(
             initialUrlRequest: URLRequest(url: Uri.parse(PaymentCubit.get(context).url!)),
             initialOptions: options,
             onWebViewCreated: (InAppWebViewController _controler) {

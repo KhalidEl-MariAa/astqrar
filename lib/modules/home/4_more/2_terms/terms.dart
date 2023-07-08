@@ -18,11 +18,12 @@ class TermsScreen extends StatelessWidget {
         builder: (context, state) => Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-
-              body: StackLogo(
-            appbarTitle: "الشروط و الاحكام",
-            strings: TermsAndConditionsCubit.get(context).splitting,
-          )),
+              body: 
+                StackLogo(
+                  appbarTitle: "الشروط و الاحكام",
+                  strings: TermsAndConditionsCubit.get(context).splitting,
+                  )
+          ),
         ),
       ),
     );

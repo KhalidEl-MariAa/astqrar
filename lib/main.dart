@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'dart:io';
-
 
 import 'modules/splash/cubit/splash_cubit.dart';
 import 'package:flutter/foundation.dart';

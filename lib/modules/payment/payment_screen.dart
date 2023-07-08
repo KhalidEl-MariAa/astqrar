@@ -156,14 +156,15 @@ class PaymentScreen extends StatelessWidget
                   ],
                 ),
                 const Spacer(),
+
                 ConditionalBuilder(
                   condition: state is! AddInvoiceLoadingState,
                   fallback: (context) => Padding(
                     padding: EdgeInsetsDirectional.only(bottom: 4.h),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: const Center( child: CircularProgressIndicator(), ),
                   ),
+
+
                   builder: (context) => Padding(
                     padding: EdgeInsetsDirectional.only(bottom: 4.h),
                     child: doubleInfinityMaterialButton(

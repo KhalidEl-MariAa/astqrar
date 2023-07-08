@@ -71,7 +71,6 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
         return;
       }
 
-      // TODO: اضافة تنبيه للطرف الاخر بان احدهم قد اعجب به
       sendNotification(
           userid: userId,
           type: 0,

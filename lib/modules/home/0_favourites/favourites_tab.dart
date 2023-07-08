@@ -107,8 +107,12 @@ GetFavouritesCubit.get(context).deleteFromFavourite(userId: GetFavouritesCubit.g
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image(image:AssetImage("assets/favourite.gif"),height: 12.h,width: 85.w,) ,
-SizedBox(height: 2.h,),
+                        Image(image:AssetImage("assets/favourite.gif"),
+                        height: 12.h,
+                        width: 85.w,) ,
+                        
+                        SizedBox(height: 2.h,),
+                        
                         Text("المفضلة فارغة الان ",style: GoogleFonts.almarai(
                           fontSize: 15.sp
                         ),)

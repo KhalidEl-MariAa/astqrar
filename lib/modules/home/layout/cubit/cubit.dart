@@ -9,118 +9,97 @@ import '../../../../end_points.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 
-class LayoutCubit extends Cubit<LayoutStates> 
-{
-  static LayoutCubit get(context) => BlocProvider.of(context);  
-  
+class LayoutCubit extends Cubit<LayoutStates> {
+  static LayoutCubit get(context) => BlocProvider.of(context);
+
   static Map<String, int> _specifications = {};
 
   static Map Specifications = {};
 
-  LayoutCubit() : super(LayoutInitialState())
-  {
+  LayoutCubit() : super(LayoutInitialState()) {
     _loadSpecificationId();
   }
 
-  Future _loadSpecificationId() async
-  {
+  Future _loadSpecificationId() async {
     GetSpecificationsModel getSpecificationsModel;
 
     emit(GetSpecificationsLoadingState());
 
     await DioHelper.getDataWithBearerToken(
-        url: SUBSPECIFICATIONS,
-        token: TOKEN.toString(),)
-    .then((value) {
-        getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
-        getSpecificationsModel.data.forEach( (e) {
-          _specifications.addAll({e.nameAr!: e.id!});
-        });
-        emit(GetSpecificationsSuccessState());
+      url: SUBSPECIFICATIONS,
+      token: TOKEN.toString(),
+    ).then((value) {
+      getSpecificationsModel = GetSpecificationsModel.fromJson(value.data);
+      getSpecificationsModel.data.forEach((e) {
+        _specifications.addAll({e.nameAr!: e.id!});
+      });
+      emit(GetSpecificationsSuccessState());
     }).catchError((error) {
-        // log(error.toString());
-        emit(GetSpecificationsErrorState(error.toString()));
+      // log(error.toString());
+      emit(GetSpecificationsErrorState(error.toString()));
     });
 
-    await DioHelper.getData(
-        url: "api/v2/Specifications/all")
-    .then((res) {
+    await DioHelper.getData(url: "api/v2/Specifications/all").then((res) {
+      // fill AppCubit.Specifications object
+      LayoutCubit.Specifications = {};
+      res.data['specs'].forEach((spec) {
+        int key = spec['id'];
+        LayoutCubit.Specifications[key] = spec;
+        Map subspecs = {};
 
-        // fill AppCubit.Specifications object
-        LayoutCubit.Specifications = {};
-        res.data['specs'].forEach( (spec) 
-        {
-          int key = spec['id'];
-          LayoutCubit.Specifications[ key ] = spec;
-          Map subspecs = {};
-
-          // log(spec['subSpecifications'].toString());
-          spec['subSpecifications']
-            .where((subspec) => subspec["isActive"] == true )
-            .forEach( (subspec) { 
-              int key = subspec['id'];
-              subspecs[ key ] = subspec;  
-            });
-            spec['subSpecifications'] = subspecs;
+        // log(spec['subSpecifications'].toString());
+        spec['subSpecifications']
+            .where((subspec) => subspec["isActive"] == true)
+            .forEach((subspec) {
+          int key = subspec['id'];
+          subspecs[key] = subspec;
         });
+        spec['subSpecifications'] = subspecs;
+      });
 
-        emit(GetSpecificationsSuccessState());
-
+      emit(GetSpecificationsSuccessState());
     }).catchError((error) {
-        log(error.toString());
-        emit(GetSpecificationsErrorState(error.toString()));
+      log(error.toString());
+      emit(GetSpecificationsErrorState(error.toString()));
     });
-
-    
   }
-  
-  Map<String, int> loadSpecificationsFromBackend() 
-  {
-    if( _specifications.isEmpty ){
+
+  Map<String, int> loadSpecificationsFromBackend() {
+    if (_specifications.isEmpty) {
       _loadSpecificationId();
     }
-    return _specifications;    
+    return _specifications;
   }
 
-  void getPhone()
-  {
-    DioHelper.postData(
-      url: GET_PHONE_NUMBER, 
-      data: {})
-    .then((value) {
+  void getPhone() {
+    DioHelper.postData(url: GET_PHONE_NUMBER, data: {}).then((value) {
       // log(value.toString());
-      MOBILE_PHONE=value.data['mobilePhone'];
+      MOBILE_PHONE = value.data['mobilePhone'];
       log("phonee" + MOBILE_PHONE.toString());
-      emit(GetPhoneSuccessState());    
-    }).catchError((error){
+      emit(GetPhoneSuccessState());
+    }).catchError((error) {
       // log(error.toString());
       emit(GetPhoneErrorState(error.toString()));
     });
-
   }
 
-  static List<Country> Countries = [];  
-  loadCountries() 
-  {
+  static List<Country> Countries = [];
+  loadCountries() {
     // log("GET_COUNTRIES OK ^^^^^^^^^^^^^^^^^^^^^^");
 
     DioHelper.getData(
-      url: GET_COUNTRIES, 
-    )
-    .then((value) {
-      
-      value.data["data"].forEach( (e) {
+      url: GET_COUNTRIES,
+    ).then((value) {
+      Countries = [];
+      value.data["data"].forEach((e) {
         Country c = Country.fromJson(e);
-        Countries.add( c );
+        Countries.add(c);
         // log(c.NameAr??"XX");
       });
 
       log("GET_COUNTRIES OK Done Done Done Done Done Done ");
-    }).catchError((error){
+    }).catchError((error) {
       log(error.toString());
-      
     });
-
   }
 }
-

@@ -1,0 +1,11 @@
+{
+  "userName":"test1",
+  "email": "test1@gmail.com",
+  "NationalID":"11128",
+  "password":"12345678",
+  "ShowPassword": "12345678",
+  "confirmPassword":"12345678911",
+  "height": null,
+  "deviceIdReg": "5555555555555",
+  "CountryId": 3
+}

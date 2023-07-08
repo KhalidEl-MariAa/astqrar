@@ -25,7 +25,7 @@ class ConversationCubit extends Cubit<ConversationStates>
     emit(GetMessagesLoadingState());
 
     initializeDateFormatting('ar_SA', null);
-    ConversationScreenState.messages = [      
+    ConversationScreenState.messages = [
       "                              نظام مكافحة جريمة التحرش \n\n                                              المادة الاولى: \n\n يقصد بجريمة التحرش, لغرض تطبيق احكام هذا النظام كل قول او فعل او اشارة ذات مدلول جنسي تصدر من شخص تجاه اي شخص اخر , تمس جسده او عرضه , او تخدش حياءه , بأي وسيلة كانت ,بما فما ذلك وسائل التقنية الحديثة."
       ];
     ConversationScreenState.senderIdList = [ID!];

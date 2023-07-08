@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return (value!.isEmpty)
                                 ? "من فضلك ادخل كلمة السر"
                                 : null;
-                          },
+                            },
                           isPassword: ShopLoginCubit.get(context).isPassword,
                           borderColor: Colors.white10,
                           labelText: "كلمة المرور",
@@ -236,25 +236,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Center(
                           child: Text(
                             "ليس لديك حساب ؟ اضغط هنا",
-                            style: TextStyle(
-                                color: PRIMARY,
-                                fontSize: 9.2.sp,
-                                fontWeight: FontWeight.w500),
+                            style: GoogleFonts.almarai(
+                            color: WHITE,
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w600, ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
+
+                      SizedBox(height: 4.h,),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "للاستفسارات و الشكاوي",
-                            style: TextStyle(
-                                color: WHITE,
-                                fontSize: 9.sp,
-                                fontWeight: FontWeight.w500),
+                            style:  GoogleFonts.almarai(
+                            color: OFF_WHITE,
+                            fontSize: 9.sp,
+                            fontWeight: FontWeight.w600, ),
                           ),
                           SizedBox(
                             width: 1.5.w,
@@ -270,18 +270,34 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             child: Text(
                               "تواصل معنا",
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: PRIMARY,
-                                  fontSize: 9.2.sp,
-                                  fontWeight: FontWeight.w500),
+                              style: GoogleFonts.almarai(
+                                      color: PRIMARY,
+                                      fontSize: 9.sp,
+                                      fontWeight: FontWeight.w600, ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 2.h,
+
+                      SizedBox(height: 5.h,),
+
+                      Text(
+                          "موثق من:" + "",
+                          style: GoogleFonts.almarai(
+                            color: WHITE,
+                            fontSize: 9.sp,
+                            fontWeight: FontWeight.w600, ),
                       ),
+
+
+                      Image(
+                        image: AssetImage("assets/sbc-gold.png"),
+                        height: 5.h,
+                        width: 85.w,
+
+                        ),
+
+
                     ],
                   ),
                 ),

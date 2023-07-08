@@ -20,11 +20,13 @@ class _NotSubscribedScreenState extends State<NotSubscribedScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: PreferredSize(
+
+        appBar: 
+          PreferredSize(
               preferredSize: Size.fromHeight(11.h),
               child: NormalLogo(
-                isBack: true,
                 appbarTitle: "عميل غير مشترك",
+                isBack: true,                
               )),       
         body: Center(
           child: Column(

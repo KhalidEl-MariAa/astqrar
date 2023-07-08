@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../end_points.dart';
 import 'cubit/splash_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,39 +21,33 @@ import '../home/layout/layout.dart';
 import '../login/login.dart';
 import '../packages/packages.dart';
 
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async 
-{
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   if (kDebugMode) {
     log("Handling a background message: ${message.notification?.body}");
   }
 }
 
-class Splash extends StatefulWidget 
-{
+class Splash extends StatefulWidget {
   @override
   _SplashState createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> 
-{
-  bool? isExpired;
+class _SplashState extends State<Splash> {
+  bool? isExpired = true;
 
   @override
-  void initState() 
-  {
+  void initState() {
     super.initState();
-    
+
     LoadEveryThing();
   }
 
-  LoadEveryThing() async 
-  {
+  LoadEveryThing() async {
     await DioHelper.init();
 
     await CacheHelper.init();
-    
+
     TOKEN = CacheHelper.getData(key: "token");
     TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
     ID = CacheHelper.getData(key: "id");
@@ -64,87 +61,78 @@ class _SplashState extends State<Splash>
     await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    if(IS_LOGIN){
+    if (IS_LOGIN) {
       await checkuserIsExpired();
     }
 
     context.read<LayoutCubit>().loadCountries();
     chckLoginStatusAndRoute();
-
   }
 
-  void chckLoginStatusAndRoute() 
-  {
-      if(IS_LOGIN == false) 
-      {
+  void chckLoginStatusAndRoute() {
+    if (IS_LOGIN == false) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                MyUpgrader(context: context, child: const LoginScreen())),
+        (route) => false,
+      );
+    }
+
+    if (IS_LOGIN == true) {
+      if (this.isExpired == false || IS_DEVELOPMENT_MODE) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute( builder: (context) => 
-            MyUpgrader(context: context, child: const LoginScreen() )
-          ),
+          MaterialPageRoute(
+              builder: (context) =>
+                  MyUpgrader(context: context, child: const LayoutScreen())),
           (route) => false,
         );
+      } else if (this.isExpired == true) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const PackagesScreen()),
+          (route) => false,
+        );
+        showToast(msg: "انتهت صلاحية الباقة لديك", state: ToastStates.WARNING);
+      } else if (this.isExpired == null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  MyUpgrader(context: context, child: const LoginScreen())),
+          (route) => false,
+        );
+        showToast(
+            msg: "حصلت مشكلة في التحقق من تاريخ صلاحية الحساب",
+            state: ToastStates.ERROR);
       }
-    
-      if(IS_LOGIN==true )
-      {
-        if(isExpired==true || IS_DEVELOPMENT_MODE){
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => 
-              MyUpgrader(context: context, child: const LayoutScreen() )
-            ),
-            (route) => false,
-          );
-        }
-        else if(isExpired==false){
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const PackagesScreen()),
-            (route) => false,
-          );
-          showToast(msg: "انتهت صلاحية الباقة لديك", state: ToastStates.WARNING);
-        }
-        else if(isExpired==null)
-        {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute( builder: (context) => 
-                MyUpgrader(context: context, child: const LoginScreen() )
-              ),
-              (route) => false,
-            );
-        }
-      }
+    }
   }
 
-  checkuserIsExpired()
-  {
+  checkuserIsExpired() {
     DioHelper.postDataWithBearearToken(
-      url: "api/v1/CheckUserIsExpiret?userId=$ID", 
-      data: {},token: TOKEN.toString())
-    .then((value) {
-      log(value.toString());
-      isExpired = value.data['isActive'];
-      log("expire"+isExpired.toString());
-    }).catchError((error){
+            url: "${CHECKUSERISEXPIRED}?userId=$ID",
+            data: {},
+            token: TOKEN.toString())
+        .then((value) {
+      this.isExpired = value.data['IsExpired'];
+      log("Is_Expired :" + this.isExpired.toString());
+    }).catchError((error) {
       log(error.toString());
     });
   }
 
   @override
-  Widget build(BuildContext context) 
-  {
+  Widget build(BuildContext context) {
     // context.read<SplashCubit>().LoadEveryThing();
 
     return BlocConsumer<SplashCubit, SplashState>(
-      listener: (context, state) 
-      {
-        if(state is SplashLoading){}
-
+      listener: (context, state) {
+        if (state is SplashLoading) {}
       },
-      builder: (context, state) => 
-      Directionality(
+      builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: BG_DARK_COLOR,
@@ -159,13 +147,26 @@ class _SplashState extends State<Splash>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    
                     SizedBox(height: 15.h,),
-                    Image.asset("assets/logo.png", width: 300,),
-                    
+
+                    Image.asset(
+                      "assets/logo.png",
+                      width: 300,
+                    ),
                     SizedBox(height: 5.h),
+
                     Image.asset("assets/quraan1.png", height: 6.h),
-                    
+
+                    SizedBox(height: 5.h),
+
+                    Text(
+                      "برمجة م/سامي الفتني",
+                      style: GoogleFonts.almarai(color: WHITE, fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    ),
+
                     const Spacer(),
+
                   ],
                 ),
               ),
@@ -175,5 +176,4 @@ class _SplashState extends State<Splash>
       ),
     );
   }
-
 }

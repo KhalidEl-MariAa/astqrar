@@ -26,8 +26,11 @@ class RegisterCubit extends Cubit<RegisterState> {
     registeration_data['deviceType'] = TOKEN;
     registeration_data['projectName'] = TOKEN;
 
-    DioHelper.postData(url: REGISTERCLIENT, data: registeration_data)
-        .then((value) {
+    DioHelper.postData(
+      url: REGISTERCLIENT, 
+      data: registeration_data)
+    .then((value) 
+    {
       ServerResponse response = ServerResponse.fromJson(value.data);
       if (response.key == 0) {
         emit(RegisterState_Error(response.msg.toString()));

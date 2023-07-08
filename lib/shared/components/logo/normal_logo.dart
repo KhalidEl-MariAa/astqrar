@@ -3,8 +3,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../styles/colors.dart';
 
-class NormalLogo extends StatelessWidget 
-{
+class NormalLogo extends StatelessWidget {
   final String appbarTitle;
   final bool isBack;
 
@@ -28,18 +27,19 @@ class NormalLogo extends StatelessWidget
             ),
             Row(
               children: [
-          if(isBack)   InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding:  EdgeInsetsDirectional.only(end: 2.w),
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: WHITE,
-                        size: 13.sp,
-                      ),
-                    )),
+                if (isBack)
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.only(end: 2.w),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: WHITE,
+                          size: 13.sp,
+                        ),
+                      )),
                 Text(
                   appbarTitle,
                   style: TextStyle(color: WHITE),
@@ -54,20 +54,22 @@ class NormalLogo extends StatelessWidget
         centerTitle: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Container(width: 0,),
-        /*  leading: leading ??
-                    Visibility(
-                      visible: back,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          size: 25,
-                          color: MyColors.white,
-                        ),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                    ),
-                actions: actions,*/
+        leading: Container(
+          width: 0,
+        ),
+        // leading: leading ??
+        //         Visibility(
+        //           visible: back,
+        //           child: IconButton(
+        //             icon: Icon(
+        //               Icons.arrow_back_ios,
+        //               size: 25,
+        //               color: MyColors.white,
+        //             ),
+        //             onPressed: () => Navigator.of(context).pop(),
+        //           ),
+        //         ),
+        //     actions: actions,
       ),
     );
   }

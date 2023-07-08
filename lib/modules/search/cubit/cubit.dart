@@ -21,7 +21,7 @@ class SearchCubit extends Cubit<SearchStates> {
 
     DioHelper.getDataWithQuery(
       url: SEARCHBYTEXT, 
-      query: {"search": text}
+      query: {"mytext": text}
     
     ).then((value) {
 

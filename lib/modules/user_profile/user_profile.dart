@@ -1,4 +1,5 @@
 
+
 import '../../constants.dart';
 import '../../models/country.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -63,8 +64,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
         },
         builder: (context, state) => ConditionalBuilder(
           condition: state is GetUserDataLoadingState,
-          builder: (context) =>
-              Scaffold(backgroundColor: WHITE, body: const LoadingGif()),
+          builder: (context) => Scaffold(backgroundColor: WHITE, body: const LoadingGif()),
           fallback: (context) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -95,9 +95,13 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                 fontWeight: FontWeight.w900),
                           ),
 
-                        SizedBox(
-                          height: 1.5.h,
-                        ),
+                        SizedBox(height: 1.5.h,),
+
+
+                        
+
+
+
                         defaultTextFormField(
                             context: context,
                             controller: emailController,
@@ -291,7 +295,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             controller: ageController,
                             type: TextInputType.number,
                             validate: (String? value) {
-                              current_user.age = int.parse(value ?? "0");
+                              
+                              current_user.age = int.parse(value==""? "0": value??"0");
                               return (value!.isEmpty)
                                   ? "من فضلك ادخل العمر"
                                   : null;
@@ -706,11 +711,11 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
                               RegExp(
-                                  '[\u0600-\u06FF\s]'), // Arabic Unicode range
+                                  '[\u0600-\u06FF\\s]'), // Arabic Unicode range
                             ),
                           ],
                           decoration: InputDecoration(
-                            hintText: "شروطك",
+                            hintText: "شروطك - يسمح فقط بالحروف العربية",
                             hintStyle: TextStyle(color: BLACK, fontSize: 12),
                             hintMaxLines: 5,
                             enabled: true,
@@ -849,8 +854,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
 
       ageController.text = current_user.age.toString();
       //  UserProfileScreenState.phoneController.text=current_user.phone??" ";
-      heightController.text = current_user.height ?? "";
-      weightController.text = current_user.weight ?? "";
+      heightController.text = current_user.height?.toString() ?? "";
+      weightController.text = current_user.weight?.toString() ?? "";
       jobNameController.text = current_user.nameOfJob ?? "";
       illnessTypeController.text = current_user.illnessType ?? "";
       numberOfKidsController.text = current_user.numberOfKids?.toString() ?? "";

@@ -21,8 +21,10 @@ class AboutScreen extends StatelessWidget
         builder: (context, state) => Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
+            
             backgroundColor: WHITE,
-            body: ConditionalBuilder(
+            body: 
+              ConditionalBuilder(
                 condition: state is AboutUsLoadingState,
                 builder: (context)=> const LoadingGif(),
                 fallback:(context)=> StackLogo(
