@@ -17,7 +17,6 @@ class DioHelper
     // var res;
     Map? data = {};
 
-    log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
     String host = "";
 
     if( IS_DEVELOPMENT_MODE)
@@ -36,8 +35,7 @@ class DioHelper
 
       host = "http://143.167.102.246:5109/";
       data = await fetchData(host, "api/v2/ping");
-      if(data!["status"] == true) return host;
-      
+      if(data!["status"] == true) return host;      
     }
     
     host = BASE_URL;

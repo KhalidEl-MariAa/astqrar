@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../constants.dart';
 import '../../models/user.dart';
 import '../../shared/components/checkedbox_register.dart';
 import '../../shared/components/components.dart';
@@ -34,7 +33,7 @@ class UserRegister extends StatefulWidget {
 }
 
 class _UserRegisterState extends State<UserRegister> {
-  List<String> Gender = [ 'ذكر', 'أنثى'];
+  List<String> Gender = ['ذكر', 'أنثى'];
 
   _UserRegisterState() {
     new LayoutCubit().loadSpecificationsFromBackend();
@@ -42,7 +41,7 @@ class _UserRegisterState extends State<UserRegister> {
 
   var formkey = GlobalKey<FormState>();
 
-  User newUser = User();
+  User newUser = User()..gender = 1;
 
   var emailController = TextEditingController();
   var userNameController = TextEditingController();
@@ -149,7 +148,7 @@ class _UserRegisterState extends State<UserRegister> {
                                 onChanged: (String? newValue) {
                                   setState(() {
                                     newUser.gender =
-                                        this.Gender.indexOf(newValue!)+1;
+                                        this.Gender.indexOf(newValue!) + 1;
                                   });
                                 },
                                 items: this.Gender.map((String g) {
@@ -723,52 +722,41 @@ class _UserRegisterState extends State<UserRegister> {
         //   MaterialPageRoute(builder: (context) => LoginScreen()),
         //   (route) => false,
         // );
-        
       }
     } else if (state is RegisterState_Error) {
       showToast(msg: state.err_msg, state: ToastStates.ERROR);
     } else if (state is RegisterState_Loading) {
       log('loading ...............');
-    } else if (state is LoginAfterRegisterState) 
-    {
+    } else if (state is LoginAfterRegisterState) {
       context.read<ShopLoginCubit>().UserLogin(
           nationalId: nationalIdController.text,
           password: passwordController.text);
     }
   }
 
-  void handle_login_state_change(context, state)
-  {
-    if (state is ShopLoginSuccessAndActiveState) 
-    {
-      log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
+  void handle_login_state_change(context, state) {
+    if (state is ShopLoginSuccessAndActiveState) {
 
-      showToast(
-          msg: "تم تسجيل الدخول بنجاح", state: ToastStates.SUCCESS);
+      showToast(msg: "تم تسجيل الدخول بنجاح", state: ToastStates.SUCCESS);
 
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => LayoutScreen()),
           (route) => false);
-
-    } else if (state is ShopLoginSuccessButInActiveState) 
-    {
+    } else if (state is ShopLoginSuccessButInActiveState) {
       showToast(
           // عميل مسجل لكن غير مشترك
-          msg: "تم تسجيل الدخول بنجاح ، الرجاء الاشتراك لتفعيل الحساب", state: ToastStates.WARNING);
+          msg: "تم تسجيل الدخول بنجاح ، الرجاء الاشتراك لتفعيل الحساب",
+          state: ToastStates.WARNING);
 
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NotSubscribedScreen()),
-            (route) => true);
-
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => NotSubscribedScreen()),
+          (route) => true);
     } else if (state is ShopLoginErrorState) {
       showToast(msg: state.error, state: ToastStates.ERROR);
     }
-
   }
-
 
   List<Widget> getListofRadioButtons(int specificationId) {
     var Spec = LayoutCubit.Specifications[specificationId];

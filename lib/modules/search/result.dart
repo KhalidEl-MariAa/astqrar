@@ -248,12 +248,12 @@ class _ResultScreenState extends State<ResultScreen>
                                     InkWell(
                                       onTap: () async 
                                       {
-                                        Uri url = Uri(
+                                        Uri uri = Uri(
                                           scheme: "https", 
                                           path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
                                         );
-                                        if (await launchUrl(url, mode: LaunchMode.platformDefault)) {} 
-                                        else { throw 'Could not launch ${url}'; }
+                                        if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {} 
+                                        else { showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR); }
                                       },
                                       child: Container(
                                         height: 80.0,

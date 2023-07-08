@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:astarar/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -194,14 +195,14 @@ class _HomeTabState extends State<HomeTab> {
                                   end: 3.w, top: 2.h),
                               child: InkWell(
                                   onTap: () async {
-                                    Uri url = Uri(
+                                    Uri uri = Uri(
                                         scheme: "https",
                                         path:
                                             "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE");
-                                    if (await launchUrl(url,
+                                    if (await launchUrl(uri,
                                         mode: LaunchMode.platformDefault)) {
                                     } else {
-                                      throw 'Could not launch ${url}';
+                                      showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR);
                                     }
                                   },
                                   child: Image(
@@ -256,10 +257,10 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                 ]),
               ),
-              SizedBox(
-                height: IS_LOGIN && TYPE_OF_USER == 1 ? 1.h : 5.h,
-              ),
-              if (IS_LOGIN && TYPE_OF_USER == 1)
+              
+              SizedBox(height: IS_LOGIN ? 1.h : 5.h, ),
+
+              if (IS_LOGIN )
                 Padding(
                   padding: EdgeInsetsDirectional.only(
                       start: 5.w, top: 2.h, bottom: 4.h),

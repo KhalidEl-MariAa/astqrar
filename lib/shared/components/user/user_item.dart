@@ -61,7 +61,7 @@ class UserItemWidget extends StatelessWidget
                     ],
                   )),
             ),
-        if(TYPE_OF_USER==2&&visibileRemoveIcon)     
+        if(TYPE_OF_USER==2 && visibileRemoveIcon)     
           Positioned(
                 top:1,
                 left: 0,

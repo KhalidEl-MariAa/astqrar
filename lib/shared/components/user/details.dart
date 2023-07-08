@@ -104,7 +104,7 @@ class _DetailWidgetState extends State<DetailWidget> {
 
               // زر اللايك
               Visibility(
-                visible: widget.messageVisibility && TYPE_OF_USER == 1,
+                visible: widget.messageVisibility ,
                 child: ConditionalBuilder(
                   condition: widget.state is ToggleFavouriteLoading,
                   builder: (context) => CircularProgressIndicator(),

@@ -148,7 +148,7 @@ class MenWomenCubit extends Cubit<MenWomenStates>
         "startAge": startAge,
         "EndAge": endAge,
         "typeofmarriage": typeOfMarriage,
-        "countryId": countryIds
+        "countryIds": countryIds
       },
       token: TOKEN.toString()
     ).

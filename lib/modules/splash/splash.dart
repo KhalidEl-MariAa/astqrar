@@ -81,7 +81,7 @@ class _SplashState extends State<Splash> {
     }
 
     if (IS_LOGIN == true) {
-      if (this.isExpired == false || IS_DEVELOPMENT_MODE) {
+      if (this.isExpired == false ) {   //  || IS_DEVELOPMENT_MODE
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -111,17 +111,21 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  checkuserIsExpired() {
-    DioHelper.postDataWithBearearToken(
+  Future checkuserIsExpired() async {
+    var value = await DioHelper.postDataWithBearearToken(
             url: "${CHECKUSERISEXPIRED}?userId=$ID",
             data: {},
             token: TOKEN.toString())
-        .then((value) {
-      this.isExpired = value.data['IsExpired'];
+        // .then((value) {
+        //   this.isExpired = value.data['isExpired'];
+        //   log("Is_Expired :" + this.isExpired.toString());
+        // }).catchError((error) {
+        //   log(error.toString());
+        // });
+        ;
+      this.isExpired = value.data['isExpired'];
       log("Is_Expired :" + this.isExpired.toString());
-    }).catchError((error) {
-      log(error.toString());
-    });
+
   }
 
   @override
@@ -147,26 +151,24 @@ class _SplashState extends State<Splash> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    
-                    SizedBox(height: 15.h,),
-
+                    SizedBox(
+                      height: 15.h,
+                    ),
                     Image.asset(
                       "assets/logo.png",
                       width: 300,
                     ),
                     SizedBox(height: 5.h),
-
                     Image.asset("assets/quraan1.png", height: 6.h),
-
                     SizedBox(height: 5.h),
-
                     Text(
                       "برمجة م/سامي الفتني",
-                      style: GoogleFonts.almarai(color: WHITE, fontSize: 16.sp, fontWeight: FontWeight.bold),
+                      style: GoogleFonts.almarai(
+                          color: WHITE,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold),
                     ),
-
                     const Spacer(),
-
                   ],
                 ),
               ),

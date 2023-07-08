@@ -188,14 +188,14 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
 
   void snapchatPressed(BuildContext context) async 
   {
-      Uri url = Uri(
+      Uri uri = Uri(
         scheme: "https", 
         path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
       );
-      log('Launch to ${url}');
-      if (await launchUrl(url, mode: LaunchMode.platformDefault)) {} 
+      log('Launch to ${uri}');
+      if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {} 
       else {
-        throw 'Could not launch ${url}';
+        showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR);
       }
   }
 }
