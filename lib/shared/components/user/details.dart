@@ -1,3 +1,5 @@
+import 'package:astarar/utils.dart';
+
 import '../../../modules/home/layout/cubit/cubit.dart';
 import '../../styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -65,17 +67,22 @@ class _DetailWidgetState extends State<DetailWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(start: 4.w),
                   child: Text(widget.otherUser.user_Name ?? "--------",
-                      style: GoogleFonts.poppins(fontSize: 12.sp)),
+                      style: GoogleFonts.almarai(fontSize: 12.sp)),
                 ),
               ),
               SizedBox(
                 width: 2.w,
               ),
-              // Container(
-              //     width: 28.w,
-              //     child: Text('أخر ظهور:3:26',
-              //         style: GoogleFonts.poppins(color: Colors.grey[500])),
-              // ),
+
+              Container(
+                  // width: 28.w,
+                  child: 
+                    Center(
+                      child: Text(" اخر ظهور " + "\n" + formatTimeAgo(widget.otherUser.LastLogin!),
+                        style: GoogleFonts.almarai(color: Colors.grey[700])),
+                    ),
+              ),
+              
               const Spacer(),
 
               // ايقونة البلوك
@@ -160,6 +167,7 @@ class _DetailWidgetState extends State<DetailWidget> {
         SizedBox(
           height: 2.h,
         ),
+
         Container(
           height: 9.5.h,
           width: double.infinity,

@@ -129,13 +129,13 @@ class _HomeTabState extends State<HomeTab> {
                               ),
                               Text(
                                 IS_LOGIN ? NAME ?? "---------" : "اهلا بك ",
-                                style: TextStyle(color: WHITE, fontSize: 11.sp),
+                                style: GoogleFonts.almarai(color: WHITE, fontSize: 11.sp),
                               ),
                               if (IS_LOGIN)
                                 Text(
                                   AGE! + " " + "عاما",
                                   textAlign: TextAlign.start,
-                                  style: TextStyle(
+                                  style: GoogleFonts.almarai(
                                       color: CUSTOME_GREY, fontSize: 11.sp),
                                 ),
                               if (IS_LOGIN == false)
@@ -403,7 +403,8 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  void WomenSectionClick(BuildContext context) {
+  void WomenSectionClick(BuildContext context) 
+  {
     SectionMenOrWomen.oneIndexSection = 0;
     SectionMenOrWomen.twoIndexSection = 0;
     SectionMenOrWomen.threeIndexSection = 0;
@@ -414,7 +415,8 @@ class _HomeTabState extends State<HomeTab> {
         MaterialPageRoute(builder: (context) => SectionMenOrWomen(gender: 2)));
   }
 
-  void MenSectionClick(BuildContext context) {
+  void MenSectionClick(BuildContext context) 
+  {
     HubConnectionBuilder().withUrl("${BASE_URL}chatHub").build();
 
     SectionMenOrWomen.oneIndexSection = 0;

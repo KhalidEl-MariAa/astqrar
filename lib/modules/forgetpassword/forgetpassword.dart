@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -50,7 +53,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     const HeaderLogo(),
                     Text(
                       "طلب استعادة كلمة المرور",
-                      style: TextStyle(color: PRIMARY, fontSize: 15.sp),
+                      style: GoogleFonts.almarai(color: PRIMARY, fontSize: 15.sp),
                     ),
                     SizedBox(
                       height: 4.5.h,
@@ -111,14 +114,21 @@ class ForgetPasswordScreen extends StatelessWidget {
                         text: "مراسلة الادمن لاستعادة كلمة السر ",
                         onPressed: () async {
                           // final link = WhatsAppUnilink(
-                          //   phoneNumber: MOBILE_PHONE,
+                          //   phoneNumber: ADMIN_MOBILE_PHONE,
                           //   text: "مرحبا \n اريد استعادة كلمة المرور ",
                           // );
 
                           String text = "مرحبا \n اريد استعادة كلمة المرور ";
+                          text = "hi there";
                           Uri uri = Uri(
-                              scheme: "https", path: "wa.me/${MOBILE_PHONE}?text=${text}");
+                              scheme: "https", 
+                              host: "wa.me",
+                              path: "/${ADMIN_MOBILE_PHONE}",
+                              query: "text=${text}");
 
+
+                          log("ADMIN_MOBILE_PHONE : " + uri.toString());
+                          
                           if (await launchUrl(uri,
                               mode: LaunchMode.platformDefault)) {
                           } else {

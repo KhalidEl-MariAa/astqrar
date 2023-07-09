@@ -18,3 +18,7 @@ String BASE_URL = "https://estqrar-001-site1.ctempurl.com/";
 String maleImage = "assets/male.png";
 
 String femaleImage = "assets/female.png";
+
+String ADMIN_MOBILE_PHONE = "966532284753";
+
+String APP_NAME = "استقرار";

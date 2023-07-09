@@ -56,7 +56,7 @@ class DialogPleaseLogin extends StatelessWidget {
                 Center(
                     child: Text(
                   "قم بتسجيل الدخول لاستخدام كل مميزات استقرار",
-                  style: TextStyle(
+                  style: GoogleFonts.almarai(
                       color: Colors.grey[400],
                       fontWeight: FontWeight.w300,
                       fontSize: 12),

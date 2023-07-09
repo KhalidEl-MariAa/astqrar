@@ -58,7 +58,7 @@ class AdsCubit extends Cubit<AdsStates>
   //   emit(SendNotificationToAllLoadingState());
   //   DioHelper.postDataWithBearearToken(url: SENDNOTIFICATIONTOALL,
   //       data:{
-  //       "projectName":"استقرار",
+  //       "projectName": APP_NAME,
   //       "deviceType":"android",
   //       "notificationType":3,
   //       "body":body,

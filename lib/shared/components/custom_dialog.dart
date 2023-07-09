@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,19 +70,22 @@ class CustomDialog extends StatelessWidget {
                 child: MaterialButton(
                     child: Text(
                       "اضغط هنا لمراسلة الادمن لتاكيد الدفع",
-                      style: TextStyle(color: WHITE),
+                      style: GoogleFonts.almarai(color: WHITE),
                     ),
                     onPressed: () async {
                       // Convert the WhatsAppUnilink instance to a Uri.
                       // The "launch" method is part of "url_launcher".
                       // final link = WhatsAppUnilink(
-                      //   phoneNumber: MOBILE_PHONE,
+                      //   phoneNumber: ADMIN_MOBILE_PHONE,
                       //   text: text,
                       // );
 
                       String text = "مرحبا \n أريد التأكد من حالة الدفع ";
                       Uri uri = Uri(
-                          scheme: "https", path: "wa.me/${MOBILE_PHONE}?text=${text}");
+                          scheme: "https", 
+                          host: "wa.me",
+                          path: "/${ADMIN_MOBILE_PHONE}",
+                          query: "text=${text}");
 
                       if (await launchUrl(uri,
                           mode: LaunchMode.platformDefault)) {

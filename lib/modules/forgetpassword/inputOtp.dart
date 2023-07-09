@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../models/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -34,7 +36,7 @@ class InputOtp extends StatelessWidget
                 const HeaderLogo(),
                 Text(
                   "استعادة كلمة المرور",
-                  style: TextStyle(color: PRIMARY, fontSize: 10.sp),
+                  style: GoogleFonts.almarai(color: PRIMARY, fontSize: 10.sp),
                 ),
                 SizedBox(
                   height: 7.h,

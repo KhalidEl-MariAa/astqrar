@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:astarar/modules/home/4_more/5_account/cubit/cubit.dart';
+
 import 'modules/splash/cubit/splash_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -96,11 +98,13 @@ class MyApp extends StatelessWidget
 
               BlocProvider<SplashCubit>(
                   create: (BuildContext context) => SplashCubit()),
+
+
             ],
             child: 
               MaterialApp(
                 debugShowCheckedModeBanner: false,
-                title: 'استقرار',
+                title: APP_NAME,
                 home: Splash(),
                 theme: ThemeData(
                   primarySwatch: Colors.grey,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,13 +101,16 @@ class _AboutVersionState extends State<AboutVersion> {
                     child: ListTile(
                       title: InkWell(
                         onTap: () async {
-                          Uri url = Uri(
+                          Uri uri = Uri(
                               scheme: "https",
-                              path: "samialfattani.github.io");
-                          if (await launchUrl(url,
+                              path: "//samialfattani.github.io");
+                          
+                          log("SAMI_CV : " + uri.toString());
+
+                          if (await launchUrl(uri,
                               mode: LaunchMode.platformDefault)) {
                           } else {
-                            showToast(msg: 'Could not launch ${url}', state: ToastStates.ERROR);
+                            showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR);
                           }
                         },
                         child: Text("🌐 https://samialfattani.github.io/",

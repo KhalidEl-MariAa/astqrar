@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
+import 'package:astarar/modules/login/not_subscribed.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../end_points.dart';
@@ -19,7 +21,6 @@ import '../../shared/styles/colors.dart';
 import '../home/layout/cubit/cubit.dart';
 import '../home/layout/layout.dart';
 import '../login/login.dart';
-import '../packages/packages.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -63,6 +64,7 @@ class _SplashState extends State<Splash> {
 
     if (IS_LOGIN) {
       await checkuserIsExpired();
+      updateLastLogin();
     }
 
     context.read<LayoutCubit>().loadCountries();
@@ -81,7 +83,8 @@ class _SplashState extends State<Splash> {
     }
 
     if (IS_LOGIN == true) {
-      if (this.isExpired == false ) {   //  || IS_DEVELOPMENT_MODE
+      if (this.isExpired == false) {
+        //  || IS_DEVELOPMENT_MODE
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -92,7 +95,7 @@ class _SplashState extends State<Splash> {
       } else if (this.isExpired == true) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const PackagesScreen()),
+          MaterialPageRoute(builder: (context) => const NotSubscribedScreen()),
           (route) => false,
         );
         showToast(msg: "انتهت صلاحية الباقة لديك", state: ToastStates.WARNING);
@@ -113,19 +116,23 @@ class _SplashState extends State<Splash> {
 
   Future checkuserIsExpired() async {
     var value = await DioHelper.postDataWithBearearToken(
-            url: "${CHECKUSERISEXPIRED}?userId=$ID",
-            data: {},
-            token: TOKEN.toString())
-        // .then((value) {
-        //   this.isExpired = value.data['isExpired'];
-        //   log("Is_Expired :" + this.isExpired.toString());
-        // }).catchError((error) {
-        //   log(error.toString());
-        // });
-        ;
-      this.isExpired = value.data['isExpired'];
-      log("Is_Expired :" + this.isExpired.toString());
+        url: CHECKUSERISEXPIRED, token: TOKEN.toString(), data: {"userId": ID});
 
+    this.isExpired = value.data['isExpired'];
+    log("Is_Expired :" + this.isExpired.toString());
+  }
+
+  Future updateLastLogin() async {
+    DioHelper.postDataWithBearearToken(
+      url: UPDATELASTLOGIN,
+      token: TOKEN.toString(),
+      data: {"userId": ID},
+    ).then((value) {
+      ServerResponse res = ServerResponse.fromJson(value.data);
+      if (res.key == 0) {}
+    }).catchError((error) {
+      log(error.toString());
+    });
   }
 
   @override

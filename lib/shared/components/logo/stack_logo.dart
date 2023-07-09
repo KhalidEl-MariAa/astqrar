@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../styles/colors.dart';
@@ -36,7 +37,7 @@ class StackLogo extends StatelessWidget {
                         SizedBox(width:2.w),
                         Text(
                           appbarTitle,
-                          style: TextStyle(color: WHITE),
+                          style: GoogleFonts.almarai(color: WHITE),
                         ),
                       ],
                     ),

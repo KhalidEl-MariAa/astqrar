@@ -44,7 +44,7 @@ void logOut(){
   DioHelper.postDataWithBearearToken(
     url: LOGOUT, 
     data: {
-    "deviceId":DEVICE_TOKEN
+    "deviceToken":DEVICE_TOKEN
     },
     token: TOKEN.toString()
   )

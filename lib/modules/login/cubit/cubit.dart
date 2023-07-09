@@ -1,11 +1,13 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:astarar/models/server_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
 import '../../../end_points.dart';
-import '../../../models/login.dart';
+import '../../../models/user.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
@@ -19,7 +21,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
 
   IconData suffix = Icons.visibility;
   bool isPassword = true;
-  late LoginModel loginModel;
+  late User loginModel;
 
   void changePasswordVisibility() {
     isPassword = !isPassword;
@@ -31,29 +33,36 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
   Future UserLogin(
       {required String nationalId, required String password}) async {
     emit(ShopLoginLoadingState());
-    log(LOGIN);
 
-    await DioHelper.postData(url: LOGIN, data: {
+
+    await DioHelper.postData(
+      url: LOGIN, 
+      data: {
       "NationalID": nationalId,
       "password": password,
-      "deviceId": DEVICE_TOKEN
+      "deviceToken": DEVICE_TOKEN,
+      "deviceType" : Platform.isIOS?"ios":"android",
+      "projectName" : APP_NAME,
     }).then((value) async {
       // log(value.toString());
-      loginModel = LoginModel.fromJson(value.data);
 
-      if (loginModel.key == 0) {
-        emit(ShopLoginErrorState(loginModel.msg!));
+      ServerResponse res = ServerResponse.fromJson(value.data);
+
+      if (res.key == 0) {
+        emit(ShopLoginErrorState(res.msg!));
         return;
       }
 
-      CacheHelper.saveData(key: "phone", value: loginModel.data!.phone);
-      CacheHelper.saveData(key: "token", value: loginModel.data!.token);
-      CacheHelper.saveData(key: "typeUser", value: loginModel.data!.typeUser!);
-      CacheHelper.saveData(key: "id", value: loginModel.data!.id);
-      CacheHelper.saveData(key: "name", value: loginModel.data!.userName);
-      CacheHelper.saveData(key: "age", value: loginModel.data!.age.toString());
-      CacheHelper.saveData(key: "email", value: loginModel.data!.email);
-      CacheHelper.saveData(key: "gender", value: loginModel.data!.gender);
+      loginModel = User.fromJson(res.data);
+
+      CacheHelper.saveData(key: "phone", value: loginModel.phone);
+      CacheHelper.saveData(key: "token", value: loginModel.Token);
+      CacheHelper.saveData(key: "typeUser", value: loginModel.typeUser);
+      CacheHelper.saveData(key: "id", value: loginModel.id);
+      CacheHelper.saveData(key: "name", value: loginModel.user_Name);
+      CacheHelper.saveData(key: "age", value: loginModel.age.toString());
+      CacheHelper.saveData(key: "email", value: loginModel.email);
+      CacheHelper.saveData(key: "gender", value: loginModel.gender);
 
       PHONE = CacheHelper.getData(key: "phone");
       TOKEN = CacheHelper.getData(key: "token");
@@ -64,19 +73,18 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       EMAIL = CacheHelper.getData(key: "email");
       GENDER_USER = CacheHelper.getData(key: "gender");
 
-      if (loginModel.data!.status == true) //|| IS_DEVELOPMENT_MODE
+      if (loginModel.status == true) //|| IS_DEVELOPMENT_MODE
       {
         CacheHelper.saveData(key: "isLogin", value: true);
-        emit(ShopLoginSuccessAndActiveState(loginModel));
+        emit(ShopLoginSuccessAndActiveState());
       } else {
         CacheHelper.saveData(key: "isLogin", value: false);
-        emit(ShopLoginSuccessButInActiveState(loginModel));
+        emit(ShopLoginSuccessButInActiveState());
       }
 
       IS_LOGIN = CacheHelper.getData(key: "isLogin");
     }).catchError((error) {
       log(error.toString());
-      showToast(msg: "حصلت مشكلة ", state: ToastStates.ERROR);
       emit(ShopLoginErrorState(error.toString()));
     });
   }

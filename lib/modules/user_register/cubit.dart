@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
@@ -22,15 +25,14 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     newUser.countryId = 3; //default to SA
     Map registeration_data = newUser.toMap();
-    registeration_data['deviceIdReg'] = TOKEN;
-    registeration_data['deviceType'] = TOKEN;
-    registeration_data['projectName'] = TOKEN;
+    registeration_data['deviceToken'] = DEVICE_TOKEN;
+    registeration_data['deviceType'] = Platform.isIOS ? "ios" : "android";
+    registeration_data['projectName'] = APP_NAME;
 
     DioHelper.postData(
       url: REGISTERCLIENT, 
       data: registeration_data)
-    .then((value) 
-    {
+    .then((value) {
       ServerResponse response = ServerResponse.fromJson(value.data);
       if (response.key == 0) {
         emit(RegisterState_Error(response.msg.toString()));
@@ -40,6 +42,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(RegisterState_Success(response));
       emit(LoginAfterRegisterState());
     }).catchError((error) {
+      log(error.toString());
       emit(RegisterState_Error(error.toString()));
     });
   }

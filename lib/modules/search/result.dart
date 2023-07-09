@@ -84,13 +84,13 @@ class _ResultScreenState extends State<ResultScreen>
                                       ),
                                       Text(
                                         IS_LOGIN? NAME! : "اهلا بك ",
-                                        style: TextStyle(
+                                        style: GoogleFonts.almarai(
                                             color: WHITE, fontSize: 11.sp),
                                       ),
                                       if (IS_LOGIN)
                                         Text(
                                           AGE! + " " + "عاما",
-                                          style: TextStyle(
+                                          style: GoogleFonts.almarai(
                                               color: CUSTOME_GREY,
                                               fontSize: 11.sp),
                                         ),
@@ -118,7 +118,7 @@ class _ResultScreenState extends State<ResultScreen>
                                               child: Text(
                                                 "من هنا",
                                                 textAlign: TextAlign.start,
-                                                style: TextStyle(
+                                                style: GoogleFonts.almarai(
                                                     color: WHITE,
                                                     fontSize: 10.sp,
                                                     decoration: TextDecoration

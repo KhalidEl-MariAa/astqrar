@@ -1,3 +1,5 @@
+import 'package:astarar/modules/home/4_more/5_account/account.dart';
+
 import '4_about_version/about_version.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +98,7 @@ class _MoreTabState extends State<MoreTab> {
                               ),
                               Text(
                                 NAME ?? "",
-                                style: TextStyle(color: WHITE, fontSize: 10.sp),
+                                style: GoogleFonts.almarai(color: WHITE, fontSize: 10.sp),
                               ),
                               SizedBox(
                                 height: 1.3.h,
@@ -113,9 +115,9 @@ class _MoreTabState extends State<MoreTab> {
                               onTap: () { SettingsCubit.get(context).logOut(); },
                               child: Text(
                                 "تسجيل الخروج",
-                                style: TextStyle(
+                                style: GoogleFonts.almarai(
                                     color: WHITE,
-                                    fontSize: 11.sp,
+                                    fontSize: 10.sp,
                                     fontWeight: FontWeight.w500),
                               ),
                             )
@@ -143,24 +145,30 @@ class _MoreTabState extends State<MoreTab> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
                           if (IS_LOGIN)
                             Text("الاعدادات",
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.almarai(
                                 fontSize: 13.sp, color: Colors.grey[600]
                               ),
                             ),
-                          /*   if(isLogin!)         SwitchRaw(
-                              image: "assets/notifications-button.png",
-                              text: "الاشعارات",
-                              value: true),
-                          if(isLogin!)        SwitchRaw(
-                              image: "assets/man-user.png",
-                              text: "صورة الملف الشخصي",
-                              value: false),*/
+                          
                           if (IS_LOGIN)
-                            SizedBox(
-                              height: 2.h,
-                            ),
+                            SizedBox(height: 2.h,),
+
+                          // if(isLogin!)         
+                          //   SwitchRaw(
+                          //     image: "assets/notifications-button.png",
+                          //     text: "الاشعارات",
+                          //     value: true),
+                          
+                          // if(isLogin!)        
+                          //   SwitchRaw(
+                          //     image: "assets/man-user.png",
+                          //     text: "صورة الملف الشخصي",
+                          //     value: false),
+                          
+
                           if (IS_LOGIN)
                             InkWell(
                                 child: DefaultRaw(
@@ -176,7 +184,7 @@ class _MoreTabState extends State<MoreTab> {
                                 },
                             ),
                           
-                          SizedBox(height: 1.h,),
+                          // SizedBox(height: 1.h,),
                           // if (isLogin && typeOfUser == 2)
                           //   InkWell(
                           //       onTap: () {
@@ -190,9 +198,27 @@ class _MoreTabState extends State<MoreTab> {
                           //       child: DefaultRaw(
                           //           image: "assets/man-user.png",
                           //           text: "اضافة مستخدم")
-                          //   ),
+                          //   ),                          
+                        
+                          if (IS_LOGIN)
+                            SizedBox(height: 3.h,),
                           
-                          SizedBox(height: 1.h,),
+                          if (IS_LOGIN)
+                            InkWell(
+                                child: DefaultRaw(
+                                    image: "assets/man-user.png",
+                                    text: "مراجعة حالة الحساب"),
+
+                                onTap: () {
+                                  Navigator.pushAndRemoveUntil(
+                                    context, 
+                                    MaterialPageRoute(builder: (context) => AccountScreen() ), 
+                                    (route) => true);
+                                },
+                            ),
+
+                          if (IS_LOGIN)
+                            SizedBox(height: 3.h,),
 
                           if (IS_LOGIN)
                             InkWell(
@@ -207,9 +233,12 @@ class _MoreTabState extends State<MoreTab> {
                                     image: "assets/man-user.png",
                                     text: "حذف الحساب ")
                             ),
-                          SizedBox( height: 2.h,),
+
+                          SizedBox( height: 4.h,),
+
+
                           Text( "معلومات",
-                            style: GoogleFonts.poppins( fontSize: 13.sp, color: Colors.grey[600]),
+                            style: GoogleFonts.almarai( fontSize: 13.sp, color: Colors.grey[600]),
                           ),
                           
                           SizedBox( height: 2.h,),
@@ -221,7 +250,7 @@ class _MoreTabState extends State<MoreTab> {
                                 image: "assets/information.png",
                                 text: "عن التطبيق"),
                           ),
-                          SizedBox( height: 2.h, ),
+                          SizedBox( height: 3.h, ),
                           InkWell(
                             onTap: () {
                               navigateTo( context: context, widget: const TermsScreen() );
@@ -230,7 +259,7 @@ class _MoreTabState extends State<MoreTab> {
                                 image: "assets/Filled outline.png",
                                 text: "الشروط و الاحكام"),
                           ),
-                          SizedBox( height: 2.h, ),
+                          SizedBox( height: 3.h, ),
                           InkWell(
                             onTap: () {
                               navigateTo( context: context, widget: ContactUS( isFromLogin: false, ) );
@@ -238,7 +267,7 @@ class _MoreTabState extends State<MoreTab> {
                             child: DefaultRaw(
                                 image: "assets/phone.png", text: "اتصل بنا"),
                           ),
-                          SizedBox( height: 2.h, ),
+                          SizedBox( height: 3.h, ),
                           InkWell(
                               onTap: () {
                                 Share.share('https://play.google.com/store/apps/details?id=com.astqrar.com');
@@ -247,7 +276,7 @@ class _MoreTabState extends State<MoreTab> {
                                   image: "assets/sharing.png",
                                   text: "مشاركة التطبيق")),
 
-                          SizedBox( height: 2.h, ),
+                          SizedBox( height: 3.h, ),
                           InkWell(
                               onTap: () {
                                 navigateTo( context: context, widget: AboutVersion( isFromLogin: false, ) );
@@ -257,7 +286,7 @@ class _MoreTabState extends State<MoreTab> {
                                   //+ " " + appVersion
                                   text: "عن الإصدار وفريق البرمجة"  )),
                           
-                          SizedBox( height: 2.h, ),
+                          SizedBox( height: 3.h, ),
 
                         ],
                       ),

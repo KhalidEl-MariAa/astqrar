@@ -141,7 +141,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
     DioHelper.postDataWithBearearToken(
       url: SENDNOTIFICATIONTOALL,
       data:{
-        "projectName":"استقرار",
+        "projectName": APP_NAME,
         "deviceType":"android",
         "notificationType":3,
         "body":body,

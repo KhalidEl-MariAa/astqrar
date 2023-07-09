@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../models/get_information_user.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +84,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
               backgroundColor: BG_DARK_COLOR,
               toolbarHeight: 9.h,
               title: Text( this.otherUser.user_Name??  "التفاصيل", 
-                          style: TextStyle(color: Colors.white), ),
+                          style: GoogleFonts.almarai(color: Colors.white), ),
               actions: [
                 Padding(
                   padding:
@@ -107,13 +109,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                                     children: [
                                       InkWell(
                                         child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
+                                          padding: const EdgeInsets.all(0.5),
                                           child: 
                                           
                                           Row(
                                             children: [
                                               Text("حظر المستخدم",
-                                                style: TextStyle( fontWeight: FontWeight.w300),
+                                                style: GoogleFonts.almarai( fontWeight: FontWeight.w300),
                                               ),
 
                                               SizedBox(width: 1.w,),
@@ -137,7 +139,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
                                       child: Text("الابلاغ عن محتوي غير مناسب",
-                                          style: TextStyle( fontWeight: FontWeight.w300)),
+                                          style: GoogleFonts.almarai( fontWeight: FontWeight.w300)),
                                     ),
                                     onTap: (){ ReportAnIssuePressed(context); },
                                   ),

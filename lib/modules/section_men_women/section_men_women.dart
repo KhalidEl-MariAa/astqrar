@@ -85,13 +85,13 @@ class SectionMenOrWomen extends StatelessWidget
                                       ),
                                       Text(
                                         IS_LOGIN ? NAME! : "اهلا بك ",
-                                        style: TextStyle(
+                                        style: GoogleFonts.almarai(
                                             color: WHITE, fontSize: 11.sp),
                                       ),
                                       if (IS_LOGIN)
                                         Text(
                                           AGE! + " " + "عاما",
-                                          style: TextStyle(
+                                          style: GoogleFonts.almarai(
                                               color: CUSTOME_GREY, fontSize: 10.sp),
                                         ),
                                       if (IS_LOGIN == false)
@@ -100,7 +100,7 @@ class SectionMenOrWomen extends StatelessWidget
                                             Text(
                                               "سجل دخول",
                                               textAlign: TextAlign.start,
-                                              style: TextStyle(
+                                              style: GoogleFonts.almarai(
                                                   color: WHITE, fontSize: 10.sp),
                                             ),
                                             SizedBox(
@@ -117,7 +117,7 @@ class SectionMenOrWomen extends StatelessWidget
                                               child: Text(
                                                 "من هنا",
                                                 textAlign: TextAlign.start,
-                                                style: TextStyle(
+                                                style: GoogleFonts.almarai(
                                                     color: WHITE,
                                                     fontSize: 10.sp,
                                                     decoration:

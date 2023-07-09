@@ -1,5 +1,3 @@
-
-
 import '../../constants.dart';
 import '../../models/country.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -64,7 +62,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
         },
         builder: (context, state) => ConditionalBuilder(
           condition: state is GetUserDataLoadingState,
-          builder: (context) => Scaffold(backgroundColor: WHITE, body: const LoadingGif()),
+          builder: (context) =>
+              Scaffold(backgroundColor: WHITE, body: const LoadingGif()),
           fallback: (context) => Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -95,12 +94,9 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                 fontWeight: FontWeight.w900),
                           ),
 
-                        SizedBox(height: 1.5.h,),
-
-
-                        
-
-
+                        SizedBox(
+                          height: 1.5.h,
+                        ),
 
                         defaultTextFormField(
                             context: context,
@@ -169,6 +165,24 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           height: 1.5.h,
                         ),
 
+                        defaultTextFormField(
+                            context: context,
+                            controller: phoneController,
+                            type: TextInputType.number,
+                            validate: (String? value) {
+                              current_user.phone = value;
+                              return (value!.isEmpty)
+                                  ? "من فضلك ادخل الهاتف"
+                                  : null;
+                            },
+                            container: Colors.grey[100],
+                            styleText: Colors.black,
+                            borderColor: PRIMARY,
+                            labelText: "رقم الهاتف",
+                            label: "الرجاء ادخال رقم الهاتف",
+                            prefixIcon: Icons.phone),
+
+                        // SizedBox(height: 1.5.h,),
                         // defaultTextFormField(
                         //     context: context,
                         //     container: Colors.grey[100],
@@ -197,9 +211,9 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   fontSize: 13.sp,
                                   fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
-                              width: 1.w,
-                            ),
+
+                            SizedBox(width: 1.w, ),
+                            
                             DropdownButton<Country>(
                               value: LayoutCubit.Countries.where(
                                           (e) => e.id == current_user.countryId)
@@ -230,6 +244,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
+
                         Text(
                           "الاسم ينتهي",
                           style: TextStyle(
@@ -265,25 +280,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             },
                             label: "ادخل اسم العائلة/القبيلة"),
 
-                        // SizedBox(
-                        //   height: 1.5.h,
-                        // ),
-                        // defaultTextFormField(
-                        //     context: context,
-                        //     controller: phoneController,
-                        //     type: TextInputType.number,
-                        //     validate: (String? value) {
-                        //       if (value!.isEmpty) {
-                        //         return "من فضلك ادخل الهاتف";
-                        //       }
-                        //     },
-                        //     container: Colors.grey[100],
-                        //     styleText: Colors.black,
-                        //     borderColor: primary,
-                        //     labelText: "رقم الهاتف",
-                        //     label: "الرجاء ادخال رقم الهاتف",
-                        //     prefixIcon: Icons.phone),
-
                         SizedBox(
                           height: 1.5.h,
                         ),
@@ -295,8 +291,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             controller: ageController,
                             type: TextInputType.number,
                             validate: (String? value) {
-                              
-                              current_user.age = int.parse(value==""? "0": value??"0");
+                              current_user.age =
+                                  int.parse(value == "" ? "0" : value ?? "0");
                               return (value!.isEmpty)
                                   ? "من فضلك ادخل العمر"
                                   : null;
@@ -853,7 +849,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
       lastNameFamilyController.text = current_user.tribe ?? "";
 
       ageController.text = current_user.age.toString();
-      //  UserProfileScreenState.phoneController.text=current_user.phone??" ";
+      phoneController.text = current_user.phone ?? "";
       heightController.text = current_user.height?.toString() ?? "";
       weightController.text = current_user.weight?.toString() ?? "";
       jobNameController.text = current_user.nameOfJob ?? "";
@@ -865,16 +861,12 @@ class UserProfileScreenState extends State<UserProfileScreen> {
     } else if (state is GetUserDataErrorState) {
       showToast(msg: state.error, state: ToastStates.ERROR);
     } else if (state is UpdateUserDataSucccessState) {
-      if (state.updateProfileModel.key == 1) {
-        showToast(msg: "تم تحديث البيانات بنجاح", state: ToastStates.SUCCESS);
+      showToast(msg: "تم تحديث البيانات بنجاح", state: ToastStates.SUCCESS);
 
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const LayoutScreen()),
-            (route) => false);
-      } else {
-        showToast(msg: "حدث خطا ما", state: ToastStates.ERROR);
-      }
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const LayoutScreen()),
+          (route) => false);
     } else if (state is UpdateUserDataErrorState) {
       showToast(msg: state.error, state: ToastStates.ERROR);
     }

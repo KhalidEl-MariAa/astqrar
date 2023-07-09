@@ -1,11 +1,11 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
 import '../../../end_points.dart';
-import '../../../models/login.dart';
 import '../../../models/user.dart';
 import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
@@ -37,10 +37,9 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   }
 
   //update user data
-  late LoginModel updateUserDataModel;
+  late User updatedUser;
 
-  void updateUserData(User current_user) 
-  {
+  void updateUserData(User current_user) {
     emit(UpdateUserDataLoadingState());
 
     log(current_user.subSpecifications.toString());
@@ -53,7 +52,7 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       // "Nationality": current_user.nationality,
       "City": current_user.city,
       "Tribe": current_user.tribe,
-      // "phone": current_user.phone,
+      "phone": current_user.phone,
       "Height": current_user.height,
       "Weight": current_user.weight,
 
@@ -75,27 +74,28 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       token: TOKEN.toString(),
       url: UPDATEUSERDATA,
       data: formData,
-    )
-    .then((value) {
+    ).then((value) {
       // log(value.toString());
 
-      updateUserDataModel = LoginModel.fromJson(value.data);
+      ServerResponse res = ServerResponse.fromJson(value.data);
+
+      if (res.key == 0) {
+        emit(UpdateUserDataErrorState(res.msg ?? "حدث خطأ ما"));
+        return;
+      }
+
+      updatedUser = User.fromJson(res.data);
 
       NAME = CacheHelper.getData(key: "name");
       AGE = CacheHelper.getData(key: "age");
       EMAIL = CacheHelper.getData(key: "email");
 
+      CacheHelper.saveData(key: "name", value: updatedUser.user_Name);
       CacheHelper.saveData(
-          key: "name", 
-          value: updateUserDataModel.data!.userName);
-      CacheHelper.saveData(
-          key: "age", 
-          value: updateUserDataModel.data!.age.toString() );
-      CacheHelper.saveData(
-          key: "email", 
-          value: updateUserDataModel.data!.email);
+          key: "age", value: updatedUser.age.toString());
+      CacheHelper.saveData(key: "email", value: updatedUser.email);
 
-      emit(UpdateUserDataSucccessState(updateUserDataModel));
+      emit(UpdateUserDataSucccessState(updatedUser));
     }).catchError((error) {
       log(error.toString());
       emit(UpdateUserDataErrorState(error.toString()));

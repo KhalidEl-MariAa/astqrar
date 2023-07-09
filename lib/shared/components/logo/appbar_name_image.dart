@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants.dart';
@@ -27,14 +28,14 @@ class AppBarWithNameAndImage extends StatelessWidget {
             ),
             Text(
               IS_LOGIN?NAME!:"اهلا بك ",
-              style: TextStyle(color: WHITE,fontSize: 11.sp),
+              style: GoogleFonts.almarai(color: WHITE,fontSize: 11.sp),
             ),
 
             if(IS_LOGIN)    Text(
               AGE! + " " + "عاما",
               textAlign: TextAlign.start,
               style:
-              TextStyle(color: CUSTOME_GREY, fontSize: 11.sp),
+              GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
             ),
             if(IS_LOGIN==false)
               Row(
@@ -43,7 +44,7 @@ class AppBarWithNameAndImage extends StatelessWidget {
                     "سجل دخول",
                     textAlign: TextAlign.start,
                     style:
-                    TextStyle(color: WHITE, fontSize: 10.sp),
+                    GoogleFonts.almarai(color: WHITE, fontSize: 10.sp),
                   ),
                   SizedBox(width: 1.w,),
                   InkWell(
@@ -54,7 +55,7 @@ class AppBarWithNameAndImage extends StatelessWidget {
                       "من هنا",
                       textAlign: TextAlign.start,
                       style:
-                      TextStyle(color: WHITE, fontSize: 10.sp,decoration:TextDecoration.underline),
+                      GoogleFonts.almarai(color: WHITE, fontSize: 10.sp,decoration:TextDecoration.underline),
                     ),
                   ),
                 ],

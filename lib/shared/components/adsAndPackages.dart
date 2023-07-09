@@ -52,11 +52,12 @@ class AdsAndPackages extends StatelessWidget
                         children: [
                           Text(
                             '${packages[index].days} يوم ',
-                            style: const TextStyle(color: Colors.white),
+                            style: GoogleFonts.almarai(color: Colors.white, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
+                          SizedBox(height: 0.5.h,),
                           Text('${packages[index].price} ريال',
-                              style: const TextStyle(color: Colors.white),
+                              style: GoogleFonts.almarai(color: Colors.white, fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center),
                         ],
                       ),

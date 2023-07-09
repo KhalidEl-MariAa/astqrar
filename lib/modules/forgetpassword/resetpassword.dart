@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../models/forget_password.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +55,7 @@ class ResetPassword extends StatelessWidget
                    SizedBox(height: 3.h,),
                    const  HeaderLogo(),
                     Text("تغيير كلمة المرور",
-                      style: TextStyle(color: PRIMARY, fontSize: 15.sp),
+                      style: GoogleFonts.almarai(color: PRIMARY, fontSize: 15.sp),
                     ),
                     SizedBox( height: 7.h,),
                     defaultTextFormField(
@@ -95,7 +97,7 @@ class ResetPassword extends StatelessWidget
                     SizedBox(height: 1.h, ),
                     ConditionalBuilder(
                       condition: state is ChangePasswordByCodeLoadingState,
-                      fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
+                      fallback: (context) => Text("",),
                       builder: (context) => CircularProgressIndicator()
                       ),
 

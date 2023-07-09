@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../styles/colors.dart';
@@ -42,7 +43,7 @@ class NormalLogo extends StatelessWidget {
                       )),
                 Text(
                   appbarTitle,
-                  style: TextStyle(color: WHITE),
+                  style: GoogleFonts.almarai(color: WHITE),
                 ),
               ],
             ),

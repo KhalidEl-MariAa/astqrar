@@ -109,7 +109,7 @@ class NotificationCubit extends Cubit<NotificationStates>
       url: SENDNOTIFICATION, 
       data: {
       "userId":userid,
-      "projectName":"استقرار",
+      "projectName": APP_NAME,
       "deviceType":Platform.isIOS?"ios":"android",
       "notificationType":type,
       "body":body,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../shared/components/dialog_please_login.dart';
@@ -78,13 +79,13 @@ class _LayoutScreenState extends State<LayoutScreen> {
                         EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
                     child: Image.asset(
                       'assets/Favourite.png',
-                      color: _selectedTab == 0 ? PRIMARY : Color(0xff707B81),
+                      color: _selectedTab == 0 ? PRIMARY : CUSTOME_GREY,
                     ),
                   ),
                   Text(
                     "المفضلة",
-                    style: TextStyle(
-                        color: _selectedTab == 0 ? PRIMARY : Color(0xff707B81),
+                    style: GoogleFonts.almarai(
+                        color: _selectedTab == 0 ? PRIMARY : CUSTOME_GREY,
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w600),
                   )
@@ -116,8 +117,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   ),
                   Text(
                     "الاشعارات",
-                    style: TextStyle(
-                        color: _selectedTab == 1 ? PRIMARY : Color(0xff707B81),
+                    style: GoogleFonts.almarai(
+                        color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY,
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w600),
                   )
@@ -153,7 +154,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   ),
                   Text(
                     "المحادثات",
-                    style: TextStyle(
+                    style: GoogleFonts.almarai(
                         color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY,
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w600),
@@ -177,7 +178,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   SizedBox(height: 0.3.h),
                   Text(
                     "المزيد",
-                    style: TextStyle(
+                    style: GoogleFonts.almarai(
                         color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY,
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w600),

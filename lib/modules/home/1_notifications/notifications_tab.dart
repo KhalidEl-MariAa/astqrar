@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:sizer/sizer.dart';
 
@@ -54,7 +55,7 @@ class NotificationTab extends StatelessWidget
                           ),
                           Text(
                             "الاشعارات",
-                            style: TextStyle(color: WHITE),
+                            style: GoogleFonts.almarai(color: WHITE),
                           ),
                         ],
                       ),

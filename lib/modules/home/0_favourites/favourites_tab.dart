@@ -113,9 +113,8 @@ GetFavouritesCubit.get(context).deleteFromFavourite(userId: GetFavouritesCubit.g
                         
                         SizedBox(height: 2.h,),
                         
-                        Text("المفضلة فارغة الان ",style: GoogleFonts.almarai(
-                          fontSize: 15.sp
-                        ),)
+                        Text("المفضلة فارغة الان ",
+                          style: GoogleFonts.almarai(fontSize: 15.sp),)
                       ],
                     ),
                   ),

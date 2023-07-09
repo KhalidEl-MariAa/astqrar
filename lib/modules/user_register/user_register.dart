@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import '../login/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +18,6 @@ import '../home/4_more/2_terms/terms.dart';
 import '../home/layout/cubit/cubit.dart';
 import '../home/layout/layout.dart';
 import '../login/cubit/cubit.dart';
-import '../login/login.dart';
 import '../login/not_subscribed.dart';
 import 'alreadyhaneaccount_text.dart';
 import 'cubit.dart';
@@ -223,18 +221,36 @@ class _UserRegisterState extends State<UserRegister> {
                               label: "الرجاء ادخال رقم الهوية",
                               prefixIcon: Icons.person_outline),
 
-                          Text(
-                            '        سيتم تسجيل الدخول عن طريق رقم الهوية',
+                          Text('        سيتم تسجيل الدخول عن طريق رقم الهوية',
                             style: TextStyle(
                               color: Colors.yellow,
                               fontSize: 13,
                             ),
                           ),
 
-                          SizedBox(
-                            height: 4.h,
+                          SizedBox(height: 2.h,),
+
+
+                          defaultTextFormField(
+                              context: context,
+                              controller: phoneController,
+                              type: TextInputType.number,
+                              validate: (String? value) {
+                                newUser.phone = value;
+                                return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
+                              },
+                              labelText: "رقم الهاتف",
+                              label: "الرجاء ادخال رقم الهاتف",
+                              prefixIcon: Icons.phone),
+
+                          Text('        سيتم طلب منك رقم الهاتف في حالة استعادة كلمة المرور',
+                            style: TextStyle(
+                              color: Colors.yellow,
+                              fontSize: 13,
+                            ),
                           ),
 
+                          SizedBox(height: 4.h,),
                           // defaultTextFormField(
                           //     context: context,
                           //     controller: cityController,
@@ -272,17 +288,6 @@ class _UserRegisterState extends State<UserRegister> {
                           //         prefixIcon: Icons.person_outline,
                           //   ),
                           //
-                          //   defaultTextFormField(
-                          //       context: context,
-                          //       controller: phoneController,
-                          //       type: TextInputType.number,
-                          //       validate: (String? value) {
-                          //         newUser.phone = value;
-                          //         return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
-                          //       },
-                          //       labelText: "رقم الهاتف",
-                          //       label: "الرجاء ادخال رقم الهاتف",
-                          //       prefixIcon: Icons.phone),
                           //
                           //   defaultTextFormField(
                           //       context: context,

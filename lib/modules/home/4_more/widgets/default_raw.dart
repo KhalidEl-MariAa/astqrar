@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class DefaultRaw extends StatelessWidget {
+class DefaultRaw extends StatelessWidget 
+{
  final String image;
  final String text;
+
  DefaultRaw({required this.image,required this.text});
 
   @override
@@ -18,7 +20,7 @@ class DefaultRaw extends StatelessWidget {
           ),
           SizedBox(width: 2.w,),
           Text(text,
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.almarai(
                   fontSize: 12.sp, color: Colors.grey[500])),
           Spacer(),
           Padding(

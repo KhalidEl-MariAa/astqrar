@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../shared/styles/colors.dart';
@@ -17,7 +18,7 @@ class AlreadyHaveAccountText extends StatelessWidget
       child: Center(
         child: Text(
           "لدي حساب بالفعل ؟  تسجيل الدخول ",
-          style: TextStyle(
+          style: GoogleFonts.almarai(
               color: PRIMARY,
               fontSize: 9.sp,
               fontWeight: FontWeight.w500),

@@ -1,4 +1,3 @@
-import '../../../models/login.dart';
 import '../../../models/user.dart';
 
 abstract class UserProfileStates {}
@@ -20,7 +19,7 @@ class GetUserDataErrorState extends UserProfileStates {
 class UpdateUserDataLoadingState extends UserProfileStates {}
 
 class UpdateUserDataSucccessState extends UserProfileStates {
-  final LoginModel updateProfileModel;
+  final User updateProfileModel;
   UpdateUserDataSucccessState(this.updateProfileModel);
 }
 

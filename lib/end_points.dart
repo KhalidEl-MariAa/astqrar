@@ -53,6 +53,8 @@ const LOGOUT="api/v1/logout";
 
 const CHECKUSERISEXPIRED="api/v1/CheckUserIsExpired";
 
+const UPDATELASTLOGIN="api/v1/UpdateLastLogin";
+
 const GET_PHONE_NUMBER="api/v1/GetmobilePhone";
 
 const REMOVEACCOUNT="api/v1/RemoveAccount";

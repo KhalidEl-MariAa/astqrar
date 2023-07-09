@@ -34,9 +34,12 @@ class _LoginScreenState extends State<LoginScreen> {
   var loginkey = GlobalKey<FormState>();
 
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
-    FirebaseMessaging.instance.getToken().then((value) {
+    
+    FirebaseMessaging.instance.getToken()
+    .then((value) {
       DEVICE_TOKEN = value;
       CacheHelper.sharedpreferneces.setString("deviceToken", DEVICE_TOKEN!);
       log("Device TOKEN" + "  " + value.toString());
@@ -140,13 +143,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Text(
                                 "هل نسيت كلمة المرور؟",
-                                style: TextStyle(
+                                style: GoogleFonts.almarai(
                                   color: GREY,
-                                  fontSize: 7.8.sp,
-                                  // decoration: decoration??TextDecoration.none,
-                                  // fontWeight: fontWeight??(WidgetUtils.lang=="ar"?FontWeight.w500:FontWeight.w200),
-                                  // fontFamily: fontFamily?? (WidgetUtils.lang=="ar"? GoogleFonts.cairo().fontFamily : GoogleFonts.almarai().fontFamily)
+                                  fontSize: 9.sp,
+                                  fontWeight: FontWeight.bold
                                 ),
+                              
                               ),
                             ],
                           ),
@@ -201,14 +203,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      if (BASE_URL == "NoConnection")
+                      if (BASE_URL == "غير متصل بالسيرفر")
                         Center(
                           child: Text(BASE_URL,
-                              style: TextStyle(
+                              style: GoogleFonts.almarai(
                                   color: Colors.yellow,
                                   fontSize: 13.sp,
                                   fontWeight: FontWeight.w900)),
                         ),
+                        
                       if (IS_DEVELOPMENT_MODE)
                         Center(
                           child: Text(BASE_URL,

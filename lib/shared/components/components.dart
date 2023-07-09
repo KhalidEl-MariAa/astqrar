@@ -54,10 +54,11 @@ Widget defaultTextFormField({
           fontSize: 9.sp,
           fontWeight: FontWeight.w400),
       hintText: label,
-      hintStyle: TextStyle(
-        color: GREY,
-        fontSize: 11.sp,
-      ),
+      hintStyle: GoogleFonts.almarai( color: GREY, fontSize: 10.sp),
+      // hintStyle: TextStyle(
+      //   color: GREY,
+      //   fontSize: 11.sp,
+      // ),
       hintMaxLines: isLocation ? 3 : 1,
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: borderColor),
@@ -132,7 +133,7 @@ Widget doubleInfinityMaterialButton({
         child: (text != null)
             ? Text(
                 text,
-                style: GoogleFonts.almarai(color: WHITE, fontSize: 14.sp),
+                style: GoogleFonts.almarai(color: WHITE, fontSize: 14.sp, fontWeight: FontWeight.bold),
               )
             : child,
         onPressed: () {
