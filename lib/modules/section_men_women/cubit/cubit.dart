@@ -79,8 +79,8 @@ class MenWomenCubit extends Cubit<MenWomenStates>
     if (SectionMenOrWomen.oneIndexSection == 3) {
       typeOfMarriage = "مسيار";
     }
-    getUsersByFilter(gender: gender);
-    emit(ChangeIndexSuccessState());
+    getUsersByQuickFilter(gender: gender);
+    
   }
 
   changeindextwosection({required int index, required String gender}) 
@@ -106,8 +106,8 @@ class MenWomenCubit extends Cubit<MenWomenStates>
       startAge = 40;
       endAge = 50;
     }
-    getUsersByFilter(gender: gender);
-    emit(ChangeIndexSuccessState());
+    getUsersByQuickFilter(gender: gender);
+    
   }
 
   changeindexthreesection({required int index, required String gender}) 
@@ -129,18 +129,18 @@ class MenWomenCubit extends Cubit<MenWomenStates>
                         .map((e) => e.id!)
                         .toList();
     }
-    getUsersByFilter(gender: gender);
-    emit(ChangeIndexSuccessState());
+    getUsersByQuickFilter(gender: gender);
+    
   }
 
   //filter
-  getUsersByFilter({required String gender}) 
+  getUsersByQuickFilter({required String gender}) 
   {
     ServerResponse res;
     users = [];
     log(startAge.toString());
-
     emit(QuickFilterLoading());
+
     DioHelper.postDataWithBearearToken(
       url: QUICKFILTER,
       data: {
@@ -163,6 +163,7 @@ class MenWomenCubit extends Cubit<MenWomenStates>
       }
       // log(users.length.toString());
       emit(QuickFilterSuccess());
+
     }).catchError((error) {
       log(error.toString());
       emit(QuickFilterError(error.toString()));

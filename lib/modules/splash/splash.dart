@@ -114,9 +114,13 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  Future checkuserIsExpired() async {
+  Future checkuserIsExpired() async 
+  {
     var value = await DioHelper.postDataWithBearearToken(
-        url: CHECKUSERISEXPIRED, token: TOKEN.toString(), data: {"userId": ID});
+        url: CHECKUSERISEXPIRED, 
+        token: TOKEN.toString(), 
+        data: {"userId": ID}
+    );
 
     this.isExpired = value.data['isExpired'];
     log("Is_Expired :" + this.isExpired.toString());

@@ -11,7 +11,6 @@ class MenWomenErrorState extends MenWomenStates{
   MenWomenErrorState(this.error);
 }
 
-class ChangeIndexSuccessState extends MenWomenStates{}
 
 class FiltersIndexSuccessState extends MenWomenStates{}
 

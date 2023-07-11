@@ -183,16 +183,32 @@ class ConversationScreenState extends State<ConversationScreen>
         child: BlocConsumer<ConversationCubit, ConversationStates>(
           listener: (context, state) 
           {
-            if (state is GetMessagesSuccessState) {
-              
+            if (state is GetOtherUserSuccess)
+            {
               setState(() {
                 widget.otherUser = state.otherUser;
               });
+            }
+            else if (state is GetMessagesSuccessState) 
+            {
+              setState(() {
+                for (var m in state.messages) {
+                  Message msg = Message.fromJson(m);
+
+                  messages.add(msg.message!);
+                  senderIdList.add(msg.senderId.toString());
+                  dateMessages.add(
+                      dt.DateFormat('mm : hh a   dd / MM/ yyyy', 'ar_SA').format(msg.date!));
+                  messagesMine.add( msg.isMine! );
+                }
+              });
+
             }else if( state is SendMessageErrorState){
               showToast(
-                msg: "غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً",
+                msg: state.error,
                 state: ToastStates.ERROR);
-            }else if( state is SendMessageSuccessState){
+            }
+            else if( state is SendMessageSuccessState){
 
                 messages.add(state.sentMsg.message??"❌");
 

@@ -41,7 +41,7 @@ class ConversationCubit extends Cubit<ConversationStates>
             token: TOKEN.toString())
     .then((value) {
       this.otherUser = OtherUser.fromJson(value.data["otherUser"]);
-      emit(GetMessagesSuccessState(otherUser));
+      emit(GetOtherUserSuccess(otherUser));
     }).catchError((error) {
       emit(GetMessagesErrorState(error.toString()));
     });
@@ -58,37 +58,14 @@ class ConversationCubit extends Cubit<ConversationStates>
       log(value.toString());
 
       ServerResponse res = ServerResponse.fromJson(value.data);
+      emit(GetMessagesSuccessState(res.data['messages']));
 
-      fillAllArrays(res);
-
-      emit(GetMessagesSuccessState(this.otherUser));
     }).catchError((error) {
       log(error.toString());
       emit(GetMessagesErrorState(error.toString()));
     });
   }
 
-  void fillAllArrays(ServerResponse res) 
-  {
-    for (var m in res.data['messages']) {
-      Message msg = Message.fromJson(m);
-      // print(res.data[i].senderId);
-      ConversationScreenState.messages.add(msg.message!);
-      ConversationScreenState.senderIdList.add(msg.senderId.toString());
-      ConversationScreenState.dateMessages.add(
-          DateFormat('mm : hh a   dd / MM/ yyyy', 'ar_SA')
-              .format(msg.date!));
-
-      // log(ConversationScreenState.senderIdList.toString());
-      if (ID == msg.senderId) {
-        msg.isMine = true;
-        ConversationScreenState.messagesMine.add(true);
-      } else {
-        ConversationScreenState.messagesMine.add(false);
-        msg.isMine = false;
-      }
-    }
-  }
 
   void send_a_message(HubConnection hub, String receiverId, String msgText)
   {
@@ -100,6 +77,11 @@ class ConversationCubit extends Cubit<ConversationStates>
       log(value.toString());
       log("sent ttttttttttt ggggg");
 
+      if (value==null){
+          emit(SendMessageErrorState("حصلت مشكلة اثناء الارسال"));  
+          return;
+      }
+
       String str = jsonEncode( value );
       dynamic msg = jsonDecode(str);
       
@@ -108,7 +90,7 @@ class ConversationCubit extends Cubit<ConversationStates>
     }).catchError((e) {
       log('Failed to send ....... ❌❌ ');
       log(e.toString());
-      emit(SendMessageErrorState());
+      emit(SendMessageErrorState("غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً"));
     });
   }
 

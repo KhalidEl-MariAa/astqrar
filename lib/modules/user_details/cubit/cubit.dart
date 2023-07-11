@@ -22,14 +22,16 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
             url: GETINFORMATIONUSER,
             query: {"otherId": otherId},
             token: TOKEN.toString())
-        .then((value) {
+    .then((value) {
       OtherUser otherUser = OtherUser.fromJson(value.data["otherUser"]);
       emit(UserDetailsSuccessState(otherUser));
+
       sendNotification(
           userid: otherId,
           type: 3,
           body: "تمت زيارة صفحتك من قبل " + NAME!,
           title: "");
+          
     }).catchError((error) {
       emit(UserDetailsErrorState(error.toString()));
     });
@@ -93,9 +95,13 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
     emit(ToggleFavouriteLoading());
     DioHelper.postDataWithBearearToken(
             url: DELETEFROMFAVOURITE,
-            data: {"CurrentUserId": ID, "FavUserId": userId, "IsDeleted": true},
+            data: {
+              "CurrentUserId": ID, 
+              "FavUserId": userId, 
+              "IsDeleted": true
+            },
             token: TOKEN.toString())
-        .then((value) {
+    .then((value) {
       // log(value.toString());
 
       res = ServerResponse.fromJson(value.data);
@@ -108,7 +114,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
       emit(RemoveFromFavouriteSuccessState());
     }).catchError((error) {
       // getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
-      // log(error.toString());
+      log(error.toString());
       emit(RemoveFromFavouriteErrorState(error.toString()));
     });
   }

@@ -19,15 +19,24 @@ class SendMessageSuccessState extends ConversationStates {
   SendMessageSuccessState(this.sentMsg);
 }
 
-class SendMessageErrorState extends ConversationStates {}
+class SendMessageErrorState extends ConversationStates {
+  String error ;
+  SendMessageErrorState(this.error);
+}
 
 
 class GetMessagesLoadingState extends ConversationStates{}
 
 class GetMessagesSuccessState extends ConversationStates
 {
+  final List<dynamic> messages ;
+  GetMessagesSuccessState(this.messages);
+}
+
+class GetOtherUserSuccess extends ConversationStates
+{
   final OtherUser otherUser;
-  GetMessagesSuccessState(this.otherUser);
+  GetOtherUserSuccess(this.otherUser);
 }
 
 class GetMessagesErrorState extends ConversationStates{

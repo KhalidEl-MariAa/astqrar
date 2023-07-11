@@ -1,5 +1,7 @@
 
 
+import 'package:astarar/constants.dart';
+
 class Message 
 {
   String? message;
@@ -24,6 +26,8 @@ class Message
 
     // date = json['date'];
     date = DateTime.parse(json['date']??"1/1/2002");
+    
+    isMine = (ID == senderId);
   }
 
 

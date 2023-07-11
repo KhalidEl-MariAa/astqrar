@@ -137,10 +137,9 @@ class _DetailWidgetState extends State<DetailWidget> {
               // زر الشات
               Visibility(
                 visible: widget.messageVisibility,
-                child: SizedBox(
-                  width: 3.w,
-                ),
+                child: SizedBox(width: 3.w,),
               ),
+
               Visibility(
                   visible: widget.messageVisibility,
                   child: ConditionalBuilder(
@@ -161,6 +160,8 @@ class _DetailWidgetState extends State<DetailWidget> {
                           image: const AssetImage('assets/chat (7).png')),
                     ),
                   )),
+              
+              SizedBox(width: 2.w,),
             ],
           ),
         ),

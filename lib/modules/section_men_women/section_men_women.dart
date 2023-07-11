@@ -42,10 +42,7 @@ class SectionMenOrWomen extends StatelessWidget
 
       },
       builder: (context, state) => 
-        ConditionalBuilder(
-          condition: state is MenWomenLoadingState,
-          builder: (context) => Scaffold(backgroundColor: WHITE, body: const LoadingGif()),
-          fallback: (context) => Directionality(
+          Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
               backgroundColor: Colors.white,
@@ -184,7 +181,7 @@ class SectionMenOrWomen extends StatelessWidget
                                 separatorBuilder: (context, index) => SizedBox(width: 2.w,),
                                 itemBuilder: (context, index) => 
 
-                                  // البادج حق الفلتر
+                                  // البادج حق الفلتر - نوع الزواج
                                   ChoiceChip (
                                     selectedColor: PRIMARY,
                                     onSelected: (bool value) 
@@ -214,6 +211,7 @@ class SectionMenOrWomen extends StatelessWidget
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) => 
+                            // البادج حق الفلتر - العمر
                             ChoiceChip(
                               selectedColor: PRIMARY,
                               onSelected: (bool value) {
@@ -245,7 +243,10 @@ class SectionMenOrWomen extends StatelessWidget
                             scrollDirection: Axis.horizontal,
                             itemCount: threeSection.length,
                             separatorBuilder: (context, index) => SizedBox(width: 1.w,),
-                            itemBuilder: (context, index) => ChoiceChip(
+                            itemBuilder: (context, index) => 
+                            
+                            // البادج حق الفلتر - الجنسية
+                            ChoiceChip(
                               selectedColor: PRIMARY,
                               onSelected: (bool value) {
                                 MenWomenCubit.get(context)
@@ -265,14 +266,17 @@ class SectionMenOrWomen extends StatelessWidget
 
                       Padding(
                         padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
-                        child: Text( 'النتائج' + " ( ${MenWomenCubit.get(context).users.length} )",
+                        child: Text( 'النتائج' + " ( ${MenWomenCubit.get(context).users.length} )" ,
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w200,
                                 fontSize: 19)),
                       ),
                                             
-                      //if (MenWomenCubit.get(context).users.isNotEmpty)
-                        GridView.count(
+                      ConditionalBuilder(
+                        condition: state is QuickFilterLoading || state is MenWomenLoadingState, 
+                        builder: (context) =>  LoadingGif(), 
+                        fallback: (context) => 
+                          GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             childAspectRatio: 1 / 0.15.h,
@@ -294,14 +298,15 @@ class SectionMenOrWomen extends StatelessWidget
                                 );
                               }
                             )
-                      )
+                        )
+                      ),
 
                     ],),
                 ),
               ),
             ),
           ),
-      ),
+
     );
   }
 
