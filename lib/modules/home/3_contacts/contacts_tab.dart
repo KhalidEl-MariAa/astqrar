@@ -88,6 +88,7 @@ class _ContactsTabState extends State<ContactsTab>
 
                         Expanded(
                           child: 
+
                             ListView.separated(
                               separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
                               itemCount: this.contacts.length,
@@ -117,6 +118,8 @@ class _ContactsTabState extends State<ContactsTab>
                                       ],
                                     ),
                                   ),
+                                  
+                                  // 
                                   child: 
                                     Stack(
                                       children: [
@@ -140,14 +143,12 @@ class _ContactsTabState extends State<ContactsTab>
                                               ),
                                               SizedBox(height: 2.h,),
 
+                                              // ايقونة شات
                                               Row(
                                                 children: [
                                                   Icon(Icons.chat, color: PRIMARY,),
                                                   SizedBox(width: 6.w,),
 
-                                                  // Text(" 👈️",
-                                                  //   style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 15.sp),
-                                                  // ),
                                                 ],
                                               )
                                             ],),
@@ -156,9 +157,12 @@ class _ContactsTabState extends State<ContactsTab>
                                           name: this.contacts[index].userInformation == null? 
                                                 "مستخدم"
                                                 : 
-                                                this.contacts[index].userInformation!.user_Name! ,
-                                          gender: this.contacts[index]
-                                                  .userInformation!.gender!,
+                                                this.contacts[index].userInformation!.user_Name! 
+                                                + " " ,
+                                                // this.contacts[index].userInformation!.IsConnected.toString(),
+                                          
+                                          gender: this.contacts[index].userInformation!.gender!,
+                                          
                                           onClicked: () { user_on_click(context, index); },
                                         ),
 

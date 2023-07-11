@@ -13,7 +13,9 @@ String? MOBILE_PHONE;
 bool IS_LOGIN = true;
 bool IS_DEVELOPMENT_MODE = true;
 
-String BASE_URL = "https://estqrar-001-site1.ctempurl.com/";
+String OUR_HOST = "https://estqrar-001-site1.ctempurl.com/";
+
+String BASE_URL = "";
 
 String maleImage = "assets/male.png";
 

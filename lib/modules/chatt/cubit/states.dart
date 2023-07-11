@@ -1,3 +1,5 @@
+import 'package:astarar/models/get-messages-model.dart';
+
 import '../../../models/get_information_user.dart';
 
 abstract class ConversationStates {}
@@ -8,13 +10,17 @@ class ConnectUserLoadingState extends ConversationStates {}
 
 class ConnectUserSuccessState extends ConversationStates {}
 
+
+
 class SendMessageLoadingState extends ConversationStates {}
 
-class SendMessageSuccessState extends ConversationStates {}
+class SendMessageSuccessState extends ConversationStates {
+  Message sentMsg;
+  SendMessageSuccessState(this.sentMsg);
+}
 
-class ReceiveMessageLoadingState extends ConversationStates {}
+class SendMessageErrorState extends ConversationStates {}
 
-class ReceiveMessageSuccessState extends ConversationStates {}
 
 class GetMessagesLoadingState extends ConversationStates{}
 
@@ -29,15 +35,4 @@ class GetMessagesErrorState extends ConversationStates{
   GetMessagesErrorState(this.error);
 }
 
-//payment confirmation
-
-class PaymentConfirmationLoadingState extends ConversationStates{}
-
-class PaymentConfirmationSuccessState extends ConversationStates{}
-
-
-class PaymentConfirmationErrorState extends ConversationStates{
-  final String error;
-  PaymentConfirmationErrorState(this.error);
-}
 

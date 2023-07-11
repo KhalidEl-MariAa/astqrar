@@ -38,10 +38,12 @@ flutter clean
 # get availavle connected (running) devices
 > flutter devices
 
+cd "~\Downloads\Dating-kaheelan\astqrar"
+
 flutter run
 flutter run -d emulator-5554 
 flutter run -d ce10171a81158d3101
-ce10171a81158d3101
+
 ```
 
 

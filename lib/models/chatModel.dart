@@ -13,6 +13,6 @@ class ChatModel
     receiverId = json['receiverId'];
 
     date = json['date'];
-    date = DateFormat(' HH : mm', 'ar_SA').format(DateTime.parse(date));
+    date = DateFormat('mm : hh a', 'ar_SA').format(DateTime.parse(date));
   }
 }

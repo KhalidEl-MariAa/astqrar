@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:astarar/models/get-messages-model.dart';
+import 'package:intl/intl.dart' as dt;
+
 import '../../models/get_information_user.dart';
 
 import '../../shared/components/components.dart';
@@ -23,10 +26,9 @@ class ConversationScreen extends StatefulWidget {
   OtherUser? otherUser = null;
   String? otherId = null;
 
-  ConversationScreen({
-    Key? key,
-    this.otherUser,
-  }) : super(key: key);
+  ConversationScreen({ Key? key, this.otherUser, }) : super(key: key) {
+    this.otherId = this.otherUser!.id!;
+  }
 
   ConversationScreen.byOtherId({Key? key, otherId}) : super(key: key) {
     this.otherId = otherId;
@@ -36,11 +38,12 @@ class ConversationScreen extends StatefulWidget {
   ConversationScreenState createState() => ConversationScreenState();
 }
 
-class ConversationScreenState extends State<ConversationScreen> {
+class ConversationScreenState extends State<ConversationScreen> 
+{
   static var messagecontroller = new TextEditingController();
 
   late HubConnection hub;
-  String status = "غير متصل";
+  bool otherUserIsConnected = false;
 
   static List<String> messages = [];
   static List<bool> messagesMine = [];
@@ -52,105 +55,114 @@ class ConversationScreenState extends State<ConversationScreen> {
   void initState() {
     super.initState();
 
-    hub = HubConnectionBuilder()
-        .withUrl(
-          "${BASE_URL}chat",
-        )
+    this.hub = HubConnectionBuilder()
+        .withUrl("${BASE_URL}chat",)
         .build();
 
     connect();
   }
 
-  void connect() async {
-    await hub.start()?.then((value) => log('connected  ✅ 🔗')).catchError((e) {
-      log('DISCONNECTED....... ❌  *** ');
-      log(e.toString());
+  void connect() async 
+  {
+
+    await this.hub.start()?.then( (_) 
+    {
+        log('connected  ✅ 🔗');
+    }).catchError((e) {
+        log('DISCONNECTED....... ❌   ');
+        log(e.toString());
     });
 
-    await hub
-        .invoke('Connect', args: [ID!])
-        .then((value) => print("connected user success"))
-        .catchError((e) {
-          log('USER is DISCONNECTED.......');
-          log(e.toString());
+
+    this.hub.on("aUserIsConnected", (args) 
+    {
+      String str = "[]";
+      dynamic connectedUserIds = [];
+
+      str = jsonEncode(args![0]);
+      connectedUserIds = jsonDecode( str );
+
+      bool inConnectedList = connectedUserIds.contains( widget.otherId );
+      if (inConnectedList){
+          setState( () { this.otherUserIsConnected = true; });
+      }
+
+    });
+
+
+    this.hub.on("aUserIsDisconnected", (args) 
+    {
+      String str = jsonEncode( args![0] );
+      dynamic diconnectedUserId = jsonDecode(str);
+
+      if (diconnectedUserId == widget.otherUser?.id) {
+        setState(() {
+          this.otherUserIsConnected = false;
         });
+      }
+    });
+
+    this.hub.on('receiveMessage', (args) async 
+    {
+
+      String str = jsonEncode( args![0] );
+      dynamic jasonified = jsonDecode(str);
+      Message msg = Message.fromJson(  jasonified );
+
+      if (mounted) {
+        setState(() {
+          messages.add(msg.message.toString());
+          messagesMine.add(false);
+          senderIdList.add(msg.senderId.toString());
+          dateMessages.add(dt.DateFormat('mm : hh a', 'ar_SA').format(msg.date!));
+        });
+      }
+    });
+
+    this.hub
+      .invoke('Connect', args: [ID!])
+      .then( (args) {
+        print("connected user success");
+        log("Connect Repley: " + args.toString() );
+
+        String str = jsonEncode( args );
+        dynamic connectedUserIds = jsonDecode(str);
+        bool inConnectedList = connectedUserIds.contains( widget.otherId );
+        if (inConnectedList){
+            setState( () { this.otherUserIsConnected = true; });
+        }
+
+      })
+      .catchError((e) {
+        log('USER is DISCONNECTED.......');
+        log(e.toString());
+      });
 
     // hub.onclose( ({error}) => log("HUB ERR: " + error.toString() ) );
 
-    hub.on('receiveMessage', (args) async {
-      // this.otherUser.heBlockedMe = state.heBlockedMe;
-      dynamic ss = {};
-      ss = jsonEncode(args![0]);
-      jsonDecode(ss);
-      print("ss" + jsonDecode(ss).toString());
-      chat = ChatModel.fromJson(jsonDecode(ss));
-      if (mounted) {
-        setState(() {
-          ConversationScreenState.messages.add(chat.text.toString());
-          ConversationScreenState.messagesMine.add(false);
-          ConversationScreenState.senderIdList.add(chat.senderId.toString());
-          dateMessages.add(chat.date);
-        });
-      }
-    });
-
-    hub.on("aUserIsConnected", (args) {
-      dynamic list = [];
-      print(args!.length);
-
-      print("jj" + jsonEncode(args[0]));
-      list = jsonEncode(args[0]);
-      print("list" + list.toString());
-      list = jsonDecode(list);
-      print("li" + list.toString());
-      for (int i = 0; i < list!.length; i++) {
-        print(list[0]);
-        if (list[i].toString() == widget.otherUser?.id) {
-          setState(() {
-            this.status = " متصل الان";
-          });
-        } else {
-          print("no");
-        }
-      }
-    });
   }
 
   @override
-  void dispose() {
+  void dispose() async
+  {
     super.dispose();
 
-    hub.stop().then((value) => log("HUB is CLOSED!")).catchError((e) {
+    await this.hub
+        .invoke('DisConnect', args: [ID!])
+        .then((value) => print("connected user success"))
+        .catchError((e) {
+          log('Error while `DisConnect` .......');
+          log(e.toString());
+        });
+
+    this.hub.stop()
+    .then((value) => log("HUB is CLOSED!"))
+    .catchError((e) {
       log('Error while HUB closing .......');
       log(e.toString());
     });
   }
 
-  Future<void> send_a_message(context) async {
-    if (widget.otherUser!.isBlockedByMe || widget.otherUser!.heBlockedMe) {
-      showToast(
-          msg: "قام أحد الطرفين بحظر الطرف الاخر", state: ToastStates.ERROR);
-      return;
-    }
-
-    await hub.invoke('SendMessagee', args: [
-      ID!,
-      widget.otherUser!.id!,
-      messagecontroller.text,
-      0,
-      1,
-      1
-    ]).then((value) {
-      log("ggggg");
-      ConversationCubit.get(context).send();
-    }).catchError((e) {
-      log('Failed to send ....... ❌❌ ');
-      log(e.toString());
-      showToast(
-          msg: "غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً",
-          state: ToastStates.ERROR);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,12 +181,29 @@ class ConversationScreenState extends State<ConversationScreen> {
           return cub;
         },
         child: BlocConsumer<ConversationCubit, ConversationStates>(
-          listener: (context, state) {
+          listener: (context, state) 
+          {
             if (state is GetMessagesSuccessState) {
-              if (widget.otherUser != null) return;
+              
               setState(() {
                 widget.otherUser = state.otherUser;
               });
+            }else if( state is SendMessageErrorState){
+              showToast(
+                msg: "غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً",
+                state: ToastStates.ERROR);
+            }else if( state is SendMessageSuccessState){
+
+                messages.add(state.sentMsg.message??"❌");
+
+                messagesMine.add(true);
+                senderIdList.add(state.sentMsg.senderId??ID!);
+                dateMessages
+                    .add(dt
+                        .DateFormat('mm : hh a', 'ar_SA')
+                        .format( state.sentMsg.date! ));
+
+                messagecontroller.clear();
             }
           },
           builder: (context, state) => Directionality(
@@ -194,76 +223,78 @@ class ConversationScreenState extends State<ConversationScreen> {
                     toolbarHeight: 13.h,
 
                     leadingWidth: 0.w,
-                    leading: Container( width: 0, ),
+                    leading: Container(
+                      width: 0,
+                    ),
 
-                    title: Row(children: [
-                      InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.only(
-                                end: 2.w, start: 1.w),
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: WHITE,
-                              size: 20.sp,
+                    // شريط العنوان
+                    title: Row(
+                      children: [
+                        InkWell(
+                            onTap: () { Navigator.pop(context); },
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.only(end: 2.w, start: 1.w),
+                              child: Icon(Icons.arrow_back_ios, color: WHITE, size: 20.sp,
+                              ),
+                            )),
+
+                        Container(
+                          height: 30.h,
+                          width: 20.w,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: widget.otherUser?.gender == 1
+                                      ? AssetImage(maleImage)
+                                      : AssetImage(femaleImage))),
+                        ),
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // اسم اليوزر
+                            Text(
+                              widget.otherUser?.user_Name ?? "------",
+                              style: GoogleFonts.almarai(
+                                  color: OFF_WHITE, fontSize: 16.sp),
                             ),
-                          )),
+                            SizedBox(
+                              height: 0.4.h,
+                            ),
 
-                      Container(
-                        height: 30.h,
-                        width: 20.w,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: widget.otherUser?.gender == 1
-                                    ? AssetImage(maleImage)
-                                    : AssetImage(femaleImage))),
-                      ),
+                            //متصل او غير متصل
+                            Text(
+                              this.otherUserIsConnected? "متصل" : "غير متصل",
+                              style: GoogleFonts.almarai(
+                                  color: this.otherUserIsConnected? Colors.green : CUSTOME_GREY, 
+                                  fontSize: 11.sp,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // اسم اليوزر
-                          Text(
-                            widget.otherUser?.user_Name ?? "------",
-                            style: GoogleFonts.almarai(
-                                color: OFF_WHITE, fontSize: 16.sp),
-                          ),
-                          SizedBox(
-                            height: 0.4.h,
-                          ),
+                      ]),
 
-                          //متصل او غير متصل
-                          Text(
-                            this.status,
-                            style: GoogleFonts.almarai(
-                                color: CUSTOME_GREY, fontSize: 11.sp),
-                          )
-                        ],
-                      ),
-
-                      // SizedBox(width: 10.w,),
-                    ]),
-
-                    //   titleSpacing: -10,
                     centerTitle: false,
                     backgroundColor: Colors.transparent,
                     elevation: 1,
                   ),
                 ),
               ),
+
+              //  الرسائل
               body: ConditionalBuilder(
                   condition: state is GetMessagesLoadingState,
-                  builder: createShimmer,
-                  fallback: createContainer),
+                  builder:  (context) =>  createShimmer(context, state),
+                  fallback: (context) =>  createContainer(context, state)
+              ),
             ),
           ),
         ));
   }
 
-  Widget createContainer(context) {
+  Widget createContainer(context, ConversationStates state) 
+  {
     return Container(
       height: 86.h,
       decoration: const BoxDecoration(
@@ -451,15 +482,36 @@ class ConversationScreenState extends State<ConversationScreen> {
                   maxLines: 5,
                   minLines: 1,
                   controller: messagecontroller,
+
+                  // زر الارسال  - Send
                   decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                        onTap: () async {
-                          await send_a_message(context);
-                        },
-                        child: Icon(
-                          Icons.send,
-                          color: WHITE,
-                        ),
+                      suffixIcon:
+                      ConditionalBuilder(
+                        condition: state is SendMessageLoadingState,
+                        builder: (context) => 
+                          SizedBox(
+                            child: Center(
+                              child: CircularProgressIndicator(strokeWidth: 3.0, color: BLACK_OPACITY),
+                            ),
+                            height: 50.0,
+                            width: 50.0,
+                          ),
+                        fallback: (context) =>
+                          InkWell(
+                            child: Icon( Icons.send, color: WHITE, ),
+                            onTap: ()  
+                            {
+                              if( messagecontroller.text.trim().isEmpty ) return;
+                              if (widget.otherUser!.isBlockedByMe || widget.otherUser!.heBlockedMe) {
+                                showToast(
+                                    msg: "قام أحد الطرفين بحظر الطرف الاخر", 
+                                    state: ToastStates.ERROR);
+                                return;
+                              }
+                              ConversationCubit.get(context)
+                                .send_a_message(this.hub, widget.otherUser!.id!, messagecontroller.text);
+                            },
+                          ),
                       ),
                       hintText: "اكتب رسالة",
                       contentPadding:
@@ -482,7 +534,7 @@ class ConversationScreenState extends State<ConversationScreen> {
     );
   }
 
-  Widget createShimmer(context) {
+  Widget createShimmer(context, ConversationStates state) {
     return Shimmer(
       child: ListView.separated(
         itemCount: 8,

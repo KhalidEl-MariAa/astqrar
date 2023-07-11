@@ -66,7 +66,7 @@ class NotificationWiget extends StatelessWidget
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
         child: Container(
-          height: this.note.notificationType == 0 ? 12.h : 11.h,
+          // height: this.note.notificationType == 0 ? 12.h : 12.h,
           width: double.infinity,
           decoration: BoxDecoration(
               color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
@@ -76,7 +76,7 @@ class NotificationWiget extends StatelessWidget
             children: [
               Container(
                 width: 18.w,
-                height: 10.h,
+                height: 8.h,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(35),
                     image: DecorationImage(
@@ -127,9 +127,6 @@ class NotificationWiget extends StatelessWidget
                         InkWell(
                             onTap: () {
                               NotificationCubit.get(context).acceptChattRequest(userId: this.user.id!);
-                              // showDialog(
-                              //     context: context,
-                              //     builder: (context) => SuccessDialog());
                             },
                             child: StatusButton(text: "قبول", color: PRIMARY)),
                         SizedBox( width: 3.w,),
@@ -140,6 +137,7 @@ class NotificationWiget extends StatelessWidget
                             child: StatusButton(text: "رفض", color: Colors.red)),
                       ],
                     ),
+                    
                   if (this.note.notificationType != 0)
                     Text(
                       DateFormat.yMMMMd().format(DateTime.parse(this.note.time??"")),
@@ -149,7 +147,10 @@ class NotificationWiget extends StatelessWidget
                     )
                 ],
               ),
-              if (this.note.notificationType == 0) const Spacer(),
+
+              if (this.note.notificationType == 0) 
+                const Spacer(),
+
               if (this.note.notificationType == 0)
                 Text(
                   DateFormat.yMMMEd().format(DateTime.parse(this.note.time??"")),

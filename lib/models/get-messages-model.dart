@@ -1,14 +1,31 @@
 
-class Message {
+
+class Message 
+{
   String? message;
-  String? date;
+  DateTime? date;
   String? receiverId;
   String? senderId;
   bool? isMine;
-  Message.fromJson(Map<String, dynamic> json) {
+  
+  int? orderId;
+  int? type;
+  int? duration;
+
+  Message.fromJson(Map<String, dynamic> json) 
+  {
     senderId = json['senderId'];
     receiverId = json['receiverId'];
-    message = json['message'];
-    date = json['date'];
+    message = json['message']?? json['text'];
+
+    orderId = json['orderId'];
+    type = json['type'];
+    duration = json['duration'];
+
+    // date = json['date'];
+    date = DateTime.parse(json['date']??"1/1/2002");
   }
+
+
+
 }

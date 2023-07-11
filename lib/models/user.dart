@@ -38,6 +38,7 @@ class User {
   bool? ActiveCode;
   bool? IsActive;
   bool? IsExpired;
+  bool? IsConnected;
 
   List<SubSpecification> subSpecifications = [];
 
@@ -75,6 +76,8 @@ class User {
     Token = json['token'];
     TokenExpiration = DateTime.parse(json['tokenExpiration'] ?? "2002-01-01");
 
+    IsConnected = json['isConnected'];
+    
     json['userSubSpecificationDto']?.forEach((e) {
       subSpecifications.add(new SubSpecification.fromJson(e));
     });
