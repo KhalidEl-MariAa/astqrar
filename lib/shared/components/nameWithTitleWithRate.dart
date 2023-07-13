@@ -40,7 +40,7 @@ class NameWithTitleWithRATE extends StatelessWidget {
                 children: [
                   Text(
                     userName,
-                    style: GoogleFonts.poppins(fontSize: 10.sp),
+                    style: GoogleFonts.almarai(fontSize: 10.sp),
                   ),
                   SizedBox(
                     height: 0.5.h,
@@ -48,7 +48,7 @@ class NameWithTitleWithRATE extends StatelessWidget {
                   Text(
                       " ",
                       textAlign: TextAlign.start,
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.almarai(
                           color: BLACK, fontSize: 8.sp)),
                 ],
               ),

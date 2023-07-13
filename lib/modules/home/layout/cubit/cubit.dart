@@ -85,7 +85,6 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
   static List<Country> Countries = [];
   loadCountries() {
-    // log("GET_COUNTRIES OK ^^^^^^^^^^^^^^^^^^^^^^");
 
     DioHelper.getData(
       url: GET_COUNTRIES,

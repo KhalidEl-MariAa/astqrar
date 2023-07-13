@@ -165,10 +165,8 @@ class ConversationScreenState extends State<ConversationScreen>
 
 
   @override
-  Widget build(BuildContext context) {
-    // log( widget.otherId??"XXXXXXXXXX");
-    // log( widget.otherUser?.id);
-
+  Widget build(BuildContext context) 
+  {
     return BlocProvider(
         create: (BuildContext context) {
           ConversationCubit cub = ConversationCubit();
@@ -285,7 +283,7 @@ class ConversationScreenState extends State<ConversationScreen>
                                   color: this.otherUserIsConnected? Colors.green : CUSTOME_GREY, 
                                   fontSize: 11.sp,
                                   fontWeight: FontWeight.bold),
-                            )
+                            ),
                           ],
                         ),
 
@@ -366,13 +364,11 @@ class ConversationScreenState extends State<ConversationScreen>
                                   decoration: BoxDecoration(
                                       color: index == messages.length - 1
                                           ? BG_DARK_COLOR
-                                          : messagesMine.reversed
-                                                  .toList()[index]
+                                          : messagesMine.reversed.toList()[index]
                                               ? PRIMARY
                                               : WHITE,
                                       borderRadius: BorderRadius.only(
-                                          bottomLeft: messagesMine.reversed
-                                                  .toList()[index]
+                                          bottomLeft: messagesMine.reversed.toList()[index]
                                               ? Radius.circular(15)
                                               : Radius.circular(0),
                                           topLeft: Radius.circular(15),
@@ -380,8 +376,7 @@ class ConversationScreenState extends State<ConversationScreen>
                                           bottomRight:
                                               index == messages.length - 1
                                                   ? Radius.circular(15)
-                                                  : messagesMine.reversed
-                                                          .toList()[index]
+                                                  : messagesMine.reversed.toList()[index]
                                                       ? Radius.circular(0)
                                                       : Radius.circular(20))),
                                   child: Text(

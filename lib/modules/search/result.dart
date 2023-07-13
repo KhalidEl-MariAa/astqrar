@@ -225,8 +225,10 @@ class _ResultScreenState extends State<ResultScreen>
                                                       children: [
                                                         InkWell(
                                                             onTap: () { show_filter_search_screen(context); },
-                                                            child: const Text(
-                                                                'بحث بالفلتر')),
+                                                            child: Text(
+                                                                'بحث بالفلتر', 
+                                                                style: GoogleFonts.almarai(fontSize: 12.sp),)
+                                                        ),
                                                         const Spacer(),
                                                         InkWell(
                                                           onTap: () { show_filter_search_screen(context); },
@@ -291,7 +293,7 @@ class _ResultScreenState extends State<ResultScreen>
                             controller: searchTextController,
                             type: TextInputType.text,
                             validate: (value) { return null; },
-                            label: "البحث"),
+                            label: "  البحث   "),
                       ),
                       Visibility(
                         visible: true, //SearchCubit.get(context).getSearch,
@@ -321,7 +323,7 @@ class _ResultScreenState extends State<ResultScreen>
                                       Padding(
                                         padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
                                         child: Text( 'النتائج' + " ( ${this.searchResult.length} )",
-                                            style: GoogleFonts.poppins(
+                                            style: GoogleFonts.almarai(
                                                 fontWeight: FontWeight.w200,
                                                 fontSize: 19)),
                                       ),

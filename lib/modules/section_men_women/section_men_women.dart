@@ -192,7 +192,7 @@ class SectionMenOrWomen extends StatelessWidget
                                               gender: this.gender == 1 ? "1" : "2");
                                     },
                                     label: Text(oneSection[index],
-                                        style: GoogleFonts.poppins(fontSize: 9.5.sp)),
+                                        style: GoogleFonts.almarai(fontSize: 9.5.sp)),
                                     backgroundColor: Colors.grey[400],
                                     selected: index == oneIndexSection,
                                   ),                                  
@@ -221,7 +221,7 @@ class SectionMenOrWomen extends StatelessWidget
                                         gender: this.gender == 1 ? "1" : "2");
                               },
                               label: Text(twoSection[index],
-                                  style: GoogleFonts.poppins(fontSize: 9.5.sp)),
+                                  style: GoogleFonts.almarai(fontSize: 9.5.sp)),
                               backgroundColor: Colors.grey[400],
                               selected: index == twoIndexSection,
                             ),
@@ -255,7 +255,7 @@ class SectionMenOrWomen extends StatelessWidget
                                         gender: this.gender == 1 ? "1" : "2");
                               },
                               label: Text(threeSection[index],
-                                  style: GoogleFonts.poppins(fontSize: 9.5.sp)),
+                                  style: GoogleFonts.almarai(fontSize: 9.5.sp)),
                               backgroundColor: Colors.grey[400],
                               selected: index == threeIndexSection,
                             ),
@@ -267,7 +267,7 @@ class SectionMenOrWomen extends StatelessWidget
                       Padding(
                         padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
                         child: Text( 'النتائج' + " ( ${MenWomenCubit.get(context).users.length} )" ,
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.almarai(
                                 fontWeight: FontWeight.w200,
                                 fontSize: 19)),
                       ),

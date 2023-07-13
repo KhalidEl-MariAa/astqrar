@@ -33,10 +33,16 @@ class MenWomenCubit extends Cubit<MenWomenStates>
     users = [];
     emit(MenWomenLoadingState());
     
-    DioHelper.getDataWithQuery(
-        url: GETUSERSBYGENDER,
+    DioHelper.postDataWithBearearToken(      
+        url: QUICKFILTER,
         token: TOKEN.toString(),
-        query: {"gender": genderValue})
+        data: {
+          "gender": genderValue,
+          "startAge": null ,
+          "endAge": null ,
+          "typeOfMarriage": null ,
+          "countryIds": null ,
+        })
     .then((value) {
 
       res = ServerResponse.fromJson(value.data);

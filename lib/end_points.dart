@@ -68,7 +68,7 @@ const ACTIVATE="api/v1/Activate";
 
 //-------------- API VERSOIN 2 -----------------------------
 
-const GETUSERSBYGENDER="api/v2/get-users-by-gender";
+
 
 const GETINFORMATIONUSER="api/v2/get-information-user";
 
@@ -90,6 +90,7 @@ const IGNOREREQUEST="api/v2/ignore-request";
 const SEARCHBYTEXT="api/v2/search-users-by-text";
 
 const FILTERSEARCH="api/v2/get-users-filter";
+
 
 const QUICKFILTER="api/v2/get-users-by-quick-filter";
 

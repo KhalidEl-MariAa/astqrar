@@ -25,7 +25,7 @@ class Message
     duration = json['duration'];
 
     // date = json['date'];
-    date = DateTime.parse(json['date']??"1/1/2002");
+    date = DateTime.parse(json['date']??"2002-02-22");
     
     isMine = (ID == senderId);
   }

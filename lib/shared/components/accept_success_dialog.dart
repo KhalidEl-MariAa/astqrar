@@ -57,7 +57,7 @@ shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: Center(
                   child: Text(
                     actionText,
-                    style: GoogleFonts.poppins(color: PRIMARY,decoration: TextDecoration.underline),
+                    style: GoogleFonts.almarai(color: PRIMARY,decoration: TextDecoration.underline),
                   )),
             ),
             // Row(
@@ -75,7 +75,7 @@ shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             //         child: Center(
             //             child: Text(
             //          actionText,
-            //           style: GoogleFonts.poppins(color: primary),
+            //           style: GoogleFonts.almarai(color: primary),
             //         )),
             //       ),
             //     ),

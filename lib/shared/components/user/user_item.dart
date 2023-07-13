@@ -56,7 +56,7 @@ class UserItemWidget extends StatelessWidget
                       ),
                       Text(
                         username,
-                        style: GoogleFonts.poppins(fontSize: 9.sp),
+                        style: GoogleFonts.almarai(fontSize: 9.sp),
                       )
                     ],
                   )),

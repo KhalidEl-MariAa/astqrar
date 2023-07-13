@@ -240,6 +240,7 @@ class _HomeTabState extends State<HomeTab> {
                             decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.search),
                               hintText: "ابحث الان",
+                              hintStyle: GoogleFonts.almarai(fontSize: 12.sp),
                               contentPadding: EdgeInsets.zero,
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white),

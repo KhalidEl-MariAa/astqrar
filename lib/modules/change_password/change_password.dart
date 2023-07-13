@@ -53,14 +53,14 @@ class ChangePassword extends StatelessWidget
                     children: [
                       Text(
                         "تغيير كلمة المرور",
-                        style: GoogleFonts.poppins(fontSize: 12.sp, color: Colors.black),
+                        style: GoogleFonts.almarai(fontSize: 12.sp, color: Colors.black),
                       ),
                       SizedBox(
                         height: 2.h,
                       ),
                       Text(
                         "كلمة المرور القديمة",
-                        style: GoogleFonts.poppins(fontSize: 10.sp, color: Colors.black),
+                        style: GoogleFonts.almarai(fontSize: 10.sp, color: Colors.black),
                       ),
                       defaultTextFormField(
                           container: Colors.grey[100],
@@ -77,7 +77,7 @@ class ChangePassword extends StatelessWidget
                       ),
                       Text(
                         "كلمة المرور الجديدة",
-                        style: GoogleFonts.poppins(fontSize: 10.sp, color: Colors.black),
+                        style: GoogleFonts.almarai(fontSize: 10.sp, color: Colors.black),
                       ),
                       defaultTextFormField(
                           container: Colors.grey[100],
@@ -94,7 +94,7 @@ class ChangePassword extends StatelessWidget
                       ),
                       Text(
                         "تاكيد كلمة المرور",
-                        style: GoogleFonts.poppins(fontSize: 10.sp, color: Colors.black),
+                        style: GoogleFonts.almarai(fontSize: 10.sp, color: Colors.black),
                       ),
                       defaultTextFormField(
                           container: Colors.grey[100],
