@@ -195,12 +195,13 @@ class _HomeTabState extends State<HomeTab> {
                                   end: 3.w, top: 2.h),
                               child: InkWell(
                                   onTap: () async {
+                                    String uristr = "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
                                     Uri uri = Uri(
                                         scheme: "https",
                                         path:
                                             "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE");
-                                    if (await launchUrl(uri,
-                                        mode: LaunchMode.platformDefault)) {
+                                    if (await launchUrl( Uri.parse(uristr) )) {
+                                      log("SNap Done");
                                     } else {
                                       showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR);
                                     }
