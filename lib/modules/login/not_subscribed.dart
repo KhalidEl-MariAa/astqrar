@@ -8,7 +8,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/components/logo/normal_logo.dart';
-import '../home/4_more/5_account/cubit/cubit.dart';
 import '../packages/packages.dart';
 
 class NotSubscribedScreen extends StatefulWidget {

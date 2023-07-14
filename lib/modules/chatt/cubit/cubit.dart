@@ -6,7 +6,6 @@ import 'package:signalr_netcore/signalr_client.dart';
 import '../../../models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 import '../../../models/get-messages-model.dart';

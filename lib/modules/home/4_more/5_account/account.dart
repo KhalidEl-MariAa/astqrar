@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:astarar/shared/components/loading_gif.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';

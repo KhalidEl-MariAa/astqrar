@@ -107,8 +107,7 @@ class _AboutVersionState extends State<AboutVersion> {
                           
                           log("SAMI_CV : " + uri.toString());
 
-                          if (await launchUrl(uri,
-                              mode: LaunchMode.platformDefault)) {
+                          if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {
                           } else {
                             showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR);
                           }

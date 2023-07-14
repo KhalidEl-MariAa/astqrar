@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
@@ -87,8 +86,10 @@ class CustomDialog extends StatelessWidget {
                           path: "/${ADMIN_MOBILE_PHONE}",
                           query: "text=${text}");
 
-                      if (await launchUrl(uri,
-                          mode: LaunchMode.platformDefault)) {
+                      String uristr = "https://wa.me/${ADMIN_MOBILE_PHONE}";
+
+                      // if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {
+                      if (await launch( uristr )) {
                       } else {
                         showToast(
                             msg: 'Could not launch ${uri.toString()}',

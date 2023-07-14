@@ -200,7 +200,8 @@ class _HomeTabState extends State<HomeTab> {
                                         scheme: "https",
                                         path:
                                             "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE");
-                                    if (await launchUrl( Uri.parse(uristr) )) {
+                                    // if (await launchUrl( Uri.parse(uristr) )) {
+                                    if (await launch( uristr )) {
                                       log("SNap Done");
                                     } else {
                                       showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR);
