@@ -44,7 +44,8 @@ class _SplashState extends State<Splash> {
     LoadEveryThing();
   }
 
-  LoadEveryThing() async {
+  LoadEveryThing() async 
+  {
     await DioHelper.init();
 
     await CacheHelper.init();

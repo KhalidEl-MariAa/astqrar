@@ -155,7 +155,7 @@ class DioHelper
   static Future<Map?> fetchData(String baseurl, String url) async 
   {
 
-    log('================\n Try BaseURL: '+ baseurl + url);
+    log('================\nBaseURL: '+ baseurl + url);
     
     Dio dio1 = Dio(
         BaseOptions(
@@ -169,12 +169,12 @@ class DioHelper
     // Dio dio1 = Dio();
     try{
       Response response = await dio1.get(url);
-      log('Connection OK: ' + baseurl + url);
+      log('Connection OK ✅: ' + baseurl + url);
       // Process the response and return the data if successful
       return response.data;
     }catch( err){
-      log('Connection FAILED: ' + baseurl + url);
+      log('FAILED: ' + baseurl + url);
     }
-    return {};
+    return { };
   }
 }

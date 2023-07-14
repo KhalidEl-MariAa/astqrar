@@ -476,7 +476,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         defaultTextFormField(
                             context: context,
                             controller: jobNameController,
-                            type: TextInputType.number,
+                            type: TextInputType.text,
                             validate: (String? value) {
                               current_user.nameOfJob = value;
                               return null;

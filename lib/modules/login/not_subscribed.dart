@@ -29,23 +29,27 @@ class _NotSubscribedScreenState extends State<NotSubscribedScreen> {
               appbarTitle: "عميل غير مشترك",
               isBack: ifThereAreMoreWidgets(context),
             )),
-        body: Center(
+        body: 
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child:
+            Center(          
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Image(image: AssetImage("assets/Group 66606.png")),
+              const Image(image: AssetImage("assets/bride_groom.jpeg")),
               SizedBox(height: 2.h),
               Text(
-                "برجاء الاشتراك حتي تتمكن من المحادثة",
+                "أنت غير مشترك، قم بالاشتراك حتى تتمكن من استخدام جميع مميزات استقرار",
                 style: GoogleFonts.almarai(fontSize: 13.sp),
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 2.h,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: doubleInfinityMaterialButton(
+              
+              doubleInfinityMaterialButton(
                     text: "اشتراك",
                     onPressed: () {
                       Navigator.push(
@@ -53,7 +57,7 @@ class _NotSubscribedScreenState extends State<NotSubscribedScreen> {
                           MaterialPageRoute(
                               builder: (context) => const PackagesScreen()));
                     }),
-              ),
+              
               SizedBox(
                 height: 2.h,
               ),
@@ -92,6 +96,7 @@ class _NotSubscribedScreenState extends State<NotSubscribedScreen> {
               ),
             ],
           ),
+        ),
         ),
       ),
     );
