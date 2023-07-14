@@ -44,6 +44,7 @@ class ConversationScreenState extends State<ConversationScreen>
 
   late HubConnection hub;
   bool otherUserIsConnected = false;
+  bool IamConnected = false;
 
   static List<String> messages = [];
   static List<bool> messagesMine = [];
@@ -67,6 +68,7 @@ class ConversationScreenState extends State<ConversationScreen>
 
     await this.hub.start()?.then( (_) 
     {
+        this.IamConnected = true;
         log('connected  ✅ 🔗');
     }).catchError((e) {
         log('DISCONNECTED....... ❌   ');
@@ -138,7 +140,10 @@ class ConversationScreenState extends State<ConversationScreen>
         log(e.toString());
       });
 
-    // hub.onclose( ({error}) => log("HUB ERR: " + error.toString() ) );
+    hub.onclose( ({error}) {
+      log("HUB ERR: " + error.toString() );
+      setState(() { this.IamConnected = true; });
+    });
 
   }
 
@@ -149,14 +154,17 @@ class ConversationScreenState extends State<ConversationScreen>
 
     await this.hub
         .invoke('DisConnect', args: [ID!])
-        .then((value) => print("connected user success"))
+        .then((value) { } )
         .catchError((e) {
           log('Error while `DisConnect` .......');
           log(e.toString());
         });
 
     this.hub.stop()
-    .then((value) => log("HUB is CLOSED!"))
+    .then((value) {
+      this.IamConnected = false;
+      log("HUB is CLOSED!");
+    })
     .catchError((e) {
       log('Error while HUB closing .......');
       log(e.toString());
@@ -497,7 +505,7 @@ class ConversationScreenState extends State<ConversationScreen>
                   // زر الارسال  - Send
                   decoration: InputDecoration(
                       suffixIcon:
-                      ConditionalBuilder(
+                        ConditionalBuilder(
                         condition: state is SendMessageLoadingState,
                         builder: (context) => 
                           SizedBox(

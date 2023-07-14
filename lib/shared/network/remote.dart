@@ -21,16 +21,16 @@ class DioHelper
     if( IS_DEVELOPMENT_MODE)
     {
       //
-      host = "https://07ed-143-167-215-7.ngrok-free.app/";
-      data = await fetchData(host, "api/v2/ping");      
-      if(data!["status"] == true) return host;
-
       host = "https://10.0.2.2:7054/";
       data = await fetchData(host, "api/v2/ping");      
       if(data!["status"] == true) return host;
 
       host = "http://10.0.2.2:5109/";
       data = await fetchData(host, "api/v2/ping");
+      if(data!["status"] == true) return host;
+
+      host = "https://ea1d-143-167-215-7.ngrok-free.app/";
+      data = await fetchData(host, "api/v2/ping");      
       if(data!["status"] == true) return host;
     }
     

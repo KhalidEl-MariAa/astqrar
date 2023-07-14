@@ -397,6 +397,9 @@ class _HomeTabState extends State<HomeTab> {
                   },
                   child: Text("RECONNECT"),
                 ),
+                
+              if (IS_DEVELOPMENT_MODE)
+                Text(BASE_URL, style: TextStyle(fontSize: 12.sp),)
             ],
           ),
         ),
