@@ -47,7 +47,7 @@ class DioHelper
 
   static init() async
   {
-    
+
     BASE_URL = await find_the_baseUrl();
     log('Dio init() -------------------- ' + BASE_URL);
     
@@ -172,8 +172,9 @@ class DioHelper
       log('Connection OK ✅: ' + baseurl + url);
       // Process the response and return the data if successful
       return response.data;
-    }catch( err){
+    }catch( err ){      
       log('FAILED: ' + baseurl + url);
+      log(err.toString());
     }
     return { };
   }

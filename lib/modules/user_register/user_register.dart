@@ -135,7 +135,7 @@ class _UserRegisterState extends State<UserRegister> {
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 2.w),
                                   child: Text(
-                                    this.Gender[newUser.gender ?? 0],
+                                    this.Gender[(newUser.gender??1) - 1],
                                     textAlign: TextAlign.start,
                                     style: GoogleFonts.almarai(
                                         color: PRIMARY,

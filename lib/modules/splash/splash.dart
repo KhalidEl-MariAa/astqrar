@@ -38,7 +38,8 @@ class _SplashState extends State<Splash> {
   bool? isExpired = true;
 
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
 
     LoadEveryThing();

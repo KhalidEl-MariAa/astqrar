@@ -292,9 +292,9 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             type: TextInputType.number,
                             validate: (String? value) {
                               current_user.age =
-                                  int.parse(value == "" ? "0" : value ?? "0");
-                              return (value!.isEmpty)
-                                  ? "من فضلك ادخل العمر"
+                                  int.parse(value == "" ? "18" : value ?? "18");
+                              return (current_user.age < 18)
+                                  ? "من فضلك ادخل العمر، غير مسموح لمن هم أقل من 18 سنة"
                                   : null;
                             },
                             labelText: "العمر",
