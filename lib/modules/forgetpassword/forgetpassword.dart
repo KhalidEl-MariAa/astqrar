@@ -128,13 +128,16 @@ class ForgetPasswordScreen extends StatelessWidget {
 
 
                           log("ADMIN_MOBILE_PHONE : " + uri.toString());
+                          String uristr = "https://wa.me/${ADMIN_MOBILE_PHONE}";
                           
-                          if (await launchUrl(uri,
-                              mode: LaunchMode.platformDefault)) {
+                          
+                          // if (await launchUrl(  Uri.parse(uristr)  )) {
+                          if (await launch(  uristr  )) {
+                            log("WHASTAPP DONE ");
                           } else {
                             showToast(
-                                msg: 'Could not launch ${uri.toString()}',
-                                state: ToastStates.ERROR);
+                              msg: '-------------------------------------- ${uri.toString()}',
+                              state: ToastStates.ERROR);
                           }
                         }),
                   ],
