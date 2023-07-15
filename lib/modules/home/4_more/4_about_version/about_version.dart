@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/constants.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,6 +75,7 @@ class _AboutVersionState extends State<AboutVersion> {
                   _infoTile('Package name', _packageInfo.packageName),
                   _infoTile('App version', _packageInfo.version),
                   _infoTile('Build number', _packageInfo.buildNumber),
+                  _infoTile('Server', BASE_URL),
                   // _infoTile('Build signature', _packageInfo.buildSignature),
                   // _infoTile('Installer store', _packageInfo.installerStore ?? 'not available',),
                   _infoTile("برمجة وإعداد", "م/ سامي الفتني"),
