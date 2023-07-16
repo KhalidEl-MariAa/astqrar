@@ -57,6 +57,10 @@ flutter build apk
 # for AAB file
 flutter build appbundle
 ```
+4. upload Sybmols file. compress all folders in:
+```
+  astqrar/build/app/intermediates/merged_native_libs/release/out/lib
+```
 
 ## Deploy to IOS
 1. 
