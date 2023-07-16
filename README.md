@@ -47,12 +47,25 @@ flutter run -d ce10171a81158d3101
 ```
 
 
-## Deploy
-you can read this [article](https://docs.flutter.dev/deployment/android)
+## Deploy to Android
+1. you can read this [article](https://docs.flutter.dev/deployment/android)
+2. Make sure you are using same *.jks file (Upload Sining Key) that is already uploaded toe Google Play.
+3. *.jks file need a password to be read properly which can be found in `key.properties` file.
 ```
 flutter build apk
 
+# for AAB file
+flutter build appbundle
+```
+4. upload Sybmols file. compress all folders in:
+```
+  astqrar/build/app/intermediates/merged_native_libs/release/out/lib
 ```
 
+## Deploy to IOS
+1. 
+2. 
+```
+flutter build ios
 
-55555555
+```

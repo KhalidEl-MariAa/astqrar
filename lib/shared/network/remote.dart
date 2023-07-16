@@ -29,7 +29,7 @@ class DioHelper
       data = await fetchData(host, "api/v2/ping");
       if(data!["status"] == true) return host;
 
-      host = "https://ea1d-143-167-215-7.ngrok-free.app/";
+      host = "https://1615-143-167-215-7.ngrok-free.app/";
       data = await fetchData(host, "api/v2/ping");      
       if(data!["status"] == true) return host;
     }
