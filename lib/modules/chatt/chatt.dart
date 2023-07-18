@@ -8,7 +8,6 @@ import '../../models/get_information_user.dart';
 
 import '../../shared/components/components.dart';
 
-import '../../models/chatModel.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import '../../constants.dart';
@@ -50,7 +49,7 @@ class ConversationScreenState extends State<ConversationScreen>
   static List<bool> messagesMine = [];
   static List<String> senderIdList = [];
   static List<String> dateMessages = [];
-  static late ChatModel chat;
+  // static late ChatModel chat;
 
   @override
   void initState() {
