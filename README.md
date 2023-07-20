@@ -63,9 +63,49 @@ flutter build appbundle
 ```
 
 ## Deploy to IOS
-1. 
-2. 
+
+1. Make sure that `gem` installer is ready to use.
+2. Install Flutter 
+```bash
+# install cocoapods (building tool like Gradle)
+$ sudo gem install cocoapods
+
+# check installation 
+$ gem which cocoapods
 ```
-flutter build ios
+3. Edit project configurations using XCode
+
+4. build API package
+```bash
+$ flutter build api
+```
+5. Upload using Transporter, this app can be found in apple store.
+
+## Configure Firebase for (Notifications)
+1. Make sure `npm` is ready to use
+2. Create a Firebase Project from Google Firebase Console.
+```bash
+# install Firebase CLI
+$ npm install -g firebase-tools
+
+# check ...
+$ firebase --version
+
+# login to your Gmail account that contains the Firebase project and authorize it.
+$ firebase login
+
+$ cd Downloads/Dating/astqrar/
+
+# Add or Update the flutter package 
+$ flutter pub add firebase_core
+
+# Install flutterfire_cli 
+$  dart pub global activate flutterfire_cli
+
+# Add it to PATH
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+# This will creates the 'firebase_options.dart' in your Flutter project
+$ flutterfire configure
 
 ```

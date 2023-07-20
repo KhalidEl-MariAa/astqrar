@@ -102,7 +102,8 @@ class _AboutVersionState extends State<AboutVersion> {
                     textDirection: TextDirection.ltr,
                     child: ListTile(
                       title: InkWell(
-                        onTap: () async {
+                        onTap: () async 
+                        {
                           Uri uri = Uri(
                               scheme: "https",
                               path: "//samialfattani.github.io");

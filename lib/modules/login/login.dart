@@ -94,9 +94,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 4.5.h,
                       ),
+
                       const HeaderLogo(),
+                      
                       SizedBox(
-                        height: 7.h,
+                        height: 3.h,
                       ),
                       defaultTextFormField(
                           context: context,
@@ -112,9 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           labelText: "رقم الهوية",
                           label: "الرجاء ادخال رقم الهوية",
                           prefixIcon: Icons.email_outlined),
-                      SizedBox(
-                        height: 3.5.h,
-                      ),
+                      
+                      SizedBox(height: 2.h,),
+                      
                       defaultTextFormField(
                           context: context,
                           controller: passwordController,
@@ -161,9 +163,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 1.5.h,
-                      ),
+                      
+                      SizedBox(height: 2.5.h,),
+                      
                       ConditionalBuilder(
                         condition: state is! ShopLoginLoadingState,
                         fallback: (context) => Center(

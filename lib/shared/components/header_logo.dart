@@ -9,10 +9,10 @@ class HeaderLogo extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 1.h,horizontal: 15.w),
+      margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 15.w),
       child: Image(
-        height: 22.h,
-        width: 63.w,
+        // height: 22.h,
+        width: 53.w,
         image: const AssetImage("assets/logo.png"),
         fit: BoxFit.contain,
       ),
