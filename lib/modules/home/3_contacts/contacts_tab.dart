@@ -82,7 +82,7 @@ class _ContactsTabState extends State<ContactsTab>
                                 style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
                               ),
                               
-                              Icon(Icons.arrow_forward_rounded, color: Colors.red,),
+                              Icon(Icons.arrow_forward_rounded, color: PRIMARY,),
                             ],
                           ),
 

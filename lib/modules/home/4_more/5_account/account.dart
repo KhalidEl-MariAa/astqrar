@@ -39,7 +39,8 @@ class AccountScreen extends StatelessWidget {
                     appbarTitle: "حالة الحساب",
                     isBack: true,
                   )),
-              body: ConditionalBuilder(
+              body: 
+              ConditionalBuilder(
                 condition: state is AccountLoading,
                 builder: (context) => LoadingGif(),
                 fallback: (context) => ListView(

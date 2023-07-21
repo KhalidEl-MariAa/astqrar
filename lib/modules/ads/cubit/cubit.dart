@@ -35,7 +35,8 @@ class AdsCubit extends Cubit<AdsStates>
   //add ads
   late ServerResponse addAdsModel;
 
-  addAds({required int adId}) {
+  addAds({required int adId}) 
+  {
     emit(AddAdsLoadingState());
     DioHelper.postDataWithBearearToken(
             url: ADDADS,

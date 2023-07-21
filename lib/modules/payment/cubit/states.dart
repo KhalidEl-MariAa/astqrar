@@ -48,12 +48,3 @@ class ActivateErrorState extends PaymentStates {
 }
 
 
-class SendNotificationToAllLoadingState extends PaymentStates{}
-
-class SendNotificationToAllSuccessState extends PaymentStates{}
-
-class SendNotificationToAllErrorState extends PaymentStates{
-   String error;
-  SendNotificationToAllErrorState(this.error);
-}
-

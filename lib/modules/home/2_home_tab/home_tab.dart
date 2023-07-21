@@ -34,9 +34,11 @@ class HomeTab extends StatefulWidget {
   _HomeTabState createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> {
+class _HomeTabState extends State<HomeTab> 
+{
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
     NotiticationWidget(context).init();
     if (Platform.isIOS) {
@@ -45,9 +47,9 @@ class _HomeTabState extends State<HomeTab> {
 
     NotiticationWidget(context);
 
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) {
+    FirebaseMessaging.instance.getInitialMessage()
+    .then((RemoteMessage? message) 
+    {
       if (message != null) {
         log("empty");
       }
@@ -304,10 +306,8 @@ class _HomeTabState extends State<HomeTab> {
                 fallback: (context) {
                   // log(LayoutCubit.Countries.toString());
                   if (HomeCubit.get(context)
-                          .getAllAdsWithUsersModel
-                          .data
-                          .length >
-                      0) {
+                          .getAllAdsWithUsersModel.data.length > 0 ) 
+                  {
                     return SliderAds();
                   } else {
                     return EmptySlider();

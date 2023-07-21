@@ -135,27 +135,5 @@ class PaymentCubit extends Cubit<PaymentStates> {
   }
 
 
-  sendNotificationToAll({required String body})
-  {
-    emit(SendNotificationToAllLoadingState());
-    DioHelper.postDataWithBearearToken(
-      url: SENDNOTIFICATIONTOALL,
-      data:{
-        "projectName": APP_NAME,
-        "deviceType":"android",
-        "notificationType":3,
-        "body":body,
-        "title":" "
-      },
-      token: TOKEN.toString())
-    .then((value) {
-          print(value.toString());
-          emit(SendNotificationToAllSuccessState());
-    }).catchError((error){
-          print(error.toString());
-          emit(SendNotificationToAllErrorState(error.toString()));
-    });
-  }
-
 
 }
