@@ -3,10 +3,13 @@ import 'dart:developer';
 import 'package:astarar/models/server_response_model.dart';
 import 'package:astarar/modules/login/not_subscribed.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../end_points.dart';
 import 'cubit/splash_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../../firebase_options.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,20 +25,31 @@ import '../home/layout/cubit/cubit.dart';
 import '../home/layout/layout.dart';
 import '../login/login.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  if (kDebugMode) {
-    log("Handling a background message: ${message.notification?.body}");
-  }
-}
 
 class Splash extends StatefulWidget {
   @override
   _SplashState createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> {
-  bool? isExpired = true;
+class _SplashState extends State<Splash> 
+{
+  bool? loginStatus = true;
+  
+  String loading_desc = "";
+  PackageInfo? info;
+
+  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async 
+  {
+      // await Firebase.initializeApp();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      if (kDebugMode) {
+        // log("Handling a background message: ${message.notification?.body}");
+        log("Handling a background message: ");
+      }
+  }
 
   @override
   void initState() 
@@ -47,8 +61,13 @@ class _SplashState extends State<Splash> {
 
   LoadEveryThing() async 
   {
+    setState(() { loading_desc = "Getting device information..."; });
+    this.info = await PackageInfo.fromPlatform();
+
+    setState(() { loading_desc = "Connecting to server..."; });
     await DioHelper.init();
 
+    setState(() { loading_desc = "Collecting cache data..."; });
     await CacheHelper.init();
 
     TOKEN = CacheHelper.getData(key: "token");
@@ -61,11 +80,28 @@ class _SplashState extends State<Splash> {
     PHONE = CacheHelper.getData(key: "phone");
     IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
 
-    await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    //await Firebase.initializeApp();
 
+    setState(() { loading_desc = "Connecting to notification provider..."; });
+
+    // لا تعمل بشكل جيد ومش عارف السبب
+    // try {
+    //   FirebaseMessaging.onBackgroundMessage( _firebaseMessagingBackgroundHandler );
+    // } catch (err) { 
+    //   /* do nothing */
+    // }   
+
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    //---------------
+
+    setState(() { loading_desc = "Checking login status..."; });
     if (IS_LOGIN) {
-      await checkuserIsExpired();
+      await checkUserLoginStatus();
       updateLastLogin();
     }
 
@@ -85,7 +121,7 @@ class _SplashState extends State<Splash> {
     }
 
     if (IS_LOGIN == true) {
-      if (this.isExpired == false) {
+      if (this.loginStatus == true) {
         //  || IS_DEVELOPMENT_MODE
         Navigator.pushAndRemoveUntil(
           context,
@@ -94,14 +130,14 @@ class _SplashState extends State<Splash> {
                   MyUpgrader(context: context, child: const LayoutScreen())),
           (route) => false,
         );
-      } else if (this.isExpired == true) {
+      } else if (this.loginStatus == false) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const NotSubscribedScreen()),
           (route) => false,
         );
-        showToast(msg: "انتهت صلاحية الباقة لديك", state: ToastStates.WARNING);
-      } else if (this.isExpired == null) {
+        showToast(msg: "غير مسموح لك بالدخول، راجع حالة الحساب", state: ToastStates.WARNING);
+      } else if (this.loginStatus == null) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -116,16 +152,16 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  Future checkuserIsExpired() async 
+  Future checkUserLoginStatus() async 
   {
     var value = await DioHelper.postDataWithBearearToken(
-        url: CHECKUSERISEXPIRED, 
+        url: CHECKUSERLOGINSTATUS, 
         token: TOKEN.toString(), 
         data: {"userId": ID}
     );
 
-    this.isExpired = value.data['isExpired'];
-    log("Is_Expired :" + this.isExpired.toString());
+    this.loginStatus = value.data['status'];
+    log("LOGIN STATUS :" + this.loginStatus.toString());
   }
 
   Future updateLastLogin() async {
@@ -149,9 +185,8 @@ class _SplashState extends State<Splash> {
       listener: (context, state) {
         if (state is SplashLoading) {}
       },
-      builder: (context, state) => Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
+      builder: (context, state) => 
+        Scaffold(
           backgroundColor: BG_DARK_COLOR,
           body: Container(
             height: MediaQuery.of(context).size.height,
@@ -164,31 +199,55 @@ class _SplashState extends State<Splash> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Image.asset(
-                      "assets/logo.png",
-                      width: 300,
-                    ),
+                    SizedBox( height: 15.h, ),
+                    Image.asset( "assets/logo.png", width: 300,),
+                    
                     SizedBox(height: 5.h),
+                    
                     Image.asset("assets/quraan1.png", height: 6.h),
                     SizedBox(height: 5.h),
-                    Text(
-                      "برمجة م/سامي الفتني",
-                      style: GoogleFonts.almarai(
-                          color: WHITE,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.bold),
+                    
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: 
+                        Text(
+                          "برمجة م/سامي الفتني",
+                          style: GoogleFonts.almarai(
+                              color: WHITE,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold),
+                        ),
                     ),
+                    
+                    SizedBox(height: 5.h),
+                    Text(
+                      this.info == null? 
+                      ""
+                      :
+                      "version: ${this.info?.version}+${this.info?.buildNumber} ",
+                      style: GoogleFonts.courierPrime(
+                          color: WHITE,
+                          fontSize: 9.sp,),
+                    ),
+
                     const Spacer(),
+                    Text(
+                      this.loading_desc,
+                      style: GoogleFonts.courierPrime(
+                          color: WHITE,
+                          fontSize: 9.sp,
+                          ),
+                    ),
+
+                    SizedBox(height: 2.h),
+
                   ],
                 ),
               ),
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

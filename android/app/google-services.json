@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "313198128647",
-    "project_id": "astqrar-75945",
-    "storage_bucket": "astqrar-75945.appspot.com"
+    "project_number": "833092320678",
+    "project_id": "astqrar63",
+    "storage_bucket": "astqrar63.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:313198128647:android:2b216c0b93f5e307e2c4a2",
+        "mobilesdk_app_id": "1:833092320678:android:acbec633581f3005666367",
         "android_client_info": {
           "package_name": "com.astqrar.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "313198128647-lh52g4gemgn92pa0m9bqgbu138pospai.apps.googleusercontent.com",
+          "client_id": "833092320678-n32h8tj81drmpq9gam3pmd6i5aodkatu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAazIs_vf9BjfXHqmO5QvZQxOcntvGCwoU"
+          "current_key": "AIzaSyBGeLt0NFhPtUuPN1nQY6ACMpv7uejwMaE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "313198128647-lh52g4gemgn92pa0m9bqgbu138pospai.apps.googleusercontent.com",
+              "client_id": "833092320678-n32h8tj81drmpq9gam3pmd6i5aodkatu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

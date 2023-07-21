@@ -51,7 +51,7 @@ const ADDADS="api/v1/AddUserAds";
 
 const LOGOUT="api/v1/logout";
 
-const CHECKUSERISEXPIRED="api/v1/CheckUserIsExpired";
+const CHECKUSERLOGINSTATUS="api/v1/CheckUserLoginStatus";
 
 const UPDATELASTLOGIN="api/v1/UpdateLastLogin";
 

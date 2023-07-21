@@ -38,7 +38,6 @@ void main()
 
   HttpOverrides.global = MyHttpOverrides();
 
-  WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = MyBlocObserver();
   
