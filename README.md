@@ -106,6 +106,16 @@ $  dart pub global activate flutterfire_cli
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # This will creates the 'firebase_options.dart' in your Flutter project
-$ flutterfire configure
+$ flutterfire configure --project=astqrar-b5dbd
+```
+
+6. in flutter initialize the firebase object like this
+```dart
+WidgetsFlutterBinding.ensureInitialized();
+
+await Firebase.initializeApp(
+  name: "astqrar", //project name in Firebase Console
+  options: DefaultFirebaseOptions.currentPlatform,
+);
 
 ```

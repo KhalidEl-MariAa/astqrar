@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBGeLt0NFhPtUuPN1nQY6ACMpv7uejwMaE',
-    appId: '1:833092320678:android:acbec633581f3005666367',
-    messagingSenderId: '833092320678',
-    projectId: 'astqrar63',
-    storageBucket: 'astqrar63.appspot.com',
+    apiKey: 'AIzaSyAmhPRTs7REVuR2FwZVTS-vpRM9LLmZS1Q',
+    appId: '1:830229323701:android:0d8aeb2c532fd3f703c3fc',
+    messagingSenderId: '830229323701',
+    projectId: 'astqrar-b5dbd',
+    storageBucket: 'astqrar-b5dbd.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDO1MUhzW04Bf8Nk2xLwlT5dbL2FN8S1rY',
-    appId: '1:833092320678:ios:89953ff023224f56666367',
-    messagingSenderId: '833092320678',
-    projectId: 'astqrar63',
-    storageBucket: 'astqrar63.appspot.com',
-    iosClientId: '833092320678-26udvscdhnmisiuue4mpr0rnq7f3m8ab.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDT4T4FrGcYk4Odq6zKG_vTktyr2RVP1PA',
+    appId: '1:830229323701:ios:cfc5e64a66cd579703c3fc',
+    messagingSenderId: '830229323701',
+    projectId: 'astqrar-b5dbd',
+    storageBucket: 'astqrar-b5dbd.appspot.com',
+    iosClientId: '830229323701-0c9tmfgh423agdpqfuakmoh367447po5.apps.googleusercontent.com',
     iosBundleId: 'sa.aait.aspbranch.marriage',
   );
 }

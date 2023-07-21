@@ -94,6 +94,7 @@ class _SplashState extends State<Splash>
     WidgetsFlutterBinding.ensureInitialized();
 
     await Firebase.initializeApp(
+      name: "astqrar", //project name in Firebase Console
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
