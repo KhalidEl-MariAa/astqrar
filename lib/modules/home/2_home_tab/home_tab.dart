@@ -61,7 +61,8 @@ class _HomeTabState extends State<HomeTab>
       sound: true,
     );
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) 
+    {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       //foreground

@@ -42,6 +42,7 @@ class _SplashState extends State<Splash>
   {
       // await Firebase.initializeApp();
       await Firebase.initializeApp(
+        name: "astqrar65", //project name in Firebase Console
         options: DefaultFirebaseOptions.currentPlatform,
       );
 
@@ -94,7 +95,7 @@ class _SplashState extends State<Splash>
     WidgetsFlutterBinding.ensureInitialized();
 
     await Firebase.initializeApp(
-      name: "astqrar", //project name in Firebase Console
+      name: "astqrar65", //project name in Firebase Console
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
