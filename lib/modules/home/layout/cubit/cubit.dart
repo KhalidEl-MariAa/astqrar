@@ -71,11 +71,15 @@ class LayoutCubit extends Cubit<LayoutStates> {
     return _specifications;
   }
 
-  void getPhone() {
-    DioHelper.postData(url: GET_PHONE_NUMBER, data: {}).then((value) {
+  void getPhone() 
+  {
+    DioHelper.postData(
+      url: GET_PHONE_NUMBER, 
+      data: {})
+    .then((value) {
       // log(value.toString());
       MOBILE_PHONE = value.data['mobilePhone'];
-      log("phonee" + MOBILE_PHONE.toString());
+      log("phoneeeee : " + MOBILE_PHONE.toString());
       emit(GetPhoneSuccessState());
     }).catchError((error) {
       // log(error.toString());

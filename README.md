@@ -77,7 +77,7 @@ $ gem which cocoapods
 
 4. build API package
 ```bash
-$ flutter build api
+$ flutter build ipa
 ```
 5. Upload using Transporter, this app can be found in apple store.
 

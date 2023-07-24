@@ -38,12 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
   {
     super.initState();
     
-    FirebaseMessaging.instance.getToken()
-    .then((value) {
-      DEVICE_TOKEN = value;
-      CacheHelper.sharedpreferneces.setString("deviceToken", DEVICE_TOKEN!);
-      log("Device TOKEN" + "  " + value.toString());
-    });
   }
 
   @override

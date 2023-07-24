@@ -9,23 +9,27 @@ class NotiticationWidget
 
   NotiticationWidget(this.context1);
 
-  Future init({bool scheduled = false}) async {
+  Future init({bool scheduled = false}) async 
+  {
     var initAndroidSettings =
     const AndroidInitializationSettings('drawable/icon');
+
     var ios = IOSInitializationSettings(
-        requestSoundPermission: false,
-        requestBadgePermission: false,
-        requestAlertPermission: false,
+        requestSoundPermission: true,
+        requestBadgePermission: true,
+        requestAlertPermission: true,
         onDidReceiveLocalNotification: onDidReceiveLocalNotification
     );
     var settings =
     InitializationSettings(android: initAndroidSettings, iOS: ios);
+   
     await _notification.initialize(settings,
 
         onSelectNotification: (String? payload) {
           onSelectFunction(payload, context1);
         });
   }
+  
 
   Future onDidReceiveLocalNotification(int id, String? title, String? body,
       String? payload) async {
@@ -38,7 +42,8 @@ class NotiticationWidget
     if (payload == "order") {} else {}
   }
 
-  void requestIOSPermissions() {
+  void requestIOSPermissions() 
+  {
     FlutterLocalNotificationsPlugin()
         .resolvePlatformSpecificImplementation<
         IOSFlutterLocalNotificationsPlugin>()
@@ -51,10 +56,13 @@ class NotiticationWidget
 
   static Future showNotification(int hashCode,
       {var id = 0, var title, var body, var payload}) async =>
-      _notification.show(id, title, body, await notificationDetails(),
-          payload: payload);
+      _notification.show(
+        id, title, body, 
+        await notificationDetails(),
+        payload: payload);
 
-  static notificationDetails() async {
+  static notificationDetails() async 
+  {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
         "high_importance_channel111",

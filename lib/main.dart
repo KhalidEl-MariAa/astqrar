@@ -1,6 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
+import 'firebase_options.dart';
 import 'modules/splash/cubit/splash_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,15 +36,17 @@ class MyHttpOverrides extends HttpOverrides
   }
 }
 
-void main()  
+
+
+
+
+void main()  async
 {
   IS_DEVELOPMENT_MODE = !kReleaseMode; 
 
   HttpOverrides.global = MyHttpOverrides();
 
-
   Bloc.observer = MyBlocObserver();
-  
 
   runApp(const MyApp());
 }
@@ -114,3 +120,4 @@ class MyApp extends StatelessWidget
     );
   }
 }
+

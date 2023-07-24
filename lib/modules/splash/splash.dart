@@ -38,19 +38,6 @@ class _SplashState extends State<Splash>
   String loading_desc = "";
   PackageInfo? info;
 
-  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async 
-  {
-      // await Firebase.initializeApp();
-      await Firebase.initializeApp(
-        name: "astqrar65", //project name in Firebase Console
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-
-      if (kDebugMode) {
-        // log("Handling a background message: ${message.notification?.body}");
-        log("Handling a background message: ");
-      }
-  }
 
   @override
   void initState() 
@@ -81,23 +68,19 @@ class _SplashState extends State<Splash>
     PHONE = CacheHelper.getData(key: "phone");
     IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
 
-    //await Firebase.initializeApp();
-
-    setState(() { loading_desc = "Connecting to notification provider..."; });
-
-    // لا تعمل بشكل جيد ومش عارف السبب
-    // try {
-    //   FirebaseMessaging.onBackgroundMessage( _firebaseMessagingBackgroundHandler );
-    // } catch (err) { 
-    //   /* do nothing */
-    // }   
+    setState(() { loading_desc = "Connecting to Firebase Messaging..."; });
 
     WidgetsFlutterBinding.ensureInitialized();
 
     await Firebase.initializeApp(
-      name: "astqrar65", //project name in Firebase Console
+      // name: // DON'T USE IT WITH DEFAULT OPTIONS
       options: DefaultFirebaseOptions.currentPlatform,
-    );
+    ).then((value){
+      log('Firebase initialize ${value.toString()}' );
+    })
+    .whenComplete(() {
+      log('completed .........................................');
+    });
 
     //---------------
 
@@ -108,10 +91,11 @@ class _SplashState extends State<Splash>
     }
 
     context.read<LayoutCubit>().loadCountries();
-    chckLoginStatusAndRoute();
+    RouteBasedOnLoginStatus();
   }
 
-  void chckLoginStatusAndRoute() {
+  void RouteBasedOnLoginStatus()
+  {
     if (IS_LOGIN == false) {
       Navigator.pushAndRemoveUntil(
         context,
@@ -122,7 +106,8 @@ class _SplashState extends State<Splash>
       );
     }
 
-    if (IS_LOGIN == true) {
+    if (IS_LOGIN == true) 
+    {
       if (this.loginStatus == true) {
         //  || IS_DEVELOPMENT_MODE
         Navigator.pushAndRemoveUntil(
@@ -139,6 +124,7 @@ class _SplashState extends State<Splash>
           (route) => false,
         );
         showToast(msg: "غير مسموح لك بالدخول، راجع حالة الحساب", state: ToastStates.WARNING);
+
       } else if (this.loginStatus == null) {
         Navigator.pushAndRemoveUntil(
           context,

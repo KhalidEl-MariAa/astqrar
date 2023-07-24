@@ -12,19 +12,19 @@ Widget MyUpgrader({
     return Directionality(
       textDirection: TextDirection.rtl, 
       child:     
-      UpgradeAlert
-      (
-          upgrader: 
-            Upgrader(
-              messages: UpgraderMessages(code: 'ar'),
-              languageCode:"ar",
-              minAppVersion: "2.1.1",
-              canDismissDialog: true,
-              durationUntilAlertAgain: const Duration(days: 7),
-              dialogStyle:  Platform.isIOS? UpgradeDialogStyle.cupertino : UpgradeDialogStyle.material
-            ),
-          child: child,
-      )
+        UpgradeAlert
+        (
+            upgrader: 
+              Upgrader(
+                messages: UpgraderMessages(code: 'ar'),
+                languageCode:"ar",
+                minAppVersion: "5.1.1",
+                canDismissDialog: true,
+                durationUntilAlertAgain: const Duration(days: 7),
+                dialogStyle:  Platform.isIOS? UpgradeDialogStyle.cupertino : UpgradeDialogStyle.material
+              ),
+            child: child,
+        )
 
     );
 }

@@ -18,7 +18,8 @@ class LayoutScreen extends StatefulWidget {
   _LayoutScreenState createState() => _LayoutScreenState();
 }
 
-class _LayoutScreenState extends State<LayoutScreen> {
+class _LayoutScreenState extends State<LayoutScreen> 
+{
   int _selectedTab = 2;
 
   List widgetList = [

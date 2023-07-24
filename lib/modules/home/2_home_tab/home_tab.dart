@@ -21,13 +21,15 @@ import '../../login/login.dart';
 import '../../search/result.dart';
 import '../../section_men_women/cubit/cubit.dart';
 import '../../section_men_women/section_men_women.dart';
+import '../../splash/cubit/splash_cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'widgets/big_button.dart';
 import 'widgets/empty_slider.dart';
 import 'widgets/slider_ads.dart';
 
-class HomeTab extends StatefulWidget {
+class HomeTab extends StatefulWidget 
+{
   const HomeTab({Key? key}) : super(key: key);
 
   @override
@@ -40,29 +42,22 @@ class _HomeTabState extends State<HomeTab>
   void initState() 
   {
     super.initState();
+
     NotiticationWidget(context).init();
+
     if (Platform.isIOS) {
       NotiticationWidget(context).requestIOSPermissions();
     }
 
     NotiticationWidget(context);
 
-    FirebaseMessaging.instance.getInitialMessage()
-    .then((RemoteMessage? message) 
-    {
-      if (message != null) {
-        log("empty");
-      }
-    });
+    SplashCubit.Firebase_init();
 
-    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) 
+    FirebaseMessaging.onMessage
+    .listen((RemoteMessage message) 
     {
+      log('Message Arrived !!!!!!!!!');
+      
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       //foreground
@@ -76,19 +71,7 @@ class _HomeTabState extends State<HomeTab>
       }
     });
 
-    // background State
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      if (event.data["screen"] == "cart") {
-      } else {}
-    });
 
-    //terminal
-    FirebaseMessaging.instance.getInitialMessage().then((event) {
-      if (event != null) {
-        if (event.data["screen"] == "cart") {
-        } else {}
-      }
-    });
   }
 
   @override
