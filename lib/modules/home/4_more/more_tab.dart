@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:astarar/modules/home/4_more/5_account/account.dart';
 
 import '4_about_version/about_version.dart';
@@ -270,7 +272,11 @@ class _MoreTabState extends State<MoreTab> {
                           SizedBox( height: 3.h, ),
                           InkWell(
                               onTap: () {
-                                Share.share('https://play.google.com/store/apps/details?id=com.astqrar.com');
+                                if(Platform.isIOS ){
+                                  Share.share('https://apps.apple.com/iq/app/golden-cage/id1593169684?l=ar');                                  
+                                }else{                                  
+                                  Share.share('https://play.google.com/store/apps/details?id=com.astqrar.com');
+                                }
                               },
                               child: DefaultRaw(
                                   image: "assets/sharing.png",
