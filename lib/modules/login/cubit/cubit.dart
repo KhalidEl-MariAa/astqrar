@@ -30,9 +30,10 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
 
   //to login user
   Future UserLogin(
-      {required String nationalId, required String password}) async {
+      {required String nationalId, required String password}) async 
+  {
+    
     emit(ShopLoginLoadingState());
-
 
     await DioHelper.postData(
       url: LOGIN, 

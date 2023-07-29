@@ -74,7 +74,6 @@ class ConversationCubit extends Cubit<ConversationStates>
     .then( (value) 
     {
       log(value.toString());
-      log("sent ttttttttttt ggggg");
 
       if (value==null){
           emit(SendMessageErrorState("حصلت مشكلة اثناء الارسال"));  

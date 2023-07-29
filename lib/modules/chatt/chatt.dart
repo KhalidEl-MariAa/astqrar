@@ -70,6 +70,7 @@ class ConversationScreenState extends State<ConversationScreen>
         this.IamConnected = true;
         log('connected  ✅ 🔗');
     }).catchError((e) {
+        this.IamConnected = false;
         log('DISCONNECTED....... ❌   ');
         log(e.toString());
     });
@@ -123,7 +124,6 @@ class ConversationScreenState extends State<ConversationScreen>
     this.hub
       .invoke('Connect', args: [ID!])
       .then( (args) {
-        print("connected user success");
         log("Connect Repley: " + args.toString() );
 
         String str = jsonEncode( args );
@@ -135,13 +135,14 @@ class ConversationScreenState extends State<ConversationScreen>
 
       })
       .catchError((e) {
-        log('USER is DISCONNECTED.......');
+        log('Error while adding to connected list .......');
         log(e.toString());
       });
 
-    hub.onclose( ({error}) {
-      log("HUB ERR: " + error.toString() );
-      setState(() { this.IamConnected = true; });
+    this.hub
+      .onclose( ({error}) {
+        log("HUB IS CLOSED: " + error.toString() );
+        setState(() { this.IamConnected = true; });
     });
 
   }
@@ -150,19 +151,23 @@ class ConversationScreenState extends State<ConversationScreen>
   void dispose() async
   {
     super.dispose();
+    
 
     await this.hub
         .invoke('DisConnect', args: [ID!])
-        .then((value) { } )
+        .then((value) 
+        { 
+          log("User is removed from Connected list: " + value.toString());
+        })
         .catchError((e) {
-          log('Error while `DisConnect` .......');
+          log('Error while `DisConnect` function .......');
           log(e.toString());
         });
 
-    this.hub.stop()
+    await this.hub.stop()
     .then((value) {
       this.IamConnected = false;
-      log("HUB is CLOSED!");
+      log("HUB is STOPPED!");
     })
     .catchError((e) {
       log('Error while HUB closing .......');
