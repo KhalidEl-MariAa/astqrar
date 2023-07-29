@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:astarar/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +10,6 @@ import 'package:signalr_netcore/hub_connection_builder.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../notification.dart';
 import '../../../shared/components/loading_gif.dart';
 import '../../../constants.dart';
 import '../../../shared/network/remote.dart';
@@ -21,7 +19,6 @@ import '../../login/login.dart';
 import '../../search/result.dart';
 import '../../section_men_women/cubit/cubit.dart';
 import '../../section_men_women/section_men_women.dart';
-import '../../splash/cubit/splash_cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'widgets/big_button.dart';
@@ -42,36 +39,6 @@ class _HomeTabState extends State<HomeTab>
   void initState() 
   {
     super.initState();
-
-    NotiticationWidget(context).init();
-
-    if (Platform.isIOS) {
-      NotiticationWidget(context).requestIOSPermissions();
-    }
-
-    NotiticationWidget(context);
-
-    SplashCubit.Firebase_init();
-
-    FirebaseMessaging.onMessage
-    .listen((RemoteMessage message) 
-    {
-      log('Message Arrived !!!!!!!!!');
-      
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      //foreground
-      if (notification != null && android != null) {
-        NotiticationWidget.showNotification(
-          notification.hashCode,
-          payload: message.data['screen'],
-          title: notification.title,
-          body: notification.body,
-        );
-      }
-    });
-
-
   }
 
   @override

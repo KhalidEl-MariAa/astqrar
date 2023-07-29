@@ -1,10 +1,16 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../notification.dart';
 import '../../../shared/components/dialog_please_login.dart';
 import '../../../constants.dart';
 import '../../../shared/styles/colors.dart';
+import '../../splash/cubit/splash_cubit.dart';
 import '../0_favourites/favourites_tab.dart';
 import '../1_notifications/notifications_tab.dart';
 import '../2_home_tab/home_tab.dart';
@@ -31,8 +37,36 @@ class _LayoutScreenState extends State<LayoutScreen>
   ];
 
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
+
+    NotiticationWidget(context).init();
+
+    SplashCubit.Firebase_init();
+
+    if (Platform.isIOS) {
+      NotiticationWidget(context).requestIOSLocalNotificationsPermissions();
+    }
+
+    FirebaseMessaging.onMessage
+    .listen((RemoteMessage message) 
+    {
+      log('Notification Arrived !!!!!!!!!');
+      
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      //foreground
+      if (notification != null && android != null) {
+        NotiticationWidget.showNotification(
+          notification.hashCode,
+          payload: message.data['screen'],
+          title: notification.title,
+          body: notification.body,
+        );
+      }
+    });
+
   }
 
   @override

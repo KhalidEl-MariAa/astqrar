@@ -5,10 +5,8 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
-import '../../../main.dart';
 import '../../../constants.dart';
 import '../../../firebase_options.dart';
-import '../../../notification.dart';
 import '../../../shared/network/local.dart';
 
 part 'splash_state.dart';
@@ -35,9 +33,6 @@ class SplashCubit extends Cubit<SplashState>
 
   static Future Firebase_init() async
   {
-
-
-
     //FirebaseMessaging.instance.subscribeToTopic("all"); 
 
     // لا تعمل بشكل جيد ومش عارف السبب
@@ -61,26 +56,27 @@ class SplashCubit extends Cubit<SplashState>
       print('User granted permission');
     } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
       print('User granted provisional permission');
+    } else if (settings.authorizationStatus == AuthorizationStatus.notDetermined) {
+      print('User Permission status is NOT Determined!');
     } else {
       print('User declined or has not accepted permission');
     }
-
 
     FirebaseMessaging.instance.getToken()
     .then((value) {
       DEVICE_TOKEN = value;
       CacheHelper.sharedpreferneces.setString("deviceToken", DEVICE_TOKEN!);
-      log("\n\nDevice TOKEN" + "  " + value.toString());
+      log("\n\n DEVICE_TOKEN" + "  " + value.toString());
     })
     .catchError( (err) {
-      log(err.toString());
+      log("DEVICE_TOKEN ERR: " + err.toString());
     });
 
     FirebaseMessaging.instance.getInitialMessage()
     .then((RemoteMessage? message) 
     {
       if (message != null) {
-        log("empty");
+        log("Initial Message: " + message.toString() );
       }
     });
 
@@ -107,7 +103,7 @@ class SplashCubit extends Cubit<SplashState>
       }
     });
 
-  }
+  } 
 
 
 

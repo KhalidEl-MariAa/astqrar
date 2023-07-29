@@ -6,12 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../end_points.dart';
+import '../../notification.dart';
 import 'cubit/splash_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../../firebase_options.dart';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -59,6 +58,7 @@ class _SplashState extends State<Splash>
     await CacheHelper.init();
 
     TOKEN = CacheHelper.getData(key: "token");
+    DEVICE_TOKEN = CacheHelper.getData(key: "deviceToken");
     TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
     ID = CacheHelper.getData(key: "id");
     NAME = CacheHelper.getData(key: "name");
@@ -73,7 +73,7 @@ class _SplashState extends State<Splash>
     WidgetsFlutterBinding.ensureInitialized();
 
     await Firebase.initializeApp(
-      // name: // DON'T USE IT WITH DEFAULT OPTIONS
+      // name: /* DON'T USE IT WITH DEFAULT OPTIONS */
       options: DefaultFirebaseOptions.currentPlatform,
     ).then((value){
       log('Firebase initialize ${value.toString()}' );
@@ -81,6 +81,9 @@ class _SplashState extends State<Splash>
     .whenComplete(() {
       log('completed .........................................');
     });
+
+    NotiticationWidget(context).init();
+    SplashCubit.Firebase_init();
 
     //---------------
 

@@ -20,33 +20,36 @@ class NotiticationWidget
         requestAlertPermission: true,
         onDidReceiveLocalNotification: onDidReceiveLocalNotification
     );
-    var settings =
-    InitializationSettings(android: initAndroidSettings, iOS: ios);
-   
-    await _notification.initialize(settings,
 
-        onSelectNotification: (String? payload) {
-          onSelectFunction(payload, context1);
-        });
+    var settings = InitializationSettings(
+      android: initAndroidSettings, 
+      iOS: ios);
+    
+    //shows notification Permission box (Allow, Deny)
+    await _notification.initialize(
+      settings,
+      onSelectNotification: (String? payload) {
+        onSelectFunction(payload, context1);
+      });
   }
   
-
-  Future onDidReceiveLocalNotification(int id, String? title, String? body,
-      String? payload) async {
-    // display a dialog with the notification details, tap ok to go to another page
-    Container();
-  }
-
-  void onSelectFunction(payload, context) async {
+  void onSelectFunction(payload, context) async 
+  {
     //   print("hi");
     if (payload == "order") {} else {}
   }
 
-  void requestIOSPermissions() 
+  // display a dialog with the notification details, tap ok to go to another page
+  Future onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) async 
+  {
+    Container();
+  }
+
+
+  void requestIOSLocalNotificationsPermissions() 
   {
     FlutterLocalNotificationsPlugin()
-        .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
       alert: true,
       badge: true,
@@ -55,22 +58,28 @@ class NotiticationWidget
   }
 
   static Future showNotification(int hashCode,
-      {var id = 0, var title, var body, var payload}) async =>
+      {var id = 0, var title, var body, var payload}) async 
+  {
+    return
       _notification.show(
         id, title, body, 
         await notificationDetails(),
         payload: payload);
+  }
 
   static notificationDetails() async 
   {
-    return const NotificationDetails(
-      android: AndroidNotificationDetails(
-        "high_importance_channel111",
-        "high_importance_channel",
-        importance: Importance.high,
-        priority: Priority.high,
-      ),
-      iOS: IOSNotificationDetails(),);
+    return 
+      const NotificationDetails(
+        android: 
+          AndroidNotificationDetails(
+            "high_importance_channel111",
+            "high_importance_channel",
+            importance: Importance.high,
+            priority: Priority.high,
+          ),
+        iOS: IOSNotificationDetails(),
+      );
   }
 
 }
