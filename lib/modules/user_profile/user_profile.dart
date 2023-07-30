@@ -743,7 +743,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         ),
                         doubleInfinityMaterialButton(
                           text: "تحديث",
-                          onPressed: () {
+                          onPressed: () { 
                             confirmOnPress(context);
                           },
                         ),

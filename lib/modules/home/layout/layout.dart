@@ -52,17 +52,20 @@ class _LayoutScreenState extends State<LayoutScreen>
     FirebaseMessaging.onMessage
     .listen((RemoteMessage message) 
     {
-      log('Notification Arrived !!!!!!!!!');
+      log('Notification Arrived !!!!!!!!!'+ message.toString());
       
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+
+      // log("Message " + message.toString() );
       //foreground
-      if (notification != null && android != null) {
+      if (notification != null && android != null) 
+      {
         NotiticationWidget.showNotification(
-          notification.hashCode,
-          payload: message.data['screen'],
+          notification.hashCode,          
           title: notification.title,
           body: notification.body,
+          payload: message.data,
         );
       }
     });

@@ -33,10 +33,11 @@ class NotiticationWidget
       });
   }
   
+  // when the user click on the Notification
   void onSelectFunction(payload, context) async 
   {
-    //   print("hi");
-    if (payload == "order") {} else {}
+    print("hiiiiiiiiiiiiiiiiiiiiiii :" + payload.toString());
+    // if (payload == "order") {} else {}
   }
 
   // display a dialog with the notification details, tap ok to go to another page
@@ -64,7 +65,7 @@ class NotiticationWidget
       _notification.show(
         id, title, body, 
         await notificationDetails(),
-        payload: payload);
+        payload: payload.toString() );
   }
 
   static notificationDetails() async 

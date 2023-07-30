@@ -49,6 +49,7 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       "userName": current_user.user_Name,
       "email": current_user.email,
       "Age": current_user.age,
+      "countryId": current_user.countryId,
       // "Nationality": current_user.nationality,
       "City": current_user.city,
       "Tribe": current_user.tribe,

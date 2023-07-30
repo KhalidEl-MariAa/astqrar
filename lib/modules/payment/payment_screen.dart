@@ -38,7 +38,7 @@ class PaymentScreen extends StatelessWidget
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Web(price: price, idService: idService, serviceType: serviceType,)
+                builder: (context) => Web(price: this.price, idService: idService, serviceType: serviceType,)
               ));
         }
 
@@ -113,12 +113,15 @@ class PaymentScreen extends StatelessWidget
                   style: GoogleFonts.almarai(
                       fontSize: 16.sp, fontWeight: FontWeight.w300),
                 ),
+
                 SizedBox( height: 4.h, ),
+
                 DefaultText(
                     color: BLACK,
                     size: 19,
-                    text: "${price}   ريال",
+                    text: "${this.price}   ريال",
                     fontWeight: FontWeight.w500),
+                    
                 SizedBox( height: 10.h, ),
                 Row(
                   children: [
