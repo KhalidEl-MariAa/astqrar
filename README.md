@@ -26,8 +26,10 @@ PATH="$PATH:$ANDROID_HOME/platform-tools"
 `emulator.exe` can be found in `/path/to/sdk/emulator/`
 
 ```bash
-emulator -avd Resizable_API_33
+emulator -list-avds
+
 emulator -avd Resizable_Experimental_API_33
+
 ```
 
 
