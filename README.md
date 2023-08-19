@@ -53,13 +53,17 @@ flutter run -d ce10171a81158d3101
 1. you can read this [article](https://docs.flutter.dev/deployment/android)
 2. Make sure you are using same *.jks file (Upload Sining Key) that is already uploaded toe Google Play.
 3. *.jks file need a password to be read properly which can be found in `key.properties` file.
-```
+
+4. Create Bundle:
+```bash
 flutter build apk
 
 # for AAB file
 flutter build appbundle
+#  build/app/outputs/bundle/release/app-release.aab
 ```
-4. upload Sybmols file. compress all folders in:
+
+5. upload Sybmols file. compress all folders in:
 ```
   astqrar/build/app/intermediates/merged_native_libs/release/out/lib
 ```
