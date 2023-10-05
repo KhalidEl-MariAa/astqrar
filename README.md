@@ -2,7 +2,7 @@
 
 A new Flutter project.
 
-## flutter and Android in $PATH
+## Flutter and Android in $PATH (Linux)
 ```bash
 PATH="$PATH:$HOME/Documents/programs/flutter/bin"
 PATH="$PATH:$HOME/Documents/programs/flutter/dart-sdk/bin"
@@ -34,7 +34,7 @@ emulator -avd Resizable_Experimental_API_33
 
 
 ## Run
-```
+```bash
 flutter clean
 
 # get availavle connected (running) devices
@@ -42,10 +42,25 @@ flutter clean
 
 cd "~\Downloads\Dating-kaheelan\astqrar"
 
+flutter build
 flutter run
 flutter run -d emulator-5554 
 flutter run -d ce10171a81158d3101
+```
 
+## Run (MacOS)
+
+```bash
+# Make sure Pod is working correctly
+$ rm -rf ./ios/Podfile.lock
+$ pod update
+
+
+# Run ios Simulator (MacOS)
+$ open -a Simulator
+$ flutter build ios
+$ flutter run
+$ flutter run --release
 ```
 
 
@@ -68,7 +83,7 @@ flutter build appbundle
   astqrar/build/app/intermediates/merged_native_libs/release/out/lib
 ```
 
-## Deploy to IOS
+## Deploy to IOS (MacOS)
 
 1. Make sure that `gem` installer is ready to use.
 2. Install Flutter 
@@ -81,9 +96,11 @@ $ gem which cocoapods
 ```
 3. Edit project configurations using XCode
 
-4. build API package
+4. Build IPA (iOS App Store package) package
 ```bash
 $ flutter build ipa
+
+# find the *.ipa file in ./astqrar/build/ios/ipa
 ```
 5. Upload using Transporter, this app can be found in apple store.
 
