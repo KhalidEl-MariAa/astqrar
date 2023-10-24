@@ -21,9 +21,11 @@ import 'package:signalr_netcore/signalr_client.dart';
 import 'package:sizer/sizer.dart';
 
 // ignore: must_be_immutable
-class ConversationScreen extends StatefulWidget {
-  OtherUser? otherUser = null;
-  String? otherId = null;
+class ConversationScreen extends StatefulWidget 
+{
+
+  late OtherUser? otherUser = null;
+  late String? otherId = null;
 
   ConversationScreen({ Key? key, this.otherUser, }) : super(key: key) {
     this.otherId = this.otherUser!.id!;
@@ -270,9 +272,8 @@ class ConversationScreenState extends State<ConversationScreen>
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                  image: widget.otherUser?.gender == 1
-                                      ? AssetImage(maleImage)
-                                      : AssetImage(femaleImage))),
+                                  image: getUserImage(widget.otherUser)
+                          )),
                         ),
 
                         Column(
@@ -557,7 +558,8 @@ class ConversationScreenState extends State<ConversationScreen>
     );
   }
 
-  Widget createShimmer(context, ConversationStates state) {
+  Widget createShimmer(context, ConversationStates state) 
+  {
     return Shimmer(
       child: ListView.separated(
         itemCount: 8,

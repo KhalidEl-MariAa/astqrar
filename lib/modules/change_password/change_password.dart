@@ -117,8 +117,9 @@ class ChangePassword extends StatelessWidget
                       ),
                       doubleInfinityMaterialButton(onPressed: () {
                         if(MoreTab.form.currentState!.validate()){
-                         ChangePasswordCubit.get(context).changePassword(oldPassword:MoreTab.oldPasswordController.text,
-                             newPassword: MoreTab.passwordController.text);
+                         ChangePasswordCubit.get(context).changePassword(
+                              oldPassword: MoreTab.oldPasswordController.text,
+                              newPassword: MoreTab.passwordController.text);
                         }
                       }, text: "تاكيد"),
                       SizedBox(height: 1.h,),

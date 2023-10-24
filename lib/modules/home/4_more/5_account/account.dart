@@ -13,7 +13,8 @@ import '../../../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatelessWidget 
+{
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -25,8 +26,10 @@ class AccountScreen extends StatelessWidget {
       create: (BuildContext context) => AccountCubit()..getUserData(),
       child: BlocConsumer<AccountCubit, AccountStates>(
         listener: (context, state) {
-          if (state is AccountInitialState) {
-          } else if (state is AccountSuccess) {
+          if (state is AccountInitialState) 
+          {
+          }else if (state is AccountSuccess) 
+          {
             auser = state.current_user;
           }
         },

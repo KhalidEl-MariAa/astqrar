@@ -1,4 +1,4 @@
-import '../../../models/user_item.dart';
+import '../../../models/user.dart';
 
 abstract class SearchStates{}
 
@@ -7,7 +7,7 @@ class SearchInitialState extends SearchStates{}
 class GetSearchLoadingState extends SearchStates{}
 
 class GetSearchSuccessState extends SearchStates{
-  final List<UserItem> searchResult;
+  final List<User> searchResult;
   GetSearchSuccessState(this.searchResult);
 }
 
@@ -19,7 +19,7 @@ class GetSearchErrorState extends SearchStates{
 class FilterSearchLoadingState extends SearchStates{}
 
 class FilterSearchSuccessState extends SearchStates{
-  final List<UserItem> searchResult;
+  final List<User> searchResult;
   FilterSearchSuccessState(this.searchResult);
 }
 

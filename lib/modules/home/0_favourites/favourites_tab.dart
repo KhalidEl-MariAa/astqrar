@@ -82,9 +82,14 @@ class FavouritesTab extends StatelessWidget
                                         .get(context)
                                         .favouriteList[index]
                                         .gender!,
+                                    imgProfile: GetFavouritesCubit
+                                        .get(context)
+                                        .favouriteList[index]
+                                        .imgProfile!,
                                     widget: InkWell(
                                         onTap: () {
-GetFavouritesCubit.get(context).deleteFromFavourite(userId: GetFavouritesCubit.get(context).favouriteList[index].id!);
+                                          GetFavouritesCubit.get(context)
+                                            .deleteFromFavourite(userId: GetFavouritesCubit.get(context).favouriteList[index].id!);
                                         },
                                         child: Icon(
                                           Icons.favorite, color: GetFavouritesCubit.get(context).FavouriteMap[GetFavouritesCubit.get(context).favouriteList[index].id]!?PRIMARY:WHITE,)

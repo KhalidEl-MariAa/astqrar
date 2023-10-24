@@ -159,7 +159,8 @@ class SectionMenOrWomen extends StatelessWidget
                                                     image: DecorationImage(
                                                         image: GENDER_USER == 1
                                                             ? AssetImage(maleImage)
-                                                            : AssetImage(femaleImage))),
+                                                            : AssetImage(femaleImage)
+                                                  )),
                                               ),
                                             ),
                                     ],
@@ -294,6 +295,7 @@ class SectionMenOrWomen extends StatelessWidget
                                           onclickUser: () { onClickUserItem(context, index); },
                                           genderValue: MenWomenCubit.get(context).users[index].gender!,
                                           username: MenWomenCubit.get(context).users[index].user_Name!,
+                                          otherUser: MenWomenCubit.get(context).users[index],
                                   )
                                 );
                               }

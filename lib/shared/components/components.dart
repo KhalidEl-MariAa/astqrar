@@ -1,8 +1,13 @@
+import 'dart:developer';
+
+import 'package:astarar/models/get_information_user.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../constants.dart';
+import '../../models/user.dart';
 import '../styles/colors.dart';
 
 Widget defaultTextFormField({
@@ -174,7 +179,8 @@ String chooseToastIcon(ToastStates state) {
   return " ";
 }
 
-Color chooseToastColor(ToastStates state) {
+Color chooseToastColor(ToastStates state) 
+{
   late Color color;
   switch (state) {
     case ToastStates.SUCCESS:
@@ -188,4 +194,30 @@ Color chooseToastColor(ToastStates state) {
       break;
   }
   return color;
+}
+
+ImageProvider getUserImageByPath({String imgProfilePath="", int gender=1})
+{
+  log(imgProfilePath);
+  
+  if(imgProfilePath != "")
+  {
+    return NetworkImage(imgProfilePath);
+  }else{
+    return AssetImage(gender == 1? maleImage : femaleImage); 
+  }
+}
+
+
+
+ImageProvider getUserImage(User? usr)
+{
+
+  if(usr?.imgProfile != "")
+  {
+    return NetworkImage(usr?.imgProfile??"");
+  }else{
+    return AssetImage(usr?.gender == 1? maleImage : femaleImage); 
+  }
+  
 }

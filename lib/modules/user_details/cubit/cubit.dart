@@ -53,7 +53,8 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
 
   //add to favourite
 
-  void addToFavourite({required String userId}) {
+  void addToFavourite({required String userId}) 
+  {
     ServerResponse res;
     // getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
     emit(ToggleFavouriteLoading());
@@ -142,14 +143,16 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
   //   });
   // }
 
-  void addHimToMyContacts({required String userId}) {
+  void addHimToMyContacts({required String hisUserId}) 
+  {
     emit(AddHimToMyContactsLoading());
 
     DioHelper.postDataWithBearearToken(
             url: ADD_HIM_TO_MY_CONTACTS,
-            data: {"userId": userId},
+            data: {"userId": hisUserId},
             token: TOKEN.toString())
-        .then((value) {
+    .then((value) 
+    {
       res = ServerResponse.fromJson(value.data);
       if (res.key == 0) {
         emit(AddHimToMyContactsError(res.msg!));
@@ -164,7 +167,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
       //تم اضافة المستخدم الحالي الى قائمة الطرف الاخر
       if (res.data['i_have_added_to_his_list']) {
         sendNotification(
-            userid: userId,
+            userid: hisUserId,
             type: 0,
             body: "قام " +
                 NAME! +

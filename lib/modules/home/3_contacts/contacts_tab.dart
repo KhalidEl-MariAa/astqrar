@@ -162,6 +162,7 @@ class _ContactsTabState extends State<ContactsTab>
                                                 // this.contacts[index].userInformation!.IsConnected.toString(),
                                           
                                           gender: this.contacts[index].userInformation!.gender!,
+                                          imgProfile: this.contacts[index].userInformation!.imgProfile!,
                                           
                                           onClicked: () { user_on_click(context, index); },
                                         ),
@@ -185,8 +186,6 @@ class _ContactsTabState extends State<ContactsTab>
   {
     if (this.contacts[index].userInformation != null ) 
     {
-      
-
       Navigator.push(
         context,
         MaterialPageRoute(

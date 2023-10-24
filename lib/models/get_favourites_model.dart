@@ -12,16 +12,19 @@ class GetFavouritesModel
   }
 }
 
-class DataOfUsersInFavouritesModel {
-  String?username;
-  String?id;
-  int ?gender;
-  bool ?isFavourite;
+class DataOfUsersInFavouritesModel 
+{
+  String? username;
+  String? id;
+  int? gender;
+  bool? isFavourite;
+  String? imgProfile;
 
   DataOfUsersInFavouritesModel.fromJson(Map<String, dynamic>json){
     username = json['username'];
     id = json['id'];
     gender = json['gender'];
     isFavourite=true;
+    imgProfile = json['imgProfile'];
   }
 }

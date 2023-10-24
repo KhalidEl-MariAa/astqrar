@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
-import '../../models/user_item.dart';
+import '../../models/user.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/user/user_item.dart';
 import '../../shared/styles/colors.dart';
@@ -27,7 +27,7 @@ class _ResultScreenState extends State<ResultScreen>
 {
   TextEditingController searchTextController = TextEditingController();
 
-  List<UserItem> searchResult = [];
+  List<User> searchResult = [];
 
   @override
   Widget build(BuildContext context) 
@@ -382,14 +382,13 @@ class _ResultScreenState extends State<ResultScreen>
             MaterialPageRoute(
                 builder: (context) =>
                     UserDetailsScreen(
-                      messageVisibility:
-                          true,
-                    )));
+                      messageVisibility: true,
+                    ))
+        );
       },
-      genderValue:
-          this.searchResult[index].gender!,
-      username:
-          this.searchResult[index].user_Name!,
+      genderValue: this.searchResult[index].gender!,
+      username: this.searchResult[index].user_Name!,
+      otherUser: this.searchResult[index],
     );
   }
 

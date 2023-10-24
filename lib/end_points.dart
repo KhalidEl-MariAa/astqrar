@@ -33,6 +33,9 @@ const GETALLADS="api/v1/GetAds";
 
 const UPDATEUSERDATA="api/v1/UpdateDataUser";
 
+const UPDATEPROFILEIMAGE="api/v1/UpdateProfileImage";
+
+
 const ADDTOFAVOURITE="api/v1/AddToFav";
 
 const DELETEFROMFAVOURITE="api/v1/DeleteFromFav";

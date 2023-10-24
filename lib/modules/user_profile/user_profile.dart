@@ -14,6 +14,7 @@ import '../../shared/components/logo/normal_logo.dart';
 import '../../shared/components/radiobuttonregister.dart';
 import '../../shared/styles/colors.dart';
 import '../change_password/change_password.dart';
+import '../change_profile_img/change_profile_img.dart';
 import '../home/layout/cubit/cubit.dart';
 import '../home/layout/layout.dart';
 import 'cubit/cubit.dart';
@@ -773,7 +774,29 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           child: Center(
                             child: Text(
                               "تغيير كلمة المرور",
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.almarai(
+                                  color: PRIMARY,
+                                  fontSize: 12.sp,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: 2.0.h,
+                        ),
+
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => ChangeProfileImg());
+                          },
+                          child: Center(
+                            child: Text(
+                              "تغيير الصورة الشخصية",
+                              style: GoogleFonts.almarai(
                                   color: PRIMARY,
                                   fontSize: 12.sp,
                                   decoration: TextDecoration.underline),
@@ -783,6 +806,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
+
                       ],
                     ),
                   ),

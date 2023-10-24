@@ -1,3 +1,4 @@
+import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -11,6 +12,7 @@ class FavouriteItem extends StatelessWidget
   final String otherId;
   final String name;
   final int gender;
+  final String imgProfile;
   final Function onClicked;
   final Widget widget;
 
@@ -20,6 +22,7 @@ class FavouriteItem extends StatelessWidget
       required this.otherId,
       required this.name,
       required this.gender,
+      required this.imgProfile,
       required this.onClicked}) : super(key: key);
 
   @override
@@ -54,7 +57,9 @@ class FavouriteItem extends StatelessWidget
                   child:
                     Image(
                       width: 14.w, height: 14.h,
-                      image: this.gender == 1? AssetImage(maleImage): AssetImage(femaleImage),
+                      image: getUserImageByPath(
+                                imgProfilePath:  this.imgProfile,  
+                                gender: this.gender),
                     ),
                 )
                 ,

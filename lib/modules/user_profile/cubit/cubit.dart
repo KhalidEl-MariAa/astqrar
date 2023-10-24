@@ -11,7 +11,8 @@ import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-class UserProfileCubit extends Cubit<UserProfileStates> {
+class UserProfileCubit extends Cubit<UserProfileStates> 
+{
   UserProfileCubit() : super(UserProfileInitialState());
 
   static UserProfileCubit get(context) => BlocProvider.of(context);
@@ -19,17 +20,19 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   //get user data
   late User user;
 
-  getUserData() {
+  void getUserData() {
     emit(GetUserDataLoadingState());
 
     DioHelper.postDataWithBearearToken(
-            url: GETPROFILEDATA, data: {}, token: TOKEN.toString())
-        .then((value) {
+            url: GETPROFILEDATA, data: {}, 
+            token: TOKEN.toString())
+    .then((value) 
+    {
       user = User.fromJson(value.data["data"]);
 
       GENDER_USER = user.gender!;
-
       emit(GetUserDataSucccessState(user));
+
     }).catchError((error) {
       log(error.toString());
       emit(GetUserDataErrorState(error.toString()));
@@ -39,7 +42,8 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   //update user data
   late User updatedUser;
 
-  void updateUserData(User current_user) {
+  void updateUserData(User current_user) 
+  {
     emit(UpdateUserDataLoadingState());
 
     log(current_user.subSpecifications.toString());
@@ -102,4 +106,5 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       emit(UpdateUserDataErrorState(error.toString()));
     });
   }
-}
+  
+} //end class
