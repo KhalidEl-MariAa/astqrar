@@ -50,6 +50,7 @@ class UserItemWidget extends StatelessWidget
                         width: 32.w,
                         decoration: BoxDecoration(
                           image: DecorationImage(
+                            opacity: this.otherUser.IsActive! ? 1.0 : 0.5,
                             fit: BoxFit.cover,
                             image:  getUserImage(this.otherUser)
                           ),

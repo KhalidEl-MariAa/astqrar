@@ -55,6 +55,9 @@ void logOut(){
     CacheHelper.sharedpreferneces.remove("name");
     CacheHelper.sharedpreferneces.remove("id");
     CacheHelper.sharedpreferneces.remove("token");
+    CacheHelper.sharedpreferneces.remove("imgProfile");
+    CacheHelper.sharedpreferneces.remove("isActive");
+
     CacheHelper.saveData(
         key: "isLogin", value: false);
     IS_LOGIN = CacheHelper.getData(key: "isLogin");

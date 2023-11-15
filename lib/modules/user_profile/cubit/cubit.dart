@@ -50,6 +50,7 @@ class UserProfileCubit extends Cubit<UserProfileStates>
 
     //Creates readable "multipart/form-data" streams.
     FormData formData = FormData.fromMap({
+      "gender": current_user.gender,
       "userName": current_user.user_Name,
       "email": current_user.email,
       "Age": current_user.age,

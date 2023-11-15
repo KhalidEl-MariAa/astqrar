@@ -1,29 +1,30 @@
+import 'package:astarar/models/contacts.dart';
+import 'package:astarar/models/user.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../constants.dart';
+
 import '../../modules/user_details/cubit/cubit.dart';
 import '../../modules/user_details/user_details.dart';
 
 class FavouriteItem extends StatelessWidget 
 {
-  final String otherId;
-  final String name;
-  final int gender;
-  final String imgProfile;
-  final Function onClicked;
+  // final String otherId;
+  // final String name;
+  // final int gender;
+  // final String imgProfile;
+  // bool? isActive = true; 
   final Widget widget;
+  final Function onClicked;
+  final User contactor;
 
-  const FavouriteItem(
+  FavouriteItem(
       {Key? key,
       required this.widget,
-      required this.otherId,
-      required this.name,
-      required this.gender,
-      required this.imgProfile,
-      required this.onClicked}) : super(key: key);
+      required this.onClicked,
+      required this.contactor }) : super(key: key);
 
   @override
   Widget build(BuildContext context) 
@@ -45,7 +46,7 @@ class FavouriteItem extends StatelessWidget
                 InkWell(
                   onTap: (){
                       UserDetailsCubit.get(context)
-                          .getOtherUser(otherId: this.otherId);
+                          .getOtherUser(otherId: this.contactor.id! );
 
                       Navigator.push(
                           context,
@@ -55,12 +56,28 @@ class FavouriteItem extends StatelessWidget
                       );
                   },
                   child:
-                    Image(
-                      width: 14.w, height: 14.h,
-                      image: getUserImageByPath(
-                                imgProfilePath:  this.imgProfile,  
-                                gender: this.gender),
+                    Container(
+                      height: 7.h,
+                      width: 12.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            opacity: this.contactor.IsActive??true ? 1.0 : 0.5,
+                            image: getUserImageByPath(
+                              imgProfilePath: this.contactor.imgProfile??"",
+                              gender:  this.contactor.gender??0)
+                      )),
                     ),
+
+                    // DecorationImage(
+                    //   opacity: IS_ACTIVE ? 1.0 : 0.5,
+                    //   image:                     Image(                      
+                    //   width: 14.w, height: 14.h,
+                    //   image: getUserImageByPath(                        
+                    //     imgProfilePath:  this.imgProfile,  
+                    //     gender: this.gender),
+                    // )
+                    // ),
                 )
                 ,
                 SizedBox( width: 3.w, ),
@@ -68,7 +85,8 @@ class FavouriteItem extends StatelessWidget
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text( this.name, style: GoogleFonts.almarai(fontSize: 12.sp),
+                    Text( this.contactor.user_Name??"XXX", 
+                        style: GoogleFonts.almarai(fontSize: 12.sp),
                     ),
                     SizedBox( height: 1.h, ),
                   ],

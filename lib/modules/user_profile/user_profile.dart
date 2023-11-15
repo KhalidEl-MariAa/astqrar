@@ -54,7 +54,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
   late User current_user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocProvider(
       create: (BuildContext context) => UserProfileCubit()..getUserData(),
       child: BlocConsumer<UserProfileCubit, UserProfileStates>(
@@ -94,6 +95,43 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w900),
                           ),
+
+                        SizedBox(
+                          height: 1.5.h,
+                        ),
+
+                        GridView.count(
+                            shrinkWrap: true,
+                            crossAxisCount: 
+                              (MediaQuery.of(context).orientation == Orientation.landscape) ? 4: 2,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.all(0),
+                            childAspectRatio: 0.6 / 0.1,
+                            children: [
+                              WhiteRadioButton(
+                                value: 1,
+                                groupvalue: this.current_user.gender,
+                                title: "ذكر" ,
+                                changeFunction: () 
+                                {
+                                  setState(() {
+                                    this.current_user.gender=1;
+                                  });
+                                }),
+                              
+                              WhiteRadioButton(
+                                value: 2,
+                                groupvalue: this.current_user.gender,
+                                title: "أنثى" ,
+                                changeFunction: () 
+                                {
+                                  setState(() {
+                                    this.current_user.gender=2;
+                                  });
+                                })
+
+                            ]
+                        ),
 
                         SizedBox(
                           height: 1.5.h,
@@ -258,9 +296,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             shrinkWrap: true,
                             crossAxisCount:
                                 (MediaQuery.of(context).orientation ==
-                                        Orientation.landscape)
-                                    ? 4
-                                    : 2,
+                                        Orientation.landscape) ? 4: 2,
                             physics: const NeverScrollableScrollPhysics(),
                             padding: const EdgeInsets.all(0),
                             childAspectRatio: 0.6 / 0.1,
@@ -284,6 +320,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
+
                         defaultTextFormField(
                             context: context,
                             container: Colors.grey[100],
@@ -534,6 +571,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 2.h,
                         ),
+
                         Text(
                           "الحالة الاجتماعية",
                           style: TextStyle(color: BLACK, fontSize: 14),
@@ -679,6 +717,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
+
                         defaultTextFormField(
                             context: context,
                             controller: dowryController,
@@ -694,6 +733,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             labelText: "قيمة المهر",
                             label: "قيمة المهر(0 الي 100 الف)",
                             prefixIcon: Icons.person),
+
                         SizedBox(
                           height: 1.5.h,
                         ),
@@ -708,7 +748,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
                               RegExp(
-                                  '[\u0600-\u06FF\\s]'), // Arabic Unicode range
+                                  '(?![\u0660-\u0669])[\u0600-\u06FF\\s]' ), // Arabic Unicode range
                             ),
                           ],
                           decoration: InputDecoration(
@@ -791,7 +831,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             showModalBottomSheet(
                                 isScrollControlled: true,
                                 context: context,
-                                builder: (context) => ChangeProfileImg());
+                                builder: (context) => ChangeProfileImg( this.current_user ));
                           },
                           child: Center(
                             child: Text(
@@ -843,7 +883,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
         return new_sub;
       });
 
-      radios.add(WhiteRadioButton(
+      radios.add(
+        WhiteRadioButton(
           value: sub["id"],
           groupvalue: found_or_created.id,
           title: sub["nameAr"],
@@ -857,7 +898,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
               found_or_created.specId = Spec["id"];
               found_or_created.name = Spec["nameAr"];
             });
-          }));
+          })
+      );
     });
     return radios;
   }

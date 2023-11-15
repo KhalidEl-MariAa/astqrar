@@ -10,21 +10,39 @@ import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-class PaymentCubit extends Cubit<PaymentStates> {
+class PaymentCubit extends Cubit<PaymentStates> 
+{
   PaymentCubit() : super(PaymentInitialState());
 
   //late LoginModel loginModel;
   static PaymentCubit get(context) => BlocProvider.of(context);
 
   bool isPayment = false;
+  setIsPayment({required value}) {
+    isPayment = value;
+    emit( SetIsPaymentState() );
+  }
+
+  late InAppWebViewController controller;
+  setControler(InAppWebViewController _controler){
+    controller = _controler;
+    emit(SetControllerState());
+  }
+
+  Uri? uri;
+  setUrl(Uri _uri) {
+    uri = _uri;
+    emit(SetUrlState());
+  }
+
+  int progress = 0;
+  setProgress(int _Progress) {
+    progress = _Progress;
+    emit(SetProgressState());
+  }
+
   String? url;
   String? transactionNo;
-
-  changePayment({required value}) 
-  {
-    isPayment = value;
-    emit( ChangePaymentState() );
-  }
 
   void addInvoice({required double price}) 
   {
@@ -43,10 +61,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
     ).then((value) {
       log(value.toString());
       url = value.data['data']['url'];      
-      log(value.data['data']['url']);
-
       transactionNo = value.data['data']['transactionNo'];
-      log(value.data['data']['transactionNo']);
       
       emit(AddInvoiceSuccessState());
 
@@ -56,30 +71,9 @@ class PaymentCubit extends Cubit<PaymentStates> {
     });
   }
 
-  late InAppWebViewController controller;
-
-  setControler(InAppWebViewController _controler) {
-    controller = _controler;
-    emit(SetControllerState());
-  }
-
-  Uri? uri;
-
-  setUrl(Uri _uri) {
-    uri = _uri;
-    emit(SetUrlState());
-  }
-
-  int progress = 0;
-
-  setProgress(int _Progress) {
-    progress = _Progress;
-    emit(SetProgressState());
-  }
-
   String? orderSatus;
 
-  getInvoiceStatus({required dynamic  serviceId,required int type}) 
+  getInvoiceStatus({required dynamic  serviceId, required String type}) 
   {
     emit(GetInvoiceStatusLoadingState());
     DioHelper.postDataWithBearearToken(
@@ -92,7 +86,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
       orderSatus = value.data['orderStatus'];
       if(orderSatus=="Paid"){
         activate(serviceId: serviceId, type: type);
-        if(type==1){
+        if(type=="package"){
           CacheHelper.saveData(key: "isLogin", value: true);
           IS_LOGIN = CacheHelper.getData(key: "isLogin");
         }
@@ -107,15 +101,15 @@ class PaymentCubit extends Cubit<PaymentStates> {
 
   late ActivateModel activateModel;
 
-  activate({required dynamic serviceId,required int type}) 
+  activate({required dynamic serviceId, required String type}) 
   {
     print(serviceId);
     emit(ActivateLoadingState());
     DioHelper.postDataWithBearearToken(
       url: ACTIVATE, 
       data: {
-        "type":type,
-        "id":serviceId
+        "type": type=="package" ? 1 : type=="Ads"? 2 : 3 ,
+        "id": serviceId
       }, 
       token: TOKEN.toString())
     .then((value) {
@@ -124,6 +118,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
       // if(type==2&&activateModel.status!){
       //     sendNotificationToAll(body: "تمت اضافة اعلان من قبل $name");
       // }
+
       emit(ActivateSuccessState(
         type: type,
         status: activateModel.status!

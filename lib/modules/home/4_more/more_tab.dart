@@ -85,9 +85,11 @@ class _MoreTabState extends State<MoreTab> {
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
-                                      image: GENDER_USER == 1
-                                          ? AssetImage(maleImage)
-                                          : AssetImage(femaleImage))),
+                                    opacity: IS_ACTIVE ? 1.0 : 0.5,
+                                    image: getUserImageByPath(
+                                      imgProfilePath: IMG_PROFILE!,
+                                      gender:  GENDER_USER!)
+                              )),
                             ),
                           SizedBox(
                             width: 1.w,

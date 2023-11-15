@@ -22,9 +22,9 @@ class FavouritesTab extends StatelessWidget
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) =>
-      GetFavouritesCubit()
+      FavouritesCubit()
         ..getFavourites(),
-      child: BlocConsumer<GetFavouritesCubit, GetFavouritesStates>(
+      child: BlocConsumer<FavouritesCubit, FavouritesStates>(
         listener: (context, state) {},
         builder: (context, state) =>
             Scaffold(
@@ -40,28 +40,30 @@ class FavouritesTab extends StatelessWidget
                   condition: state is GetFavouritesLoadingState,
                   builder: (context) => const Center(child:Image(image:AssetImage("assets/favourite.gif"))),
                   fallback: (context) =>
-                  GetFavouritesCubit
+                  FavouritesCubit
                       .get(context)
                       .favouriteList.length>0?    Padding(
                         padding: EdgeInsetsDirectional.only(top: 1.h),
                         child: ListView.separated(
                             itemBuilder: (context, index) =>
                                 FavouriteItem(
-                                    onClicked: () {
-                                     if(IS_LOGIN){ UserDetailsCubit.get(context)
-                                          .getOtherUser(
-                                          otherId: GetFavouritesCubit
-                                              .get(context)
-                                              .favouriteList[index]
-                                              .id!);}
-                                     else{
-                                       UserDetailsCubit.get(context)
-                                           .getInformationUserByVisitor(
-                                           userId: GetFavouritesCubit
-                                               .get(context)
-                                               .favouriteList[index]
-                                               .id!);
-                                     }
+                                    onClicked: () 
+                                    {
+                                      if(IS_LOGIN){ 
+                                        UserDetailsCubit.get(context)
+                                            .getOtherUser(
+                                            otherId: FavouritesCubit
+                                                .get(context)
+                                                .favouriteList[index]
+                                                .id!);
+                                        }else{
+                                          UserDetailsCubit.get(context)
+                                              .getInformationUserByVisitor(
+                                              userId: FavouritesCubit
+                                                  .get(context)
+                                                  .favouriteList[index]
+                                                  .id!);
+                                      }
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -70,36 +72,35 @@ class FavouritesTab extends StatelessWidget
                                                     messageVisibility: true,
                                                   )));
                                     },
-                                    otherId: GetFavouritesCubit
-                                              .get(context)
-                                              .favouriteList[index]
-                                              .id!,
-                                    name: GetFavouritesCubit
-                                        .get(context)
-                                        .favouriteList[index]
-                                        .username!,
-                                    gender: GetFavouritesCubit
-                                        .get(context)
-                                        .favouriteList[index]
-                                        .gender!,
-                                    imgProfile: GetFavouritesCubit
-                                        .get(context)
-                                        .favouriteList[index]
-                                        .imgProfile!,
+
+                                    // زر القلب لالغاء اليوزر من المفلضلة
                                     widget: InkWell(
                                         onTap: () {
-                                          GetFavouritesCubit.get(context)
-                                            .deleteFromFavourite(userId: GetFavouritesCubit.get(context).favouriteList[index].id!);
+                                          FavouritesCubit.get(context)
+                                            .deleteFromFavourite(userId: FavouritesCubit.get(context).favouriteList[index].id!);
                                         },
-                                        child: Icon(
-                                          Icons.favorite, color: GetFavouritesCubit.get(context).FavouriteMap[GetFavouritesCubit.get(context).favouriteList[index].id]!?PRIMARY:WHITE,)
+                                        child: 
+                                          ConditionalBuilder(
+                                            condition: 
+                                                state is RemoveFromFavouriteLoadingState && 
+                                                FavouritesCubit.get(context).favouriteList[index].id == state.userId,
+                                            builder: (context) => CircularProgressIndicator(),
+                                            fallback: (context) =>
+                                              Icon(
+                                                Icons.favorite, 
+                                                color: FavouritesCubit.get(context).favouriteList[index].isFavourite? PRIMARY : WHITE,
+                                              ),
+                                            )
                                     ),
+                                    contactor: FavouritesCubit
+                                        .get(context)
+                                        .favouriteList[index],
                                 ),
                             separatorBuilder: (context, index) =>
                                 SizedBox(
                                   height: 10,
                                 ),
-                            itemCount: GetFavouritesCubit
+                            itemCount: FavouritesCubit
                                 .get(context)
                                 .favouriteList
                                 .length),

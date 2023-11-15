@@ -138,9 +138,11 @@ class _HomeTabState extends State<HomeTab>
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: GENDER_USER == 1
-                                            ? AssetImage(maleImage)
-                                            : AssetImage(femaleImage))),
+                                        opacity: IS_ACTIVE ? 1.0 : 0.5,
+                                        image: getUserImageByPath(
+                                          imgProfilePath:  IMG_PROFILE!, 
+                                          gender: GENDER_USER!)
+                                    )),
                               )),
                           actions: [
                             Padding(
@@ -366,10 +368,10 @@ class _HomeTabState extends State<HomeTab>
     SectionMenOrWomen.twoIndexSection = 0;
     SectionMenOrWomen.threeIndexSection = 0;
 
-    MenWomenCubit.get(context).getUserByGender(genderValue: 2);
+    MenWomenCubit.get(context).getUsersByQuickFilter(gender: "2");
 
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => SectionMenOrWomen(gender: 2)));
+        MaterialPageRoute(builder: (context) => SectionMenOrWomen(gender: "2")));
   }
 
   void MenSectionClick(BuildContext context) 
@@ -379,13 +381,13 @@ class _HomeTabState extends State<HomeTab>
     SectionMenOrWomen.oneIndexSection = 0;
     SectionMenOrWomen.twoIndexSection = 0;
     SectionMenOrWomen.threeIndexSection = 0;
-    MenWomenCubit.get(context).getUserByGender(genderValue: 1);
+    
+    MenWomenCubit.get(context).getUsersByQuickFilter(gender: "1");
 
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SectionMenOrWomen(
-                  gender: 1,
-                )));
+            builder: (context) => SectionMenOrWomen( gender: "1",)
+        ));
   }
 }

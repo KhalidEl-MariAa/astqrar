@@ -55,21 +55,26 @@ class AdsCubit extends Cubit<AdsStates>
     });
   }
 
-  // sendNotificationToAll({required String body}){
-  //   emit(SendNotificationToAllLoadingState());
-  //   DioHelper.postDataWithBearearToken(url: SENDNOTIFICATIONTOALL,
-  //       data:{
-  //       "projectName": APP_NAME,
-  //       "deviceType":"android",
-  //       "notificationType":3,
-  //       "body":body,
-  //       "title":" "
-  //       },token: token.toString())..then((value) {
-  //         print(value.toString());
-  //         emit(SendNotificationToAllSuccessState());
-  //   }).catchError((error){
-  //         print(error.toString());
-  //         emit(SendNotificationToAllErrorState(error.toString()));
-  //   });
-  // }
+  // TODO: اصلاح المشكلة
+  sendNotificationToAll({String title=" ", required String body}) 
+  {
+    emit(SendNotificationToAllLoadingState());
+    DioHelper.postDataWithBearearToken(
+        url: SENDNOTIFICATIONTOALL,
+        data:{
+          "projectName": APP_NAME,
+          "deviceType":"android",
+          "notificationType":3,
+          "body": body,
+          "title": title,
+        },
+        token: TOKEN )
+    .then((value) {
+          print(value.toString());
+          emit(SendNotificationToAllSuccessState());
+    }).catchError((error){
+          print(error.toString());
+          emit(SendNotificationToAllErrorState(error.toString()));
+    });
+  }
 }

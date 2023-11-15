@@ -20,7 +20,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
 
   IconData suffix = Icons.visibility;
   bool isPassword = true;
-  late User loginModel;
+  late User loggedinUser;
 
   void changePasswordVisibility() {
     isPassword = !isPassword;
@@ -53,16 +53,18 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
         return;
       }
 
-      loginModel = User.fromJson(res.data);
+      loggedinUser = User.fromJson(res.data);
 
-      CacheHelper.saveData(key: "phone", value: loginModel.phone);
-      CacheHelper.saveData(key: "token", value: loginModel.Token);
-      CacheHelper.saveData(key: "typeUser", value: loginModel.typeUser);
-      CacheHelper.saveData(key: "id", value: loginModel.id);
-      CacheHelper.saveData(key: "name", value: loginModel.user_Name);
-      CacheHelper.saveData(key: "age", value: loginModel.age.toString());
-      CacheHelper.saveData(key: "email", value: loginModel.email);
-      CacheHelper.saveData(key: "gender", value: loginModel.gender);
+      CacheHelper.saveData(key: "phone", value: loggedinUser.phone);
+      CacheHelper.saveData(key: "token", value: loggedinUser.Token);
+      CacheHelper.saveData(key: "typeUser", value: loggedinUser.typeUser);
+      CacheHelper.saveData(key: "id", value: loggedinUser.id);
+      CacheHelper.saveData(key: "name", value: loggedinUser.user_Name);
+      CacheHelper.saveData(key: "age", value: loggedinUser.age.toString());
+      CacheHelper.saveData(key: "email", value: loggedinUser.email);
+      CacheHelper.saveData(key: "gender", value: loggedinUser.gender);
+      CacheHelper.saveData(key: "imgProfile", value: loggedinUser.imgProfile);
+      CacheHelper.saveData(key: "isActive", value: loggedinUser.IsActive);
 
       PHONE = CacheHelper.getData(key: "phone");
       TOKEN = CacheHelper.getData(key: "token");
@@ -72,8 +74,10 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       AGE = CacheHelper.getData(key: "age");
       EMAIL = CacheHelper.getData(key: "email");
       GENDER_USER = CacheHelper.getData(key: "gender");
+      IMG_PROFILE = CacheHelper.getData(key: "imgProfile");
+      IS_ACTIVE = CacheHelper.getData(key: "isActive");
 
-      if (loginModel.status == true) //|| IS_DEVELOPMENT_MODE
+      if (loggedinUser.status == true) //|| IS_DEVELOPMENT_MODE
       {
         CacheHelper.saveData(key: "isLogin", value: true);
         emit(ShopLoginSuccessAndActiveState());

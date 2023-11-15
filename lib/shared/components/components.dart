@@ -212,12 +212,34 @@ ImageProvider getUserImageByPath({String imgProfilePath="", int gender=1})
 
 ImageProvider getUserImage(User? usr)
 {
-
-  if(usr?.imgProfile != "")
+  if (usr == null){
+    return AssetImage(DEFAULT_IMAGE);
+  }else if( usr.imgProfile != "" && !(usr.hideImg??false) )
   {
-    return NetworkImage(usr?.imgProfile??"");
+    // log(usr.imgProfile??"XXXXXX img");
+    return NetworkImage(usr.imgProfile??"");
   }else{
-    return AssetImage(usr?.gender == 1? maleImage : femaleImage); 
+    return AssetImage(usr.gender == 1? maleImage : femaleImage); 
   }
-  
 }
+
+// Image getUserImage(User? usr)
+// {
+//     return Image.network(
+//       usr?.imgProfile??"",
+//       fit: BoxFit.cover,
+//         loadingBuilder:(
+//           context, 
+//           child,
+//           ImageChunkEvent loadingProgress) {
+//             if (loadingProgress == null) return child;
+//               return Center(
+//                 child: CircularProgressIndicator(
+//                 value: loadingProgress.expectedTotalBytes != null ? 
+//                       loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+//                       : null,
+//                 ),
+//               );
+//         },
+//     );
+// }

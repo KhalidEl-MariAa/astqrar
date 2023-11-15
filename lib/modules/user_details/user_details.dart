@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/components/loading_gif.dart';
-import '../../shared/components/user/details.dart';
+import '../../shared/components/user/details_widget.dart';
 import '../../shared/styles/colors.dart';
 import '../home/4_more/3_contact_us/contact_us.dart';
 import 'cubit/cubit.dart';
@@ -95,6 +95,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                           onTap: () async { snapchatPressed(context); },
                           child: Image(image: AssetImage("assets/snapchat.png"), height: 4.h, width: 10.w,)
                       ),
+
+                      // قائمة الثلاث نقط
                       PopupMenuButton(
                           onSelected: (item) { },
                           position: PopupMenuPosition.under,
@@ -125,7 +127,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                                                 builder:  (context) => CircularProgressIndicator(),
                                                 fallback: (context)  => Icon(Icons.block, color: PRIMARY,size: 33,)
                                                 ),
-
 
                                             ],
                                           ),
@@ -161,7 +162,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
             ),
 
             body: SingleChildScrollView(
-              child: DetailWidget(
+              // ويدجيت لعرض بيانات المستخدم،
+              child: DetailsWidget(
                 state: state,
                 messageVisibility: widget.messageVisibility,
                 otherUser: this.otherUser,

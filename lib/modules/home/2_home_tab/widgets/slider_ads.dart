@@ -1,5 +1,7 @@
 
 
+import 'package:astarar/shared/components/components.dart';
+
 import '../../layout/cubit/cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -84,13 +86,9 @@ class SliderAds extends StatelessWidget
                             borderRadius:
                             BorderRadius.circular(22.0),
                             image: DecorationImage(
-                              image: HomeCubit.get(context)
+                              image: getUserImage(HomeCubit.get(context)
                                   .getAllAdsWithUsersModel
-                                  .data[realindex]
-                                  .gender ==
-                                  1
-                                  ? AssetImage(maleImage)
-                                  : AssetImage(femaleImage),
+                                  .data[realindex]),
                               fit: BoxFit.cover,
                             )),
                       ),
@@ -106,7 +104,7 @@ class SliderAds extends StatelessWidget
                           HomeCubit.get(context)
                               .getAllAdsWithUsersModel
                               .data[realindex]
-                              .user_Name,
+                              .user_Name??"XX",
                           style: GoogleFonts.almarai(color: PRIMARY, fontSize: 16, fontWeight: FontWeight.w600 )
                         ),
                         SizedBox(height: 2.h,),

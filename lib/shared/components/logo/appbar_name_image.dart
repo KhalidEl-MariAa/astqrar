@@ -1,3 +1,4 @@
+import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -93,26 +94,16 @@ class AppBarWithNameAndImage extends StatelessWidget {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: GENDER_USER == 1
-                            ? AssetImage(maleImage)
-                            : AssetImage(
-                            femaleImage))),
+                      opacity: IS_ACTIVE ? 1.0 : 0.5,
+                      image: getUserImageByPath(
+                        imgProfilePath: IMG_PROFILE!,
+                        gender:  GENDER_USER!)
+
+                )),
               ),
             ),
           ],
         ),
-      //   leading: Padding(
-      // padding: EdgeInsetsDirectional.only(
-      // top: 2.h, start: 2.5.w),
-      //   child: Container(
-      //     height: 2.h,
-      //     decoration: BoxDecoration(
-      //         shape: BoxShape.circle,
-      //         image: DecorationImage(
-      //             image: genderUser == 1
-      //                 ? AssetImage(maleImage)
-      //                 : AssetImage(femaleImage))),
-      //   )),
       ),
     );
   }

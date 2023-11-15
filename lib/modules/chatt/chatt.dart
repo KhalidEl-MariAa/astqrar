@@ -126,7 +126,7 @@ class ConversationScreenState extends State<ConversationScreen>
     this.hub
       .invoke('Connect', args: [ID!])
       .then( (args) {
-        log("Connect Repley: " + args.toString() );
+        log("`Connect` Repley: " + args.toString() );
 
         String str = jsonEncode( args );
         dynamic connectedUserIds = jsonDecode(str);
@@ -141,8 +141,7 @@ class ConversationScreenState extends State<ConversationScreen>
         log(e.toString());
       });
 
-    this.hub
-      .onclose( ({error}) {
+    this.hub.onclose( ({error}) {
         log("HUB IS CLOSED: " + error.toString() );
         setState(() { this.IamConnected = true; });
     });
@@ -153,7 +152,6 @@ class ConversationScreenState extends State<ConversationScreen>
   void dispose() async
   {
     super.dispose();
-    
 
     await this.hub
         .invoke('DisConnect', args: [ID!])
@@ -266,13 +264,16 @@ class ConversationScreenState extends State<ConversationScreen>
                               ),
                             )),
 
+                        // صورة المستخدم
                         Container(
                           height: 30.h,
                           width: 20.w,
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                  image: getUserImage(widget.otherUser)
+                                opacity: widget.otherUser?.IsActive??false ? 1.0 : 0.5,
+                                image: getUserImage(widget.otherUser)
+                                // image: AssetImage(femaleImage)
                           )),
                         ),
 
@@ -432,9 +433,11 @@ class ConversationScreenState extends State<ConversationScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            image: widget.otherUser?.gender == 1
-                                                ? AssetImage(maleImage)
-                                                : AssetImage(femaleImage))),
+                                          // opacity: this.widget.otherUser!.IsActive! ? 1.0 : 0.5,
+                                          // image: getUserImage(this.widget.otherUser)
+                                          image: AssetImage(femaleImage)
+                                        )
+                                    ),
                                   ),
                                 )
                               ],

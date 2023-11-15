@@ -114,16 +114,17 @@ class AdsAndPackages extends StatelessWidget
           idService: packages[index].id,
         ));
     } else {
-      navigateTo(context: context, widget: PaymentScreen(
-        price: AdsCubit.get(context)
-                      .getAdsModel
-                      .data[index]
-                      .price,
-        serviceType: "Ads",
-        idService: AdsCubit.get(context)
-                      .getAdsModel
-                      .data[index]
-                      .id!,
+      navigateTo(context: context, 
+        widget: PaymentScreen(
+          price: AdsCubit.get(context)
+                        .getAdsModel
+                        .data[index]
+                        .price,
+          serviceType: "Ads",
+          idService: AdsCubit.get(context)
+                        .getAdsModel
+                        .data[index]
+                        .id!,
       ));
     
       // showDialog(

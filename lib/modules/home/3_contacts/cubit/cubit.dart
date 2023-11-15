@@ -15,12 +15,13 @@ class ContactsCubit extends Cubit<ContactsStates>
 
   static ContactsCubit get(context) => BlocProvider.of(context);
 
-  List<ContactDetails> contacts=[];
+  List<Contact> contacts=[];
 
   void getContacts() 
   {
     initializeDateFormatting('ar_SA', null);
     emit(GetContactsLoadingState());
+    
     DioHelper.getDataWithBearerToken(
       url: GETCONTACTS, 
       token: TOKEN.toString()
@@ -31,7 +32,7 @@ class ContactsCubit extends Cubit<ContactsStates>
 
       for (var item in value.data["data"]) 
       {
-        ContactDetails cont  = new ContactDetails.fromJson(item);
+        Contact cont  = new Contact.fromJson(item);
         contacts.add( cont );
       }
 
@@ -57,7 +58,7 @@ class ContactsCubit extends Cubit<ContactsStates>
       {
         log(value.toString());
 
-        contacts.removeWhere( (e) => e.userInformation?.id ==  userId);
+        contacts.removeWhere( (e) => e.contactorId ==  userId);
 
         emit(RemoveChatSuccessState(value.statusCode!));
       }).catchError((error) {

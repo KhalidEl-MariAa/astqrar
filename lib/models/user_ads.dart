@@ -1,4 +1,6 @@
 
+import 'package:astarar/models/user.dart';
+
 class GetAllAdsWithUsersModel 
 {
   int? key;
@@ -12,24 +14,24 @@ class GetAllAdsWithUsersModel
   }
 }
 
-class UserAd 
+class UserAd extends User
 {
   String? id;
-  String user_Name = "";
+  String? user_Name = "";
   String? imgProfile;
-  int? gender;
-  int? age;
-  int countryId=0;
+  // int? gender;
+  // int age;
+  // int countryId=0;
   String typeOfMarriage = "";
 
-  UserAd.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    user_Name = json['user_Name']?? "--------";
-    imgProfile = json['imgProfile'];
-    gender = json['gender'];
-    age = json['age'];
-    countryId = json['countryId']?? 0;
-    typeOfMarriage = json['typeOfMarriage']??"--------";
-
+  UserAd.fromJson(Map<String, dynamic> json) 
+  {
+    this.id = json['id'];
+    this.user_Name = json['user_Name']?? "--------";
+    this.imgProfile = json['imgProfile'];
+    this.gender = json['gender'];
+    this.age = json['age'];
+    this.countryId = json['countryId']?? 0;
+    this.typeOfMarriage = json['typeOfMarriage']??"--------";
   }
 }

@@ -30,7 +30,10 @@ class User {
 
   bool? closeNotify;
   bool? status;
+  
   String? imgProfile;
+  bool? hideImg;
+
   int typeUser = 1;
 
   DateTime? LastLogin;
@@ -38,7 +41,6 @@ class User {
   bool? ActiveCode;
   bool? IsActive;
   bool? IsExpired;
-  bool? IsConnected;
 
   List<SubSpecification> subSpecifications = [];
 
@@ -66,6 +68,7 @@ class User {
     closeNotify = json['closeNotify'];
     status = json['status'];
     imgProfile = json['imgProfile'];
+    hideImg = json['hideImg'];
     countryId = json['countryId'];
 
     LastLogin = DateTime.parse(json['lastLogin'] ?? "2002-01-01");
@@ -75,8 +78,6 @@ class User {
     IsActive = json['isActive'];
     Token = json['token'];
     TokenExpiration = DateTime.parse(json['tokenExpiration'] ?? "2002-01-01");
-
-    IsConnected = json['isConnected'];
     
     json['userSubSpecificationDto']?.forEach((e) {
       subSpecifications.add(new SubSpecification.fromJson(e));

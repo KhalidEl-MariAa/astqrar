@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 /**
  * Example:
  *  DetailsItem(title: 'الجنسية', subTitle: "هندي"))
+ *  DetailsItem(title: 'لون البشرة', subTitle: "قمحي"))
  */
 class DetailsItem extends StatelessWidget 
 {

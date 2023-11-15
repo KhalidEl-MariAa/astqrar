@@ -1,4 +1,8 @@
 
+import 'dart:developer';
+
+import 'package:astarar/shared/components/components.dart';
+
 import '../user_details/cubit/cubit.dart';
 import '../user_details/user_details.dart';
 import '../login/login.dart';
@@ -17,7 +21,7 @@ import 'cubit/states.dart';
 
 class SectionMenOrWomen extends StatelessWidget 
 {
-  final int gender;
+  final String gender;
   final List<String> oneSection = ['#الكل', 'زواج معلن', 'زواج التعدد', 'زواج مسيار'];
   final List<String> twoSection = [
     "#الكل",
@@ -31,15 +35,23 @@ class SectionMenOrWomen extends StatelessWidget
   static int twoIndexSection = 0;
   static int threeIndexSection = 0;
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+    GlobalKey<RefreshIndicatorState>();
+
+
   SectionMenOrWomen({required this.gender});
 
   @override
   Widget build(BuildContext context) 
   {
-    return BlocConsumer<MenWomenCubit, MenWomenStates>(
+    return BlocConsumer<MenWomenCubit, MenWomenStates>(      
       listener: (context, state) 
       {
-
+        if(state is MenWomenInitialState){
+          MenWomenCubit.get(context).users = [];
+          log('INITIAL -------------------');
+        }
+      
       },
       builder: (context, state) => 
           Directionality(
@@ -157,9 +169,10 @@ class SectionMenOrWomen extends StatelessWidget
                                                 decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     image: DecorationImage(
-                                                        image: GENDER_USER == 1
-                                                            ? AssetImage(maleImage)
-                                                            : AssetImage(femaleImage)
+                                                        opacity: IS_ACTIVE ? 1.0 : 0.5,
+                                                        image: getUserImageByPath(
+                                                          imgProfilePath: IMG_PROFILE!,
+                                                          gender:  GENDER_USER!)
                                                   )),
                                               ),
                                             ),
@@ -169,6 +182,7 @@ class SectionMenOrWomen extends StatelessWidget
                               ),
                             ),
                           ),
+
                           Positioned(
                             bottom: 0,
                             right: 4.w,
@@ -227,9 +241,7 @@ class SectionMenOrWomen extends StatelessWidget
                               selected: index == twoIndexSection,
                             ),
                             itemCount: twoSection.length,
-                            separatorBuilder: (context, index) => SizedBox(
-                              width: 1.w,
-                            ),
+                            separatorBuilder: (context, index) => SizedBox(width: 1.w,),
                           ),
                         ),
                       ),
@@ -272,11 +284,12 @@ class SectionMenOrWomen extends StatelessWidget
                                 fontWeight: FontWeight.w200,
                                 fontSize: 19)),
                       ),
-                                            
-                      ConditionalBuilder(
-                        condition: state is QuickFilterLoading || state is MenWomenLoadingState, 
-                        builder: (context) =>  LoadingGif(), 
-                        fallback: (context) => 
+
+
+                      RefreshIndicator(
+                        key: _refreshIndicatorKey,
+                        onRefresh:() => _pullRefresh(context), 
+                        child: 
                           GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
@@ -300,8 +313,29 @@ class SectionMenOrWomen extends StatelessWidget
                                 );
                               }
                             )
-                        )
-                      ),
+                        , 
+                      )
+                    ),
+
+
+                    ConditionalBuilder(
+                      condition: state is QuickFilterLoading || state is MenWomenLoadingState, 
+                      builder: (context) =>  LoadingGif(), 
+                      fallback: (context) =>                       
+                        Center(
+                          child: InkWell(
+                            child: Text("المزيد ... ⬇️", 
+                              style: GoogleFonts.almarai(fontSize: 15.5.sp, color: PRIMARY)
+                            ),
+                             
+                            onTap: () {
+                              log('refresh');
+                              _refreshIndicatorKey.currentState?.show();
+                            },),
+                        ),
+                    ),
+
+                    SizedBox(height: 5.1.h,),
 
                     ],),
                 ),
@@ -336,5 +370,12 @@ class SectionMenOrWomen extends StatelessWidget
             builder: (context) => UserDetailsScreen(
                   messageVisibility: true,
                 )));
+  }
+
+  Future<void> _pullRefresh(context) async
+  {
+    await MenWomenCubit.get(context).getUsersByQuickFilter(gender: this.gender);
+
+    log("Lsit is RERFRESHED!!");
   }
 }

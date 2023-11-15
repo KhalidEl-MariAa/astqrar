@@ -160,26 +160,15 @@ class _ResultScreenState extends State<ResultScreen>
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
-                                                  image: GENDER_USER == 1
-                                                      ? AssetImage(maleImage)
-                                                      : AssetImage(
-                                                      femaleImage))),
+                                                opacity: IS_ACTIVE ? 1.0 : 0.5,
+                                                image: getUserImageByPath(
+                                                  imgProfilePath: IMG_PROFILE!,
+                                                  gender:  GENDER_USER!)
+                                          )),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  // leading: Padding(
-                                  //     padding: EdgeInsetsDirectional.only(
-                                  //         top: 2.h, start: 2.5.w),
-                                  //     child: Container(
-                                  //       height: 2.h,
-                                  //       decoration: BoxDecoration(
-                                  //           shape: BoxShape.circle,
-                                  //           image: DecorationImage(
-                                  //               image: genderUser == 1
-                                  //                   ? AssetImage(maleImage)
-                                  //                   : AssetImage(femaleImage))),
-                                  //     )),
                                 ),
                               ),
                             ),

@@ -43,7 +43,9 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
     emit(UserDetailsLoadingState());
     DioHelper.getDataWithQuery(
         url: GETINFORMATIONUSERBYVISITOR, //,
-        query: {"otherId": userId}).then((value) {
+        query: {"otherId": userId})
+    .then((value) 
+    {
       OtherUser otherUser = OtherUser.fromJson(value.data["otherUser"]);
       emit(UserDetailsSuccessState(otherUser));
     }).catchError((error) {
@@ -75,7 +77,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
       }
 
       sendNotification(
-          userid: userId,
+          userid: userId, 
           type: 0,
           body: "قام " + NAME! + " بالإعجاب بك واضافتك الى قائمة المفضلة ",
           title: "طلب محادثة");
@@ -225,7 +227,8 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
       {required String userid,
       required int type,
       required String body,
-      required String title}) {
+      required String title}) 
+  {
     emit(SendNotificationLoadingState());
 
     DioHelper.postDataWithBearearToken(

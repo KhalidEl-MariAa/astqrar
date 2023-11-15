@@ -9,6 +9,7 @@ import '../../../models/server_response_model.dart';
 import '../../../models/user.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
+import 'dart:io' as io;
 
 class ChangeProfileImageCubit extends Cubit<ChangeProfileImgStates> 
 {
@@ -21,8 +22,10 @@ class ChangeProfileImageCubit extends Cubit<ChangeProfileImgStates>
   void changeProfileImageFromGallery(String imgPath) async
   {
 
+    if (!await io.File(imgPath).exists()){
+      return;
+    }
     emit(ChangeProfileImageLoadingState());
-
 
     //Creates readable "multipart/form-data" streams.n
     FormData formData = FormData.fromMap({
@@ -59,6 +62,38 @@ class ChangeProfileImageCubit extends Cubit<ChangeProfileImgStates>
 
   }
 
-} //end class
+
+  void switchHidingImgProfile(bool hideImg) async
+  {
+
+    emit(SwitchHidingImgLodingState());
+
+
+    DioHelper.postDataWithBearearToken(
+      token: TOKEN.toString(),
+      url: SWITCH_HIDE_IMG_PROFILE,
+      data: { "hideImg" : hideImg },
+    ).then((value) {
+      // log(value.toString());
+
+      ServerResponse res = ServerResponse.fromJson(value.data);
+
+      if (res.key == 0) {
+        emit(SwitchHidingImgErrorState(res.msg ?? "حدث خطأ ما"));
+        return;
+      }
+
+      emit(SwitchHidingImgSuccessState(res.data['hideImg']));
+
+    }).catchError((error) {
+      log(error.toString());
+      emit(SwitchHidingImgErrorState(error.toString()));
+    });
+
+  }
+
+
+}
+
 
 

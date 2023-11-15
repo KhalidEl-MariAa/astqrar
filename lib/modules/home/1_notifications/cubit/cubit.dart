@@ -123,4 +123,28 @@ class NotificationCubit extends Cubit<NotificationStates>
       emit(SendNotificationErrorState(error.toString()));
     });
   }
+
+  removeNotification({required int index})
+  {
+    emit(SendNotificationLoadingState());
+    
+    DioHelper.postDataWithBearearToken(
+      token: TOKEN.toString(),
+      url: REMOVENOTIFICATION, 
+      // noteId, required int notificationType
+      data: { 
+        "noteId": this.getNotificationsModel.data[index].notification?.id??0,
+        "notificationType": this.getNotificationsModel.data[index].notification?.notificationType??0
+      }
+    )
+    .then((value) {
+      log(value.toString());
+      this.getNotificationsModel.data.removeAt(index);      
+      emit(SendNotificationSuccessState());
+    }).catchError((error){
+      log(error.toString());
+      emit(SendNotificationErrorState(error.toString()));
+    });
+  }
+
 }

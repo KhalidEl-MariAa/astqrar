@@ -20,22 +20,22 @@ import '../components.dart';
 import '../dialog_please_login.dart';
 import 'details_item.dart';
 
-class DetailWidget extends StatefulWidget 
+class DetailsWidget extends StatefulWidget 
 {
   final bool messageVisibility;
   final UserDetailsStates state;
   final OtherUser otherUser;
 
-  DetailWidget(
+  DetailsWidget(
       {required this.state,
       required this.messageVisibility,
       required this.otherUser});
 
   @override
-  State<DetailWidget> createState() => _DetailWidgetState();
+  State<DetailsWidget> createState() => _DetailsWidgetState();
 }
 
-class _DetailWidgetState extends State<DetailWidget> {
+class _DetailsWidgetState extends State<DetailsWidget> {
   // DetailWidget({
   @override
   Widget build(BuildContext context) {
@@ -55,15 +55,26 @@ class _DetailWidgetState extends State<DetailWidget> {
                     context: context, 
                     widget: ImageViewer(theImage: img ) );
                 },
-                child: Container(
-                  height: 20.h,
-                  width: 50.w,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: getUserImage(widget.otherUser) ,                    
-                      )),
+                child: 
+                Stack(
+                  children: <Widget> [
+                    Container(
+                      height: 20.h,
+                      width: 50.w,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          image: DecorationImage(
+                            opacity: widget.otherUser.IsActive! ? 1.0: 0.5,
+                            fit: BoxFit.fitHeight,
+                            image: getUserImage(widget.otherUser) ,                    
+                          )),
+                    ),
+
+                    if(!widget.otherUser.IsActive!)
+                      Center(child: Text("غير مشترك",  
+                            style: GoogleFonts.almarai(color: Colors.red[600], fontSize: 24), ))                    
+                    ,
+                  ],
                 ),
               )
             ),
@@ -368,7 +379,7 @@ class _DetailWidgetState extends State<DetailWidget> {
                 child: DetailsItem(
                   title: 'نبذة عن مظهرك',
                   subTitle:
-                      findSubSpecificationOrEmptyStr(SpecificationIDs.job),
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.appearance),
                 ),
               ),
             ],

@@ -17,7 +17,7 @@ import 'webb.dart';
 class PaymentScreen extends StatelessWidget 
 {
   final double? price;
-  final String? serviceType;
+  final String serviceType;
   final dynamic idService;
 
   PaymentScreen({
@@ -38,7 +38,11 @@ class PaymentScreen extends StatelessWidget
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Web(price: this.price, idService: idService, serviceType: serviceType,)
+                builder: (context) => 
+                  Web(
+                    price: this.price, 
+                    idService: idService, 
+                    serviceType: serviceType,)
               ));
         }
 
@@ -146,12 +150,14 @@ class PaymentScreen extends StatelessWidget
                       ],
                     ),
                     const Spacer(),
+
+                    // اختيار الدفع عن طريق باي لنك
                     Checkbox(
                       value: PaymentCubit.get(context).isPayment,
                       activeColor: PRIMARY,
                       // fillColor:MaterialStateColor.resolveWith((states) => Colors.grey) ,
                       onChanged: (value) {
-                        PaymentCubit.get(context).changePayment(value: value);
+                        PaymentCubit.get(context).setIsPayment(value: value);
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),

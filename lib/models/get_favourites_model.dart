@@ -1,30 +1,27 @@
 
+import 'package:astarar/models/user.dart';
+
 class GetFavouritesModel 
 {
   int?key;
-  List<DataOfUsersInFavouritesModel>data = [];
+  List<Favorite>data = [];
 
-  GetFavouritesModel.fromJson(Map<String, dynamic>json){
+  GetFavouritesModel.fromJson(Map<String, dynamic>json)
+  {
     key = json['key'];
     json['data'].forEach((element) {
-      data.add(DataOfUsersInFavouritesModel.fromJson(element));
+      data.add(Favorite.fromJson(element));
     });
   }
 }
 
-class DataOfUsersInFavouritesModel 
+class Favorite extends User 
 {
-  String? username;
-  String? id;
-  int? gender;
-  bool? isFavourite;
-  String? imgProfile;
+  bool isFavourite = true;
 
-  DataOfUsersInFavouritesModel.fromJson(Map<String, dynamic>json){
-    username = json['username'];
-    id = json['id'];
-    gender = json['gender'];
+  Favorite.fromJson(Map<String, dynamic>json) : super.fromJson(json)
+  {
+    id = json['favUserId'];
     isFavourite=true;
-    imgProfile = json['imgProfile'];
   }
 }

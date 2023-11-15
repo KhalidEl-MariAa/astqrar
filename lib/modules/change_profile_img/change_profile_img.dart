@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:astarar/models/user.dart';
+import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,16 +15,27 @@ import '../home/layout/layout.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class ChangeProfileImg extends StatelessWidget 
+class ChangeProfileImg extends StatefulWidget 
+{
+  late User current_user;
+
+  ChangeProfileImg(this.current_user);
+
+  @override
+  State<ChangeProfileImg> createState() => _ChangeProfileImgState();
+}
+
+class _ChangeProfileImgState extends State<ChangeProfileImg> 
 {
   final formkey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocProvider(
       create: (BuildContext context) => ChangeProfileImageCubit(),
       child: BlocConsumer<ChangeProfileImageCubit, ChangeProfileImgStates>(
-        listener: (context,state){
+        listener: (context, state){
           if(state is ChangeProfileImageSuccessState)
           {
             // if(state.res.key==1){
@@ -32,8 +45,25 @@ class ChangeProfileImg extends StatelessWidget
             // else{
             //   showToast(msg: state.res.msg!, state: ToastStates.ERROR);
             // }
+
+            setState(() {
+              // this.widget.current_user.imgProfile= "https://9684-31-166-134-141.ngrok-free.app/images/Users/e0e720d8a3634614a188a7a9d78dc539.jpg";
+              this.widget.current_user.imgProfile = state.updatedUser.imgProfile;
+              this.widget.current_user.hideImg = state.updatedUser.hideImg;     
+              // log(state.updatedUser.imgProfile??"XXXX");
+              // log("${state.updatedUser.hideImg??true}");
+            });
+
             showToast(msg: "تم رفع الصورة بنجاح", state: ToastStates.SUCCESS);
-          }else if(state is ChangeProfileImageErrorState){
+
+          }else if( state is SwitchHidingImgSuccessState){
+              setState(() {
+                this.widget.current_user.hideImg = state.hideImg;
+              });
+          }
+          else if(state is ChangeProfileImageErrorState ){
+            showToast(msg: state.error, state: ToastStates.ERROR);
+          }else if( state is SwitchHidingImgErrorState){
             showToast(msg: state.error, state: ToastStates.ERROR);
           }
         },
@@ -73,22 +103,65 @@ class ChangeProfileImg extends StatelessWidget
 
                           // Pick an image.
                           final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                          ChangeProfileImageCubit.get(context).changeProfileImageFromGallery(image?.path??"");
                           // log(image?.path??"dd" );
-                          ChangeProfileImageCubit.get(context).changeProfileImageFromGallery(image?.path??"5");
                         }, 
                         text: "اختيار صورة من المعرض"
                       ),
+
                       SizedBox(height: 1.h,),
 
+                      // دائرة التحميل
                       Center(
                         child: 
                           ConditionalBuilder(
                             condition: state is ChangeProfileImageLoadingState,                              
                             builder: (context) => CircularProgressIndicator(),
-                            fallback: (context) => Text("", style: TextStyle(color: Colors.yellow),),
+                            fallback: (context) => Text(""),
                         ),
                       ),
 
+                      // عرض الصورة بعد الرفع
+                      Center(
+                        child: Container(
+                            height: 20.h,
+                            width: 50.w,
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                image: DecorationImage(
+                                  opacity: this.widget.current_user.IsActive! ? 1.0 : 0.5,
+                                  fit: BoxFit.fill,
+                                  image: getUserImage(this.widget.current_user) ,                    
+                                )),
+                          ) 
+                        ),
+
+                        SizedBox(height: 1.h,),
+                      
+                        // زر اخفاء الصورة
+                        Row(
+                          children: [
+                            ConditionalBuilder(
+                              condition: state is SwitchHidingImgLodingState, 
+                              builder: (context) => CircularProgressIndicator(), 
+                              fallback: (context) =>
+                                Switch(                          
+                                  value: this.widget.current_user.hideImg??true,
+                                  activeColor: PRIMARY,
+                                  onChanged: (bool value) 
+                                  {
+                                    ChangeProfileImageCubit
+                                      .get(context)
+                                      .switchHidingImgProfile(value);
+                                  }
+                                )
+                            ),
+                            SizedBox(width: 0.5.w,),
+                            Text("إخفاء الصورة",
+                              style: GoogleFonts.almarai(fontSize: 13.sp),
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                 ),
