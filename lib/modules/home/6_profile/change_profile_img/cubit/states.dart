@@ -1,5 +1,4 @@
-import '../../../models/server_response_model.dart';
-import '../../../models/user.dart';
+import '../../../../../models/user.dart';
 
 abstract class ChangeProfileImgStates{}
 

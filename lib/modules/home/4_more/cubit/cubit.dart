@@ -9,12 +9,12 @@ import '../../../../shared/network/local.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 
-class SettingsCubit extends Cubit<SettingsStates> 
+class MoreTabCubit extends Cubit<MoreTabStates> 
 {
-  SettingsCubit() : super(SettingsInitialState());
+  MoreTabCubit() : super(SettingsInitialState());
 
   //late LoginModel loginModel;
-  static SettingsCubit get(context) => BlocProvider.of(context);
+  static MoreTabCubit get(context) => BlocProvider.of(context);
 
   void removeAccount()
   {

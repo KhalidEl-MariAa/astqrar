@@ -5,7 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../../constants.dart';
 import '../../../../end_points.dart';
-import '../../../../models/contacts.dart';
+import '../../../../models/user_contact.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 

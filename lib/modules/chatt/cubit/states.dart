@@ -1,6 +1,6 @@
 import 'package:astarar/models/get-messages-model.dart';
 
-import '../../../models/get_information_user.dart';
+import '../../../models/user_other.dart';
 
 abstract class ConversationStates {}
 

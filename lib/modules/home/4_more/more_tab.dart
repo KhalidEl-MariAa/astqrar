@@ -16,7 +16,7 @@ import '../../../shared/components/components.dart';
 import '../../../shared/components/logo/normal_logo.dart';
 import '../../../shared/styles/colors.dart';
 import '../../login/login.dart';
-import '../../user_profile/user_profile.dart';
+import '../6_profile/user_profile/user_profile.dart';
 import '1_about/about.dart';
 import '2_terms/terms.dart';
 import '3_contact_us/contact_us.dart';
@@ -54,7 +54,7 @@ class _MoreTabState extends State<MoreTab> {
   @override
   Widget build(BuildContext context) 
   {
-    return BlocConsumer<SettingsCubit, SettingsStates>(
+    return BlocConsumer<MoreTabCubit, MoreTabStates>(
       listener: (context, state) { on_state_changed(context, state); },
       builder: (context, state) => Scaffold(
           appBar: PreferredSize(
@@ -116,7 +116,7 @@ class _MoreTabState extends State<MoreTab> {
                           const Spacer(),
                           if (IS_LOGIN)
                             InkWell(
-                              onTap: () { SettingsCubit.get(context).logOut(); },
+                              onTap: () { MoreTabCubit.get(context).logOut(); },
                               child: Text(
                                 "تسجيل الخروج",
                                 style: GoogleFonts.almarai(
@@ -307,7 +307,7 @@ class _MoreTabState extends State<MoreTab> {
     );
   }
 
-  void on_state_changed(BuildContext context, SettingsStates state)
+  void on_state_changed(BuildContext context, MoreTabStates state)
   {
     if (state is LogoutSuccessState) {
       Navigator.pushAndRemoveUntil(

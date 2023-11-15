@@ -52,7 +52,7 @@ class User {
     id = json['id'];
     gender = json['gender'] ?? 1;
     email = json['email'];
-    user_Name = json['user_Name'];
+    user_Name = json['user_Name']?? "--------";
     nationalID = json['nationalID'];
     city = json['city'];
     // nationality = json['nationality'];
@@ -69,7 +69,7 @@ class User {
     status = json['status'];
     imgProfile = json['imgProfile'];
     hideImg = json['hideImg'];
-    countryId = json['countryId'];
+    countryId = json['countryId']??0;
 
     LastLogin = DateTime.parse(json['lastLogin'] ?? "2002-01-01");
     ExpiredDate = DateTime.parse(json['expiredDate'] ?? "2002-01-01");

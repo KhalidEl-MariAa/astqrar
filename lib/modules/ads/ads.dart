@@ -44,7 +44,7 @@ class AdsScreen extends StatelessWidget
                 condition: state is GetAdsLoadingState,
                 builder: (context) => const LoadingGif(),
                 fallback: (context) => AdsAndPackages(
-                    packages: AdsCubit.get(context).getAdsModel.data,
+                    packages: AdsCubit.get(context).ads,
                     isPackages: false))),
       ),
     );

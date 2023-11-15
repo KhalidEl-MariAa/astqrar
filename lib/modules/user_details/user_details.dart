@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../models/get_information_user.dart';
+import '../../models/user_other.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,6 +1,6 @@
 
 
-import '../../../models/get_information_user.dart';
+import '../../../models/user_other.dart';
 
 abstract class UserDetailsStates{}
 

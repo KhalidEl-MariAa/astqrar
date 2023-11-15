@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:astarar/models/get-messages-model.dart';
 import 'package:intl/intl.dart' as dt;
 
-import '../../models/get_information_user.dart';
+import '../../models/user_other.dart';
 
 import '../../shared/components/components.dart';
 

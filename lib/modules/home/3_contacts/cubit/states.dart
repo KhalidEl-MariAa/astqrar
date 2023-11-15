@@ -1,4 +1,4 @@
-import '../../../../models/contacts.dart';
+import '../../../../models/user_contact.dart';
 
 abstract class ContactsStates{}
 

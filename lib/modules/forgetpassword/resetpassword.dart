@@ -1,6 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../models/forget_password.dart';
+import '../../models/activation_code.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

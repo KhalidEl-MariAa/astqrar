@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:astarar/models/user.dart';
 import 'package:astarar/shared/styles/colors.dart';
@@ -9,9 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../shared/components/components.dart';
-import '../home/4_more/more_tab.dart';
-import '../home/layout/layout.dart';
+import '../../../../shared/components/components.dart';
+import '../../4_more/more_tab.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -38,13 +36,6 @@ class _ChangeProfileImgState extends State<ChangeProfileImg>
         listener: (context, state){
           if(state is ChangeProfileImageSuccessState)
           {
-            // if(state.res.key==1){
-            //   showToast(msg: state.res.msg!, state: ToastStates.SUCCESS);
-            //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
-            // }
-            // else{
-            //   showToast(msg: state.res.msg!, state: ToastStates.ERROR);
-            // }
 
             setState(() {
               // this.widget.current_user.imgProfile= "https://9684-31-166-134-141.ngrok-free.app/images/Users/e0e720d8a3634614a188a7a9d78dc539.jpg";

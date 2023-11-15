@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../models/contacts.dart';
+import '../../../models/user_contact.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/favourite_item.dart';
 import '../../../shared/components/loading_gif.dart';
@@ -167,16 +167,8 @@ class _ContactsTabState extends State<ContactsTab>
                                               // SizedBox(height: 9.h,),
                                             ],),
 
-                                          contactor: this.contacts[index],
-                                          // otherId: this.contacts[index].contactorId,
-                                          // name: this.contacts[index].user_Name! + " ",
-                                          // this.contacts[index].userInformation!.IsConnected.toString(),
-                                          
-                                          // gender: this.contacts[index].userInformation!.gender!,
-                                          // imgProfile: this.contacts[index].userInformation!.imgProfile!,
-                                          
+                                          contactor: this.contacts[index],                                          
                                           onClicked: () { user_on_click(context, index); },
-                                          // isActive: this.contacts[index].userInformation!.IsActive!,
                                         ),
 
                                     ],)

@@ -4,11 +4,11 @@ import 'package:astarar/models/server_response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../constants.dart';
-import '../../../end_points.dart';
-import '../../../models/user.dart';
-import '../../../shared/network/local.dart';
-import '../../../shared/network/remote.dart';
+import '../../../../../constants.dart';
+import '../../../../../end_points.dart';
+import '../../../../../models/user.dart';
+import '../../../../../shared/network/local.dart';
+import '../../../../../shared/network/remote.dart';
 import 'states.dart';
 
 class UserProfileCubit extends Cubit<UserProfileStates> 

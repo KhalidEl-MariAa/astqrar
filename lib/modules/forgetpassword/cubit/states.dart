@@ -1,4 +1,4 @@
-import '../../../models/forget_password.dart';
+import '../../../models/activation_code.dart';
 
 
 abstract class ForgetPasswordStates{}

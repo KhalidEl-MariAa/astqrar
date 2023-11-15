@@ -258,8 +258,7 @@ class _HomeTabState extends State<HomeTab>
                 builder: (context) => LoadingGif(),
                 fallback: (context) {
                   // log(LayoutCubit.Countries.toString());
-                  if (HomeCubit.get(context)
-                          .getAllAdsWithUsersModel.data.length > 0 ) 
+                  if(HomeCubit.get(context).userAds.length > 0 ) 
                   {
                     return SliderAds();
                   } else {
@@ -272,33 +271,6 @@ class _HomeTabState extends State<HomeTab>
                 height: 5.h,
               ),
 
-              // if(typeOfUser==1||isLogin==false)
-              //   Padding(
-              //     padding: EdgeInsetsDirectional.only(start: 3.w),
-              //     child: Text(
-              //         "تواصل  مع اي خطابة تريد لمساعدتك في ايجاد الشخص المناسب",
-              //         style: GoogleFonts.almarai(
-              //             color: customGrey2, fontSize: 8.8.sp,fontWeight: FontWeight.w600)),
-              //   ),
-              //   SizedBox(
-              //     height: 1.5.h,
-              //   ),
-              // if(typeOfUser==1||isLogin==false) Padding(
-              //   padding: EdgeInsetsDirectional.only(start: 3.w),
-              //   child: InkWell(
-              //     onTap: () {
-              //       navigateTo(context: context, widget: DelegatesSection());
-              //     },
-              //     child: Text(
-              //       "تواصل مع الخطابة",
-              //       style: GoogleFonts.almarai(
-              //           color: primary,
-              //           decoration: TextDecoration.underline,
-              //           fontSize: 12.sp,
-              //           fontWeight: FontWeight.bold),
-              //     ),
-              //   ),
-              // ),
 
               SizedBox(
                 height: 4.h,
@@ -319,12 +291,8 @@ class _HomeTabState extends State<HomeTab>
                   children: [
                     Expanded(
                       child: InkWell(
-                        onTap: () async {
-                          MenSectionClick(context);
-                        },
-                        child: BigButton(
-                          text: "قسم الرجال",
-                        ),
+                        onTap: () async { MenSectionClick(context); },
+                        child: BigButton(text: "قسم الرجال",),
                       ),
                     ),
                     SizedBox(
@@ -332,9 +300,7 @@ class _HomeTabState extends State<HomeTab>
                     ),
                     Expanded(
                       child: InkWell(
-                          onTap: () {
-                            WomenSectionClick(context);
-                          },
+                          onTap: () { WomenSectionClick(context); },
                           child: BigButton(text: "قسم النساء")),
                     ),
                   ],

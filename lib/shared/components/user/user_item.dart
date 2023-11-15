@@ -1,4 +1,3 @@
-import 'package:astarar/models/get_information_user.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

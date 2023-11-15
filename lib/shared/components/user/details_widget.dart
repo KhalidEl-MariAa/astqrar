@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:astarar/modules/user_details/image_viewer/image_viewer.dart';
 import 'package:astarar/utils.dart';
@@ -11,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants.dart';
-import '../../../models/get_information_user.dart';
+import '../../../models/user_other.dart';
 import '../../../models/user.dart';
 import '../../../modules/chatt/chatt.dart';
 import '../../../modules/user_details/cubit/cubit.dart';

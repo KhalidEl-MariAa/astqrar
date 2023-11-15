@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
 import '../../../end_points.dart';
-import '../../../models/get_information_user.dart';
+import '../../../models/user_other.dart';
 import '../../../models/server_response_model.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';

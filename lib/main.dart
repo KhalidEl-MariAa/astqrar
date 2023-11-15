@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'modules/splash/cubit/splash_cubit.dart';
@@ -83,8 +82,8 @@ class MyApp extends StatelessWidget
               BlocProvider<UserDetailsCubit>(
                   create: (BuildContext context) => UserDetailsCubit()),
 
-              BlocProvider<SettingsCubit>(
-                  create: (BuildContext context) => SettingsCubit()),
+              BlocProvider<MoreTabCubit>(
+                  create: (BuildContext context) => MoreTabCubit()),
 
               BlocProvider<SearchCubit>(
                   create: (BuildContext context) => SearchCubit()),

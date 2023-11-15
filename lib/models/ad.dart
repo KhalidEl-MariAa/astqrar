@@ -1,20 +1,6 @@
 
-class GetAdsModel 
+class Ad 
 {
-  int? key;
-  List<Ad> data = [];
-  
-  GetAdsModel.fromJson(Map<String, dynamic> json) 
-  {
-    key = json['key'];
-    
-    json['data'].forEach((adItem) {
-      data.add(Ad.fromJson(adItem));
-    });
-  }
-}
-
-class Ad {
   int? id;
   String? descriptionAr;
   dynamic price;

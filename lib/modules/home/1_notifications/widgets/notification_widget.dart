@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../constants.dart';
 import '../../../../models/get_notifications.dart';
 import '../../../../models/user.dart';
 import '../../../../shared/styles/colors.dart';
@@ -15,22 +14,6 @@ import 'status_button.dart';
 
 class NotificationWiget extends StatelessWidget 
 {
-  // final int notificationType;
-  // final String userName;
-  // final int gender;
-  // final String userId;
-  // final String message;
-  // final Function clickUser;
-  // final String time;
-
-  // NotificationWiget(
-  //     {required this.notificationType,
-  //     required this.time,
-  //     required this.clickUser,
-  //     required this.userName,
-  //     required this.gender,
-  //     required this.userId,
-  //     required this.message});
 
   final NotificationDetailsModel note;
   final User user;

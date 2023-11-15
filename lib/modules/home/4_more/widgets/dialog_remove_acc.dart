@@ -13,7 +13,7 @@ class DialogRemoveAcc extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SettingsCubit,SettingsStates>(
+    return BlocConsumer<MoreTabCubit,MoreTabStates>(
       listener: (context,state){},
       builder:(context,state)=> AlertDialog(
         elevation: 0,
@@ -43,7 +43,7 @@ class DialogRemoveAcc extends StatelessWidget
                   children: [
                     InkWell(
                       onTap: () {
-                        SettingsCubit.get(context).removeAccount();
+                        MoreTabCubit.get(context).removeAccount();
                       },
                       child: Padding(
                         padding: EdgeInsetsDirectional.only(start: 1.w),

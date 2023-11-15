@@ -10,7 +10,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import '../../../constants.dart';
 import '../../../models/get-messages-model.dart';
 import '../../../end_points.dart';
-import '../../../models/get_information_user.dart';
+import '../../../models/user_other.dart';
 import '../../../shared/network/remote.dart';
 import '../chatt.dart';
 import 'states.dart';

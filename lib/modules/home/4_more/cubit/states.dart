@@ -1,24 +1,25 @@
-abstract class SettingsStates{}
 
-class SettingsInitialState extends SettingsStates{}
+abstract class MoreTabStates{}
 
-class LogoutLoadingState extends SettingsStates{}
+class SettingsInitialState extends MoreTabStates{}
 
-class LogoutSuccessState extends SettingsStates{}
+class LogoutLoadingState extends MoreTabStates{}
 
-class LogoutErrorState extends SettingsStates{
+class LogoutSuccessState extends MoreTabStates{}
+
+class LogoutErrorState extends MoreTabStates{
   final String error;
   LogoutErrorState(this.error);
 }
 
-class RemoveAccountLoadingState extends SettingsStates{}
+class RemoveAccountLoadingState extends MoreTabStates{}
 
-class RemoveAccountSuccessState extends SettingsStates{
+class RemoveAccountSuccessState extends MoreTabStates{
   final int statusCode;
   RemoveAccountSuccessState(this.statusCode);
 }
 
-class RemoveAccountErrorState extends SettingsStates{
+class RemoveAccountErrorState extends MoreTabStates{
   final String error;
   RemoveAccountErrorState(this.error);
 }

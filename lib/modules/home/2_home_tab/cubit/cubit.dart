@@ -1,10 +1,11 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';
 import '../../../../end_points.dart';
-import '../../../../models/user_ads.dart';
+import '../../../../models/user_ad.dart';
 import '../../../../shared/network/remote.dart';
 import 'states.dart';
 
@@ -15,7 +16,8 @@ class HomeCubit extends Cubit<HomeStates>
   static HomeCubit get(context) => BlocProvider.of(context);
 
   //ads
-  late GetAllAdsWithUsersModel getAllAdsWithUsersModel;
+  // late ServerResponse res;
+  List<UserAd> userAds = [] ;
 
   void getUserAds() 
   {
@@ -28,8 +30,17 @@ class HomeCubit extends Cubit<HomeStates>
     ).then( (value) 
     {
       log(value.toString());
-      getAllAdsWithUsersModel = GetAllAdsWithUsersModel.fromJson(value.data);
 
+      userAds = [] ;
+      ServerResponse res = ServerResponse.fromJson(value.data);
+      if (res.key == 0) {
+        emit(GetUserAdsErrorState(res.msg!));
+        return;
+      }
+
+      res.data.forEach((e) {
+        userAds.add( UserAd.fromJson(e) );
+      });
       emit(GetUserAdsSuccessState());
 
     }).catchError((error) 

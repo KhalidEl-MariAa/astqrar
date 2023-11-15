@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';
 import '../../../../end_points.dart';
-import '../../../../models/get_favourites_model.dart';
+import '../../../../models/user_favourite.dart';
 import '../../../../models/server_response_model.dart';
 import '../../../../shared/network/remote.dart';
 import 'state.dart';

@@ -1,6 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../models/forget_password.dart';
+import '../../models/activation_code.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sizer/sizer.dart';

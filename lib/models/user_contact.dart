@@ -1,19 +1,6 @@
 import 'user.dart';
 import 'package:intl/intl.dart';
 
-// class ContactDetails 
-// {
-//   User? userInformation;
-//   Contact? contact;
-//   bool isInMyContacts = true;
-//   ContactDetails.fromJson(Map<String, dynamic> json) 
-//   {
-//     userInformation = User.fromJson( json['userInformation'] ) ;
-//     contact = Contact.fromJson( json['contact'] );
-//   }
-// }
-
-
 
 class Contact extends User
 {

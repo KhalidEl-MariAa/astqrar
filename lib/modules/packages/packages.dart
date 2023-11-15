@@ -43,7 +43,7 @@ class PackagesScreen extends StatelessWidget
               builder: (context) => LoadingGif(),
               fallback: (context) => 
                   AdsAndPackages(
-                    packages: GetPackagesCubit.get(context).getPackgesModel.data,
+                    packages: GetPackagesCubit.get(context).pakages,
                     isPackages: true,
                   )
             )
