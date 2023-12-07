@@ -1,4 +1,3 @@
-import 'package:astarar/models/user_contact.dart';
 import 'package:astarar/models/user.dart';
 import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';

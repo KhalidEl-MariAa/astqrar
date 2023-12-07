@@ -15,7 +15,7 @@ import 'cubit/states.dart';
 
 class ChangeProfileImg extends StatefulWidget 
 {
-  late User current_user;
+  final User current_user;
 
   ChangeProfileImg(this.current_user);
 

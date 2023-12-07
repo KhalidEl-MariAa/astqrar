@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../shared/components/loading_gif.dart';
-import '../../../../shared/components/logo/stack_logo.dart';
 import '../../../../shared/styles/colors.dart';
 import '../../../shared/components/logo/normal_logo.dart';
 import 'cubit/cubit.dart';
@@ -13,7 +12,7 @@ import 'package:photo_view/photo_view.dart';
 
 class ImageViewer extends StatelessWidget 
 {
-  ImageProvider theImage =  AssetImage("assets/bride_groom.jpeg");  
+  final ImageProvider theImage; //=  AssetImage("assets/bride_groom.jpeg");  
   ImageViewer({required this.theImage, Key? key}) : super(key: key);
 
   @override
