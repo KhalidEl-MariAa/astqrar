@@ -60,16 +60,10 @@ Widget defaultTextFormField({
           fontWeight: FontWeight.w400),
       hintText: label,
       hintStyle: GoogleFonts.almarai( color: GREY, fontSize: 10.sp),
-      // hintStyle: TextStyle(
-      //   color: GREY,
-      //   fontSize: 11.sp,
-      // ),
       hintMaxLines: isLocation ? 3 : 1,
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: borderColor),
           borderRadius: BorderRadius.circular(12)),
-      // borderSide: const BorderSide(color: Colors.white54),
-      // borderRadius: BorderRadius.circular(50.0)),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: PRIMARY),
         borderRadius: BorderRadius.circular(12.0),

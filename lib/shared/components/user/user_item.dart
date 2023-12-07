@@ -13,7 +13,7 @@ class UserItemWidget extends StatelessWidget
   final Function onclickUser;
   final Function removeUser;
   final bool visibileRemoveIcon;
-  late User otherUser;
+  final User otherUser;
   // late UserItem otherUserItem;
   
   UserItemWidget(
