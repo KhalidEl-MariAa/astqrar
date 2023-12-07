@@ -21,8 +21,14 @@ class AboutScreen extends StatelessWidget
         builder: (context, state) => Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
+            // appBar: PreferredSize(
+            //     preferredSize: Size.fromHeight(11.h),
+            //     child: NormalLogo(
+            //       appbarTitle: "اصتعراض",
+            //       isBack: true,
+            //     )),
             
-            backgroundColor: WHITE,
+            backgroundColor: WHITE, 
             body: 
               ConditionalBuilder(
                 condition: state is AboutUsLoadingState,

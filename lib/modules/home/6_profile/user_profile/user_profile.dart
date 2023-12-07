@@ -1,5 +1,5 @@
-import '../../constants.dart';
-import '../../models/country.dart';
+import '../../../../constants.dart';
+import '../../../../models/country.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,15 +7,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../models/user.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/loading_gif.dart';
-import '../../shared/components/logo/normal_logo.dart';
-import '../../shared/components/radiobuttonregister.dart';
-import '../../shared/styles/colors.dart';
+import '../../../../models/user.dart';
+import '../../../../shared/components/components.dart';
+import '../../../../shared/components/loading_gif.dart';
+import '../../../../shared/components/logo/normal_logo.dart';
+import '../../../../shared/components/radiobuttonregister.dart';
+import '../../../../shared/styles/colors.dart';
 import '../change_password/change_password.dart';
-import '../home/layout/cubit/cubit.dart';
-import '../home/layout/layout.dart';
+import '../change_profile_img/change_profile_img.dart';
+import '../../layout/cubit/cubit.dart';
+import '../../layout/layout.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -53,7 +54,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
   late User current_user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocProvider(
       create: (BuildContext context) => UserProfileCubit()..getUserData(),
       child: BlocConsumer<UserProfileCubit, UserProfileStates>(
@@ -93,6 +95,43 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w900),
                           ),
+
+                        SizedBox(
+                          height: 1.5.h,
+                        ),
+
+                        GridView.count(
+                            shrinkWrap: true,
+                            crossAxisCount: 
+                              (MediaQuery.of(context).orientation == Orientation.landscape) ? 4: 2,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.all(0),
+                            childAspectRatio: 0.6 / 0.1,
+                            children: [
+                              WhiteRadioButton(
+                                value: 1,
+                                groupvalue: this.current_user.gender,
+                                title: "ذكر" ,
+                                changeFunction: () 
+                                {
+                                  setState(() {
+                                    this.current_user.gender=1;
+                                  });
+                                }),
+                              
+                              WhiteRadioButton(
+                                value: 2,
+                                groupvalue: this.current_user.gender,
+                                title: "أنثى" ,
+                                changeFunction: () 
+                                {
+                                  setState(() {
+                                    this.current_user.gender=2;
+                                  });
+                                })
+
+                            ]
+                        ),
 
                         SizedBox(
                           height: 1.5.h,
@@ -257,9 +296,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             shrinkWrap: true,
                             crossAxisCount:
                                 (MediaQuery.of(context).orientation ==
-                                        Orientation.landscape)
-                                    ? 4
-                                    : 2,
+                                        Orientation.landscape) ? 4: 2,
                             physics: const NeverScrollableScrollPhysics(),
                             padding: const EdgeInsets.all(0),
                             childAspectRatio: 0.6 / 0.1,
@@ -283,6 +320,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
+
                         defaultTextFormField(
                             context: context,
                             container: Colors.grey[100],
@@ -533,6 +571,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 2.h,
                         ),
+
                         Text(
                           "الحالة الاجتماعية",
                           style: TextStyle(color: BLACK, fontSize: 14),
@@ -678,6 +717,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 1.5.h,
                         ),
+
                         defaultTextFormField(
                             context: context,
                             controller: dowryController,
@@ -693,6 +733,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                             labelText: "قيمة المهر",
                             label: "قيمة المهر(0 الي 100 الف)",
                             prefixIcon: Icons.person),
+
                         SizedBox(
                           height: 1.5.h,
                         ),
@@ -707,7 +748,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
                               RegExp(
-                                  '[\u0600-\u06FF\\s]'), // Arabic Unicode range
+                                  '(?![\u0660-\u0669])[\u0600-\u06FF\\s]' ), // Arabic Unicode range
                             ),
                           ],
                           decoration: InputDecoration(
@@ -759,9 +800,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                         ),
 
-                        SizedBox(
-                          height: 2.5.h,
-                        ),
+                        SizedBox(height: 2.1.h, ),
 
                         InkWell(
                           onTap: () {
@@ -773,16 +812,36 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                           child: Center(
                             child: Text(
                               "تغيير كلمة المرور",
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.almarai(
                                   color: PRIMARY,
-                                  fontSize: 12.sp,
+                                  fontSize: 16.sp,
                                   decoration: TextDecoration.underline),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 1.5.h,
+
+                        SizedBox( height: 2.0.h,),
+
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => ChangeProfileImg( this.current_user ));
+                          },
+                          child: Center(
+                            child: Text(
+                              "تغيير الصورة الشخصية",
+                              style: GoogleFonts.almarai(
+                                  color: PRIMARY,
+                                  fontSize: 16.sp,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ),
                         ),
+
+                        SizedBox( height: 3.5.h, ),
+
                       ],
                     ),
                   ),
@@ -819,7 +878,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
         return new_sub;
       });
 
-      radios.add(WhiteRadioButton(
+      radios.add(
+        WhiteRadioButton(
           value: sub["id"],
           groupvalue: found_or_created.id,
           title: sub["nameAr"],
@@ -833,7 +893,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
               found_or_created.specId = Spec["id"];
               found_or_created.name = Spec["nameAr"];
             });
-          }));
+          })
+      );
     });
     return radios;
   }

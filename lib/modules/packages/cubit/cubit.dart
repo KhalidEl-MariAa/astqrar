@@ -1,7 +1,8 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../models/get_packages_model.dart';
+import '../../../models/pakage.dart';
 import '../../../end_points.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
@@ -13,13 +14,28 @@ class GetPackagesCubit extends Cubit<GetPackagesStates>
   //late LoginModel loginModel;
   static GetPackagesCubit get(context) => BlocProvider.of(context);
 
-  late GetPackgesModel getPackgesModel;
+  List<Package> pakages = [];
 
-  void getPackages() {
+  void getPackages() 
+  {
     emit(GetPackagesLoadingState());
-    DioHelper.postData(url: GETPACKAGES, data: {}).then((value) {
+
+    DioHelper.postData(url: GETPACKAGES, data: {})
+    .then((value) 
+    {
       log(value.toString());
-      getPackgesModel = GetPackgesModel.fromJson(value.data);
+      
+      ServerResponse res = ServerResponse.fromJson(value.data);
+      pakages = [];
+
+      if (res.key == 0) {
+        emit(GetPackagesErrorState(res.msg?? "حدث خطأ ما"));
+        return;
+      }
+
+      res.data.forEach((adItem) {
+        pakages.add(Package.fromJson(adItem));
+      });
 
       emit(GetPackagesSuccessState());
     }).catchError((error) {

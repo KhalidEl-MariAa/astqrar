@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:astarar/models/get-messages-model.dart';
 import 'package:intl/intl.dart' as dt;
 
-import '../../models/get_information_user.dart';
+import '../../models/user_other.dart';
 
 import '../../shared/components/components.dart';
 
@@ -21,9 +21,11 @@ import 'package:signalr_netcore/signalr_client.dart';
 import 'package:sizer/sizer.dart';
 
 // ignore: must_be_immutable
-class ConversationScreen extends StatefulWidget {
-  OtherUser? otherUser = null;
-  String? otherId = null;
+class ConversationScreen extends StatefulWidget 
+{
+
+  late OtherUser? otherUser = null;
+  late String? otherId = null;
 
   ConversationScreen({ Key? key, this.otherUser, }) : super(key: key) {
     this.otherId = this.otherUser!.id!;
@@ -124,7 +126,7 @@ class ConversationScreenState extends State<ConversationScreen>
     this.hub
       .invoke('Connect', args: [ID!])
       .then( (args) {
-        log("Connect Repley: " + args.toString() );
+        log("`Connect` Repley: " + args.toString() );
 
         String str = jsonEncode( args );
         dynamic connectedUserIds = jsonDecode(str);
@@ -139,8 +141,7 @@ class ConversationScreenState extends State<ConversationScreen>
         log(e.toString());
       });
 
-    this.hub
-      .onclose( ({error}) {
+    this.hub.onclose( ({error}) {
         log("HUB IS CLOSED: " + error.toString() );
         setState(() { this.IamConnected = true; });
     });
@@ -151,7 +152,6 @@ class ConversationScreenState extends State<ConversationScreen>
   void dispose() async
   {
     super.dispose();
-    
 
     await this.hub
         .invoke('DisConnect', args: [ID!])
@@ -264,15 +264,17 @@ class ConversationScreenState extends State<ConversationScreen>
                               ),
                             )),
 
+                        // صورة المستخدم
                         Container(
                           height: 30.h,
                           width: 20.w,
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                  image: widget.otherUser?.gender == 1
-                                      ? AssetImage(maleImage)
-                                      : AssetImage(femaleImage))),
+                                opacity: widget.otherUser?.IsActive??false ? 1.0 : 0.5,
+                                image: getUserImage(widget.otherUser)
+                                // image: AssetImage(femaleImage)
+                          )),
                         ),
 
                         Column(
@@ -431,9 +433,11 @@ class ConversationScreenState extends State<ConversationScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            image: widget.otherUser?.gender == 1
-                                                ? AssetImage(maleImage)
-                                                : AssetImage(femaleImage))),
+                                          // opacity: this.widget.otherUser!.IsActive! ? 1.0 : 0.5,
+                                          // image: getUserImage(this.widget.otherUser)
+                                          image: AssetImage(femaleImage)
+                                        )
+                                    ),
                                   ),
                                 )
                               ],
@@ -557,7 +561,8 @@ class ConversationScreenState extends State<ConversationScreen>
     );
   }
 
-  Widget createShimmer(context, ConversationStates state) {
+  Widget createShimmer(context, ConversationStates state) 
+  {
     return Shimmer(
       child: ListView.separated(
         itemCount: 8,

@@ -17,7 +17,8 @@ import '../2_home_tab/home_tab.dart';
 import '../3_contacts/contacts_tab.dart';
 import '../4_more/more_tab.dart';
 
-class LayoutScreen extends StatefulWidget {
+class LayoutScreen extends StatefulWidget 
+{
   const LayoutScreen({Key? key}) : super(key: key);
 
   @override

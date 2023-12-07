@@ -4,14 +4,15 @@ import 'package:astarar/models/server_response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../constants.dart';
-import '../../../end_points.dart';
-import '../../../models/user.dart';
-import '../../../shared/network/local.dart';
-import '../../../shared/network/remote.dart';
+import '../../../../../constants.dart';
+import '../../../../../end_points.dart';
+import '../../../../../models/user.dart';
+import '../../../../../shared/network/local.dart';
+import '../../../../../shared/network/remote.dart';
 import 'states.dart';
 
-class UserProfileCubit extends Cubit<UserProfileStates> {
+class UserProfileCubit extends Cubit<UserProfileStates> 
+{
   UserProfileCubit() : super(UserProfileInitialState());
 
   static UserProfileCubit get(context) => BlocProvider.of(context);
@@ -19,17 +20,19 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   //get user data
   late User user;
 
-  getUserData() {
+  void getUserData() {
     emit(GetUserDataLoadingState());
 
     DioHelper.postDataWithBearearToken(
-            url: GETPROFILEDATA, data: {}, token: TOKEN.toString())
-        .then((value) {
+            url: GETPROFILEDATA, data: {}, 
+            token: TOKEN.toString())
+    .then((value) 
+    {
       user = User.fromJson(value.data["data"]);
 
       GENDER_USER = user.gender!;
-
       emit(GetUserDataSucccessState(user));
+
     }).catchError((error) {
       log(error.toString());
       emit(GetUserDataErrorState(error.toString()));
@@ -39,13 +42,15 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
   //update user data
   late User updatedUser;
 
-  void updateUserData(User current_user) {
+  void updateUserData(User current_user) 
+  {
     emit(UpdateUserDataLoadingState());
 
     log(current_user.subSpecifications.toString());
 
     //Creates readable "multipart/form-data" streams.
     FormData formData = FormData.fromMap({
+      "gender": current_user.gender,
       "userName": current_user.user_Name,
       "email": current_user.email,
       "Age": current_user.age,
@@ -102,4 +107,5 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
       emit(UpdateUserDataErrorState(error.toString()));
     });
   }
-}
+  
+} //end class

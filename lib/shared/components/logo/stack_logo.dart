@@ -6,7 +6,8 @@ import 'package:sizer/sizer.dart';
 import '../../styles/colors.dart';
 import '../header_logo.dart';
 
-class StackLogo extends StatelessWidget {
+class StackLogo extends StatelessWidget 
+{
   final String appbarTitle;
   final List strings;
   StackLogo({required this.appbarTitle,required this.strings});

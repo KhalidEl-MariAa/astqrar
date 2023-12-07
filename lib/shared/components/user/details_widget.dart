@@ -1,3 +1,5 @@
+
+import 'package:astarar/modules/user_details/image_viewer/image_viewer.dart';
 import 'package:astarar/utils.dart';
 
 import '../../../modules/home/layout/cubit/cubit.dart';
@@ -8,29 +10,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants.dart';
-import '../../../models/get_information_user.dart';
+import '../../../models/user_other.dart';
 import '../../../models/user.dart';
 import '../../../modules/chatt/chatt.dart';
 import '../../../modules/user_details/cubit/cubit.dart';
 import '../../../modules/user_details/cubit/states.dart';
+import '../components.dart';
 import '../dialog_please_login.dart';
 import 'details_item.dart';
 
-class DetailWidget extends StatefulWidget {
+class DetailsWidget extends StatefulWidget 
+{
   final bool messageVisibility;
   final UserDetailsStates state;
   final OtherUser otherUser;
 
-  DetailWidget(
+  DetailsWidget(
       {required this.state,
       required this.messageVisibility,
       required this.otherUser});
 
   @override
-  State<DetailWidget> createState() => _DetailWidgetState();
+  State<DetailsWidget> createState() => _DetailsWidgetState();
 }
 
-class _DetailWidgetState extends State<DetailWidget> {
+class _DetailsWidgetState extends State<DetailsWidget> {
   // DetailWidget({
   @override
   Widget build(BuildContext context) {
@@ -38,26 +42,46 @@ class _DetailWidgetState extends State<DetailWidget> {
       children: [
         Padding(
           padding: EdgeInsetsDirectional.only(top: 1.h),
-          child: Center(
-            child: Container(
-              height: 20.h,
-              width: 50.w,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: widget.otherUser.gender == 1
-                        ? AssetImage(
-                            maleImage,
-                          )
-                        : AssetImage(femaleImage),
-                  )),
+          child: 
+            // صورة البروفايل
+            Center(
+              child: InkWell(
+                onTap: () 
+                {                  
+                  ImageProvider img = getUserImage(  widget.otherUser );
+
+                  navigateTo(
+                    context: context, 
+                    widget: ImageViewer(theImage: img ) );
+                },
+                child: 
+                Stack(
+                  children: <Widget> [
+                    Container(
+                      height: 20.h,
+                      width: 50.w,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          image: DecorationImage(
+                            opacity: widget.otherUser.IsActive! ? 1.0: 0.5,
+                            fit: BoxFit.fitHeight,
+                            image: getUserImage(widget.otherUser) ,                    
+                          )),
+                    ),
+
+                    if(!widget.otherUser.IsActive!)
+                      Center(child: Text("غير مشترك",  
+                            style: GoogleFonts.almarai(color: Colors.red[600], fontSize: 24), ))                    
+                    ,
+                  ],
+                ),
+              )
             ),
           ),
-        ),
         SizedBox(
           height: 2.h,
         ),
+
         Padding(
           padding: EdgeInsetsDirectional.only(end: 2.w),
           child: Row(
@@ -354,7 +378,7 @@ class _DetailWidgetState extends State<DetailWidget> {
                 child: DetailsItem(
                   title: 'نبذة عن مظهرك',
                   subTitle:
-                      findSubSpecificationOrEmptyStr(SpecificationIDs.job),
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.appearance),
                 ),
               ),
             ],
@@ -443,7 +467,7 @@ class _DetailWidgetState extends State<DetailWidget> {
   void enter_chatt_screen(BuildContext context) {
     // حسب طلب صاحب التطبيق ان يتم الدخول على الشات مباشرة بدون طلب
     UserDetailsCubit.get(context)
-        .addHimToMyContacts(userId: widget.otherUser.id!);
+        .addHimToMyContacts(hisUserId: widget.otherUser.id!);
 
     // if(GetInformationCubit.get(context).getInformationUserModel.isInMyContacts!)
     // {

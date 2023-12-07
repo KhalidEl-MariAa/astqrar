@@ -37,3 +37,11 @@ class SendNotificationErrorState extends NotificationStates{
   final String error;
   SendNotificationErrorState(this.error);
 }
+
+class RemoveNotificationLoadingState extends NotificationStates{}
+class RemoveNotificationSuccessState extends NotificationStates{}
+
+class RemoveNotificationErrorState extends NotificationStates{
+  final String error;
+  RemoveNotificationErrorState(this.error);
+}

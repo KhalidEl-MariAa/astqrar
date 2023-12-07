@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
-import '../../models/user_item.dart';
+import '../../models/user.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/user/user_item.dart';
 import '../../shared/styles/colors.dart';
@@ -27,7 +27,7 @@ class _ResultScreenState extends State<ResultScreen>
 {
   TextEditingController searchTextController = TextEditingController();
 
-  List<UserItem> searchResult = [];
+  List<User> searchResult = [];
 
   @override
   Widget build(BuildContext context) 
@@ -160,26 +160,15 @@ class _ResultScreenState extends State<ResultScreen>
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
-                                                  image: GENDER_USER == 1
-                                                      ? AssetImage(maleImage)
-                                                      : AssetImage(
-                                                      femaleImage))),
+                                                opacity: IS_ACTIVE ? 1.0 : 0.5,
+                                                image: getUserImageByPath(
+                                                  imgProfilePath: IMG_PROFILE!,
+                                                  gender:  GENDER_USER!)
+                                          )),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  // leading: Padding(
-                                  //     padding: EdgeInsetsDirectional.only(
-                                  //         top: 2.h, start: 2.5.w),
-                                  //     child: Container(
-                                  //       height: 2.h,
-                                  //       decoration: BoxDecoration(
-                                  //           shape: BoxShape.circle,
-                                  //           image: DecorationImage(
-                                  //               image: genderUser == 1
-                                  //                   ? AssetImage(maleImage)
-                                  //                   : AssetImage(femaleImage))),
-                                  //     )),
                                 ),
                               ),
                             ),
@@ -382,14 +371,13 @@ class _ResultScreenState extends State<ResultScreen>
             MaterialPageRoute(
                 builder: (context) =>
                     UserDetailsScreen(
-                      messageVisibility:
-                          true,
-                    )));
+                      messageVisibility: true,
+                    ))
+        );
       },
-      genderValue:
-          this.searchResult[index].gender!,
-      username:
-          this.searchResult[index].user_Name!,
+      genderValue: this.searchResult[index].gender!,
+      username: this.searchResult[index].user_Name!,
+      otherUser: this.searchResult[index],
     );
   }
 

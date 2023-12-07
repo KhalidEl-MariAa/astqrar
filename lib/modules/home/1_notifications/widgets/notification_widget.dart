@@ -1,9 +1,9 @@
+import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../constants.dart';
 import '../../../../models/get_notifications.dart';
 import '../../../../models/user.dart';
 import '../../../../shared/styles/colors.dart';
@@ -14,22 +14,6 @@ import 'status_button.dart';
 
 class NotificationWiget extends StatelessWidget 
 {
-  // final int notificationType;
-  // final String userName;
-  // final int gender;
-  // final String userId;
-  // final String message;
-  // final Function clickUser;
-  // final String time;
-
-  // NotificationWiget(
-  //     {required this.notificationType,
-  //     required this.time,
-  //     required this.clickUser,
-  //     required this.userName,
-  //     required this.gender,
-  //     required this.userId,
-  //     required this.message});
 
   final NotificationDetailsModel note;
   final User user;
@@ -46,8 +30,8 @@ class NotificationWiget extends StatelessWidget
   Widget build(BuildContext context) 
   {
     return InkWell(
-      onTap: () {
-
+      onTap: () 
+      {
         //Mesage from admin
         if (this.note.notificationType == 10){
           return;
@@ -63,6 +47,7 @@ class NotificationWiget extends StatelessWidget
                     )));
 
       },
+
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
         child: Container(
@@ -80,14 +65,12 @@ class NotificationWiget extends StatelessWidget
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(35),
                     image: DecorationImage(
+                        opacity: this.user.IsActive! ? 1.0 : 0.5,
                         image: 
-                        this.note.notificationType == 10 ? 
-                          AssetImage("assets/icon.png")
-                        :
-                        this.user.gender == 1 ? 
-                          AssetImage(maleImage)
-                        : 
-                          AssetImage(femaleImage)
+                          this.note.notificationType == 10 ? 
+                            AssetImage("assets/icon.png")
+                            :
+                            getUserImage(this.user)
                     )),
               ),
               SizedBox(

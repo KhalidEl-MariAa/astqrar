@@ -67,6 +67,8 @@ class _SplashState extends State<Splash>
     GENDER_USER = CacheHelper.getData(key: "gender");
     PHONE = CacheHelper.getData(key: "phone");
     IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
+    IMG_PROFILE = CacheHelper.getData(key: "imgProfile");
+    IS_ACTIVE = CacheHelper.getData(key: "isActive");
 
     setState(() { loading_desc = "Connecting to Firebase Messaging..."; });
 
@@ -155,7 +157,8 @@ class _SplashState extends State<Splash>
     log("LOGIN STATUS :" + this.loginStatus.toString());
   }
 
-  Future updateLastLogin() async {
+  Future updateLastLogin() async 
+  {
     DioHelper.postDataWithBearearToken(
       url: UPDATELASTLOGIN,
       token: TOKEN.toString(),

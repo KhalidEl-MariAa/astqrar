@@ -1,8 +1,13 @@
+import 'dart:developer';
+
+import 'package:astarar/models/user_other.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../constants.dart';
+import '../../models/user.dart';
 import '../styles/colors.dart';
 
 Widget defaultTextFormField({
@@ -55,16 +60,10 @@ Widget defaultTextFormField({
           fontWeight: FontWeight.w400),
       hintText: label,
       hintStyle: GoogleFonts.almarai( color: GREY, fontSize: 10.sp),
-      // hintStyle: TextStyle(
-      //   color: GREY,
-      //   fontSize: 11.sp,
-      // ),
       hintMaxLines: isLocation ? 3 : 1,
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: borderColor),
           borderRadius: BorderRadius.circular(12)),
-      // borderSide: const BorderSide(color: Colors.white54),
-      // borderRadius: BorderRadius.circular(50.0)),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: PRIMARY),
         borderRadius: BorderRadius.circular(12.0),
@@ -174,7 +173,8 @@ String chooseToastIcon(ToastStates state) {
   return " ";
 }
 
-Color chooseToastColor(ToastStates state) {
+Color chooseToastColor(ToastStates state) 
+{
   late Color color;
   switch (state) {
     case ToastStates.SUCCESS:
@@ -189,3 +189,51 @@ Color chooseToastColor(ToastStates state) {
   }
   return color;
 }
+
+ImageProvider getUserImageByPath({String imgProfilePath="", int gender=1})
+{
+  log(imgProfilePath);
+  
+  if(imgProfilePath != "")
+  {
+    return NetworkImage(imgProfilePath);
+  }else{
+    return AssetImage(gender == 1? maleImage : femaleImage); 
+  }
+}
+
+
+
+ImageProvider getUserImage(User? usr)
+{
+  if (usr == null){
+    return AssetImage(DEFAULT_IMAGE);
+  }else if( usr.imgProfile != "" && !(usr.hideImg??false) )
+  {
+    // log(usr.imgProfile??"XXXXXX img");
+    return NetworkImage(usr.imgProfile??"");
+  }else{
+    return AssetImage(usr.gender == 1? maleImage : femaleImage); 
+  }
+}
+
+// Image getUserImage(User? usr)
+// {
+//     return Image.network(
+//       usr?.imgProfile??"",
+//       fit: BoxFit.cover,
+//         loadingBuilder:(
+//           context, 
+//           child,
+//           ImageChunkEvent loadingProgress) {
+//             if (loadingProgress == null) return child;
+//               return Center(
+//                 child: CircularProgressIndicator(
+//                 value: loadingProgress.expectedTotalBytes != null ? 
+//                       loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+//                       : null,
+//                 ),
+//               );
+//         },
+//     );
+// }

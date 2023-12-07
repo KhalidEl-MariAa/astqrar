@@ -29,12 +29,20 @@ class DioHelper
       data = await fetchData(host, "api/v2/ping");
       if(data!["status"] == true) return host;
 
-      host = "https://0612-92-40-191-44.ngrok-free.app/";
+      host = "https://127.0.0.1:7054/";
+      data = await fetchData(host, "api/v2/ping");      
+      if(data!["status"] == true) return host;
+
+      host = "https://192.168.43.200:7054/";
+      data = await fetchData(host, "api/v2/ping");      
+      if(data!["status"] == true) return host;
+
+      host = "https://86e9-5-111-106-77.ngrok-free.app/";
       data = await fetchData(host, "api/v2/ping");      
       if(data!["status"] == true) return host;
     }
     
-    host = "https://199.102.48.18/";
+    host = "https://192.168.43.200/";
     data = await fetchData(host, "api/v2/ping");
     if(data!["status"] == true) return host;
     

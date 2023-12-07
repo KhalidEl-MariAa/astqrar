@@ -1,4 +1,4 @@
-import '../../../../models/contacts.dart';
+import '../../../../models/user_contact.dart';
 
 abstract class ContactsStates{}
 
@@ -8,7 +8,7 @@ class GetContactsLoadingState extends ContactsStates{}
 
 class GetContactsSuccessState extends ContactsStates
 {
-  List<ContactDetails> contacts=[];
+  List<Contact> contacts=[];
   GetContactsSuccessState(this.contacts);
 }
 

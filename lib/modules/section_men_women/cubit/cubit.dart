@@ -22,49 +22,44 @@ class MenWomenCubit extends Cubit<MenWomenStates>
   List<User> users = [];
 
   //change one section
-  int? startAge;
-  int? endAge;
+  int? startAge = null;
+  int? endAge = null;
   String typeOfMarriage = "";
   List<int> countryIds = [];
 
-  getUserByGender({required int genderValue}) 
-  {
-    ServerResponse res;
-    users = [];
-    emit(MenWomenLoadingState());
-    
-    DioHelper.postDataWithBearearToken(      
-        url: QUICKFILTER,
-        token: TOKEN.toString(),
-        data: {
-          "gender": genderValue,
-          "startAge": null ,
-          "endAge": null ,
-          "typeOfMarriage": null ,
-          "countryIds": null ,
-        })
-    .then((value) {
-
-      res = ServerResponse.fromJson(value.data);
-
-      for (var u in res.data) 
-      {
-        User user = User.fromJson(u);
-        users.add(user);
-      }
-      startAge=null;
-      endAge=null;
-      countryIds=[];
-      typeOfMarriage="";
-
-      log(users.length.toString() + " Found !!");
-
-      emit(MenWomenSuccessState());
-    }).catchError((error) {
-      log(error.toString());
-      emit(MenWomenErrorState(error.toString()));
-    });
-  }
+  // getUserByGender({required int genderValue}) 
+  // {
+  //   ServerResponse res;
+  //   users = [];
+  //   emit(MenWomenLoadingState());   
+  //   DioHelper.postDataWithBearearToken(      
+  //       url: QUICKFILTER,
+  //       token: TOKEN.toString(),
+  //       data: {
+  //         "gender": genderValue,
+  //         "startAge": null ,
+  //         "endAge": null ,
+  //         "typeOfMarriage": null ,
+  //         "countryIds": null ,
+  //       })
+  //   .then((value) {
+  //     res = ServerResponse.fromJson(value.data);
+  //     for (var u in res.data) 
+  //     {
+  //       User user = User.fromJson(u);
+  //       users.add(user);
+  //     }
+  //     this.startAge=null;
+  //     this.endAge=null;
+  //     this.typeOfMarriage="";
+  //     this.countryIds=[];
+  //     log(users.length.toString() + " Found !!");
+  //     emit(MenWomenSuccessState());
+  //   }).catchError((error) {
+  //     log(error.toString());
+  //     emit(MenWomenErrorState(error.toString()));
+  //   });
+  // }
 
 
   changeindexonesection({required int index, required String gender}) 
@@ -74,17 +69,19 @@ class MenWomenCubit extends Cubit<MenWomenStates>
 
     SectionMenOrWomen.oneIndexSection = index;
     if (SectionMenOrWomen.oneIndexSection == 0) {
-      typeOfMarriage = "";
+      this.typeOfMarriage = "";
     }
     if (SectionMenOrWomen.oneIndexSection == 1) {
-      typeOfMarriage = "علني";
+      this.typeOfMarriage = "علني";
     }
     if (SectionMenOrWomen.oneIndexSection == 2) {
-      typeOfMarriage = "تعدد";
+      this.typeOfMarriage = "تعدد";
     }
     if (SectionMenOrWomen.oneIndexSection == 3) {
-      typeOfMarriage = "مسيار";
+      this.typeOfMarriage = "مسيار";
     }
+
+    this.users = [];
     getUsersByQuickFilter(gender: gender);
     
   }
@@ -97,21 +94,22 @@ class MenWomenCubit extends Cubit<MenWomenStates>
 
     SectionMenOrWomen.twoIndexSection = index;
     if (SectionMenOrWomen.twoIndexSection == 0) {
-      startAge = null;
-      endAge = null;
+      this.startAge = null;
+      this.endAge = null;
     }
     if (SectionMenOrWomen.twoIndexSection == 1) {
-      startAge = 18;
-      endAge = 30;
+      this.startAge = 18;
+      this.endAge = 30;
     }
     if (SectionMenOrWomen.twoIndexSection == 2) {
-      startAge = 30;
-      endAge = 40;
+      this.startAge = 30;
+      this.endAge = 40;
     }
     if (SectionMenOrWomen.twoIndexSection == 3) {
-      startAge = 40;
-      endAge = 50;
+      this.startAge = 40;
+      this.endAge = 50;
     }
+    this.users = [];
     getUsersByQuickFilter(gender: gender);
     
   }
@@ -124,17 +122,19 @@ class MenWomenCubit extends Cubit<MenWomenStates>
 
     SectionMenOrWomen.threeIndexSection = index;
     if (SectionMenOrWomen.threeIndexSection == 0) {
-      countryIds = [];
+      this.countryIds = [];
     }
     if (SectionMenOrWomen.threeIndexSection == 1) {
-      countryIds = [3];
+      this.countryIds = [3];
     }
     if (SectionMenOrWomen.threeIndexSection == 2) {
-      countryIds = LayoutCubit.Countries
+      this.countryIds = LayoutCubit.Countries
                         .where((c) => c.id != 3)
                         .map((e) => e.id!)
                         .toList();
     }
+    
+    this.users = [];
     getUsersByQuickFilter(gender: gender);
     
   }
@@ -143,18 +143,28 @@ class MenWomenCubit extends Cubit<MenWomenStates>
   getUsersByQuickFilter({required String gender}) 
   {
     ServerResponse res;
-    users = [];
-    log(startAge.toString());
+    // users = [];
+    log("age: ${startAge.toString()} - ${endAge.toString()}" );
+    log("typeOfMarriage: ${typeOfMarriage}" );
+    log("countryIds: ${countryIds.length}" );
+
     emit(QuickFilterLoading());
+
+    if(gender=="1"){
+      this.users.removeWhere((u) => u.gender == 2);
+    }else if(gender=="2"){
+      this.users.removeWhere((u) => u.gender == 1);
+    }
 
     DioHelper.postDataWithBearearToken(
       url: QUICKFILTER,
       data: {
         "gender": gender,
-        "startAge": startAge,
-        "EndAge": endAge,
-        "typeofmarriage": typeOfMarriage,
-        "countryIds": countryIds
+        "startAge": this.startAge,
+        "EndAge": this.endAge,
+        "typeofmarriage": this.typeOfMarriage,
+        "countryIds": this.countryIds,
+        "skipPos": this.users.length,
       },
       token: TOKEN.toString()
     ).
@@ -165,9 +175,10 @@ class MenWomenCubit extends Cubit<MenWomenStates>
       for (var u in res.data) 
       {
         User user = User.fromJson(u);
-        users.add(user);
+        this.users.add(user);
       }
-      // log(users.length.toString());
+
+      log(users.length.toString() + " Users Found !!");
       emit(QuickFilterSuccess());
 
     }).catchError((error) {

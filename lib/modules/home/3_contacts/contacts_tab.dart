@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../models/contacts.dart';
+import '../../../models/user_contact.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/favourite_item.dart';
 import '../../../shared/components/loading_gif.dart';
@@ -26,7 +26,7 @@ class ContactsTab extends StatefulWidget
 
 class _ContactsTabState extends State<ContactsTab> 
 {
-  late List<ContactDetails> contacts;
+  late List<Contact> contacts;
 
   @override
   Widget build(BuildContext context) 
@@ -100,9 +100,9 @@ class _ContactsTabState extends State<ContactsTab>
                                     ContactsCubit.get(context).removeChat(
                                         userId: ContactsCubit.get(context)
                                             .contacts[index]
-                                            .userInformation!
-                                            .id??"");
+                                            .contactorId);
                                   },
+                                  
                                   background: Container(
                                     color: PRIMARY,
                                     child: Row(
@@ -133,36 +133,41 @@ class _ContactsTabState extends State<ContactsTab>
                                             ),
                                           ),
                                         
+                                        // عنصر اللستة لكل مستخدم
                                         FavouriteItem(
                                           widget: 
                                             Column(children: [
-                                              SizedBox(height: 2.h,),
+                                              SizedBox(height: 1.h,),
                                               Text(
-                                                this.contacts[index].contact!.time!,
+                                                this.contacts[index].time!,
                                                 style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 10.sp),
                                               ),
-                                              SizedBox(height: 2.h,),
+
+                                              SizedBox(height: 0.5.h,),
 
                                               // ايقونة شات
                                               Row(
                                                 children: [
+                                                  Chip(
+                                                    backgroundColor: PRIMARY,
+                                                    label: Text(this.contacts[index].newMessagesCount.toString(), 
+                                                            style: GoogleFonts.almarai(
+                                                              color: WHITE, 
+                                                              backgroundColor: PRIMARY,
+                                                              fontWeight: FontWeight.bold,
+                                                              fontSize: 16 ),),
+                                                  ),
+                                                  SizedBox(width: 2.w,),                                                  
                                                   Icon(Icons.chat, color: PRIMARY,),
                                                   SizedBox(width: 6.w,),
 
-                                                ],
-                                              )
+
+                                                ],                                                
+                                              ),
+                                              // SizedBox(height: 9.h,),
                                             ],),
 
-                                          otherId: this.contacts[index].userInformation!.id!,
-                                          name: this.contacts[index].userInformation == null? 
-                                                "مستخدم"
-                                                : 
-                                                this.contacts[index].userInformation!.user_Name! 
-                                                + " " ,
-                                                // this.contacts[index].userInformation!.IsConnected.toString(),
-                                          
-                                          gender: this.contacts[index].userInformation!.gender!,
-                                          
+                                          contactor: this.contacts[index],                                          
                                           onClicked: () { user_on_click(context, index); },
                                         ),
 
@@ -183,22 +188,14 @@ class _ContactsTabState extends State<ContactsTab>
 
   void user_on_click(BuildContext context, int index) 
   {
-    if (this.contacts[index].userInformation != null ) 
-    {
-      
-
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => 
                 ConversationScreen.byOtherId(
-                          otherId: this.contacts[index]
-                                      .userInformation!
-                                      .id??"")
+                      otherId: this.contacts[index].contactorId)
         )
       );
-
-    }
 
   }
 }

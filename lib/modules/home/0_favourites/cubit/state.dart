@@ -1,21 +1,26 @@
-abstract class GetFavouritesStates{}
 
-class GetFavouritesInitialState extends GetFavouritesStates{}
+abstract class FavouritesStates{}
 
-class GetFavouritesLoadingState extends GetFavouritesStates{}
+class GetFavouritesInitialState extends FavouritesStates{}
 
-class GetFavouritesSuccessState extends GetFavouritesStates{}
+class GetFavouritesLoadingState extends FavouritesStates{}
 
-class GetFavouritesErrorState extends GetFavouritesStates{
+class GetFavouritesSuccessState extends FavouritesStates{}
+
+class GetFavouritesErrorState extends FavouritesStates{
   final String error;
   GetFavouritesErrorState(this.error);
 }
 
-class RemoveFromFavouriteLoadingState extends GetFavouritesStates{}
+class RemoveFromFavouriteLoadingState extends FavouritesStates
+{
+  final String userId;
+  RemoveFromFavouriteLoadingState(this.userId);
+}
 
-class RemoveFromFavouriteSuccessState extends GetFavouritesStates{}
+class RemoveFromFavouriteSuccessState extends FavouritesStates{}
 
-class RemoveFromFavouriteErrorState extends GetFavouritesStates{
+class RemoveFromFavouriteErrorState extends FavouritesStates{
   final String error;
   RemoveFromFavouriteErrorState(this.error);
 }

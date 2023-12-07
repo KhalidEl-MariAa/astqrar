@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../shared/components/components.dart';
-import '../home/4_more/more_tab.dart';
-import '../home/layout/layout.dart';
+import '../../../../shared/components/components.dart';
+import '../../4_more/more_tab.dart';
+import '../../layout/layout.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -117,8 +117,9 @@ class ChangePassword extends StatelessWidget
                       ),
                       doubleInfinityMaterialButton(onPressed: () {
                         if(MoreTab.form.currentState!.validate()){
-                         ChangePasswordCubit.get(context).changePassword(oldPassword:MoreTab.oldPasswordController.text,
-                             newPassword: MoreTab.passwordController.text);
+                         ChangePasswordCubit.get(context).changePassword(
+                              oldPassword: MoreTab.oldPasswordController.text,
+                              newPassword: MoreTab.passwordController.text);
                         }
                       }, text: "تاكيد"),
                       SizedBox(height: 1.h,),

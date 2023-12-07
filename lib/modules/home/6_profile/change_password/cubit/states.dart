@@ -1,4 +1,4 @@
-import '../../../models/server_response_model.dart';
+import '../../../../../models/server_response_model.dart';
 
 abstract class ChangePasswordStates{}
 

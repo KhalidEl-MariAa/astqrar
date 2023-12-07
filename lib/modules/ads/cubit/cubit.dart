@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
 import '../../../end_points.dart';
-import '../../../models/get_ads_model.dart';
+import '../../../models/ad.dart';
 import '../../../models/server_response_model.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
@@ -15,15 +15,30 @@ class AdsCubit extends Cubit<AdsStates>
 
   static AdsCubit get(context) => BlocProvider.of(context);
 
-  late GetAdsModel getAdsModel;
+  // late GetAdsModel getAdsModel;
+  List<Ad> ads = [];
 
-  getAds() {
+  void getAds() {
     emit(GetAdsLoadingState());
     DioHelper.postData(url: GETALLADS, data: {})
-    .then((value) {
-      emit(GetAdsLoadingState());
+  .then((value) 
+  {
       log(value.toString());
-      getAdsModel = GetAdsModel.fromJson(value.data);
+
+      emit(GetAdsLoadingState());      
+      ads = [];
+
+      // getAdsModel = GetAdsModel.fromJson(value.data);
+      ServerResponse res = ServerResponse.fromJson(value.data);
+
+      if (res.key == 0) {
+        emit(GetAdsErrorState(res.msg?? "حدث خطأ ما"));
+        return;
+      }
+
+      res.data.forEach((adItem) {
+        ads.add(Ad.fromJson(adItem));
+      });
 
       emit(GetAdsSuccessState());
     }).catchError((error) {
@@ -33,7 +48,7 @@ class AdsCubit extends Cubit<AdsStates>
   }
 
   //add ads
-  late ServerResponse addAdsModel;
+  late ServerResponse res;
 
   addAds({required int adId}) 
   {
@@ -44,9 +59,9 @@ class AdsCubit extends Cubit<AdsStates>
               "AdId": adId,
             },
             token: TOKEN.toString())
-        .then((value) {
+    .then((value) {
       log(value.toString());
-      addAdsModel = ServerResponse.fromJson(value.data);
+      res = ServerResponse.fromJson(value.data);
       emit(AddAdsSuccessState(value.statusCode!));
       //    sendNotificationToAll(body: "تمت اضافة اعلان جديد من قبل $name");
     }).catchError((error) {
@@ -55,21 +70,26 @@ class AdsCubit extends Cubit<AdsStates>
     });
   }
 
-  // sendNotificationToAll({required String body}){
-  //   emit(SendNotificationToAllLoadingState());
-  //   DioHelper.postDataWithBearearToken(url: SENDNOTIFICATIONTOALL,
-  //       data:{
-  //       "projectName": APP_NAME,
-  //       "deviceType":"android",
-  //       "notificationType":3,
-  //       "body":body,
-  //       "title":" "
-  //       },token: token.toString())..then((value) {
-  //         print(value.toString());
-  //         emit(SendNotificationToAllSuccessState());
-  //   }).catchError((error){
-  //         print(error.toString());
-  //         emit(SendNotificationToAllErrorState(error.toString()));
-  //   });
-  // }
+  // TODO: اصلاح المشكلة
+  sendNotificationToAll({String title=" ", required String body}) 
+  {
+    emit(SendNotificationToAllLoadingState());
+    DioHelper.postDataWithBearearToken(
+        url: SENDNOTIFICATIONTOALL,
+        data:{
+          "projectName": APP_NAME,
+          "deviceType":"android",
+          "notificationType":3,
+          "body": body,
+          "title": title,
+        },
+        token: TOKEN )
+    .then((value) {
+          print(value.toString());
+          emit(SendNotificationToAllSuccessState());
+    }).catchError((error){
+          print(error.toString());
+          emit(SendNotificationToAllErrorState(error.toString()));
+    });
+  }
 }

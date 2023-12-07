@@ -1,5 +1,7 @@
 
 
+import 'package:astarar/shared/components/components.dart';
+
 import '../../layout/cubit/cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +25,7 @@ class SliderAds extends StatelessWidget
       borderRadius: BorderRadius.circular(20.0),
       child: 
         CarouselSlider.builder(
-          itemCount: HomeCubit.get(context)
-              .getAllAdsWithUsersModel
-              .data
-              .length,
+          itemCount: HomeCubit.get(context).userAds.length,
           options: CarouselOptions(
             height: 20.h,
             reverse: false,
@@ -54,14 +53,12 @@ class SliderAds extends StatelessWidget
                     UserDetailsCubit.get(context)
                         .getOtherUser(
                         otherId:
-                        HomeCubit.get(context)
-                            .getAllAdsWithUsersModel.data[realindex].id!);
+                        HomeCubit.get(context).userAds[realindex].id!);
                   }
                   else{
                     UserDetailsCubit.get(context)
                         .getInformationUserByVisitor(
-                        userId: HomeCubit.get(context)
-                            .getAllAdsWithUsersModel.data[realindex]
+                        userId: HomeCubit.get(context).userAds[realindex]
                             .id!);
                   }
                   Navigator.push(
@@ -84,13 +81,8 @@ class SliderAds extends StatelessWidget
                             borderRadius:
                             BorderRadius.circular(22.0),
                             image: DecorationImage(
-                              image: HomeCubit.get(context)
-                                  .getAllAdsWithUsersModel
-                                  .data[realindex]
-                                  .gender ==
-                                  1
-                                  ? AssetImage(maleImage)
-                                  : AssetImage(femaleImage),
+                              image: getUserImage(HomeCubit.get(context)
+                                      .userAds[realindex]),
                               fit: BoxFit.cover,
                             )),
                       ),
@@ -104,9 +96,8 @@ class SliderAds extends StatelessWidget
                       children: [
                         Text(
                           HomeCubit.get(context)
-                              .getAllAdsWithUsersModel
-                              .data[realindex]
-                              .user_Name,
+                              .userAds[realindex]
+                              .user_Name??"XX",
                           style: GoogleFonts.almarai(color: PRIMARY, fontSize: 16, fontWeight: FontWeight.w600 )
                         ),
                         SizedBox(height: 2.h,),
@@ -118,8 +109,7 @@ class SliderAds extends StatelessWidget
                             children: [
                               Text(
                                   "العمر : " + HomeCubit.get(context)
-                                      .getAllAdsWithUsersModel
-                                      .data[realindex]
+                                      .userAds[realindex]
                                       .age
                                       .toString()
                                   ,
@@ -135,8 +125,7 @@ class SliderAds extends StatelessWidget
                                   LayoutCubit.Countries
                                     .where((c) => 
                                         c.id == HomeCubit.get(context)
-                                              .getAllAdsWithUsersModel
-                                              .data[realindex]
+                                              .userAds[realindex]
                                               .countryId)
                                     .first
                                     .NameAr!,
@@ -147,8 +136,7 @@ class SliderAds extends StatelessWidget
 
                               Text(
                                   "نوع الزواج : " + HomeCubit.get(context)
-                                          .getAllAdsWithUsersModel
-                                          .data[realindex]
+                                          .userAds[realindex]
                                           .typeOfMarriage
                                           ,
                                   textAlign: TextAlign.start,

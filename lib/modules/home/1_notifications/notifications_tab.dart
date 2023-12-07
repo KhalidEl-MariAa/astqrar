@@ -123,18 +123,59 @@ class NotificationTab extends StatelessWidget
                                 .length,
 
                             itemBuilder: (context, index) => 
-                              NotificationWiget(
-                                user: NotificationCubit.get(context)
-                                        .getNotificationsModel
-                                        .data[index]
-                                        .userInformation!,
-                                        
-                                note: NotificationCubit.get(context)
-                                        .getNotificationsModel
-                                        .data[index]
-                                        .notification!
+                              Dismissible(
+                                key: UniqueKey(),
+                                child:
+                                  ConditionalBuilder(
+                                    condition: state is RemoveNotificationLoadingState, 
+                                    builder: (context) =>
+                                        Positioned.fill(
+                                          child: Container(
+                                            color: Colors.black54,
+                                            child: Center(
+                                              child: CircularProgressIndicator(),
+                                            ),
+                                          ),
+                                        ),
 
-                            ),
+                                    fallback: (context) => 
+                                      NotificationWiget(
+                                        user: NotificationCubit.get(context)
+                                                .getNotificationsModel
+                                                .data[index]
+                                                .userInformation!,
+                                                
+                                        note: NotificationCubit.get(context)
+                                                .getNotificationsModel
+                                                .data[index]
+                                                .notification!
+                                    
+                                      ),
+                                  ),
+                                  
+                                  onDismissed: (value) 
+                                  {
+                                    NotificationCubit.get(context)
+                                      .removeNotification(index: index);
+                                  },
+
+                                  background: Container(
+                                    color: PRIMARY,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsetsDirectional.only(
+                                              start: MediaQuery.of(context).size.width * 0.055),
+
+                                          child: Icon( Icons.delete_outline, color: WHITE,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                              ),
 
                         ),
                       ],

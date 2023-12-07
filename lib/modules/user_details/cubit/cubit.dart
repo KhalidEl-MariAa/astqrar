@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
 import '../../../end_points.dart';
-import '../../../models/get_information_user.dart';
+import '../../../models/user_other.dart';
 import '../../../models/server_response_model.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
@@ -43,7 +43,9 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
     emit(UserDetailsLoadingState());
     DioHelper.getDataWithQuery(
         url: GETINFORMATIONUSERBYVISITOR, //,
-        query: {"otherId": userId}).then((value) {
+        query: {"otherId": userId})
+    .then((value) 
+    {
       OtherUser otherUser = OtherUser.fromJson(value.data["otherUser"]);
       emit(UserDetailsSuccessState(otherUser));
     }).catchError((error) {
@@ -53,7 +55,8 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
 
   //add to favourite
 
-  void addToFavourite({required String userId}) {
+  void addToFavourite({required String userId}) 
+  {
     ServerResponse res;
     // getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
     emit(ToggleFavouriteLoading());
@@ -74,7 +77,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
       }
 
       sendNotification(
-          userid: userId,
+          userid: userId, 
           type: 0,
           body: "قام " + NAME! + " بالإعجاب بك واضافتك الى قائمة المفضلة ",
           title: "طلب محادثة");
@@ -142,14 +145,16 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
   //   });
   // }
 
-  void addHimToMyContacts({required String userId}) {
+  void addHimToMyContacts({required String hisUserId}) 
+  {
     emit(AddHimToMyContactsLoading());
 
     DioHelper.postDataWithBearearToken(
             url: ADD_HIM_TO_MY_CONTACTS,
-            data: {"userId": userId},
+            data: {"userId": hisUserId},
             token: TOKEN.toString())
-        .then((value) {
+    .then((value) 
+    {
       res = ServerResponse.fromJson(value.data);
       if (res.key == 0) {
         emit(AddHimToMyContactsError(res.msg!));
@@ -164,7 +169,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
       //تم اضافة المستخدم الحالي الى قائمة الطرف الاخر
       if (res.data['i_have_added_to_his_list']) {
         sendNotification(
-            userid: userId,
+            userid: hisUserId,
             type: 0,
             body: "قام " +
                 NAME! +
@@ -222,7 +227,8 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
       {required String userid,
       required int type,
       required String body,
-      required String title}) {
+      required String title}) 
+  {
     emit(SendNotificationLoadingState());
 
     DioHelper.postDataWithBearearToken(

@@ -33,6 +33,10 @@ const GETALLADS="api/v1/GetAds";
 
 const UPDATEUSERDATA="api/v1/UpdateDataUser";
 
+const UPDATEPROFILEIMAGE="api/v1/UpdateProfileImage";
+const SWITCH_HIDE_IMG_PROFILE="api/v1/SwitchHidingImgProfile";
+
+
 const ADDTOFAVOURITE="api/v1/AddToFav";
 
 const DELETEFROMFAVOURITE="api/v1/DeleteFromFav";
@@ -95,6 +99,8 @@ const FILTERSEARCH="api/v2/get-users-filter";
 const QUICKFILTER="api/v2/get-users-by-quick-filter";
 
 const SENDNOTIFICATION="api/v2/send-notification";
+
+const REMOVENOTIFICATION="api/v1/RemoveNotification";
 
 const SENDNOTIFICATIONTOALL="api/v2/send-notifications-to-all";
 

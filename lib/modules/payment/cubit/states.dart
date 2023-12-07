@@ -3,7 +3,11 @@ abstract class PaymentStates {}
 
 class PaymentInitialState extends PaymentStates {}
 
-class ChangePaymentState extends PaymentStates {}
+
+class SetIsPaymentState extends PaymentStates {}
+class SetUrlState extends PaymentStates {}
+class SetControllerState extends PaymentStates {}
+class SetProgressState extends PaymentStates {}
 
 class AddInvoiceLoadingState extends PaymentStates {}
 
@@ -14,11 +18,6 @@ class AddInvoiceErrorState extends PaymentStates {
   AddInvoiceErrorState(this.error);
 }
 
-class SetUrlState extends PaymentStates {}
-
-class SetControllerState extends PaymentStates {}
-
-class SetProgressState extends PaymentStates {}
 
 class GetInvoiceStatusLoadingState extends PaymentStates {}
 
@@ -37,7 +36,7 @@ class GetInvoiceStatusErrorState extends PaymentStates {
 class ActivateLoadingState extends PaymentStates {}
 
 class ActivateSuccessState extends PaymentStates {
-  int type;
+  String type;
   bool status;
   ActivateSuccessState({required this.type,required this.status} );
 }

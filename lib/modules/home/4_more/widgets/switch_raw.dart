@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SwitchRaw extends StatelessWidget {
+class SwitchRaw extends StatelessWidget 
+{
   final String image;
   final String text;
   final bool value;

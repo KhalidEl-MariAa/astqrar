@@ -114,16 +114,11 @@ class AdsAndPackages extends StatelessWidget
           idService: packages[index].id,
         ));
     } else {
-      navigateTo(context: context, widget: PaymentScreen(
-        price: AdsCubit.get(context)
-                      .getAdsModel
-                      .data[index]
-                      .price,
-        serviceType: "Ads",
-        idService: AdsCubit.get(context)
-                      .getAdsModel
-                      .data[index]
-                      .id!,
+      navigateTo(context: context, 
+        widget: PaymentScreen(
+          price: AdsCubit.get(context).ads[index].price,
+          serviceType: "Ads",
+          idService: AdsCubit.get(context).ads[index].id!,
       ));
     
       // showDialog(
@@ -137,11 +132,9 @@ class AdsAndPackages extends StatelessWidget
       //           text:
       //               "اسم العميل :name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
       //         ));
+      
       AdsCubit.get(context).addAds(
-          adId: AdsCubit.get(context)
-              .getAdsModel
-              .data[index]
-              .id!);
+          adId: AdsCubit.get(context).ads[index].id!);
     }
   }
 }
