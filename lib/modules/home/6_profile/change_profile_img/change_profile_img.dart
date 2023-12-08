@@ -1,4 +1,5 @@
 
+import 'package:astarar/constants.dart';
 import 'package:astarar/models/user.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -38,9 +39,10 @@ class _ChangeProfileImgState extends State<ChangeProfileImg>
           {
 
             setState(() {
-              // this.widget.current_user.imgProfile= "https://9684-31-166-134-141.ngrok-free.app/images/Users/e0e720d8a3634614a188a7a9d78dc539.jpg";
+              // this.widget.current_user.imgProfile= "/images/Users/e0e720d8a3634614a188a7a9d78dc539.jpg";
               this.widget.current_user.imgProfile = state.updatedUser.imgProfile;
-              this.widget.current_user.hideImg = state.updatedUser.hideImg;     
+              this.widget.current_user.hideImg = state.updatedUser.hideImg;
+              IMG_PROFILE = state.updatedUser.imgProfile;
               // log(state.updatedUser.imgProfile??"XXXX");
               // log("${state.updatedUser.hideImg??true}");
             });
@@ -77,19 +79,14 @@ class _ChangeProfileImgState extends State<ChangeProfileImg>
                         "تغيير الصورة الشخصية",
                         style: GoogleFonts.almarai(fontSize: 12.sp, color: Colors.black),
                       ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
+                      
+                      SizedBox( height: 2.h, ),
 
+                      SizedBox(height: 2.h, ),
 
-
-                      SizedBox(
-                        height: 2.h,
-                      ),
                       doubleInfinityMaterialButton(
                         onPressed: () async  
                         {
-
                           final ImagePicker picker = ImagePicker();
 
                           // Pick an image.
@@ -121,7 +118,7 @@ class _ChangeProfileImgState extends State<ChangeProfileImg>
                                 color: Colors.grey,
                                 image: DecorationImage(
                                   opacity: this.widget.current_user.IsActive! ? 1.0 : 0.5,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.fitWidth,
                                   image: getUserImage(this.widget.current_user) ,                    
                                 )),
                           ) 

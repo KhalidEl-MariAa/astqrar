@@ -13,6 +13,7 @@ import '../../shared/components/header_logo.dart';
 import '../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
+import 'inputOtp.dart';
 import 'resetpassword.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -25,15 +26,18 @@ class ForgetPasswordScreen extends StatelessWidget {
       create: (BuildContext context) => ForgetPasswordCubit(),
       child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordStates>(
         listener: (context, state) {
-          if (state is ForgetPasswordSuccessState) {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        ResetPassword(activationCode: state.activationCode)),
-                (route) => true);
-            showToast(
-                msg: "تم التحقق من الهوية بنجاح", state: ToastStates.SUCCESS);
+          if (state is ForgetPasswordSuccessState) 
+          {
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => ResetPassword(activationCode: state.activationCode)),
+            //     (route) => true);
+            
+            showToast( msg: "تم ارسال كود التحقق اليك عن طريق الاشعارات" , state: ToastStates.SUCCESS);
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => InputOtp( state.activationCode ) ));
+
           } else if (state is ForgetPasswordErrorState) {
             showToast(msg: state.error, state: ToastStates.ERROR);
           }
@@ -55,27 +59,25 @@ class ForgetPasswordScreen extends StatelessWidget {
                       "طلب استعادة كلمة المرور",
                       style: GoogleFonts.almarai(color: PRIMARY, fontSize: 15.sp),
                     ),
-                    SizedBox(
-                      height: 4.5.h,
-                    ),
+                    
+                    SizedBox(height: 4.5.h,),
 
                     /** حسب طلب صاحب المشروع
                      * يتم استعادة كلمة المرور من خلال محادثة الواتساب
                      * والان في التعديل الجديد يريده حسب رقم الهوية ورقم الجوال
                      **/
-                    defaultTextFormField(
-                        context: context,
-                        controller: nationalIdController,
-                        type: TextInputType.number,
-                        validate: (String? val) {
-                          return (val!.isEmpty) ? "من فضلك ادخل الهوية" : null;
-                        },
-                        labelText: "رقم الهوية",
-                        label: "الرجاء ادخال رقم الهوية",
-                        prefixIcon: Icons.person),
-                    SizedBox(
-                      height: 1.h,
-                    ),
+                    // defaultTextFormField(
+                    //     context: context,
+                    //     controller: nationalIdController,
+                    //     type: TextInputType.number,
+                    //     validate: (String? val) {
+                    //       return (val!.isEmpty) ? "من فضلك ادخل الهوية" : null;
+                    //     },
+                    //     labelText: "رقم الهوية",
+                    //     label: "الرجاء ادخال رقم الهوية",
+                    //     prefixIcon: Icons.person),
+                    // SizedBox(height: 1.h,),
+
                     defaultTextFormField(
                         context: context,
                         controller: phoneController,
@@ -88,20 +90,21 @@ class ForgetPasswordScreen extends StatelessWidget {
                         labelText: "رقم الجوال",
                         label: "الرجاء ادخال رقم الجوال",
                         prefixIcon: Icons.phone_android_rounded),
-                    SizedBox(
-                      height: 2.h,
-                    ),
+                    
+                    SizedBox(height: 2.h,),
+                    
                     doubleInfinityMaterialButton(
                         text: "التحقق من الهوية",
                         onPressed: () {
                           ForgetPasswordCubit.get(context).sendUserIdentity(
                               nationalId: nationalIdController.text,
                               phone: phoneController.text);
-                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>InputOtp()));
+
+                          
                         }),
-                    SizedBox(
-                      height: 1.h,
-                    ),
+
+                    SizedBox(height: 1.h, ),
+                    
                     ConditionalBuilder(
                       condition: state is ForgetPasswordLoadingState,
                       builder: (context) => CircularProgressIndicator(),

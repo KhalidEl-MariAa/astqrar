@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/shared/network/remote.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var passwordController = TextEditingController();
-  var nationalIdController = TextEditingController();
+  var phoneNumberController = TextEditingController();
   var loginkey = GlobalKey<FormState>();
 
   @override
@@ -96,16 +97,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           context: context,
                           borderColor: Colors.white10,
                           labelTextcolor: Colors.white54,
-                          controller: nationalIdController,
+                          controller: phoneNumberController,
                           type: TextInputType.number,
                           validate: (value) {
                             return (value!.isEmpty)
-                                ? "من فضلك ادخل رقم الهوية"
+                                ? "من فضلك ادخل رقم الجوال"
                                 : null;
                           },
-                          labelText: "رقم الهوية",
-                          label: "الرجاء ادخال رقم الهوية",
-                          prefixIcon: Icons.email_outlined),
+                          labelText: "رقم الجوال",
+                          label: "الرجاء ادخال رقم الجوال",
+                          prefixIcon: Icons.phone_android_rounded
+                      ),
                       
                       SizedBox(height: 2.h,),
                       
@@ -168,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () {
                               if (loginkey.currentState!.validate()) {
                                 ShopLoginCubit.get(context).UserLogin(
-                                    nationalId: nationalIdController.text,
+                                    phoneNumber: phoneNumberController.text,
                                     password: passwordController.text);
                               }
                             }),
@@ -223,6 +225,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontSize: 9.2.sp,
                                   fontWeight: FontWeight.w500)),
                         ),
+
+                      if (IS_DEVELOPMENT_MODE)
+                        InkWell(
+                          onTap: () { DioHelper.init(); },
+                          child: Text("RECONNECT", style: TextStyle(color: WHITE),),
+                        ),
+                        
                       SizedBox(
                         height: 3.2.h,
                       ),

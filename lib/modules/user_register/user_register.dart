@@ -207,28 +207,26 @@ class _UserRegisterState extends State<UserRegister> {
                               label: "الرجاء ادخال اسمك",
                               prefixIcon: Icons.person_outline),
 
-                          defaultTextFormField(
-                              context: context,
-                              controller: nationalIdController,
-                              type: TextInputType.number,
-                              validate: (String? value) {
-                                newUser.nationalID = value;
-                                return (value!.isEmpty)
-                                    ? "من فضلك ادخل رقم الهوية"
-                                    : null;
-                              },
-                              labelText: "رقم الهوية",
-                              label: "الرجاء ادخال رقم الهوية",
-                              prefixIcon: Icons.person_outline),
-
-                          Text('        سيتم تسجيل الدخول عن طريق رقم الهوية',
-                            style: TextStyle(
-                              color: Colors.yellow,
-                              fontSize: 13,
-                            ),
-                          ),
-
-                          SizedBox(height: 2.h,),
+                          // defaultTextFormField(
+                          //     context: context,
+                          //     controller: nationalIdController,
+                          //     type: TextInputType.number,
+                          //     validate: (String? value) {
+                          //       newUser.nationalID = value;
+                          //       return (value!.isEmpty)
+                          //           ? "من فضلك ادخل رقم الهوية"
+                          //           : null;
+                          //     },
+                          //     labelText: "رقم الهوية",
+                          //     label: "الرجاء ادخال رقم الهوية",
+                          //     prefixIcon: Icons.person_outline),
+                          // Text('        سيتم تسجيل الدخول عن طريق رقم الهوية',
+                          //   style: TextStyle(
+                          //     color: Colors.yellow,
+                          //     fontSize: 13,
+                          //   ),
+                          // ),
+                          // SizedBox(height: 2.h,),
 
 
                           defaultTextFormField(
@@ -237,13 +235,13 @@ class _UserRegisterState extends State<UserRegister> {
                               type: TextInputType.number,
                               validate: (String? value) {
                                 newUser.phone = value;
-                                return (value!.isEmpty)? "من فضلك ادخل الهاتف": null;
+                                return (value!.isEmpty)? "من فضلك ادخل الجوال": null;
                               },
-                              labelText: "رقم الهاتف",
-                              label: "الرجاء ادخال رقم الهاتف",
-                              prefixIcon: Icons.phone),
+                              labelText: "رقم الجوال",
+                              label: "الرجاء ادخال رقم الجوال",
+                              prefixIcon: Icons.phone_android_rounded),
 
-                          Text('        سيتم طلب منك رقم الهاتف في حالة استعادة كلمة المرور',
+                          Text('        سيتم طلب منك رقم الجوال عند استعادة كلمة المرور',
                             style: TextStyle(
                               color: Colors.yellow,
                               fontSize: 13,
@@ -732,9 +730,10 @@ class _UserRegisterState extends State<UserRegister> {
       showToast(msg: state.err_msg, state: ToastStates.ERROR);
     } else if (state is RegisterState_Loading) {
       log('loading ...............');
-    } else if (state is LoginAfterRegisterState) {
+    } else if (state is LoginAfterRegisterState) 
+    {
       context.read<ShopLoginCubit>().UserLogin(
-          nationalId: nationalIdController.text,
+          phoneNumber: phoneController.text,
           password: passwordController.text);
     }
   }

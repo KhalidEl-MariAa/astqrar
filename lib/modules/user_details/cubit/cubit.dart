@@ -236,11 +236,11 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
         url: SENDNOTIFICATION,
         data: {
           "userId": userid,
-          "projectName": APP_NAME,
-          "deviceType": Platform.isIOS ? "ios" : "android",
           "notificationType": type,
+          "projectName": APP_NAME,
+          "deviceType": Platform.isIOS ? "ios" : "android",          
+          "title": title,
           "body": body,
-          "title": title
         }).then((value) {
       // log(value.toString());
       emit(SendNotificationSuccessState());

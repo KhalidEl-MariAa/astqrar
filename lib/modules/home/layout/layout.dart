@@ -92,11 +92,11 @@ class _LayoutScreenState extends State<LayoutScreen>
       notchMargin: 9,
       elevation: 10,
       shape: const CircularNotchedRectangle(),
-      color: Color(0xff021222),
+      color: Colors.white,
       child: Container(
-        height: 9.h,
+        height: 10.h,
         color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: .2.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -107,8 +107,8 @@ class _LayoutScreenState extends State<LayoutScreen>
                       context: context,
                       builder: (context) => DialogPleaseLogin());
                 }
-                setState(() {
-                  if (IS_LOGIN) _selectedTab = 0;
+                setState(() { 
+                  if(IS_LOGIN) _selectedTab = 0;
                 });
               },
               child: Column(
@@ -151,9 +151,9 @@ class _LayoutScreenState extends State<LayoutScreen>
                     child: Image.asset('assets/notification.png',
                         color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY),
                   ),
-                  SizedBox(
-                    height: 0.3.h,
-                  ),
+                  
+                  SizedBox(height: 0.3.h,),
+
                   Text(
                     "الاشعارات",
                     style: GoogleFonts.almarai(
@@ -164,9 +164,8 @@ class _LayoutScreenState extends State<LayoutScreen>
                 ],
               ),
             ),
-            SizedBox(
-              width: 48,
-            ),
+
+            SizedBox(width: 48,),
             InkWell(
               onTap: () {
                 if (IS_LOGIN == false) {
@@ -188,9 +187,9 @@ class _LayoutScreenState extends State<LayoutScreen>
                     child: Image.asset('assets/chat.png',
                         color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY),
                   ),
-                  SizedBox(
-                    height: 0.3.h,
-                  ),
+                  
+                  SizedBox(height: 0.3.h,),
+                  
                   Text(
                     "المحادثات",
                     style: GoogleFonts.almarai(
@@ -214,7 +213,9 @@ class _LayoutScreenState extends State<LayoutScreen>
                     child: Image.asset('assets/more.png',
                         color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY),
                   ),
+
                   SizedBox(height: 0.3.h),
+
                   Text(
                     "المزيد",
                     style: GoogleFonts.almarai(

@@ -204,7 +204,7 @@ class SectionMenOrWomen extends StatelessWidget
                                       MenWomenCubit.get(context)
                                           .changeindexonesection(
                                               index: index,
-                                              gender: this.gender == 1 ? "1" : "2");
+                                              gender: this.gender == "1" ? "1" : "2");
                                     },
                                     label: Text(oneSection[index],
                                         style: GoogleFonts.almarai(fontSize: 9.5.sp)),
@@ -233,7 +233,7 @@ class SectionMenOrWomen extends StatelessWidget
                                 MenWomenCubit.get(context)
                                     .changeindextwosection(
                                         index: index,
-                                        gender: this.gender == 1 ? "1" : "2");
+                                        gender: this.gender == "1" ? "1" : "2");
                               },
                               label: Text(twoSection[index],
                                   style: GoogleFonts.almarai(fontSize: 9.5.sp)),
@@ -265,7 +265,7 @@ class SectionMenOrWomen extends StatelessWidget
                                 MenWomenCubit.get(context)
                                     .changeindexthreesection(
                                         index: index,
-                                        gender: this.gender == 1 ? "1" : "2");
+                                        gender: this.gender == "1" ? "1" : "2");
                               },
                               label: Text(threeSection[index],
                                   style: GoogleFonts.almarai(fontSize: 9.5.sp)),
@@ -293,10 +293,11 @@ class SectionMenOrWomen extends StatelessWidget
                           GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            childAspectRatio: 1 / 0.15.h,
+                            // childAspectRatio: 1 / 0.2.h,
+                            childAspectRatio: .8,
                             crossAxisCount: 3,
                             crossAxisSpacing: 0.0,
-                            mainAxisSpacing: 0.5.h,
+                            mainAxisSpacing: 0.0.h,
                             children: 
                             List.generate(
                                 MenWomenCubit.get(context).users.length,
@@ -312,9 +313,8 @@ class SectionMenOrWomen extends StatelessWidget
                                   )
                                 );
                               }
-                            )
-                        , 
-                      )
+                            ), 
+                          )
                     ),
 
 

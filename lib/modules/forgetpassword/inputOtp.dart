@@ -14,7 +14,7 @@ class InputOtp extends StatelessWidget
 {
   final ActivationCode activationCode;
 
-  InputOtp({required this.activationCode});
+  InputOtp( this.activationCode );
 
   @override
   Widget build(BuildContext context) 
@@ -36,64 +36,71 @@ class InputOtp extends StatelessWidget
                 const HeaderLogo(),
                 Text(
                   "استعادة كلمة المرور",
-                  style: GoogleFonts.almarai(color: PRIMARY, fontSize: 10.sp),
+                  style: GoogleFonts.almarai(color: PRIMARY, fontSize: 15.sp),
                 ),
-                SizedBox(
-                  height: 7.h,
-                ),
+                SizedBox( height: 7.h,),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsetsDirectional.only(start: 28),
                       child: Text("كود التحقيق",
-                          style: TextStyle(
-                              color: WHITE, fontWeight: FontWeight.w400)),
+                          style: GoogleFonts.almarai(
+                            color: WHITE, fontWeight: FontWeight.w400, fontSize: 10.sp),
+                      )
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 2.h,
+                
+                SizedBox(height: 2.h,),
+
+                Directionality(
+                  textDirection: TextDirection.ltr, 
+                  child:                 
+                  Pinput(
+                    length: 4,
+                    controller: smscontroller,
+                    enabled: true,
+                    showCursor: true,         
+                    defaultPinTheme: PinTheme(                      
+                        width: 15.w,
+                        height: 7.h,
+                        textStyle: GoogleFonts.almarai(
+                          color: PRIMARY, 
+                          fontWeight: FontWeight.w800,
+                          fontSize: 20.sp
+                        ),
+                        decoration: BoxDecoration(
+                          color: BG_DARK_COLOR,
+                          border: Border.all(color: PRIMARY),
+                          borderRadius: BorderRadius.circular(10),
+                        )),
+                    cursor: Container(
+                      color: PRIMARY,
+                      width: 6.w,
+                      height: 0.2.h,
+                    ),
+                    pinAnimationType: PinAnimationType.slide,
+                    onCompleted: (String? value) {},
+                 ),
                 ),
-                Pinput(
-                  length: 4,
-                  controller: smscontroller,
-                  enabled: true,
-                  showCursor: true,
-                  defaultPinTheme: PinTheme(
-                      width: 15.w,
-                      height: 7.h,
-                      textStyle: TextStyle(
-                          fontSize: 13.sp,
-                          color: PRIMARY,
-                          fontWeight: FontWeight.w300),
-                      decoration: BoxDecoration(
-                        color: BG_DARK_COLOR,
-                        border: Border.all(color: PRIMARY),
-                        borderRadius: BorderRadius.circular(10),
-                      )),
-                  cursor: Container(
-                    color: PRIMARY,
-                    width: 6.w,
-                    height: 0.2.h,
-                  ),
-                  pinAnimationType: PinAnimationType.slide,
-                  onCompleted: (String? value) {},
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
+                
+                SizedBox(height: 4.h,),
+                
                 doubleInfinityMaterialButton(
                     text: "تاكيد",
                     onPressed: () {
-                      if (smscontroller.text == this.activationCode.code) {
+                      if (smscontroller.text == this.activationCode.code.toString() ) 
+                      {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ResetPassword(
-                                      activationCode: this.activationCode,
-                                    )));
-                      } else {
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResetPassword(
+                                    activationCode: this.activationCode,
+                                  ))
+                        );
+                      }else{
                         showToast(
                             msg: "من فضلك ادخل الكود الصحيح",
                             state: ToastStates.ERROR);

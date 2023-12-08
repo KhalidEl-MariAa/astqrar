@@ -32,7 +32,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     DioHelper.postData(
       url: REGISTERCLIENT, 
       data: registeration_data)
-    .then((value) {
+    .then((value) 
+    {
       ServerResponse response = ServerResponse.fromJson(value.data);
       if (response.key == 0) {
         emit(RegisterState_Error(response.msg.toString()));

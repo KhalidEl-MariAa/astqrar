@@ -48,33 +48,33 @@ class _DetailsWidgetState extends State<DetailsWidget> {
               child: InkWell(
                 onTap: () 
                 {                  
-                  ImageProvider img = getUserImage(  widget.otherUser );
+                  ImageProvider img = getUserImage( widget.otherUser, larg: true );
 
                   navigateTo(
                     context: context, 
                     widget: ImageViewer(theImage: img ) );
                 },
                 child: 
-                Stack(
-                  children: <Widget> [
-                    Container(
-                      height: 20.h,
-                      width: 50.w,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          image: DecorationImage(
-                            opacity: widget.otherUser.IsActive! ? 1.0: 0.5,
-                            fit: BoxFit.fitHeight,
-                            image: getUserImage(widget.otherUser) ,                    
-                          )),
-                    ),
+                  Stack(
+                    children: <Widget> [
+                      Container(
+                        height: 20.h,
+                        width: 50.w,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              opacity: widget.otherUser.IsActive! ? 1.0: 0.5,
+                              fit: BoxFit.fitHeight,
+                              image: getUserImage(widget.otherUser, larg: true) ,                    
+                            )),
+                      ),
 
-                    if(!widget.otherUser.IsActive!)
-                      Center(child: Text("غير مشترك",  
-                            style: GoogleFonts.almarai(color: Colors.red[600], fontSize: 24), ))                    
-                    ,
-                  ],
-                ),
+                      if(!widget.otherUser.IsActive!)
+                        Center(child: Text("غير مشترك",  
+                              style: GoogleFonts.almarai(color: Colors.red[600], fontSize: 24), ))                    
+                      ,
+                    ],
+                  ),
               )
             ),
           ),

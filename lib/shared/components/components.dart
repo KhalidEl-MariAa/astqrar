@@ -203,13 +203,15 @@ ImageProvider getUserImageByPath({String imgProfilePath="", int gender=1})
 
 
 
-ImageProvider getUserImage(User? usr)
+ImageProvider getUserImage(User? usr, {bool larg=false} )
 {
-  if (usr == null){
+  if (usr == null)
     return AssetImage(DEFAULT_IMAGE);
-  }else if( usr.imgProfile != "" && !(usr.hideImg??false) )
+
+  if( usr.imgProfile != "" && !(usr.hideImg??false) )
   {
     // log(usr.imgProfile??"XXXXXX img");
+    usr.imgProfile = larg ? usr.larg_imgProfile : usr.imgProfile;
     return NetworkImage(usr.imgProfile??"");
   }else{
     return AssetImage(usr.gender == 1? maleImage : femaleImage); 

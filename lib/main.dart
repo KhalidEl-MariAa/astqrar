@@ -32,9 +32,6 @@ class MyHttpOverrides extends HttpOverrides
 }
 
 
-
-
-
 void main()  async
 {
   IS_DEVELOPMENT_MODE = !kReleaseMode; 

@@ -7,7 +7,8 @@ class ForgetPasswordInitialState extends ForgetPasswordStates{}
 
 class ForgetPasswordLoadingState extends ForgetPasswordStates{}
 
-class ForgetPasswordSuccessState extends ForgetPasswordStates{
+class ForgetPasswordSuccessState extends ForgetPasswordStates
+{
  final ActivationCode activationCode;
  ForgetPasswordSuccessState(this.activationCode);
 

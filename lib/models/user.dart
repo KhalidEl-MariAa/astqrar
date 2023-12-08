@@ -1,4 +1,5 @@
 import '../modules/home/layout/cubit/cubit.dart';
+import 'package:path/path.dart' as p;
 
 class User {
   String? id;
@@ -32,6 +33,7 @@ class User {
   bool? status;
   
   String? imgProfile;
+  String? larg_imgProfile;  
   bool? hideImg;
 
   int typeUser = 1;
@@ -43,6 +45,8 @@ class User {
   bool? IsExpired;
 
   List<SubSpecification> subSpecifications = [];
+
+  
 
   User() {}
 
@@ -68,6 +72,7 @@ class User {
     closeNotify = json['closeNotify'];
     status = json['status'];
     imgProfile = json['imgProfile'];
+    larg_imgProfile = this.get_large_file_path( json['imgProfile'] );
     hideImg = json['hideImg'];
     countryId = json['countryId']??0;
 
@@ -117,7 +122,18 @@ class User {
 
     return res;
   }
-}
+  
+  String? get_large_file_path(String? path) 
+  {
+    if(path == null || path == "" )
+      return "";
+
+    var p_withoutExtension = p.withoutExtension(path); // path/to/foo
+    var ext = p.extension(path); // .jpg
+
+    return (p_withoutExtension + "-large" + ext);        
+  }
+}// end class
 
 class SubSpecification {
   int? id;

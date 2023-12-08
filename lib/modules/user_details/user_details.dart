@@ -77,6 +77,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
             backgroundColor: WHITE,
             body: LoadingGif(),
           ),
+
           fallback: (context) => Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -106,36 +107,30 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                               padding: EdgeInsets.all(0),
                               child: Column(
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(0.5),
-                                          child: 
-                                          
-                                          Row(
-                                            children: [
-                                              Text("حظر المستخدم",
-                                                style: GoogleFonts.almarai( fontWeight: FontWeight.w300),
+                                  InkWell(
+                                    child: 
+                                      Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Row(
+                                          children: [
+                                            Text("         حظر المستخدم",
+                                              style: GoogleFonts.almarai( fontWeight: FontWeight.w300),
+                                            ),
+                                                          
+                                            SizedBox(width: 1.w,),
+                                            
+                                            ConditionalBuilder(
+                                              condition: state is BlockHimLoading ,
+                                              builder:  (context) => CircularProgressIndicator(),
+                                              fallback: (context)  => Icon(Icons.block, color: PRIMARY,size: 33,)
                                               ),
-
-                                              SizedBox(width: 1.w,),
-                                              
-                                              ConditionalBuilder(
-                                                condition: state is BlockHimLoading ,
-                                                builder:  (context) => CircularProgressIndicator(),
-                                                fallback: (context)  => Icon(Icons.block, color: PRIMARY,size: 33,)
-                                                ),
-
-                                            ],
-                                          ),
-                                        ),
-                                        onTap: () { blockUser_pressed(context); },
-                                      ),
-                                    ],
+                                        ]),
+                                      ),                                    
+                                    onTap: () { blockUser_pressed(context); },
                                   ),
+                    
                                   Container( height: 0.01.h, color: Colors.black, ),
+                                  
                                   InkWell(
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
@@ -147,7 +142,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                                 ],
                               ),
                             )
-                          ])
+                          ]),
                     ],
                   ),
                 )

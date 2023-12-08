@@ -312,9 +312,7 @@ class _HomeTabState extends State<HomeTab>
 
               if (IS_DEVELOPMENT_MODE)
                 InkWell(
-                  onTap: () {
-                    DioHelper.init();
-                  },
+                  onTap: () { DioHelper.init(); },
                   child: Text("RECONNECT"),
                 ),
                 

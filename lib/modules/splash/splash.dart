@@ -68,7 +68,7 @@ class _SplashState extends State<Splash>
     PHONE = CacheHelper.getData(key: "phone");
     IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
     IMG_PROFILE = CacheHelper.getData(key: "imgProfile");
-    IS_ACTIVE = CacheHelper.getData(key: "isActive");
+    IS_ACTIVE = CacheHelper.getData(key: "isActive") ?? false;
 
     setState(() { loading_desc = "Connecting to Firebase Messaging..."; });
 
