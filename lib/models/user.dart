@@ -7,10 +7,8 @@ class User {
   int? gender;
   String? user_Name;
   String? email;
-
   String? Token;
   DateTime? TokenExpiration;
-
   String? city;
   // String? nationality;
   int? countryId;
@@ -26,7 +24,6 @@ class User {
   dynamic dowry;
   dynamic terms;
   String? showPassword;
-
   bool? specialNeeds;
 
   bool? closeNotify;
@@ -45,9 +42,6 @@ class User {
   bool? IsExpired;
 
   List<SubSpecification> subSpecifications = [];
-
-  
-
   User() {}
 
   User.fromJson(Map<String, dynamic>? json) {

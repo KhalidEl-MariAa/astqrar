@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import '../../../constants.dart';
-import '../../../models/get-messages-model.dart';
+import '../../../models/message.dart';
 import '../../../end_points.dart';
 import '../../../models/user_other.dart';
 import '../../../shared/network/remote.dart';

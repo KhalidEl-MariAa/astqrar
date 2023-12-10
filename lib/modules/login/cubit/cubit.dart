@@ -12,11 +12,11 @@ import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-class ShopLoginCubit extends Cubit<ShopLoginStates> {
-  ShopLoginCubit() : super(ShopLoginInitialState());
+class LoginCubit extends Cubit<LoginStates> {
+  LoginCubit() : super(LoginInitialState());
 
   //late LoginModel loginModel;
-  static ShopLoginCubit get(context) => BlocProvider.of(context);
+  static LoginCubit get(context) => BlocProvider.of(context);
 
   IconData suffix = Icons.visibility;
   bool isPassword = true;
@@ -25,7 +25,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
   void changePasswordVisibility() {
     isPassword = !isPassword;
     suffix = isPassword ? Icons.visibility : Icons.visibility_off;
-    emit(ShopLoginChangePasswordVisibility());
+    emit(LoginChangePasswordVisibility());
   }
 
   //to login user
@@ -33,7 +33,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       {required String phoneNumber, required String password}) async 
   {
     
-    emit(ShopLoginLoadingState());
+    emit(LoginLoadingState());
 
     await DioHelper.postData(
       url: LOGIN, 
@@ -49,7 +49,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       ServerResponse res = ServerResponse.fromJson(value.data);
 
       if (res.key == 0) {
-        emit(ShopLoginErrorState(res.msg!));
+        emit(LoginErrorState(res.msg!));
         return;
       }
 
@@ -80,16 +80,16 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       if (loggedinUser.status == true) //|| IS_DEVELOPMENT_MODE
       {
         CacheHelper.saveData(key: "isLogin", value: true);
-        emit(ShopLoginSuccessAndActiveState());
+        emit( LoginSuccessAndActiveState() );
       } else {
         CacheHelper.saveData(key: "isLogin", value: false);
-        emit(ShopLoginSuccessButInActiveState());
+        emit( LoginSuccessButInActiveState() );
       }
 
       IS_LOGIN = CacheHelper.getData(key: "isLogin");
     }).catchError((error) {
       log(error.toString());
-      emit(ShopLoginErrorState(error.toString()));
+      emit(LoginErrorState(error.toString()));
     });
   }
 }

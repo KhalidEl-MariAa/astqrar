@@ -1,11 +1,12 @@
 import 'dart:developer';
 
+import 'package:astarar/shared/components/defaultTextFormField.dart';
+import 'package:astarar/shared/components/double_infinity_material_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../models/user.dart';
-import '../../shared/components/components.dart';
 import '../../shared/components/logo/normal_logo.dart';
 import '../../shared/components/radiobuttonregister.dart';
 import '../../shared/styles/colors.dart';

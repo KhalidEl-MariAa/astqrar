@@ -1,3 +1,5 @@
+import 'package:astarar/shared/components/defaultTextFormField.dart';
+import 'package:astarar/shared/components/double_infinity_material_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/activation_code.dart';

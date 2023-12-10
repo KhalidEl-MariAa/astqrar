@@ -16,9 +16,10 @@ Widget MyUpgrader({
         (
             upgrader: 
               Upgrader(
+                
                 messages: UpgraderMessages(code: 'ar'),
                 languageCode:"ar",
-                minAppVersion: "5.1.1",
+                minAppVersion: "5.3.1", // if pubspec.yaml < play-store 
                 canDismissDialog: true,
                 durationUntilAlertAgain: const Duration(days: 7),
                 dialogStyle:  Platform.isIOS? UpgradeDialogStyle.cupertino : UpgradeDialogStyle.material

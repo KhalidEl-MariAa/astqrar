@@ -14,7 +14,13 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
-    },
+    }, 
+    {
+      "name": "astqrar (debug mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug"
+    }, 
     {
       "name": "astqrar (release mode)",
       "request": "launch",

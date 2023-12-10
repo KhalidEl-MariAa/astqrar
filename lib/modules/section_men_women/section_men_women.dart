@@ -7,7 +7,7 @@ import '../user_details/cubit/cubit.dart';
 import '../user_details/user_details.dart';
 import '../login/login.dart';
 import '../../shared/components/loading_gif.dart';
-import '../../shared/components/user/user_item.dart';
+import '../../shared/components/user_item.dart';
 import '../../constants.dart';
 import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';

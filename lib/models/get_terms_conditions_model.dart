@@ -1,3 +1,4 @@
+
 class GetTermsAndConditionsModel{
   int?key;
   DetailsConditionsModel? data;

@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/components/loading_gif.dart';
-import '../../shared/components/user/details_widget.dart';
+import 'details_widget.dart';
 import '../../shared/styles/colors.dart';
 import '../home/4_more/3_contact_us/contact_us.dart';
 import 'cubit/cubit.dart';

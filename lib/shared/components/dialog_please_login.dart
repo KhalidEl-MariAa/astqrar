@@ -1,10 +1,11 @@
+import 'package:astarar/shared/components/double_infinity_material_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../modules/login/login.dart';
 import '../styles/colors.dart';
-import 'components.dart';
+
 
 class DialogPleaseLogin extends StatelessWidget {
   const DialogPleaseLogin({Key? key}) : super(key: key);

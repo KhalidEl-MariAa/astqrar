@@ -9,7 +9,7 @@ class ChangePasswordLoadingState extends ChangePasswordStates{}
 class ChangePasswordSuccessState extends ChangePasswordStates{
   final ServerResponse res;
   ChangePasswordSuccessState(this.res);
-  //ShopLoginSuccessState(this.loginModel);
+  //LoginSuccessState(this.loginModel);
 }
 
 class ChangePasswordErrorState extends ChangePasswordStates{

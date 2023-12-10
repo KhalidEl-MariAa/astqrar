@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:astarar/shared/components/defaultTextFormField.dart';
+import 'package:astarar/shared/components/double_infinity_material_button.dart';
+
 import '../login/cubit/states.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +70,8 @@ class _UserRegisterState extends State<UserRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ShopLoginCubit>(
-      create: (context) => ShopLoginCubit(),
+    return BlocProvider<LoginCubit>(
+      create: (context) => LoginCubit(),
       child: BlocProvider<RegisterCubit>(
         create: (BuildContext context) => RegisterCubit(),
         child: BlocConsumer<RegisterCubit, RegisterState>(
@@ -669,12 +672,12 @@ class _UserRegisterState extends State<UserRegister> {
                                 }),
                           ),
 
-                          BlocConsumer<ShopLoginCubit, ShopLoginStates>(
+                          BlocConsumer<LoginCubit, LoginStates>(
                             listener: (context, state) {
                               handle_login_state_change(context, state);
                             },
                             builder: (context, state) => ConditionalBuilder(
-                                condition: state is ShopLoginLoadingState,
+                                condition: state is LoginLoadingState,
                                 builder: (context) => Center(
                                       child: Text(
                                         "جاري تسجيل الدخول",
@@ -732,14 +735,14 @@ class _UserRegisterState extends State<UserRegister> {
       log('loading ...............');
     } else if (state is LoginAfterRegisterState) 
     {
-      context.read<ShopLoginCubit>().UserLogin(
+      context.read<LoginCubit>().UserLogin(
           phoneNumber: phoneController.text,
           password: passwordController.text);
     }
   }
 
   void handle_login_state_change(context, state) {
-    if (state is ShopLoginSuccessAndActiveState) {
+    if (state is LoginSuccessAndActiveState) {
 
       showToast(msg: "تم تسجيل الدخول بنجاح", state: ToastStates.SUCCESS);
 
@@ -747,7 +750,7 @@ class _UserRegisterState extends State<UserRegister> {
           context,
           MaterialPageRoute(builder: (context) => LayoutScreen()),
           (route) => false);
-    } else if (state is ShopLoginSuccessButInActiveState) {
+    } else if (state is LoginSuccessButInActiveState) {
       showToast(
           // عميل مسجل لكن غير مشترك
           msg: "تم تسجيل الدخول بنجاح ، الرجاء الاشتراك لتفعيل الحساب",
@@ -757,7 +760,7 @@ class _UserRegisterState extends State<UserRegister> {
           context,
           MaterialPageRoute(builder: (context) => NotSubscribedScreen()),
           (route) => true);
-    } else if (state is ShopLoginErrorState) {
+    } else if (state is LoginErrorState) {
       showToast(msg: state.error, state: ToastStates.ERROR);
     }
   }

@@ -1,4 +1,4 @@
-import 'package:astarar/models/get-messages-model.dart';
+import 'package:astarar/models/message.dart';
 
 import '../../../models/user_other.dart';
 

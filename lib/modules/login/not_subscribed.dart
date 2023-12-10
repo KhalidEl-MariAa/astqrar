@@ -1,12 +1,12 @@
 import 'package:astarar/modules/home/4_more/5_account/account.dart';
 import 'package:astarar/modules/login/login.dart';
+import 'package:astarar/shared/components/double_infinity_material_button.dart';
 import 'package:astarar/shared/styles/colors.dart';
 import 'package:astarar/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../shared/components/components.dart';
 import '../../shared/components/logo/normal_logo.dart';
 import '../packages/packages.dart';
 

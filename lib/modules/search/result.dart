@@ -1,3 +1,4 @@
+import 'package:astarar/shared/components/defaultTextFormField.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../../shared/components/components.dart';
-import '../../shared/components/user/user_item.dart';
+import '../../shared/components/user_item.dart';
 import '../../shared/styles/colors.dart';
 import '../login/login.dart';
 import '../user_details/cubit/cubit.dart';
@@ -121,8 +122,7 @@ class _ResultScreenState extends State<ResultScreen>
                                                 style: GoogleFonts.almarai(
                                                     color: WHITE,
                                                     fontSize: 10.sp,
-                                                    decoration: TextDecoration
-                                                        .underline),
+                                                    decoration: TextDecoration.underline),
                                               ),
                                             ),
                                           ],
@@ -222,8 +222,7 @@ class _ResultScreenState extends State<ResultScreen>
                                                         InkWell(
                                                           onTap: () { show_filter_search_screen(context); },
                                                           child: Image(
-                                                            image: AssetImage(
-                                                                'assets/filter.png'),
+                                                            image: AssetImage('assets/filter.png'),
                                                           ),
                                                         ),
                                                       ],

@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:astarar/shared/components/defaultTextFormField.dart';
+import 'package:astarar/shared/components/double_infinity_material_button.dart';
 import 'package:astarar/shared/network/remote.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/foundation.dart';
@@ -44,10 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocProvider(
-        create: (BuildContext context) => ShopLoginCubit(),
-        child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
+        create: (BuildContext context) => LoginCubit(),
+        child: BlocConsumer<LoginCubit, LoginStates>(
           listener: (context, state) {
-            if (state is ShopLoginSuccessAndActiveState) 
+            if (state is LoginSuccessAndActiveState) 
             {
               log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");
 
@@ -59,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   MaterialPageRoute(builder: (context) => LayoutScreen()),
                   (route) => false);
 
-            } else if (state is ShopLoginSuccessButInActiveState) 
+            } else if (state is LoginSuccessButInActiveState) 
             {
               showToast(
                   msg: "تم تسجيل الدخول بنجاح ، الرجاء الاشتراك لتفعيل الحساب", state: ToastStates.WARNING);
@@ -71,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (context) => NotSubscribedScreen()),
                     (route) => true);
 
-            } else if (state is ShopLoginErrorState) {
+            } else if (state is LoginErrorState) {
               showToast(msg: state.error, state: ToastStates.ERROR);
             }
           },
@@ -120,16 +122,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? "من فضلك ادخل كلمة السر"
                                 : null;
                             },
-                          isPassword: ShopLoginCubit.get(context).isPassword,
+                          isPassword: LoginCubit.get(context).isPassword,
                           borderColor: Colors.white10,
                           labelText: "كلمة المرور",
                           label: "الرجاء ادخال كلمة المرور",
                           suffixPressed: () {
-                            ShopLoginCubit.get(context)
+                            LoginCubit.get(context)
                                 .changePasswordVisibility();
                           },
                           prefixIcon: Icons.lock_outline_rounded,
-                          suffix: ShopLoginCubit.get(context).suffix,
+                          suffix: LoginCubit.get(context).suffix,
                           labelTextcolor: Colors.white54),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -161,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 2.5.h,),
                       
                       ConditionalBuilder(
-                        condition: state is! ShopLoginLoadingState,
+                        condition: state is! LoginLoadingState,
                         fallback: (context) => Center(
                           child: CircularProgressIndicator(),
                         ),
@@ -169,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: "تسجيل دخول",
                             onPressed: () {
                               if (loginkey.currentState!.validate()) {
-                                ShopLoginCubit.get(context).UserLogin(
+                                LoginCubit.get(context).UserLogin(
                                     phoneNumber: phoneNumberController.text,
                                     password: passwordController.text);
                               }

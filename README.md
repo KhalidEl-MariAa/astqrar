@@ -45,7 +45,7 @@ cd "~\Downloads\Dating-kaheelan\astqrar"
 flutter build
 flutter run
 flutter run -d emulator-5554 
-flutter run -d ce10171a81158d3101
+flutter run -d R3CN70DBFHL
 ```
 
 ## Run (MacOS)
@@ -67,7 +67,7 @@ $ flutter run --release
 ## Deploy to Android
 1. you can read this [article](https://docs.flutter.dev/deployment/android)
 2. Make sure you are using same *.jks file (Upload Sining Key) that is already uploaded toe Google Play.
-3. *.jks file need a password to be read properly which can be found in `key.properties` file.
+3. *.jks file need a password to be read properly which can be found in `build/Android/key.properties` file.
 
 4. Create Bundle:
 ```bash

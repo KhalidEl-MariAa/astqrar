@@ -15,7 +15,8 @@ bool IS_LOGIN = true;
 bool IS_ACTIVE = true;
 bool IS_DEVELOPMENT_MODE = true;
 
-String OUR_HOST = "https://estqrar-001-site1.ctempurl.com/";
+// String OUR_HOST = "https://estqrar-001-site1.ctempurl.com/";
+String OUR_HOST = "http://estqrar-001-site2.ctempurl.com/"; //Testing
 
 String BASE_URL = "";
 

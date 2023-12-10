@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:upgrader/upgrader.dart';
+
 import 'modules/splash/cubit/splash_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,7 @@ import 'modules/search/cubit/cubit.dart';
 import 'modules/section_men_women/cubit/cubit.dart';
 import 'modules/splash/splash.dart';
 import 'modules/user_details/cubit/cubit.dart';
-import 'shared/network/bloc_observer.dart';
+import 'bloc_observer.dart';
 
 
 class MyHttpOverrides extends HttpOverrides 
@@ -34,11 +36,15 @@ class MyHttpOverrides extends HttpOverrides
 
 void main()  async
 {
-  IS_DEVELOPMENT_MODE = !kReleaseMode; 
+  
+  IS_DEVELOPMENT_MODE = !kReleaseMode; // kDebugMode
 
   HttpOverrides.global = MyHttpOverrides();
 
   Bloc.observer = MyBlocObserver();
+
+  if(IS_DEVELOPMENT_MODE)
+    await Upgrader.clearSavedSettings(); 
 
   runApp(const MyApp());
 }
@@ -52,63 +58,62 @@ class MyApp extends StatelessWidget
   Widget build(BuildContext context) 
   {
     return Sizer(
-        builder: (context, orientation, devicetype) 
-        {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider<LayoutCubit>(
-                  create: (BuildContext context) =>
-                  LayoutCubit()
-                    ..loadSpecificationsFromBackend()
-                    ..loadCountries()
-                    ..getPhone()
+      builder: (context, orientation, devicetype) 
+      {
+        return MultiBlocProvider(
+          child: 
+            MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: APP_NAME,
+              home: Splash(),
+              theme: ThemeData(
+                primarySwatch: Colors.grey,
               ),
-
-              BlocProvider<HomeCubit>(
-                  create: (BuildContext context) => HomeCubit()..getUserAds()),
-
-              BlocProvider<GetPackagesCubit>(
-                  create: (BuildContext context) => GetPackagesCubit()..getPackages()),
-
-              BlocProvider<AdsCubit>(
-                  create: (BuildContext context) => AdsCubit()..getAds()),
-
-              BlocProvider<MenWomenCubit>(
-                  create: (BuildContext context) => MenWomenCubit()),
-
-              BlocProvider<UserDetailsCubit>(
-                  create: (BuildContext context) => UserDetailsCubit()),
-
-              BlocProvider<MoreTabCubit>(
-                  create: (BuildContext context) => MoreTabCubit()),
-
-              BlocProvider<SearchCubit>(
-                  create: (BuildContext context) => SearchCubit()),
-
-              BlocProvider<AboutUsCubit>(
-                  create: (BuildContext context) => AboutUsCubit()..aboutUs()),
-
-
-              BlocProvider<PaymentCubit>(
-                  create: (BuildContext context) => PaymentCubit()),
-
-              BlocProvider<SplashCubit>(
-                  create: (BuildContext context) => SplashCubit()),
-
-
-            ],
-            child: 
-              MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: APP_NAME,
-                home: Splash(),
-                theme: ThemeData(
-                  primarySwatch: Colors.grey,
-                ),
-
+          ),
+          providers: [
+            BlocProvider<LayoutCubit>(
+                create: (BuildContext context) =>
+                LayoutCubit()
+                  ..loadSpecificationsFromBackend()
+                  ..loadCountries()
+                  ..getPhone()
             ),
-          );
-        }
+
+            BlocProvider<HomeCubit>(
+                create: (BuildContext context) => HomeCubit()..getUserAds()),
+
+            BlocProvider<GetPackagesCubit>(
+                create: (BuildContext context) => GetPackagesCubit()..getPackages()),
+
+            BlocProvider<AdsCubit>(
+                create: (BuildContext context) => AdsCubit()..getAds()),
+
+            BlocProvider<MenWomenCubit>(
+                create: (BuildContext context) => MenWomenCubit()),
+
+            BlocProvider<UserDetailsCubit>(
+                create: (BuildContext context) => UserDetailsCubit()),
+
+            BlocProvider<MoreTabCubit>(
+                create: (BuildContext context) => MoreTabCubit()),
+
+            BlocProvider<SearchCubit>(
+                create: (BuildContext context) => SearchCubit()),
+
+            BlocProvider<AboutUsCubit>(
+                create: (BuildContext context) => AboutUsCubit()..aboutUs()),
+
+
+            BlocProvider<PaymentCubit>(
+                create: (BuildContext context) => PaymentCubit()),
+
+            BlocProvider<SplashCubit>(
+                create: (BuildContext context) => SplashCubit()),
+
+
+          ],
+        );
+      }
     );
   }
 }

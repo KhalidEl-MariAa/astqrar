@@ -11,12 +11,8 @@ class Contact extends User
   String? lastMsgDate;
   int newMessagesCount = 0;
 
-  // Contact(json) : super.fromJson( json );
-
   Contact.fromJson(Map<String, dynamic> json): super.fromJson( json ) 
   {    
-    
-
     contactorId = json['contactorId'];
     
     time = json['time'];

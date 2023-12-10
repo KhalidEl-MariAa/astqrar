@@ -25,7 +25,7 @@ class DioHelper
       data = await fetchData(host, "api/v2/ping");      
       if(data!["status"] == true) return host;
 
-      host = "http://10.0.2.2:5109/";
+      host = "http://10.0.2.2:5000/";
       data = await fetchData(host, "api/v2/ping");
       if(data!["status"] == true) return host;
 
@@ -33,7 +33,7 @@ class DioHelper
       data = await fetchData(host, "api/v2/ping");      
       if(data!["status"] == true) return host;
 
-      host = "https://192.168.43.200:7054/";
+      host = "http://127.0.0.1:5000/";
       data = await fetchData(host, "api/v2/ping");      
       if(data!["status"] == true) return host;
 

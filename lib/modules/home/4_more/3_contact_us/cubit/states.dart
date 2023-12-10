@@ -9,7 +9,7 @@ class ContactUsLoadingState extends ContactUsStates{}
 class ContactUsSuccessState extends ContactUsStates{
   final ServerResponse contactisModel;
   ContactUsSuccessState(this.contactisModel);
-//ShopLoginSuccessState(this.loginModel);
+//LoginSuccessState(this.loginModel);
 }
 
 class ContactUsErrorState extends ContactUsStates{
