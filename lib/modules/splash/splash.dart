@@ -84,7 +84,7 @@ class _SplashState extends State<Splash>
       log('completed .........................................');
     });
 
-    NotiticationWidget(context).init();
+    NotificationWidget(context).init();
     SplashCubit.Firebase_init();
 
     //---------------

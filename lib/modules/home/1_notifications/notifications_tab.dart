@@ -112,6 +112,21 @@ class NotificationTab extends StatelessWidget
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 2.1.h,),
+
+                        if(NotificationCubit.get(context).getNotificationsModel.data.length >= 1)
+                          Row(                          
+                            children: [
+                              SizedBox(width: 2.w,),
+                              Icon(Icons.delete, color: Colors.red,),
+                              Text("لحذف الإشعار اسحب لليسار", 
+                                style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
+                              ),
+                              
+                              Icon(Icons.arrow_forward_rounded, color: PRIMARY,),
+                            ],
+                          ),
+
                         ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),

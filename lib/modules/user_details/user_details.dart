@@ -44,7 +44,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
         else if (state is UserDetailsErrorState ) {
           showToast(msg: state.error,  state: ToastStates.ERROR);
         }
-        else if (state is AddHimToMyContactsSuccess ) {
+        else if (state is AddHimToMyContactsSuccess ) { }
+        else if (state is AddHimToMyContactsAdded ) {
           if(state.msg.isNotEmpty) 
             showToast(msg: state.msg,  state: ToastStates.SUCCESS);
         }

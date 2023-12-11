@@ -180,7 +180,8 @@ class ConversationScreenState extends State<ConversationScreen>
   Widget build(BuildContext context) 
   {
     return BlocProvider(
-        create: (BuildContext context) {
+        create: (BuildContext context) 
+        {
           ConversationCubit cub = ConversationCubit();
 
           if (widget.otherUser == null) {
@@ -201,6 +202,7 @@ class ConversationScreenState extends State<ConversationScreen>
             }
             else if (state is GetMessagesSuccessState) 
             {
+              // بعد وصول جميع الرسائل
               setState(() {
                 for (var m in state.messages) {
                   Message msg = Message.fromJson(m);
@@ -213,13 +215,17 @@ class ConversationScreenState extends State<ConversationScreen>
                 }
               });
 
-            }else if( state is SendMessageErrorState){
+              ConversationCubit.get(context).setAllMessagesToSeen();
+
+            }
+            else if( state is SendMessageErrorState)
+            {
               showToast(
                 msg: state.error,
                 state: ToastStates.ERROR);
             }
-            else if( state is SendMessageSuccessState){
-
+            else if( state is SendMessageSuccessState)
+            {
                 messages.add(state.sentMsg.message??"❌");
 
                 messagesMine.add(true);
@@ -375,7 +381,8 @@ class ConversationScreenState extends State<ConversationScreen>
                                           : 5.w,
                                       top: 2.h,
                                       bottom: 2.h),
-                                  decoration: BoxDecoration(
+                                  decoration: 
+                                    BoxDecoration(
                                       color: index == messages.length - 1
                                           ? BG_DARK_COLOR
                                           : messagesMine.reversed.toList()[index]
@@ -392,15 +399,13 @@ class ConversationScreenState extends State<ConversationScreen>
                                                   ? Radius.circular(15)
                                                   : messagesMine.reversed.toList()[index]
                                                       ? Radius.circular(0)
-                                                      : Radius.circular(20))),
+                                                      : Radius.circular(20))
+                                    ),
                                   child: Text(
                                     messages.reversed.toList()[index],
                                     maxLines: 120,
                                     style: GoogleFonts.almarai(
-                                        color: messagesMine.reversed
-                                                .toList()[index]
-                                            ? WHITE
-                                            : BLACK,
+                                        color: messagesMine.reversed.toList()[index] ? WHITE: BLACK,
                                         fontSize: index == messages.length - 1
                                             ? 10.sp
                                             : null),

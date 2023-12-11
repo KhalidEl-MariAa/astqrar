@@ -41,7 +41,8 @@ class _HomeTabState extends State<HomeTab>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {
         if (state is GetUserAdsSuccessState) {}
@@ -188,10 +189,11 @@ class _HomeTabState extends State<HomeTab>
                           child: TextFormField(
                             readOnly: true,
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ResultScreen()));
+                              navigateTo(context: context, widget: ResultScreen() );
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => ResultScreen()));
                             },
                             decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.search),

@@ -18,25 +18,22 @@ class AboutScreen extends StatelessWidget
       create: (BuildContext context) => AboutUsCubit()..aboutUs(),
       child: BlocConsumer<AboutUsCubit, AboutUsStates>(
         listener: (context, state) {},
-        builder: (context, state) => Directionality(
+        builder: (context, state) => 
+        Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            // appBar: PreferredSize(
-            //     preferredSize: Size.fromHeight(11.h),
-            //     child: NormalLogo(
-            //       appbarTitle: "اصتعراض",
-            //       isBack: true,
-            //     )),
-            
+            // appBar: No AppBar because it is desined inside StackLogo
             backgroundColor: WHITE, 
             body: 
               ConditionalBuilder(
                 condition: state is AboutUsLoadingState,
                 builder: (context)=> const LoadingGif(),
-                fallback:(context)=> StackLogo(
-                  appbarTitle: "عن التطبيق",
-                  strings: AboutUsCubit.get(context).splittingAboutUs,
-                ),
+                fallback:(context)=> 
+                  // تعطيه لسته يعمل صفحة كاملة بالعنوان حقها
+                  StackLogo(
+                    appbarTitle: "عن التطبيق",
+                    strings: AboutUsCubit.get(context).splittingAboutUs,
+                  ),
               )
             ),
         ),

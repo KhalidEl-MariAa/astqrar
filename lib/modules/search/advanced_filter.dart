@@ -39,7 +39,11 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
   var maxAge = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
+    // reset filter
+    SearchCubit.get(context).query = {};
+
     return BlocConsumer<SearchCubit, SearchStates>(
       listener: (context, state) {
         if (state is FilterSearchLoadingState) {
@@ -479,9 +483,13 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
         "maxAge": int.tryParse(maxAge.text)?? 0,        
         "TextSearch": widget.textSearch,
         "Typeofmarriage": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.marriage_Type),
-      };    
+        "skipPos": SearchCubit.get(context).searchResult.length,
+      };
 
-      SearchCubit.get(context).searchByFilter(query);
+      SearchCubit.get(context).searchResult.clear();
+      SearchCubit.get(context).isSearchByTextOnly = false;
+      SearchCubit.get(context).query = query;
+      SearchCubit.get(context).searchByFilter();
 
   }
 

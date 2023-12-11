@@ -25,9 +25,9 @@ const GETPACKAGES="api/v1/GetPackages";
 
 const GETUSERDATA="api/v1/GetDataOfUser";
 
-const GETUSERADS="api/v1/GetUsersWithAds";
-
 const GETPROFILEDATA="api/v1/GetDataOfUser";
+
+const GETUSERADS="api/v1/GetUsersWithAds";
 
 const GETALLADS="api/v1/GetAds";
 

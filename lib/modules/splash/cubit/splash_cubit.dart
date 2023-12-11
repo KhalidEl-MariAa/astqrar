@@ -40,6 +40,7 @@ class SplashCubit extends Cubit<SplashState>
       FirebaseMessaging.onBackgroundMessage( _firebaseMessagingBackgroundHandler );
     } catch (err) { 
       /* do nothing */
+      log(err.toString());
     }   
 
     NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
@@ -89,7 +90,8 @@ class SplashCubit extends Cubit<SplashState>
 
     // background State
     FirebaseMessaging.onMessageOpenedApp
-    .listen((event) {
+    .listen((event) 
+    {
       if (event.data["screen"] == "cart") {
       } else {}
     });

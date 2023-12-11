@@ -28,10 +28,11 @@ class DetailsItem extends StatelessWidget
             style: GoogleFonts.almarai(fontSize: 15,fontWeight: FontWeight.w500)
           ),
         ),
-        SizedBox( height: 1.2.h, ),
+
+        SizedBox( height: 0.5.h, ),
+
         Padding(
-          padding:
-          EdgeInsetsDirectional.only(start:5.w),
+          padding: EdgeInsetsDirectional.only(start:5.w),
           child: Text(
             subTitle,
             style: GoogleFonts.almarai(color: Colors.grey[500])

@@ -61,13 +61,11 @@ class SliderAds extends StatelessWidget
                         userId: HomeCubit.get(context).userAds[realindex]
                             .id!);
                   }
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              UserDetailsScreen(
-                                messageVisibility: true,
-                              )));
+                  navigateTo(
+                    context: context, 
+                    widget: UserDetailsScreen(messageVisibility: true,)
+                  );
+                  
                 },
                 child: Row(
                   children: [

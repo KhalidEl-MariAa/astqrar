@@ -143,9 +143,8 @@ class DioHelper
     {required String url,
     String? token,
     required var data
-    //  String ?image,
-    // Map<String, dynamic>? query,
-    }) async {
+    }) async 
+    {
 
     dio.options.headers = {
       // 'token':token??'',

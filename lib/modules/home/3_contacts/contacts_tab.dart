@@ -88,11 +88,11 @@ class _ContactsTabState extends State<ContactsTab>
 
                         Expanded(
                           child: 
-
                             ListView.separated(
                               separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
                               itemCount: this.contacts.length,
                               itemBuilder: (context, index) => 
+                                // عنصر اللستة القابل للحذف لكل مستخدم
                                 Dismissible(
                                   key: UniqueKey(),
                                   onDismissed: (value) 
@@ -133,44 +133,44 @@ class _ContactsTabState extends State<ContactsTab>
                                             ),
                                           ),
                                         
-                                        // عنصر اللستة لكل مستخدم
-                                        FavouriteItem(
+                                        // الصورة والاسم
+                                        FavouriteItem (
+                                          contactor: this.contacts[index], 
+                                          onClicked: () { user_on_click(context, index); },
                                           widget: 
-                                            Column(children: [
-                                              SizedBox(height: 1.h,),
-                                              Text(
-                                                this.contacts[index].time!,
-                                                style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 10.sp),
-                                              ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
 
-                                              SizedBox(height: 0.5.h,),
+                                                SizedBox(height: 1.h,),
 
-                                              // ايقونة شات
-                                              Row(
-                                                children: [
+                                                // تاريخ الكونتاكت
+                                                Text(
+                                                  this.contacts[index].time!,
+                                                  style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 10.sp),
+                                                ),
+
+                                                SizedBox(height: 0.5.h,),
+                                                
+                                                // ايقونة شات
+                                                if( this.contacts[index].unseenMsgCount > 0 )
                                                   Chip(
+                                                    padding: EdgeInsets.all(0.0),
+                                                    shape: RoundedRectangleBorder(
+                                                      side: BorderSide(width: 1.0, color: PRIMARY ),
+                                                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
                                                     backgroundColor: PRIMARY,
-                                                    label: Text(this.contacts[index].newMessagesCount.toString(), 
+                                                    label: Text(this.contacts[index].unseenMsgCount.toString(), 
                                                             style: GoogleFonts.almarai(
                                                               color: WHITE, 
                                                               backgroundColor: PRIMARY,
                                                               fontWeight: FontWeight.bold,
-                                                              fontSize: 16 ),),
+                                                              fontSize: 14 ),),
                                                   ),
-                                                  SizedBox(width: 2.w,),                                                  
-                                                  Icon(Icons.chat, color: PRIMARY,),
-                                                  SizedBox(width: 6.w,),
-
-
-                                                ],                                                
-                                              ),
-                                              // SizedBox(height: 9.h,),
                                             ],),
 
-                                          contactor: this.contacts[index],                                          
-                                          onClicked: () { user_on_click(context, index); },
                                         ),
-
                                     ],)
                                 ),
                             ),
@@ -178,8 +178,7 @@ class _ContactsTabState extends State<ContactsTab>
                         )
                       ],
                     )
-
-                    ),
+                  ),
                 ),
               )),
         ),

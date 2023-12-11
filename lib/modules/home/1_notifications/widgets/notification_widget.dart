@@ -15,7 +15,7 @@ import 'status_button.dart';
 class NotificationWiget extends StatelessWidget 
 {
 
-  final NotificationDetailsModel note;
+  final AppNotification note;
   final User user;
   // final Function clickUser;
 
@@ -39,12 +39,10 @@ class NotificationWiget extends StatelessWidget
         UserDetailsCubit.get(context)
             .getOtherUser( otherId: this.user.id!);
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => UserDetailsScreen(
-                      messageVisibility: true,
-                    )));
+        navigateTo(
+          context: context, 
+          widget: UserDetailsScreen(messageVisibility: true,)
+        );
 
       },
 
@@ -73,9 +71,9 @@ class NotificationWiget extends StatelessWidget
                             getUserImage(this.user)
                     )),
               ),
-              SizedBox(
-                width: 3.w,
-              ),
+
+              SizedBox(width: 3.w,),
+
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,30 +101,29 @@ class NotificationWiget extends StatelessWidget
 
                   SizedBox( height: 2.h,),
 
-                  if (this.note.notificationType == 0)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              NotificationCubit.get(context).acceptChattRequest(userId: this.user.id!);
-                            },
-                            child: StatusButton(text: "قبول", color: PRIMARY)),
-                        SizedBox( width: 3.w,),
-                        InkWell(
-                            onTap: () {
-                              NotificationCubit.get(context).ignoreRequest(userId: this.user.id!);
-                            },
-                            child: StatusButton(text: "رفض", color: Colors.red)),
-                      ],
-                    ),
+                  // if (this.note.notificationType == 0)
+                  //   Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  //       InkWell(
+                  //           onTap: () {
+                  //             NotificationCubit.get(context).acceptChattRequest(userId: this.user.id!);
+                  //           },
+                  //           child: StatusButton(text: "قبول", color: PRIMARY)),
+                  //       SizedBox( width: 3.w,),
+                  //       InkWell(
+                  //           onTap: () {
+                  //             NotificationCubit.get(context).ignoreRequest(userId: this.user.id!);
+                  //           },
+                  //           child: StatusButton(text: "رفض", color: Colors.red)),
+                  //     ],
+                  //   ),
                     
                   if (this.note.notificationType != 0)
+                    // "12 Aug , 5:20 Pm"
                     Text(
-                      DateFormat.yMMMMd().format(DateTime.parse(this.note.time??"")),
-                      //    "12 Aug , 5:20 Pm",
-                      style: GoogleFonts.poppins(
-                          color: CUSTOME_GREY, fontSize: 7.sp),
+                      DateFormat.yMMMMd().format(DateTime.parse(this.note.time??"")),                      
+                      style: GoogleFonts.poppins(color: CUSTOME_GREY, fontSize: 7.sp),
                     )
                 ],
               ),

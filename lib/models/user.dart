@@ -1,9 +1,11 @@
+import 'package:astarar/models/device.dart';
+
 import '../modules/home/layout/cubit/cubit.dart';
 import 'package:path/path.dart' as p;
 
 class User {
   String? id;
-  String? nationalID;
+  String? nationalID = "";
   int? gender;
   String? user_Name;
   String? email;
@@ -42,6 +44,9 @@ class User {
   bool? IsExpired;
 
   List<SubSpecification> subSpecifications = [];
+
+  List<Device> deviceIds = [];
+
   User() {}
 
   User.fromJson(Map<String, dynamic>? json) {
@@ -51,7 +56,7 @@ class User {
     gender = json['gender'] ?? 1;
     email = json['email'];
     user_Name = json['user_Name']?? "--------";
-    nationalID = json['nationalID'];
+    nationalID = json['nationalID']?? "";
     city = json['city'];
     // nationality = json['nationality'];
     tribe = json['tribe'];
@@ -77,6 +82,10 @@ class User {
     IsActive = json['isActive'];
     Token = json['token'];
     TokenExpiration = DateTime.parse(json['tokenExpiration'] ?? "2002-01-01");
+
+    json['deviceIds']?.forEach((e) {
+      deviceIds.add(new Device.fromJson(e));
+    });
     
     json['userSubSpecificationDto']?.forEach((e) {
       subSpecifications.add(new SubSpecification.fromJson(e));

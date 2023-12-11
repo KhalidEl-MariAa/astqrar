@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:astarar/models/get_notifications.dart';
+import 'package:astarar/utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
@@ -16,22 +18,25 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
   static UserDetailsCubit get(context) => BlocProvider.of(context);
 
   //get information users
-  void getOtherUser({required String otherId}) {
+  void getOtherUser({required String otherId}) 
+  {
     emit(UserDetailsLoadingState());
     DioHelper.getDataWithQuery(
             url: GETINFORMATIONUSER,
             query: {"otherId": otherId},
             token: TOKEN.toString())
-    .then((value) {
+    .then((value) 
+    {
       OtherUser otherUser = OtherUser.fromJson(value.data["otherUser"]);
       emit(UserDetailsSuccessState(otherUser));
 
-      sendNotification(
+      sendNotificationAsync(
           userid: otherId,
-          type: 3,
+          type: NotificationTypes.ProfileIsVisited,
           body: "تمت زيارة صفحتك من قبل " + NAME!,
-          title: "");
-          
+          title: APP_NAME,
+          save: true,
+      );
     }).catchError((error) {
       emit(UserDetailsErrorState(error.toString()));
     });
@@ -54,7 +59,6 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
   }
 
   //add to favourite
-
   void addToFavourite({required String userId}) 
   {
     ServerResponse res;
@@ -62,13 +66,15 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
     emit(ToggleFavouriteLoading());
 
     DioHelper.postDataWithBearearToken(
-            url: ADDTOFAVOURITE,
-            data: {
-              "CurrentUserId": ID,
-              "FavUserId": userId,
-            },
-            token: TOKEN.toString())
-        .then((value) {
+      url: ADDTOFAVOURITE,
+      data: {
+        "CurrentUserId": ID,
+        "FavUserId": userId,
+      },
+      token: TOKEN.toString()
+    )
+    .then((value) 
+    {
       log(value.toString());
       res = ServerResponse.fromJson(value.data);
       if (res.key == 0) {
@@ -76,11 +82,13 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
         return;
       }
 
-      sendNotification(
+      sendNotificationAsync(
           userid: userId, 
-          type: 0,
+          type: NotificationTypes.LikedBySomeone,
           body: "قام " + NAME! + " بالإعجاب بك واضافتك الى قائمة المفضلة ",
-          title: "طلب محادثة");
+          title: "إعجاب",
+          save: true,
+      );
 
       emit(AddToFavouriteSuccessState());
     }).catchError((error) {
@@ -91,20 +99,20 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
   }
 
   //delete from favourite
-
   void deleteFromFavourite({required String userId}) {
     late ServerResponse res;
     // getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
     emit(ToggleFavouriteLoading());
     DioHelper.postDataWithBearearToken(
-            url: DELETEFROMFAVOURITE,
-            data: {
-              "CurrentUserId": ID, 
-              "FavUserId": userId, 
-              "IsDeleted": true
-            },
-            token: TOKEN.toString())
-    .then((value) {
+      token: TOKEN.toString(),
+      url: DELETEFROMFAVOURITE,
+      data: {
+        "CurrentUserId": ID, 
+        "FavUserId": userId, 
+        "IsDeleted": true
+      })
+    .then((value) 
+    {
       // log(value.toString());
 
       res = ServerResponse.fromJson(value.data);
@@ -161,25 +169,24 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
         return;
       }
 
-      if (res.data['he_has_added_to_my_list']) {
-        emit(AddHimToMyContactsSuccess(res.msg!));
-        return;
+      if (res.data['he_is_added_to_my_list']) {
+        emit(AddHimToMyContactsAdded(res.msg!));
       }
 
       //تم اضافة المستخدم الحالي الى قائمة الطرف الاخر
-      if (res.data['i_have_added_to_his_list']) {
-        sendNotification(
+      if (res.data['i_am_added_to_his_list']) 
+      {
+        sendNotificationAsync(
             userid: hisUserId,
-            type: 0,
-            body: "قام " +
-                NAME! +
+            type: NotificationTypes.AddedToHisList,
+            body: "قام " + NAME! +
                 " بإضافتك الى قائمته وبإمكانك بدء المحادثه معه ",
-            title: "طلب محادثة");
-
-        return;
+            title: "طلب محادثة",
+            save: false,
+        );
       }
+      emit(AddHimToMyContactsSuccess());
 
-      emit(AddHimToMyContactsSuccess(""));
     }).catchError((error) {
       emit(AddHimToMyContactsError(error.toString()));
     });
@@ -189,8 +196,12 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
     emit(BlockHimLoading());
 
     DioHelper.postDataWithBearearToken(
-            url: BLOCK_HIM, data: {"userId": userId}, token: TOKEN.toString())
-        .then((value) {
+      token: TOKEN.toString(),
+      url: BLOCK_HIM, 
+      data: {"userId": userId } 
+    )
+    .then((value) 
+    {
       res = ServerResponse.fromJson(value.data);
       if (res.key == 0) {
         emit(BlockHimError(res.msg!));
@@ -204,13 +215,15 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
     });
   }
 
-  void unblockHim({required String userId}) {
+  void unblockHim({required String userId}) 
+  {
     emit(BlockHimLoading());
 
     DioHelper.postDataWithBearearToken(
             url: UNBLOCK_HIM, data: {"userId": userId}, token: TOKEN.toString())
         .then((value) {
       res = ServerResponse.fromJson(value.data);
+
       if (res.key == 0) {
         emit(BlockHimError(res.msg!));
         return;
@@ -222,35 +235,9 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
     });
   } //unblockHim
 
-  //send notification
-  void sendNotification(
-      {required String userid,
-      required int type,
-      required String body,
-      required String title}) 
+  
+  void announceHimWithBlock(userId) 
   {
-    emit(SendNotificationLoadingState());
-
-    DioHelper.postDataWithBearearToken(
-        token: TOKEN.toString(),
-        url: SENDNOTIFICATION,
-        data: {
-          "userId": userid,
-          "notificationType": type,
-          "projectName": APP_NAME,
-          "deviceType": Platform.isIOS ? "ios" : "android",          
-          "title": title,
-          "body": body,
-        }).then((value) {
-      // log(value.toString());
-      emit(SendNotificationSuccessState());
-    }).catchError((error) {
-      // log(error.toString());
-      emit(SendNotificationErrorState(error.toString()));
-    });
-  }
-
-  void announceHimWithBlock(userId) {
     DioHelper.postDataWithBearearToken(
             url: "api/v1/announce-block",
             data: {
@@ -258,7 +245,8 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
               "BlockedId": userId,
             },
             token: TOKEN.toString())
-        .then((value) {
+    .then((value) 
+    {
       log(value.toString());
     }).catchError((error) {
       log(error.toString());

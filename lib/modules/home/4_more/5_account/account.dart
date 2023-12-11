@@ -1,4 +1,5 @@
 
+import 'package:astarar/constants.dart';
 import 'package:astarar/shared/components/loading_gif.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,22 @@ class AccountScreen extends StatelessWidget
                       auser.ActiveCode == true? "مفعل" : "معطل" ,
                       color: (auser.ActiveCode == false)? Colors.red: BLACK_OPACITY
                     ),
+
+                    _infoTile(
+                      "عدد الأجهزة المسجلة", 
+                      auser.deviceIds.length.toString() ,
+                      color: (auser.deviceIds.length == 0)? Colors.red: BLACK_OPACITY
+                    ),
+
+                    _infoTile(
+                      "هل الجهاز الحالي مسجل؟", 
+                      auser.deviceIds.any( (d) => d.deviceId == DEVICE_TOKEN ) ? 
+                        "نعم" 
+                        : 
+                        "لا، لن تستطيع استقبال الاشعارات، الرجاء تسجيل الخروج من التطبيق والدخول مره أخرى" ,
+                      color: auser.deviceIds.any( (d) => d.deviceId == DEVICE_TOKEN )? BLACK_OPACITY : Colors.red
+                    ),
+                    
 
                   ],
                 ),

@@ -29,6 +29,7 @@ class ConversationCubit extends Cubit<ConversationStates>
     initializeDateFormatting('ar_SA', null);
     ConversationScreenState.messages = [
       "                              نظام مكافحة جريمة التحرش \n\n                                              المادة الاولى: \n\n يقصد بجريمة التحرش, لغرض تطبيق احكام هذا النظام كل قول او فعل او اشارة ذات مدلول جنسي تصدر من شخص تجاه اي شخص اخر , تمس جسده او عرضه , او تخدش حياءه , بأي وسيلة كانت ,بما فما ذلك وسائل التقنية الحديثة."
+      + "\n\n" + "تنويه: لعملائنا الكرام من عدم التعامل مع رسائل الاحتيال والتي تطالب بعربون قبل الخطبة أو الملكة يرجى الأمتناع عن التواصل معهم و إبلاغ الإدارة فوراً ."
     ];
     ConversationScreenState.senderIdList = [ID!];
     ConversationScreenState.messagesMine = [true];
@@ -70,7 +71,11 @@ class ConversationCubit extends Cubit<ConversationStates>
   {
     emit(SendMessageLoadingState());
 
-    hub.invoke('SendMessagee', args: [ID!, receiverId, msgText, 0, 1, 1])
+    var OrderId = 0;
+    var Type = 1;
+    var Duration = 1;
+
+    hub.invoke('SendMessagee', args: [ID!, receiverId, msgText, OrderId, Type, Duration])
     .then( (value) 
     {
       log(value.toString());
@@ -90,6 +95,20 @@ class ConversationCubit extends Cubit<ConversationStates>
       log(e.toString());
       emit(SendMessageErrorState("غير متصل بمحرك المحادثات، الرجاء المحاولة لاحقاً"));
     });
+  }
+
+  void setAllMessagesToSeen() async
+  {
+    await DioHelper.postDataWithBearearToken(
+            url: "api/v2/set-all-messages-to-seen",
+            data: { "otherUserId": this.otherUser.id },
+            token: TOKEN.toString())
+    .then((value) {
+      log( value.toString() );
+      emit(GetOtherUserSuccess(otherUser));
+    }).catchError((error) {
+      emit(GetMessagesErrorState(error.toString()));
+    });    
   }
 
 

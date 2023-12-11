@@ -13,21 +13,25 @@ class SearchCubit extends Cubit<SearchStates> {
   static SearchCubit get(context) => BlocProvider.of(context);
   
   List<User> searchResult = [];
+  bool isSearchByTextOnly = true;
+  Map query = {};
 
   void searchByText({required String text}) 
   {
-    searchResult = [];
     emit(GetSearchLoadingState());
 
     DioHelper.getDataWithQuery(
       url: SEARCHBYTEXT, 
-      query: {"mytext": text}
+      query: {
+        "mytext": text,
+        "skipPos": this.searchResult.length,
+      }
     
     ).then((value) {
 
       log("${searchResult.length} are found");
 
-      searchResult.clear();
+      // searchResult.clear();
       value.data['data'].forEach((e) {
         searchResult.add( User.fromJson(e) );
       });
@@ -40,18 +44,18 @@ class SearchCubit extends Cubit<SearchStates> {
     });
   }
 
-  void searchByFilter(Map query) 
+  void searchByFilter() 
   {
   
-    log(query.toString());
+    log(this.query.toString());
 
     emit(FilterSearchLoadingState());
 
     DioHelper.postData(
       url: FILTERSEARCH, 
-      data: query,
+      data: this.query,
     ).then((value) {
-      searchResult.clear();
+      
       value.data['data'].forEach((e) {
         searchResult.add( User.fromJson(e) );
       });

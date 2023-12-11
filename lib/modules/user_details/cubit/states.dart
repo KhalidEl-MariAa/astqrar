@@ -62,9 +62,11 @@ class RemoveFromFavouriteErrorState extends UserDetailsStates{
 
 class AddHimToMyContactsLoading extends UserDetailsStates{}
 
-class AddHimToMyContactsSuccess extends UserDetailsStates{
+class AddHimToMyContactsSuccess extends UserDetailsStates{ }
+
+class AddHimToMyContactsAdded extends UserDetailsStates{
   final String msg;
-  AddHimToMyContactsSuccess(this.msg);
+  AddHimToMyContactsAdded(this.msg);
 }
 
 class AddHimToMyContactsError extends UserDetailsStates{

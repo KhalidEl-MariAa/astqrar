@@ -194,7 +194,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
         ),
 
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -215,7 +215,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -240,7 +240,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -265,7 +265,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -288,7 +288,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -312,7 +312,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -337,7 +337,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -361,7 +361,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -385,7 +385,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -409,7 +409,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
         Container(
-          height: 9.5.h,
+          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(

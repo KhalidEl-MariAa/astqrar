@@ -198,6 +198,8 @@ class SectionMenOrWomen extends StatelessWidget
 
                                   // البادج حق الفلتر - نوع الزواج
                                   ChoiceChip (
+                                    padding: EdgeInsets.all(2.0),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                                     selectedColor: PRIMARY,
                                     onSelected: (bool value) 
                                     {
@@ -206,8 +208,10 @@ class SectionMenOrWomen extends StatelessWidget
                                               index: index,
                                               gender: this.gender == "1" ? "1" : "2");
                                     },
-                                    label: Text(oneSection[index],
-                                        style: GoogleFonts.almarai(fontSize: 9.5.sp)),
+                                    label: 
+                                      Text(oneSection[index],
+                                        style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
+                                      ),
                                     backgroundColor: Colors.grey[400],
                                     selected: index == oneIndexSection,
                                   ),                                  
@@ -220,7 +224,7 @@ class SectionMenOrWomen extends StatelessWidget
 
                       SizedBox(height: 0.5.h, ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.3.w),
+                        padding: EdgeInsets.symmetric(horizontal: 3.3.w),                        
                         child: Container(
                           height: 4.5.h,
                           child: ListView.separated(
@@ -228,6 +232,8 @@ class SectionMenOrWomen extends StatelessWidget
                             itemBuilder: (context, index) => 
                             // البادج حق الفلتر - العمر
                             ChoiceChip(
+                              padding: EdgeInsets.all(2.0),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                               selectedColor: PRIMARY,
                               onSelected: (bool value) {
                                 MenWomenCubit.get(context)
@@ -235,8 +241,10 @@ class SectionMenOrWomen extends StatelessWidget
                                         index: index,
                                         gender: this.gender == "1" ? "1" : "2");
                               },
-                              label: Text(twoSection[index],
-                                  style: GoogleFonts.almarai(fontSize: 9.5.sp)),
+                              label: 
+                                Text(twoSection[index],
+                                  style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
+                                ),
                               backgroundColor: Colors.grey[400],
                               selected: index == twoIndexSection,
                             ),
@@ -260,6 +268,8 @@ class SectionMenOrWomen extends StatelessWidget
                             
                             // البادج حق الفلتر - الجنسية
                             ChoiceChip(
+                              padding: EdgeInsets.all(2.0),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                               selectedColor: PRIMARY,
                               onSelected: (bool value) {
                                 MenWomenCubit.get(context)
@@ -267,8 +277,11 @@ class SectionMenOrWomen extends StatelessWidget
                                         index: index,
                                         gender: this.gender == "1" ? "1" : "2");
                               },
-                              label: Text(threeSection[index],
-                                  style: GoogleFonts.almarai(fontSize: 9.5.sp)),
+                              label: 
+                                Text(threeSection[index],
+                                  style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
+
+                                ),
                               backgroundColor: Colors.grey[400],
                               selected: index == threeIndexSection,
                             ),
@@ -288,7 +301,7 @@ class SectionMenOrWomen extends StatelessWidget
 
                       RefreshIndicator(
                         key: _refreshIndicatorKey,
-                        onRefresh:() => _pullRefresh(context), 
+                        onRefresh: () => _pullRefresh(context), 
                         child: 
                           GridView.count(
                             shrinkWrap: true,
@@ -307,8 +320,6 @@ class SectionMenOrWomen extends StatelessWidget
                                           visibileRemoveIcon: false,
                                           removeUser: () {},
                                           onclickUser: () { onClickUserItem(context, index); },
-                                          genderValue: MenWomenCubit.get(context).users[index].gender!,
-                                          username: MenWomenCubit.get(context).users[index].user_Name!,
                                           otherUser: MenWomenCubit.get(context).users[index],
                                   )
                                 );
@@ -353,9 +364,7 @@ class SectionMenOrWomen extends StatelessWidget
       UserDetailsCubit.get(context)
           .getOtherUser(
               otherId:
-                  MenWomenCubit.get(context)
-                      .users[index]
-                      .id!);
+                  MenWomenCubit.get(context).users[index].id!);
     }else{
       UserDetailsCubit.get(context)
           .getInformationUserByVisitor(
@@ -364,12 +373,10 @@ class SectionMenOrWomen extends StatelessWidget
                       .users[index]
                       .id!);
     }
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => UserDetailsScreen(
-                  messageVisibility: true,
-                )));
+    navigateTo(
+      context: context, 
+      widget: UserDetailsScreen(messageVisibility: true,)
+    );
   }
 
   Future<void> _pullRefresh(context) async

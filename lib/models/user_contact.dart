@@ -9,11 +9,12 @@ class Contact extends User
   String contactorId = '';
   String? time;
   String? lastMsgDate;
-  int newMessagesCount = 0;
+  int unseenMsgCount = 0;
 
   Contact.fromJson(Map<String, dynamic> json): super.fromJson( json ) 
   {    
-    contactorId = json['contactorId'];
+    id = json['userTwoId'];
+    contactorId = json['userTwoId'];
     
     time = json['time'];
     time = DateFormat.yMMMMEEEEd('ar_SA').format(DateTime.parse(time!));
@@ -21,7 +22,7 @@ class Contact extends User
     lastMsgDate = json['lastMsgDate'];
     lastMsgDate = DateFormat.yMMMMEEEEd('ar_SA').format(DateTime.parse(lastMsgDate!));
 
-    newMessagesCount = json['newMessagesCount'];
+    unseenMsgCount = json['unseenMsgCount'];
     // isConnected = json['isConnected'];
   }
 }

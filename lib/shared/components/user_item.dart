@@ -9,21 +9,17 @@ import '../../models/user.dart';
 
 class UserItemWidget extends StatelessWidget 
 {
-  final String username;
-  final int genderValue;
   final Function onclickUser;
   final Function removeUser;
   final bool visibileRemoveIcon;
   final User otherUser;
-  // late UserItem otherUserItem;
   
-  UserItemWidget(
-      {required this.username,
-      required this.genderValue,
+  UserItemWidget({
+      required this.otherUser,
       required this.onclickUser,
       required this.removeUser,
       required this.visibileRemoveIcon,
-      required this.otherUser });
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +62,7 @@ class UserItemWidget extends StatelessWidget
                       SizedBox(height: 0.5.h,),
                       
                       Text(
-                        username,
+                        this.otherUser.user_Name??"--------",
                         style: GoogleFonts.almarai(fontSize: 9.sp),
                       )
                     ],

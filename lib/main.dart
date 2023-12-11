@@ -43,6 +43,8 @@ void main()  async
 
   Bloc.observer = MyBlocObserver();
 
+  WidgetsFlutterBinding.ensureInitialized();
+
   if(IS_DEVELOPMENT_MODE)
     await Upgrader.clearSavedSettings(); 
 

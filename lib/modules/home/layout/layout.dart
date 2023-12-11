@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -42,15 +43,16 @@ class _LayoutScreenState extends State<LayoutScreen>
   {
     super.initState();
 
-    NotiticationWidget(context).init();
+    NotificationWidget(context).init();
 
-    SplashCubit.Firebase_init();
+    // SplashCubit.Firebase_init();
 
     if (Platform.isIOS) {
-      NotiticationWidget(context).requestIOSLocalNotificationsPermissions();
+      NotificationWidget(context).requestIOSLocalNotificationsPermissions();
     }
 
-    FirebaseMessaging.onMessage
+    FirebaseMessaging
+    .onMessage
     .listen((RemoteMessage message) 
     {
       log('Notification Arrived !!!!!!!!!'+ message.toString());
@@ -58,15 +60,14 @@ class _LayoutScreenState extends State<LayoutScreen>
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
 
-      // log("Message " + message.toString() );
       //foreground
       if (notification != null && android != null) 
       {
-        NotiticationWidget.showNotification(
+        NotificationWidget.showNotification(
           notification.hashCode,          
           title: notification.title,
           body: notification.body,
-          payload: message.data,
+          payload: json.encode(message.data) , //to jsonStr
         );
       }
     });
@@ -88,15 +89,16 @@ class _LayoutScreenState extends State<LayoutScreen>
 
   BottomAppBar createBottomAppBar(BuildContext context) {
     return BottomAppBar(
-      clipBehavior: Clip.antiAlias,
-      notchMargin: 9,
-      elevation: 10,
+      clipBehavior: Clip.none,
+      // notchMargin: 9,
+      // elevation: 10,
       shape: const CircularNotchedRectangle(),
-      color: Colors.white,
-      child: Container(
-        height: 10.h,
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: .2.h),
+      color: WHITE,
+      child: 
+      Container(
+        // height: 20.h,
+        color: WHITE,
+        // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: .2.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -122,7 +124,7 @@ class _LayoutScreenState extends State<LayoutScreen>
                     ),
                   ),
                   Text(
-                    "المفضلة",
+                    "المفضلة"+"",
                     style: GoogleFonts.almarai(
                         color: _selectedTab == 0 ? PRIMARY : CUSTOME_GREY,
                         fontSize: 10.sp,
@@ -131,6 +133,7 @@ class _LayoutScreenState extends State<LayoutScreen>
                 ],
               ),
             ),
+
             InkWell(
               onTap: () {
                 if (IS_LOGIN == false) {
@@ -148,8 +151,11 @@ class _LayoutScreenState extends State<LayoutScreen>
                   Container(
                     padding:
                         EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
-                    child: Image.asset('assets/notification.png',
-                        color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY),
+                    child: 
+                      Image.asset(
+                        'assets/notification.png',
+                        color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY
+                      ),
                   ),
                   
                   SizedBox(height: 0.3.h,),
@@ -166,6 +172,8 @@ class _LayoutScreenState extends State<LayoutScreen>
             ),
 
             SizedBox(width: 48,),
+
+            // ايقونة المحادثات
             InkWell(
               onTap: () {
                 if (IS_LOGIN == false) {
@@ -200,6 +208,7 @@ class _LayoutScreenState extends State<LayoutScreen>
                 ],
               ),
             ),
+
             InkWell(
               onTap: () {
                 _selectedTab = 4;
@@ -232,19 +241,25 @@ class _LayoutScreenState extends State<LayoutScreen>
     );
   }
 
-  FloatingActionButton floatingActionButton() {
+  FloatingActionButton floatingActionButton() 
+  {
     return FloatingActionButton(
-      onPressed: () {
+      onPressed: () 
+      {
         setState(() {
           _selectedTab = 2;
         });
       },
-      child: Container(
-        width: 10.w,
-        color: PRIMARY,
-        child: Image.asset('assets/home.png'),
-      ),
-      backgroundColor: PRIMARY,
+      child: 
+        Container(
+          width: 10.w,
+          color: _selectedTab == 2 ? PRIMARY : WHITE,
+          child: Image.asset(
+            'assets/home.png',
+            color: _selectedTab == 2 ? WHITE : CUSTOME_GREY
+            ),
+        ),
+      backgroundColor: _selectedTab == 2 ? PRIMARY : WHITE,
     );
   }
 }//------------------

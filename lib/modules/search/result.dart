@@ -1,4 +1,5 @@
 import 'package:astarar/shared/components/defaultTextFormField.dart';
+import 'package:astarar/shared/components/loading_gif.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,8 +19,7 @@ import 'advanced_filter.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class ResultScreen extends StatefulWidget 
-{
+class ResultScreen extends StatefulWidget {
   @override
   State<ResultScreen> createState() => _ResultScreenState();
 }
@@ -30,20 +30,22 @@ class _ResultScreenState extends State<ResultScreen>
 
   List<User> searchResult = [];
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+
   @override
   Widget build(BuildContext context) 
   {
-    return BlocConsumer<SearchCubit, SearchStates>(
-        listener: (context, state) {
-          if(state is GetSearchSuccessState)
-          {
+    return 
+      BlocConsumer<SearchCubit, SearchStates>(
+        listener: (context, state) 
+        {
+          if (state is GetSearchSuccessState) {
             setState(() {
-              this.searchResult = state.searchResult;  
+              this.searchResult = state.searchResult;
             });
           }
-        },
+        }, 
         builder: (context, state) {
-          
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -77,14 +79,13 @@ class _ResultScreenState extends State<ResultScreen>
                                 child: AppBar(
                                   toolbarHeight: 15.h,
                                   title: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height: IS_LOGIN? 2.h : 0,
+                                        height: IS_LOGIN ? 2.h : 0,
                                       ),
                                       Text(
-                                        IS_LOGIN? NAME! : "اهلا بك ",
+                                        IS_LOGIN ? NAME! : "اهلا بك ",
                                         style: GoogleFonts.almarai(
                                             color: WHITE, fontSize: 11.sp),
                                       ),
@@ -102,8 +103,7 @@ class _ResultScreenState extends State<ResultScreen>
                                               "سجل دخول",
                                               textAlign: TextAlign.start,
                                               style: TextStyle(
-                                                  color: WHITE,
-                                                  fontSize: 10.sp),
+                                                  color: WHITE, fontSize: 10.sp),
                                             ),
                                             SizedBox(
                                               width: 1.w,
@@ -122,7 +122,8 @@ class _ResultScreenState extends State<ResultScreen>
                                                 style: GoogleFonts.almarai(
                                                     color: WHITE,
                                                     fontSize: 10.sp,
-                                                    decoration: TextDecoration.underline),
+                                                    decoration:
+                                                        TextDecoration.underline),
                                               ),
                                             ),
                                           ],
@@ -141,7 +142,8 @@ class _ResultScreenState extends State<ResultScreen>
                                           Navigator.pop(context);
                                         },
                                         child: Padding(
-                                          padding: EdgeInsetsDirectional.only(start: 3.w,top:0.h ),
+                                          padding: EdgeInsetsDirectional.only(
+                                              start: 3.w, top: 0.h),
                                           child: Icon(
                                             Icons.arrow_back_ios,
                                             color: WHITE,
@@ -149,22 +151,23 @@ class _ResultScreenState extends State<ResultScreen>
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 2.w,),
+                                      SizedBox(
+                                        width: 2.w,
+                                      ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.only(
                                             top: 2.h, start: 0.w),
-                                        child:
-                                        Container(
+                                        child: Container(
                                           height: 7.h,
                                           width: 12.w,
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
-                                                opacity: IS_ACTIVE ? 1.0 : 0.5,
-                                                image: getUserImageByPath(
-                                                  imgProfilePath: IMG_PROFILE!,
-                                                  gender:  GENDER_USER!)
-                                          )),
+                                                  opacity: IS_ACTIVE ? 1.0 : 0.5,
+                                                  image: getUserImageByPath(
+                                                      imgProfilePath:
+                                                          IMG_PROFILE!,
+                                                      gender: GENDER_USER!))),
                                         ),
                                       ),
                                     ],
@@ -183,7 +186,9 @@ class _ResultScreenState extends State<ResultScreen>
                                 child: Row(
                                   children: [
                                     InkWell(
-                                      onTap: () { show_filter_search_screen(context); },
+                                      onTap: () {
+                                        show_filter_search_screen(context);
+                                      },
                                       child: Container(
                                         width: 40.w,
                                         height: 9.h,
@@ -202,27 +207,40 @@ class _ResultScreenState extends State<ResultScreen>
                                                         BorderRadius.circular(
                                                             20)),
                                                 child: InkWell(
-                                                  onTap: () { show_filter_search_screen(context); },
+                                                  onTap: () {
+                                                    show_filter_search_screen(
+                                                        context);
+                                                  },
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional
-                                                                .only(
+                                                            .only(
                                                             top: 5.0,
                                                             start: 10.0,
                                                             end: 10),
                                                     child: Row(
                                                       children: [
                                                         InkWell(
-                                                            onTap: () { show_filter_search_screen(context); },
+                                                            onTap: () {
+                                                              show_filter_search_screen(
+                                                                  context);
+                                                            },
                                                             child: Text(
-                                                                'بحث بالفلتر', 
-                                                                style: GoogleFonts.almarai(fontSize: 12.sp),)
-                                                        ),
+                                                              'بحث بالفلتر',
+                                                              style: GoogleFonts
+                                                                  .almarai(
+                                                                      fontSize:
+                                                                          12.sp),
+                                                            )),
                                                         const Spacer(),
                                                         InkWell(
-                                                          onTap: () { show_filter_search_screen(context); },
+                                                          onTap: () {
+                                                            show_filter_search_screen(
+                                                                context);
+                                                          },
                                                           child: Image(
-                                                            image: AssetImage('assets/filter.png'),
+                                                            image: AssetImage(
+                                                                'assets/filter.png'),
                                                           ),
                                                         ),
                                                       ],
@@ -236,25 +254,28 @@ class _ResultScreenState extends State<ResultScreen>
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: () async 
-                                      {
-
-                                        String uristr = "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
+                                      onTap: () async {
+                                        String uristr =
+                                            "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
                                         Uri uri = Uri(
-                                          scheme: "https", 
-                                          path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
-                                        );
+                                            scheme: "https",
+                                            path:
+                                                "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE");
                                         // if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {}
-                                        if (await launch( uristr )) { } 
-                                        else { showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR); }
+                                        if (await launch(uristr)) {
+                                        } else {
+                                          showToast(
+                                              msg: 'Could not launch ${uri}',
+                                              state: ToastStates.ERROR);
+                                        }
                                       },
                                       child: Container(
                                         height: 80.0,
                                         width: 70.0,
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/snapchat.png'),
+                                            image:
+                                                AssetImage('assets/snapchat.png'),
                                           ),
                                         ),
                                       ),
@@ -271,142 +292,137 @@ class _ResultScreenState extends State<ResultScreen>
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: 
-                        defaultTextFormField(
+                        child: defaultTextFormField(
                             labelTextcolor: PRIMARY,
                             borderColor: PRIMARY,
                             container: BG_DARK_COLOR,
-                            onsubmit: (value) { start_searching(context); },
-                            suffixPressed: () { start_searching(context); },
-                            onchange: (value) { },
+                            onsubmit: (value) {
+                              this.searchResult.clear();
+                              SearchCubit.get(context).isSearchByTextOnly = true;
+                              start_searching(context);
+                            },
+                            suffixPressed: () {
+                              this.searchResult.clear();
+                              SearchCubit.get(context).isSearchByTextOnly = true;
+                              start_searching(context);
+                            },
+                            onchange: (value) {},
                             context: context,
                             suffix: Icons.search,
                             controller: searchTextController,
                             type: TextInputType.text,
-                            validate: (value) { return null; },
+                            validate: (value) {
+                              return null;
+                            },
                             label: "  البحث   "),
                       ),
-                      Visibility(
-                        visible: true, //SearchCubit.get(context).getSearch,
-                        child: 
-                          ConditionalBuilder(
-                            condition: (state is GetSearchLoadingState) || (state is FilterSearchLoadingState), 
-                            builder: (context) => 
-                                SingleChildScrollView(
-                                  child: Column(                                    
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,                                    
-                                    children: [
-                                      Image(
-                                        image: AssetImage("assets/loading.gif"), //loading image
-                                        height: 12.h,
-                                        width: 25.w,
-                                      )
-                                    ],
-                                  ),
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.only(
+                                  start: 5.w, top: 2.h),
+                              child: Text(
+                                  'النتائج' + " ( ${this.searchResult.length} )",
+                                  style: GoogleFonts.almarai(
+                                      fontWeight: FontWeight.w200, fontSize: 19)),
+                            ),
+                            RefreshIndicator(
+                              key: _refreshIndicatorKey,
+                              onRefresh: () async {
+                                start_searching(context);
+                              },
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.only(bottom: 2.h),
+                                child: GridView.count(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    childAspectRatio: 1 / 1.2,
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 0.0,
+                                    mainAxisSpacing: 12.0,
+                                    children: List.generate(
+                                        this.searchResult.length, (index) {
+                                      return Center(
+                                          child:
+                                              user_item_thmbnail(context, index));
+                                    })),
+                              ),
+                            ),
+                            ConditionalBuilder(
+                              condition: (state is GetSearchLoadingState) ||
+                                  (state is FilterSearchLoadingState),
+                              builder: (context) => LoadingGif(),
+                              fallback: (context) => Center(
+                                child: InkWell(
+                                  child: Text("المزيد ... ⬇️",
+                                      style: GoogleFonts.almarai(
+                                          fontSize: 15.5.sp, color: PRIMARY)),
+                                  onTap: () {
+                                    _refreshIndicatorKey.currentState?.show();
+                                  },
                                 ),
-                            fallback: 
-                                (context) => Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
-                                        child: Text( 'النتائج' + " ( ${this.searchResult.length} )",
-                                            style: GoogleFonts.almarai(
-                                                fontWeight: FontWeight.w200,
-                                                fontSize: 19)),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.only(bottom: 2.h),
-                                        child: GridView.count(
-                                              shrinkWrap: true,
-                                              physics: NeverScrollableScrollPhysics(),
-                                              childAspectRatio: 1 / 1.2,
-                                              crossAxisCount: 3,
-                                              crossAxisSpacing: 0.0,
-                                              mainAxisSpacing: 12.0,
-                                              children: 
-                                                List.generate(
-                                                  this.searchResult.length, 
-                                                  (index) {
-                                                    return Center(
-                                                        child: user_item_thmbnail(context, index)
-                                                    );
-                                                  }
-                                                )
-                                              ),
-                                      ),
-                                    ])
-                        ),
-                      )
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3.5.h,
+                            ),
+                          ])
                     ],
                   ),
                 ),
               ),
             ),
           );
-        });
-  }
+        }
+    );
+  }//end build
 
-  UserItemWidget user_item_thmbnail(BuildContext context, int index) 
-  {
+  UserItemWidget user_item_thmbnail(BuildContext context, int index) {
     return UserItemWidget(
       visibileRemoveIcon: false,
       removeUser: () {},
       onclickUser: () {
         if (IS_LOGIN) {
           UserDetailsCubit.get(context)
-              .getOtherUser(
-                  otherId: this.searchResult[index].id!);
+              .getOtherUser(otherId: this.searchResult[index].id!);
         } else {
-          UserDetailsCubit.get(context)
-              .getInformationUserByVisitor(
-                  userId: this.searchResult[index].id!);
+          UserDetailsCubit.get(context).getInformationUserByVisitor(
+              userId: this.searchResult[index].id!);
         }
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    UserDetailsScreen(
-                      messageVisibility: true,
-                    ))
-        );
+
+        navigateTo(
+            context: context,
+            widget: UserDetailsScreen(
+              messageVisibility: true,
+            ));
       },
-      genderValue: this.searchResult[index].gender!,
-      username: this.searchResult[index].user_Name!,
+      // genderValue: this.searchResult[index].gender!,
+      // username: this.searchResult[index].user_Name!,
       otherUser: this.searchResult[index],
     );
   }
 
-  void show_filter_search_screen(BuildContext context)
-  {
-    print(searchTextController.text);
-
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  AdvancedFilterScreen(
-                    textSearch: searchTextController.text,
-                  )));
-
+  void show_filter_search_screen(BuildContext context) {
+    navigateTo(
+        context: context,
+        widget: AdvancedFilterScreen(
+          textSearch: searchTextController.text,
+        ));
   }
 
   void start_searching(BuildContext context) 
   {
-
-    if (searchTextController.text != "") 
+    if (SearchCubit.get(context).query.isNotEmpty) 
     {
-      SearchCubit.get(context).searchByText(
-        text: searchTextController.text);
-
-    } else {
-      showToast(
-          msg: "من فضلك اكتب اي كلمة بحثية",
-          state: ToastStates.SUCCESS);
+      SearchCubit.get(context).searchByFilter();
     }
-
+    else if (searchTextController.text.isNotEmpty) 
+    {
+      SearchCubit.get(context).searchByText(text: searchTextController.text);
+    } else {
+      showToast(msg: "من فضلك اكتب اي كلمة بحثية", state: ToastStates.SUCCESS);
+    }
   }
 }

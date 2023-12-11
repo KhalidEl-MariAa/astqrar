@@ -47,12 +47,7 @@ class FavouriteItem extends StatelessWidget
                       UserDetailsCubit.get(context)
                           .getOtherUser(otherId: this.contactor.id! );
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserDetailsScreen( messageVisibility: true,)
-                          )
-                      );
+                      navigateTo(context: context, widget: UserDetailsScreen( messageVisibility: true,));
                   },
                   child:
                     Container(
@@ -77,14 +72,15 @@ class FavouriteItem extends StatelessWidget
                     //     gender: this.gender),
                     // )
                     // ),
-                )
-                ,
+                ),
+
                 SizedBox( width: 3.w, ),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text( this.contactor.user_Name??"XXX", 
+                    Text( this.contactor.user_Name??"-------", 
                         style: GoogleFonts.almarai(fontSize: 12.sp),
                     ),
                     SizedBox( height: 1.h, ),
@@ -92,6 +88,7 @@ class FavouriteItem extends StatelessWidget
                 ),
 
                 const Spacer(),
+                
                 this.widget,
               ],
             ),

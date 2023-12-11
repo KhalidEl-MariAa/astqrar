@@ -1,3 +1,7 @@
+import 'package:astarar/constants.dart';
+import 'package:astarar/end_points.dart';
+import 'package:astarar/shared/components/components.dart';
+import 'package:astarar/shared/network/remote.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
@@ -27,3 +31,32 @@ bool ifThereAreMoreWidgets(BuildContext context) {
   final route = ModalRoute.of(context);
   return route?.canPop ?? false;
 }
+
+//send notification
+  void  sendNotificationAsync (
+      {required String userid,
+      required int type,
+      required String body,
+      required String title,
+      bool save = false}) async 
+  {
+
+    DioHelper.postDataWithBearearToken(
+        token: TOKEN.toString(),
+        url: SENDNOTIFICATION,
+        data: {
+          "userId": userid,
+          "notificationType": type,
+          // "projectName": APP_NAME,
+          // "deviceType": Platform.isIOS ? "ios" : "android",          
+          "title": title,
+          "body": body,
+          "save": save,
+        })
+    .then((value) {
+      // log(value.toString());
+    }).catchError((error) {
+      // log(error.toString());
+      showToast( msg: error.toString(), state: ToastStates.ERROR );
+    });
+  }
