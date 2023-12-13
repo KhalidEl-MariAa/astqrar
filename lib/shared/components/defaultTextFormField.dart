@@ -74,6 +74,7 @@ Widget defaultTextFormField({
             )
           : IconButton(
               icon: Icon(suffix),
+              color: GREY,
               onPressed: () {
                 suffixPressed!();
               }),

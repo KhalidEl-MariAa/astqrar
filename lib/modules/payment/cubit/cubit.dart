@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:astarar/models/get_notifications.dart';
+import 'package:astarar/shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -41,7 +43,8 @@ class PaymentCubit extends Cubit<PaymentStates>
     emit(SetProgressState());
   }
 
-  String? url;
+  
+  String? url;  //  like this --> https://payment.paylink.sa/pay/info/1702385038535
   String? transactionNo;
 
   void addInvoice({required double price}) 
@@ -60,8 +63,8 @@ class PaymentCubit extends Cubit<PaymentStates>
 
     ).then((value) {
       log(value.toString());
-      url = value.data['data']['url'];      
-      transactionNo = value.data['data']['transactionNo'];
+      this.url = value.data['data']['url'];      
+      this.transactionNo = value.data['data']['transactionNo'];
       
       emit(AddInvoiceSuccessState());
 
@@ -73,35 +76,45 @@ class PaymentCubit extends Cubit<PaymentStates>
 
   String? orderSatus;
 
-  getInvoiceStatus({required dynamic  serviceId, required String type}) 
+  void getInvoiceStatus({required dynamic  serviceId, required String type}) 
   {
     emit(GetInvoiceStatusLoadingState());
+
     DioHelper.postDataWithBearearToken(
             url: "api/v1/GetInvoice?transactionNo=$transactionNo",
             data: {},
             token: TOKEN.toString()
     )
-    .then((value) {
-      print(value.toString());
+    .then((value) 
+    {
+      log(value.toString());
       orderSatus = value.data['orderStatus'];
-      if(orderSatus=="Paid"){
-        activate(serviceId: serviceId, type: type);
+
+      if(IS_DEVELOPMENT_MODE) orderSatus="Paid";
+
+      if(orderSatus=="Paid")
+      {
         if(type=="package"){
           CacheHelper.saveData(key: "isLogin", value: true);
           IS_LOGIN = CacheHelper.getData(key: "isLogin");
         }
+
+        // add Ad for user in DB
+        activate(serviceId: serviceId, type: type);
+      }else{
+        showToast(msg: "عملية دفع فاشلة", state: ToastStates.ERROR);
       }
 
       emit(GetInvoiceStatusSuccessState(orderSatus));
     }).catchError((error) {
-      print(error.toString());
+      log(error.toString());
       emit(GetInvoiceStatusErrorState(error.toString()));
     });
   }
 
   late ActivateModel activateModel;
 
-  activate({required dynamic serviceId, required String type}) 
+  void activate({required dynamic serviceId, required String type}) 
   {
     print(serviceId);
     emit(ActivateLoadingState());
@@ -112,23 +125,47 @@ class PaymentCubit extends Cubit<PaymentStates>
         "id": serviceId
       }, 
       token: TOKEN.toString())
-    .then((value) {
-      print(value.toString());
+    .then((value) 
+    {
+      log(value.toString());
       activateModel = ActivateModel.fromJson(value.data);
-      // if(type==2&&activateModel.status!){
-      //     sendNotificationToAll(body: "تمت اضافة اعلان من قبل $name");
-      // }
 
-      emit(ActivateSuccessState(
-        type: type,
-        status: activateModel.status!
-      ));
+      emit(ActivateSuccessState(type: type, status: activateModel.status! ));
+
+      if( type == "Ads" && activateModel.status! ){
+          this.sendNotificationToAll(body: "تمت اضافة اعلان من قبل $NAME");
+      }
+      log( " ACCCCCC ------------------");
+
     }).catchError((error) {
-      print(error.toString());
+      log(error.toString());
       emit(ActivateErrorState(error.toString()));
     });
   }
 
+  sendNotificationToAll({String title=" ", required String body}) async
+  {
+    emit(SendNotificationToAllLoadingState());
+
+    DioHelper.postDataWithBearearToken(
+        url: SENDNOTIFICATIONTOALL,
+        data:{
+          // "projectName": APP_NAME,
+          // "deviceType":"android",
+          "title": title,
+          "body": body,
+          "notificationType": NotificationTypes.AdIsPublished,
+        },
+        token: TOKEN )
+    .then((value) 
+    {
+          log(value.toString() + "------------------");
+          emit(SendNotificationToAllSuccessState());
+    }).catchError((error){
+          log(error.toString());
+          emit( SendNotificationToAllErrorState(error.toString())  );
+    });
+  }
 
 
-}
+} //end class

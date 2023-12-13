@@ -39,36 +39,10 @@ class NotificationWidget
       });
   }
   
-  // when the user click on the Notification
-  void onSelectFunction(payload, context) async 
-  {
-    
-    log("hiiiiiiiiiiiiiiiiiiiiiii : From Notification Click" );
-    Map msgData  = json.decode(payload);
-
-    if ( msgData["NoteSenderId"] != null ){
-      UserDetailsCubit.get(context).getOtherUser(otherId: msgData["NoteSenderId"] );
-      navigateTo(context: context, widget: UserDetailsScreen(messageVisibility: true,) );
-    }
-
-  }
-
   // display a dialog with the notification details, tap ok to go to another page
   Future onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) async 
   {
     Container();
-  }
-
-
-  void requestIOSLocalNotificationsPermissions() 
-  {
-    FlutterLocalNotificationsPlugin()
-        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
   }
 
   static Future showNotification(int hashCode,
@@ -80,6 +54,30 @@ class NotificationWidget
         await notificationDetails(),
         payload: payload
       );
+  }
+
+  // when the user click on the Notification
+  void onSelectFunction(payload, context) async 
+  {    
+    log("hiiiiiiiiiiiiiiiiiiiiiii : From Notification Click" );
+    Map msgData  = json.decode(payload);
+
+    if ( msgData["NoteSenderId"] != null ){
+      UserDetailsCubit.get(context).getOtherUser(otherId: msgData["NoteSenderId"] );
+      navigateTo(context: context, widget: UserDetailsScreen(messageVisibility: true,) );
+    }
+
+  }
+
+  void requestIOSLocalNotificationsPermissions() 
+  {
+    FlutterLocalNotificationsPlugin()
+        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
   }
 
   static notificationDetails() async 

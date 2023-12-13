@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:astarar/models/server_response_model.dart';
+import 'package:astarar/modules/home/6_profile/user_profile/user_profile.dart';
 import 'package:astarar/modules/login/not_subscribed.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -25,8 +26,9 @@ import '../home/layout/layout.dart';
 import '../login/login.dart';
 
 
-class Splash extends StatefulWidget {
-  @override
+class Splash extends StatefulWidget 
+{
+  @override 
   _SplashState createState() => _SplashState();
 }
 
@@ -66,26 +68,28 @@ class _SplashState extends State<Splash>
     EMAIL = CacheHelper.getData(key: "email");
     GENDER_USER = CacheHelper.getData(key: "gender");
     PHONE = CacheHelper.getData(key: "phone");
-    IS_LOGIN = CacheHelper.getData(key: "isLogin") ?? false;
+    IS_LOGIN = CacheHelper.getData(key: "isLogin")?? false;
     IMG_PROFILE = CacheHelper.getData(key: "imgProfile");
-    IS_ACTIVE = CacheHelper.getData(key: "isActive") ?? false;
+    IS_ACTIVE = CacheHelper.getData(key: "isActive")?? false;
+    PROFILE_IS_COMPLETED = CacheHelper.getData(key: "profileIsCompleted")?? false;
+
 
     setState(() { loading_desc = "Connecting to Firebase Messaging..."; });
 
     WidgetsFlutterBinding.ensureInitialized();
 
-    await Firebase.initializeApp(
-      // name: /* DON'T USE IT WITH DEFAULT OPTIONS */
-      options: DefaultFirebaseOptions.currentPlatform,
-    ).then((value){
-      log('Firebase initialize ${value.toString()}' );
-    })
-    .whenComplete(() {
-      log('completed .........................................');
-    });
+    // await Firebase.initializeApp(
+    //   // name: /* DON'T USE IT WITH DEFAULT OPTIONS */
+    //   options: DefaultFirebaseOptions.currentPlatform,
+    // ).then((value){
+    //   log('Firebase initialized ${value.toString()}' );
+    // })
+    // .whenComplete(() {
+    //   log('Firebase completed .........................................');
+    // });
 
-    NotificationWidget(context).init();
-    SplashCubit.Firebase_init();
+    // NotificationWidget(context).init();
+    // SplashCubit.Firebase_init(context);
 
     //---------------
 
@@ -101,48 +105,42 @@ class _SplashState extends State<Splash>
 
   void RouteBasedOnLoginStatus()
   {
-    if (IS_LOGIN == false) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                MyUpgrader(context: context, child: const LoginScreen())),
-        (route) => false,
-      );
-    }
+    Widget nextPage = const LoginScreen();  
 
+    if (IS_LOGIN == false) {
+      nextPage = const LoginScreen();
+    }
+    
     if (IS_LOGIN == true) 
     {
-      if (this.loginStatus == true) {
-        //  || IS_DEVELOPMENT_MODE
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  MyUpgrader(context: context, child: const LayoutScreen())),
-          (route) => false,
-        );
+      if (this.loginStatus == true) 
+      {
+        if( !PROFILE_IS_COMPLETED ){
+          nextPage= const UserProfileScreen();
+        }else{
+          nextPage= const LayoutScreen();
+        }
+
       } else if (this.loginStatus == false) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const NotSubscribedScreen()),
-          (route) => false,
-        );
+        nextPage = const NotSubscribedScreen();
         showToast(msg: "غير مسموح لك بالدخول، راجع حالة الحساب", state: ToastStates.WARNING);
 
       } else if (this.loginStatus == null) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  MyUpgrader(context: context, child: const LoginScreen())),
-          (route) => false,
-        );
+        nextPage = const LoginScreen();
         showToast(
             msg: "حصلت مشكلة في التحقق من تاريخ صلاحية الحساب",
             state: ToastStates.ERROR);
       }
     }
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              MyUpgrader(context: context, child: nextPage )),
+      (route) => false,
+    );
+
   }
 
   Future checkUserLoginStatus() async 

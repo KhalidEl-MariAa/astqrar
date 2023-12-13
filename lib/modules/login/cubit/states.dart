@@ -8,6 +8,8 @@ class LoginLoadingState extends LoginStates {}
 
 class LoginSuccessAndActiveState extends LoginStates { }
 class LoginSuccessButInActiveState extends LoginStates { }
+class LoginSuccessButProfileIsNotCompleted extends LoginStates { }
+
 
 class LoginErrorState extends LoginStates {
   final String error;

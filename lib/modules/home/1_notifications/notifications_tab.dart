@@ -50,9 +50,7 @@ class NotificationTab extends StatelessWidget
                       toolbarHeight: 8.h,
                       title: Column(
                         children: [
-                          SizedBox(
-                            height: 3.h,
-                          ),
+                          SizedBox( height: 3.h, ),
                           Text(
                             "الاشعارات",
                             style: GoogleFonts.almarai(color: WHITE),
@@ -138,22 +136,15 @@ class NotificationTab extends StatelessWidget
                                 .length,
 
                             itemBuilder: (context, index) => 
-                              Dismissible(
-                                key: UniqueKey(),
-                                child:
-                                  ConditionalBuilder(
-                                    condition: state is RemoveNotificationLoadingState, 
-                                    builder: (context) =>
-                                        Positioned.fill(
-                                          child: Container(
-                                            color: Colors.black54,
-                                            child: Center(
-                                              child: CircularProgressIndicator(),
-                                            ),
-                                          ),
-                                        ),
 
-                                    fallback: (context) => 
+                              ConditionalBuilder(
+                                condition: state is RemoveNotificationLoadingState,
+                                builder: (context) => CircularProgressIndicator(),
+                                fallback: (context) 
+                                {
+                                  return Dismissible(
+                                    key: UniqueKey(),
+                                    child:
                                       NotificationWiget(
                                         user: NotificationCubit.get(context)
                                                 .getNotificationsModel
@@ -166,30 +157,31 @@ class NotificationTab extends StatelessWidget
                                                 .notification!
                                     
                                       ),
-                                  ),
+                                      
+                                      onDismissed: (value) 
+                                      {
+                                        NotificationCubit.get(context)
+                                          .removeNotification(index: index);
+                                      },
                                   
-                                  onDismissed: (value) 
-                                  {
-                                    NotificationCubit.get(context)
-                                      .removeNotification(index: index);
-                                  },
-
-                                  background: Container(
-                                    color: PRIMARY,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.only(
-                                              start: MediaQuery.of(context).size.width * 0.055),
-
-                                          child: Icon( Icons.delete_outline, color: WHITE,
-                                          ),
+                                      background: Container(
+                                        color: PRIMARY,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional.only(
+                                                  start: MediaQuery.of(context).size.width * 0.055),
+                                  
+                                              child: Icon( Icons.delete_outline, color: WHITE,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-
+                                      ),
+                                  
+                                  );
+                                }
                               ),
 
                         ),

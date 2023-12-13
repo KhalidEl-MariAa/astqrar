@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:astarar/firebase_options.dart';
+import 'package:astarar/modules/home/6_profile/user_profile/user_profile.dart';
+import 'package:astarar/shared/components/components.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,35 +47,19 @@ class _LayoutScreenState extends State<LayoutScreen>
   {
     super.initState();
 
+    doFirebaseJob();
+
+  }
+
+  void doFirebaseJob() async
+  {
     NotificationWidget(context).init();
-
-    // SplashCubit.Firebase_init();
-
-    if (Platform.isIOS) {
+    if(Platform.isIOS){
       NotificationWidget(context).requestIOSLocalNotificationsPermissions();
     }
 
-    FirebaseMessaging
-    .onMessage
-    .listen((RemoteMessage message) 
-    {
-      log('Notification Arrived !!!!!!!!!'+ message.toString());
-      
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-
-      //foreground
-      if (notification != null && android != null) 
-      {
-        NotificationWidget.showNotification(
-          notification.hashCode,          
-          title: notification.title,
-          body: notification.body,
-          payload: json.encode(message.data) , //to jsonStr
-        );
-      }
-    });
-
+    SplashCubit.Firebase_init( context );
+    
   }
 
   @override
@@ -87,179 +75,181 @@ class _LayoutScreenState extends State<LayoutScreen>
     );
   }
 
-  BottomAppBar createBottomAppBar(BuildContext context) {
+  BottomAppBar createBottomAppBar(BuildContext context) 
+  {
     return BottomAppBar(
-      clipBehavior: Clip.none,
-      // notchMargin: 9,
-      // elevation: 10,
-      shape: const CircularNotchedRectangle(),
+      // clipBehavior: Clip.hardEdge ,    
+      notchMargin: 9,
+      elevation: 0,
+      shape: CircularNotchedRectangle(),
       color: WHITE,
       child: 
-      Container(
-        // height: 20.h,
-        color: WHITE,
-        // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: .2.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                if (IS_LOGIN == false) {
-                  showDialog(
-                      context: context,
-                      builder: (context) => DialogPleaseLogin());
-                }
-                setState(() { 
-                  if(IS_LOGIN) _selectedTab = 0;
-                });
-              },
-              child: Column(
-                children: [
-                  Container(
-                    padding:
-                        EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
-                    child: Image.asset(
-                      'assets/Favourite.png',
-                      color: _selectedTab == 0 ? PRIMARY : CUSTOME_GREY,
-                    ),
-                  ),
-                  Text(
-                    "المفضلة"+"",
-                    style: GoogleFonts.almarai(
-                        color: _selectedTab == 0 ? PRIMARY : CUSTOME_GREY,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w600),
-                  )
-                ],
-              ),
-            ),
-
-            InkWell(
-              onTap: () {
-                if (IS_LOGIN == false) {
-                  showDialog(
-                      context: context,
-                      builder: (context) => DialogPleaseLogin());
-                }
-
-                setState(() {
-                  if (IS_LOGIN) _selectedTab = 1;
-                });
-              },
-              child: Column(
-                children: [
-                  Container(
-                    padding:
-                        EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
-                    child: 
-                      Image.asset(
-                        'assets/notification.png',
-                        color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY
-                      ),
-                  ),
-                  
-                  SizedBox(height: 0.3.h,),
-
-                  Text(
-                    "الاشعارات",
-                    style: GoogleFonts.almarai(
-                        color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w600),
-                  )
-                ],
-              ),
-            ),
-
-            SizedBox(width: 48,),
-
-            // ايقونة المحادثات
-            InkWell(
-              onTap: () {
-                if (IS_LOGIN == false) {
-                  showDialog(
-                      context: context,
-                      builder: (context) => DialogPleaseLogin());
-                }
-                setState(() {
-                  if (IS_LOGIN) {
-                    _selectedTab = 3;
+        Container(
+          // height: 20.h,
+          color: WHITE,
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: .2.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {
+                  if (IS_LOGIN == false) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => DialogPleaseLogin());
                   }
-                });
-              },
-              child: Column(
-                children: [
-                  Container(
-                    padding:
-                        EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
-                    child: Image.asset('assets/chat.png',
-                        color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY),
-                  ),
-                  
-                  SizedBox(height: 0.3.h,),
-                  
-                  Text(
-                    "المحادثات",
-                    style: GoogleFonts.almarai(
-                        color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w600),
-                  )
-                ],
+                  setState(() { 
+                    if(IS_LOGIN) _selectedTab = 0;
+                  });
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
+                      child: Image.asset(
+                        'assets/Favourite.png',
+                        color: _selectedTab == 0 ? PRIMARY : CUSTOME_GREY,
+                      ),
+                    ),
+                    Text(
+                      "المفضلة"+"",
+                      style: GoogleFonts.almarai(
+                          color: _selectedTab == 0 ? PRIMARY : CUSTOME_GREY,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
               ),
-            ),
 
-            InkWell(
-              onTap: () {
-                _selectedTab = 4;
-                setState(() {});
-              },
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsetsDirectional.only(
-                        start: 1.8.w, top: 0.5.h, end: 1.w),
-                    child: Image.asset('assets/more.png',
-                        color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY),
-                  ),
+              InkWell(
+                onTap: () {
+                  if (IS_LOGIN == false) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => DialogPleaseLogin());
+                  }
 
-                  SizedBox(height: 0.3.h),
+                  setState(() {
+                    if (IS_LOGIN) _selectedTab = 1;
+                  });
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
+                      child: 
+                        Image.asset(
+                          'assets/notification.png',
+                          color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY
+                        ),
+                    ),
+                    
+                    SizedBox(height: 0.3.h,),
 
-                  Text(
-                    "المزيد",
-                    style: GoogleFonts.almarai(
-                        color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w600),
-                  )
-                ],
+                    Text(
+                      "الاشعارات",
+                      style: GoogleFonts.almarai(
+                          color: _selectedTab == 1 ? PRIMARY : CUSTOME_GREY,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              SizedBox(width: 48,),
+
+              // ايقونة المحادثات
+              InkWell(
+                onTap: () {
+                  if (IS_LOGIN == false) {
+                    showDialog(
+                        context: context,
+                        builder: (context) => DialogPleaseLogin());
+                  }
+                  setState(() {
+                    if (IS_LOGIN) {
+                      _selectedTab = 3;
+                    }
+                  });
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsetsDirectional.only(start: 1.8.w, top: 0.5.h),
+                      child: Image.asset('assets/chat.png',
+                          color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY),
+                    ),
+                    
+                    SizedBox(height: 0.3.h,),
+                    
+                    Text(
+                      "المحادثات",
+                      style: GoogleFonts.almarai(
+                          color: _selectedTab == 3 ? PRIMARY : CUSTOME_GREY,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+              ),
+
+              InkWell(
+                onTap: () {
+                  _selectedTab = 4;
+                  setState(() {});
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsetsDirectional.only(
+                          start: 1.8.w, top: 0.5.h, end: 1.w),
+                      child: Image.asset('assets/more.png',
+                          color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY),
+                    ),
+
+                    SizedBox(height: 0.3.h),
+
+                    Text(
+                      "المزيد",
+                      style: GoogleFonts.almarai(
+                          color: _selectedTab == 4 ? PRIMARY : CUSTOME_GREY,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
     );
   }
 
   FloatingActionButton floatingActionButton() 
   {
-    return FloatingActionButton(
-      onPressed: () 
-      {
-        setState(() {
-          _selectedTab = 2;
-        });
-      },
-      child: 
-        Container(
-          width: 10.w,
-          color: _selectedTab == 2 ? PRIMARY : WHITE,
-          child: Image.asset(
-            'assets/home.png',
-            color: _selectedTab == 2 ? WHITE : CUSTOME_GREY
-            ),
-        ),
-      backgroundColor: _selectedTab == 2 ? PRIMARY : WHITE,
-    );
+    return 
+      FloatingActionButton(
+        onPressed: () 
+        {
+          setState(() {
+            _selectedTab = 2;
+          });
+        },
+        child: 
+          Container(
+            width: 10.w,
+            color: _selectedTab == 2 ? PRIMARY : WHITE,
+            child: Image.asset(
+              'assets/home.png',
+              color: _selectedTab == 2 ? WHITE : CUSTOME_GREY
+              ),
+          ),
+        backgroundColor: _selectedTab == 2 ? PRIMARY : WHITE,
+      );
   }
 }//------------------

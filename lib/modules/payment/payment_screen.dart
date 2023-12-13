@@ -1,3 +1,5 @@
+import 'package:astarar/modules/chatt/cubit/states.dart';
+import 'package:astarar/shared/components/components.dart';
 import 'package:astarar/shared/components/double_infinity_material_button.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -35,28 +37,27 @@ class PaymentScreen extends StatelessWidget
       {
         if (state is AddInvoiceSuccessState) 
         {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => 
-                  Web(
+          navigateTo(
+            context: context, 
+            widget: Web(
                     price: this.price, 
                     idService: idService, 
                     serviceType: serviceType,)
-              ));
+          );
+          showToast(msg: "تم إنشاء فاتورة بمبلغ " + this.price.toString() + " ريال", state: ToastStates.SUCCESS);
         }
 
-        // if (state is GetInvoiceStatusSuccessState) {
-        //   if (state.orderStatus == "Paid") {
-        //     showDialog(
-        //         context: context,
-        //         builder: (context) => SuccessDialog(
-        //               successText: "تم الدفع بنجاح",
-        //               subTitle: "يمكنك الان التصفح و المحادثة",
-        //               actionText: "الرجوع للرئيسية",
-        //             ));
-        //   }
-        // }
+        if (state is GetInvoiceStatusSuccessState) 
+        {
+          showToast(msg: "تم التحقق من عملية الدفع ", state: ToastStates.SUCCESS);
+            // showDialog(
+            //     context: context,
+            //     builder: (context) => SuccessDialog(
+            //           successText: "تم الدفع بنجاح",
+            //           subTitle: "يمكنك الان التصفح و المحادثة",
+            //           actionText: "الرجوع للرئيسية",
+            //         ));
+        }
 
 
         if(state is ActivateSuccessState)
@@ -65,32 +66,18 @@ class PaymentScreen extends StatelessWidget
             HomeCubit.get(context).getUserAds();
           }
 
-          if(state.status){
-              showDialog(
-                context: context,
-                builder: (context) => SuccessDialog(
-                      successText: "تم الدفع بنجاح",
-                      subTitle: "يمكنك الان التصفح و المحادثة",
-                      actionText: "الرجوع للرئيسية",
-                    ));
-          }
+          // if(state.status) {
+          //     showDialog(
+          //       context: context,
+          //       builder: (context) => SuccessDialog(
+          //             successText: "تم الدفع بنجاح",
+          //             subTitle: "يمكنك الان التصفح و المحادثة",
+          //           ));
+          // }
+          showToast(msg: "تم ", state: ToastStates.SUCCESS);
+
         }
 
-        // if (state is GetInvoiceStatusLoadingState) {
-        //   showDialog(
-        //       context: context,
-        //       builder: (context) => Container(
-        //         decoration: BoxDecoration(color: Colors.transparent),
-        //         height: 5.h,
-        //         width: 20.w,
-        //         child: AlertDialog(
-        //               backgroundColor: Colors.transparent,
-        //               content: Center(
-        //                 child: CircularProgressIndicator(),
-        //               ),
-        //             ),
-        //       ));
-        // }
       },
       builder: (context, state) => Directionality(
         textDirection: TextDirection.rtl,
@@ -100,10 +87,8 @@ class PaymentScreen extends StatelessWidget
             preferredSize: Size.fromHeight(10.h),
             child: NormalLogo(appbarTitle: "طرق الدفع",isBack: false),
           ),
-          body: ConditionalBuilder(
-            condition: state is GetInvoiceStatusLoadingState,
-            builder: (context)=>Center(child: CircularProgressIndicator(),),
-            fallback:(context)=> Column(
+          body: 
+            Column(
               children: [
                 SizedBox( height: 3.h, ),
                 Center(
@@ -164,29 +149,32 @@ class PaymentScreen extends StatelessWidget
                     ),
                   ],
                 ),
+                
                 const Spacer(),
 
-                ConditionalBuilder(
-                  condition: state is! AddInvoiceLoadingState,
-                  fallback: (context) => Padding(
-                    padding: EdgeInsetsDirectional.only(bottom: 4.h),
-                    child: const Center( child: CircularProgressIndicator(), ),
-                  ),
+                Padding(
+                  padding: EdgeInsetsDirectional.only(bottom: 4.h),
+                  child: 
+                    ConditionalBuilder(
+                      condition: 
+                        state is AddInvoiceLoadingState || 
+                        state is GetInvoiceStatusLoadingState || 
+                        state is ActivateLoadingState ||
+                        state is SendMessageLoadingState ,
+                      builder: (context) => 
+                        Center(  child: CircularProgressIndicator() ),
+                      fallback: (context) => 
+                        doubleInfinityMaterialButton(
+                          text: "الدفع",                          
+                          onPressed: () async {
+                            PaymentCubit.get(context).addInvoice(price: price!);
+                          }),                    
 
-
-                  builder: (context) => Padding(
-                    padding: EdgeInsetsDirectional.only(bottom: 4.h),
-                    child: doubleInfinityMaterialButton(
-                        text: "الدفع",
-                        
-                        onPressed: () async {
-                          PaymentCubit.get(context).addInvoice(price: price!);
-                        }),
-                  ),
+                    ),
                 )
               ],
             ),
-          ),
+
         ),
       ),
     );

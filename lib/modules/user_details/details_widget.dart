@@ -200,12 +200,37 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: Row(
             children: [
               Container(
-                  width: 46.w,
+                  width: 45.w,
                   child: DetailsItem(
                       title: 'العمر',
-                      subTitle: widget.otherUser.age.toString() + "  عام ")),
+                      subTitle: widget.otherUser.age.toString() + "  عام ")
+              ),
               Container(
-                width: 35.w,
+                  width: 45.w,
+                  child: DetailsItem(
+                    title: 'مؤهل علمي',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.qualification),
+                  )),
+            ],
+          ),
+        ),
+        Container(
+          // height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                      title: 'الجنسية',
+                      subTitle: LayoutCubit.Countries.firstWhere(
+                                  (c) => c.id == widget.otherUser.countryId)
+                              .NameAr ??
+                          "--------")),
+              Container(
+                width: 45.w,
                 child: DetailsItem(
                   title: 'المدينة',
                   subTitle: widget.otherUser.city ?? "--------",
@@ -214,6 +239,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
             ],
           ),
         ),
+
         Container(
           // height: 9.5.h,
           width: double.infinity,
@@ -221,24 +247,23 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: Row(
             children: [
               Container(
-                  width: 46.w,
-                  child: DetailsItem(
-                      title: 'الجنسية',
-                      subTitle: LayoutCubit.Countries.firstWhere(
-                                  (c) => c.id == widget.otherUser.countryId)
-                              .NameAr ??
-                          "--------")),
-              Container(
-                width: 35.w,
+                width: 45.w,
                 child: DetailsItem(
                   title: 'الاسم ينتهي',
                   subTitle: findSubSpecificationOrEmptyStr(
                       SpecificationIDs.name_end_with),
                 ),
               ),
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                      title: 'اسم العائلة',
+                      subTitle: widget.otherUser.tribe??"--------")
+              ),
             ],
           ),
         ),
+
         Container(
           // height: 9.5.h,
           width: double.infinity,
@@ -246,14 +271,57 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: Row(
             children: [
               Container(
-                  width: 46.w,
+                width: 45.w,
+                child: DetailsItem(
+                  title: 'الوظيفة',
+                  subTitle:
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.job),
+                ),
+              ),
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                    title: 'مسمى الوظيفة',
+                    subTitle: widget.otherUser.nameOfJob?? "--------",
+                  )),
+
+            ],
+          ),
+        ),
+
+        Container(
+          // height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              // Container(
+              //   width: 45.w,
+              //   child: DetailsItem(
+              //     title: 'الوظيفة',
+              //     subTitle:
+              //         findSubSpecificationOrEmptyStr(SpecificationIDs.job),
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+
+        Container(
+          // height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 45.w,
                   child: DetailsItem(
                       title: 'الطول',
                       subTitle: widget.otherUser.height == null
                           ? "------"
                           : "${widget.otherUser.height} سم")),
               Container(
-                width: 35.w,
+                width: 45.w,
                 child: DetailsItem(
                   title: 'الوزن',
                   subTitle: widget.otherUser.weight == null
@@ -271,14 +339,14 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: Row(
             children: [
               Container(
-                  width: 46.w,
+                  width: 45.w,
                   child: DetailsItem(
                     title: 'لون الشعر',
                     subTitle: findSubSpecificationOrEmptyStr(
                         SpecificationIDs.hair_colour),
                   )),
               Container(
-                  width: 46.w,
+                  width: 45.w,
                   child: DetailsItem(
                     title: 'نوع الشعر',
                     subTitle: findSubSpecificationOrEmptyStr(
@@ -287,6 +355,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
             ],
           ),
         ),
+
         Container(
           // height: 9.5.h,
           width: double.infinity,
@@ -294,31 +363,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: Row(
             children: [
               Container(
-                  width: 46.w,
-                  child: DetailsItem(
-                    title: 'مؤهل علمي',
-                    subTitle: findSubSpecificationOrEmptyStr(
-                        SpecificationIDs.qualification),
-                  )),
-              Container(
-                width: 35.w,
-                child: DetailsItem(
-                  title: 'الوظيفة',
-                  subTitle:
-                      findSubSpecificationOrEmptyStr(SpecificationIDs.job),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          // height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
-              Container(
-                width: 46.w,
+                width: 45.w,
                 child: DetailsItem(
                   title: 'من عرق',
                   subTitle:
@@ -326,7 +371,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                 ),
               ),
               Container(
-                width: 35.w,
+                width: 45.w,
                 child: DetailsItem(
                   title: 'لون البشرة',
                   subTitle: findSubSpecificationOrEmptyStr(
@@ -343,68 +388,95 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: Row(
             children: [
               Container(
-                  width: 46.w,
+                  width: 45.w,
                   child: DetailsItem(
                     title: 'الحالة الصحية',
                     subTitle: findSubSpecificationOrEmptyStr(
                         SpecificationIDs.health_status),
                   )),
               Container(
-                width: 35.w,
+                width: 45.w,
+                child: DetailsItem(
+                  title: 'نوع المرض',
+                  subTitle: widget.otherUser.illnessType??"--------",
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        Container(
+          // height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                width: 45.w,
                 child: DetailsItem(
                   title: 'الحالة الاجتماعية',
                   subTitle: findSubSpecificationOrEmptyStr(
                       SpecificationIDs.social_status),
                 ),
               ),
-            ],
-          ),
-        ),
-        Container(
-          // height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
               Container(
-                  width: 46.w,
-                  child: DetailsItem(
-                    title: 'هل لديك اطفال',
-                    subTitle: findSubSpecificationOrEmptyStr(
-                        SpecificationIDs.have_children),
-                  )),
-              Container(
-                width: 35.w,
-                child: DetailsItem(
-                  title: 'نبذة عن مظهرك',
-                  subTitle:
-                      findSubSpecificationOrEmptyStr(SpecificationIDs.appearance),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          // height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
-              Container(
-                  width: 46.w,
-                  child: DetailsItem(
-                      title: 'عاهه جسدية',
-                      subTitle: (widget.otherUser.specialNeeds ?? false)
-                          ? "يوجد "
-                          : "لا يوجد")),
-              Container(
-                width: 35.w,
+                width: 45.w,
                 child: DetailsItem(
                   title: 'الوضع المالي',
                   subTitle: findSubSpecificationOrEmptyStr(
                       SpecificationIDs.financial_situation),
                 ),
               ),
+
+            ],
+          ),
+        ),
+
+        Container(
+          // height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                    title: 'هل لديك اطفال',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.have_children),
+                  )),
+              Container(
+                width: 45.w,
+                child: DetailsItem(
+                  title: 'عدد الأطفال',
+                  subTitle: widget.otherUser.numberOfKids?.toString()??"لا يوجد",
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          // height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(            
+            children: [
+              Container(
+                width: 45.w,
+                child: DetailsItem(
+                  title: 'نبذة عن مظهرك',
+                  subTitle:
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.appearance),
+                ),
+              ),
+
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                      title: 'عاهه جسدية',
+                      subTitle: (widget.otherUser.specialNeeds ?? false)
+                          ? "يوجد "
+                          : "لا يوجد")),
             ],
           ),
         ),
@@ -415,13 +487,13 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: Row(
             children: [
               Container(
-                  width: 46.w,
+                  width: 45.w,
                   child: DetailsItem(
                       title: 'نوع الزواج',
                       subTitle: findSubSpecificationOrEmptyStr(
                           SpecificationIDs.marriage_Type))),
               Container(
-                  width: 46.w,
+                  width: 45.w,
                   child: DetailsItem(
                       title: 'قيمة المهر',
                       subTitle: widget.otherUser.dowry.toString())),

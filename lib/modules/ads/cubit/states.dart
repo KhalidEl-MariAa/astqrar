@@ -25,13 +25,5 @@ class AddAdsErrorState extends AdsStates {
   AddAdsErrorState(this.error);
 }
 
-class SendNotificationToAllLoadingState extends AdsStates{}
-
-class SendNotificationToAllSuccessState extends AdsStates{}
-
-class SendNotificationToAllErrorState extends AdsStates{
-  final String error;
-  SendNotificationToAllErrorState(this.error);
-}
 
 

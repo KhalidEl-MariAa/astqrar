@@ -2,6 +2,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../shared/styles/colors.dart';
@@ -24,21 +25,43 @@ class EmptySlider extends StatelessWidget
               decoration: BoxDecoration(
                   color: BG_DARK_COLOR,
                   borderRadius: BorderRadius.circular(15)),
-              child: InkWell(
-                onTap: (){ },
-                child: Row(
-                  children: [                    
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 2.w),
-                      child: Text(
-                      "عَنْ عَبْدِاللَّهِ بْنِ مَسْعُودٍ : قَالَ لَنَا رَسُولُ اللَّهِ ﷺ:\n( يَا مَعْشَرَ الشَّبَابِ، مَنِ اسْتَطَاعَ مِنْكُمُ الْبَاءَةَ فَلْيَتَزَوَّجْ، \n فَإِنَّهُ أَغَض لِلْبَصَرِ، وَأَحْصَنُ لِلْفَرْجِ، وَمَنْ لَمْ يَسْتَطِعْ فَعَلَيْهِ بِالصَّوْمِ؛\n فَإِنَّهُ لَهُ وِجَاءٌ.) مُتَّفَقٌ عَلَيْهِ.",
-                        style: TextStyle(
-                            color: Colors.white54, fontSize: 9.5.sp),
+              child: 
+                Column(
+                  // crossAxisAlignment: EdgeInsets.symmetric(horizontal: 2.w),
+                  children: [
+                    SizedBox(height: 1.0.h,),
+
+                    Text(
+                      "حياكم الله",
+                        style: GoogleFonts.almarai(
+                            color: PRIMARY, fontSize: 16.0.sp),
                       ),
-                    )
+
+                    SizedBox(height: 4.0.h,),
+
+                    Text(
+                      " في تطبيق استقرار جميع عروض الزواج متوفرة لدينا",
+                        style: GoogleFonts.almarai(
+                            color: OFF_WHITE, fontSize: 10.5.sp),
+                      ),
+
                   ],
-                ),
-              ),
+                )
+                // InkWell(
+                //   onTap: (){ },
+                //   child: Row(
+                //     children: [                    
+                //       Padding(
+                //         padding: EdgeInsets.symmetric(horizontal: 2.w),
+                //         child: Text(
+                //         "عَنْ عَبْدِاللَّهِ بْنِ مَسْعُودٍ : قَالَ لَنَا رَسُولُ اللَّهِ ﷺ:\n( يَا مَعْشَرَ الشَّبَابِ، مَنِ اسْتَطَاعَ مِنْكُمُ الْبَاءَةَ فَلْيَتَزَوَّجْ، \n فَإِنَّهُ أَغَض لِلْبَصَرِ، وَأَحْصَنُ لِلْفَرْجِ، وَمَنْ لَمْ يَسْتَطِعْ فَعَلَيْهِ بِالصَّوْمِ؛\n فَإِنَّهُ لَهُ وِجَاءٌ.) مُتَّفَقٌ عَلَيْهِ.",
+                //           style: TextStyle(
+                //               color: Colors.white54, fontSize: 9.5.sp),
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
             ),
           options: CarouselOptions(
             height: 19.h,

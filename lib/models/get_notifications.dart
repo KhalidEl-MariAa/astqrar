@@ -59,5 +59,9 @@ abstract class NotificationTypes
   static int BlockedBySomeone = 5;
   static int ProfileIsVisited = 6;
   static int AddedToHisList = 7;
-
+  static int AdIsPublished = 8;
+  static int WelcomeNewUser= 9;
+  static int MsgFromDashBord = 10;
+  static int AccountIsRemoved = 11;
+  static int BlockedByDashboard = 12;
 }

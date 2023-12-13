@@ -49,7 +49,9 @@ class UserProfileCubit extends Cubit<UserProfileStates>
     log(current_user.subSpecifications.toString());
 
     //Creates readable "multipart/form-data" streams.
-    FormData formData = FormData.fromMap({
+    FormData formData = FormData.fromMap(
+    {
+      //"type":"image/png"
       "gender": current_user.gender,
       "user_Name": current_user.user_Name,
       "email": current_user.email,
@@ -57,11 +59,11 @@ class UserProfileCubit extends Cubit<UserProfileStates>
       "countryId": current_user.countryId,
       // "Nationality": current_user.nationality,
       "City": current_user.city,
-      "Tribe": current_user.tribe,
       "phone": current_user.phone,
       "Height": current_user.height,
       "Weight": current_user.weight,
 
+      "Tribe": current_user.tribe,
       "nameOfJob": current_user.nameOfJob,
       "illnessType": current_user.illnessType,
       "numberOfKids": current_user.numberOfKids,
@@ -72,7 +74,8 @@ class UserProfileCubit extends Cubit<UserProfileStates>
           .map((e) => e.toMap(UserId: current_user.id))
           .toList(),
 
-      //"type":"image/png"
+      "profileIsCompleted": true,
+      
     });
 
     DioHelper.postDataWithImage(
@@ -92,14 +95,17 @@ class UserProfileCubit extends Cubit<UserProfileStates>
 
       updatedUser = User.fromJson(res.data);
 
+
+      CacheHelper.saveData(key: "name", value: updatedUser.user_Name);
+      CacheHelper.saveData(key: "age", value: updatedUser.age.toString());
+      CacheHelper.saveData(key: "email", value: updatedUser.email);
+      CacheHelper.saveData(key: "profileIsCompleted", value: updatedUser.ProfileIsCompleted);
+
+      //TODO: needs review
       NAME = CacheHelper.getData(key: "name");
       AGE = CacheHelper.getData(key: "age");
       EMAIL = CacheHelper.getData(key: "email");
-
-      CacheHelper.saveData(key: "name", value: updatedUser.user_Name);
-      CacheHelper.saveData(
-          key: "age", value: updatedUser.age.toString());
-      CacheHelper.saveData(key: "email", value: updatedUser.email);
+      PROFILE_IS_COMPLETED = CacheHelper.getData(key: "profileIsCompleted");
 
       emit(UpdateUserDataSucccessState(updatedUser));
     }).catchError((error) {

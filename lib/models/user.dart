@@ -15,14 +15,17 @@ class User {
   // String? nationality;
   int? countryId;
 
-  String? tribe;
+  
   String? phone;
   dynamic age;
   dynamic height;
   dynamic weight;
+
+  String? tribe;
   String? nameOfJob;
   String? illnessType;
   int? numberOfKids = 0;
+  
   dynamic dowry;
   dynamic terms;
   String? showPassword;
@@ -42,6 +45,7 @@ class User {
   bool? ActiveCode;
   bool? IsActive;
   bool? IsExpired;
+  bool? ProfileIsCompleted;
 
   List<SubSpecification> subSpecifications = [];
 
@@ -60,6 +64,10 @@ class User {
     city = json['city'];
     // nationality = json['nationality'];
     tribe = json['tribe'];
+    nameOfJob = json['nameOfJob'];
+    numberOfKids = json['numberOfKids']??0;
+    illnessType = json['illnessType'];
+
     phone = json['phone'];
     age = json['age'];
     height = json['height'];
@@ -80,6 +88,10 @@ class User {
     IsExpired = json['isExpired'];
     ActiveCode = json['activeCode'];
     IsActive = json['isActive'];
+
+    ProfileIsCompleted = json['profileIsCompleted'];
+
+
     Token = json['token'];
     TokenExpiration = DateTime.parse(json['tokenExpiration'] ?? "2002-01-01");
 

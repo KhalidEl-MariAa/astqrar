@@ -72,10 +72,10 @@ class _AboutVersionState extends State<AboutVersion> {
               body: ListView(
                 children: <Widget>[
                   _infoTile('App name', _packageInfo.appName),
-                  _infoTile('Package name', _packageInfo.packageName),
-                  _infoTile('App version', _packageInfo.version),
-                  _infoTile('Build number', _packageInfo.buildNumber),
-                  _infoTile('Server', BASE_URL),
+                  _infoTile('Package name', _packageInfo.packageName, dir: TextDirection.ltr),
+                  _infoTile('App version', _packageInfo.version + "+" +  _packageInfo.buildNumber, dir: TextDirection.ltr),
+                  // _infoTile('Build number', _packageInfo.buildNumber),
+                  _infoTile('Server', BASE_URL, dir: TextDirection.ltr),
                   // _infoTile('Build signature', _packageInfo.buildSignature),
                   // _infoTile('Installer store', _packageInfo.installerStore ?? 'not available',),
                   _infoTile("برمجة وإعداد", "م/ سامي الفتني"),
@@ -92,9 +92,24 @@ class _AboutVersionState extends State<AboutVersion> {
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: ListTile(
-                      title: Text("📞 +966-564599127",
-                          style: GoogleFonts.almarai(
-                              color: BLACK_OPACITY, fontSize: 14.sp)),
+                      title: 
+                      InkWell(
+                        onTap: () async 
+                        {
+                          Uri uri = Uri(
+                              scheme: "https",
+                              path: "//wa.me/966564599127");
+
+                          if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {
+                          } else {
+                            showToast(msg: 'Could not launch ${uri}', state: ToastStates.ERROR);
+                          }
+                        },
+                        child: Text("📞 +966-564599127",
+                            style: GoogleFonts.almarai(
+                                color: PRIMARY, fontSize: 14.sp, fontWeight: FontWeight.bold)
+                            ),
+                      ),
                     ),
                   ),
 
@@ -107,8 +122,6 @@ class _AboutVersionState extends State<AboutVersion> {
                           Uri uri = Uri(
                               scheme: "https",
                               path: "//samialfattani.github.io");
-                          
-                          log("SAMI_CV : " + uri.toString());
 
                           if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {
                           } else {
@@ -117,7 +130,7 @@ class _AboutVersionState extends State<AboutVersion> {
                         },
                         child: Text("🌐 https://samialfattani.github.io/",
                             style: GoogleFonts.almarai(
-                                color: PRIMARY, fontSize: 14.sp, fontWeight: FontWeight.bold)),
+                                color: PRIMARY, fontSize: 14.sp)),
                       ),
                     ),
                   )
@@ -128,15 +141,23 @@ class _AboutVersionState extends State<AboutVersion> {
     );
   }
 
-  Widget _infoTile(String title, String subtitle) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(
-            color: BLACK, fontSize: 19.0, fontWeight: FontWeight.w700),
-      ),
-      subtitle: Text(subtitle.isEmpty ? '-------' : subtitle,
-          style: GoogleFonts.almarai(color: BLACK_OPACITY, fontSize: 14.sp)),
+  Widget _infoTile(String title, String subtitle, {TextDirection dir = TextDirection.rtl}) 
+  {
+    return 
+    Directionality(
+      textDirection: dir, 
+      child: 
+        ListTile(
+          title: Text(
+            title,
+            style: TextStyle(
+                color: BLACK, fontSize: 19.0, fontWeight: FontWeight.w700),
+          ),
+          subtitle: Text(subtitle.isEmpty ? '-------' : subtitle,
+              style: GoogleFonts.almarai(color: BLACK_OPACITY, fontSize: 14.sp)),
+        )      
     );
   }
-}
+
+}//end class
+

@@ -50,7 +50,7 @@ const CONDITIONS="api/v1/Condtions";
 
 const ADDPACKAGE="api/v1/AddPackageforuser";
 
-const ADDADS="api/v1/AddUserAds";
+const ADDUSERADS="api/v1/AddUserAds";
 
 
 const LOGOUT="api/v1/logout";

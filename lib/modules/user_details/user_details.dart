@@ -19,18 +19,32 @@ import 'cubit/states.dart';
 
 class UserDetailsScreen extends StatefulWidget 
 {
-  final bool messageVisibility;
+  final bool messageVisibility;  
+  final String? otherUserId;
   
-  UserDetailsScreen({Key? key, required this.messageVisibility}) : super(key: key);
+  UserDetailsScreen({
+    Key? key, 
+    required this.messageVisibility, 
+    String? this.otherUserId}) : super(key: key);
 
   @override
   State<UserDetailsScreen> createState() => _UserDetailsScreenState();
 }
 
 class _UserDetailsScreenState extends State<UserDetailsScreen> 
-{
-
+{  
   late OtherUser otherUser;
+
+  @override
+  void initState() 
+  {
+    super.initState();
+
+    if (widget.otherUserId != null){
+      UserDetailsCubit.get(context).getOtherUser(otherId: widget.otherUserId??"");
+    }
+
+  }  
 
   @override
   Widget build(BuildContext context) 
@@ -70,108 +84,115 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
         }
       },
 
-      builder: (context, state) => Directionality(
-        textDirection: TextDirection.rtl,
-        child: ConditionalBuilder(
-          condition: state is UserDetailsLoadingState,
-          builder: (context) => Scaffold(
-            backgroundColor: WHITE,
-            body: LoadingGif(),
-          ),
+      builder: (context, state) => 
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: 
+            Scaffold(
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                iconTheme: IconThemeData(color: Colors.white),
+                backgroundColor: BG_DARK_COLOR,
+                toolbarHeight: 9.h,
+                title: 
+                  ConditionalBuilder(
+                    condition: state is UserDetailsLoadingState,                    
+                    builder: (context) => Text("..."),
+                    fallback: (context) => 
+                      Text( this.otherUser.user_Name??  "التفاصيل", 
+                                style: GoogleFonts.almarai(color: Colors.white), ),
+                    ),
+                actions: [
+                  Padding(
+                    padding:
+                    EdgeInsetsDirectional.only(end: 3.w, top: 0.h),
+                    child: Row(
+                      children: [
+                        InkWell(
+                            onTap: () async { snapchatPressed(context); },
+                            child: Image(image: AssetImage("assets/snapchat.png"), height: 4.h, width: 10.w,)
+                        ),
 
-          fallback: (context) => Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              iconTheme: IconThemeData(color: Colors.white),
-              backgroundColor: BG_DARK_COLOR,
-              toolbarHeight: 9.h,
-              title: Text( this.otherUser.user_Name??  "التفاصيل", 
-                          style: GoogleFonts.almarai(color: Colors.white), ),
-              actions: [
-                Padding(
-                  padding:
-                  EdgeInsetsDirectional.only(end: 3.w, top: 0.h),
-                  child: Row(
-                    children: [
-                      InkWell(
-                          onTap: () async { snapchatPressed(context); },
-                          child: Image(image: AssetImage("assets/snapchat.png"), height: 4.h, width: 10.w,)
-                      ),
-
-                      // قائمة الثلاث نقط
-                      PopupMenuButton(
-                          onSelected: (item) { },
-                          position: PopupMenuPosition.under,
-                          itemBuilder: (context) => <PopupMenuEntry>[
-                            PopupMenuItem(
-                              height: 10.h,
-                              padding: EdgeInsets.all(0),
-                              child: Column(
-                                children: [
-                                  InkWell(
-                                    child: 
-                                      Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Row(
-                                          children: [
-                                            Text("         حظر المستخدم",
-                                              style: GoogleFonts.almarai( fontWeight: FontWeight.w300),
-                                            ),
-                                                          
-                                            SizedBox(width: 1.w,),
-                                            
-                                            ConditionalBuilder(
-                                              condition: state is BlockHimLoading ,
-                                              builder:  (context) => CircularProgressIndicator(),
-                                              fallback: (context)  => Icon(Icons.block, color: PRIMARY,size: 33,)
+                        // قائمة الثلاث نقط
+                        PopupMenuButton(
+                            onSelected: (item) { },
+                            position: PopupMenuPosition.under,
+                            itemBuilder: (context) => <PopupMenuEntry>[
+                              PopupMenuItem(
+                                height: 10.h,
+                                padding: EdgeInsets.all(0),
+                                child: Column(
+                                  children: [
+                                    InkWell(
+                                      child: 
+                                        Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Row(
+                                            children: [
+                                              Text("         حظر المستخدم",
+                                                style: GoogleFonts.almarai( fontWeight: FontWeight.w300),
                                               ),
-                                        ]),
-                                      ),                                    
-                                    onTap: () { blockUser_pressed(context); },
-                                  ),
-                    
-                                  Container( height: 0.01.h, color: Colors.black, ),
-                                  
-                                  InkWell(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(15.0),
-                                      child: Text("الابلاغ عن محتوي غير مناسب",
-                                          style: GoogleFonts.almarai( fontWeight: FontWeight.w300)),
+                                                            
+                                              SizedBox(width: 1.w,),
+                                              
+                                              ConditionalBuilder(
+                                                condition: state is BlockHimLoading ,
+                                                builder:  (context) => CircularProgressIndicator(),
+                                                fallback: (context)  => Icon(Icons.block, color: PRIMARY,size: 33,)
+                                                ),
+                                          ]),
+                                        ),                                    
+                                      onTap: () { blockUser_pressed(context); },
                                     ),
-                                    onTap: (){ ReportAnIssuePressed(context); },
-                                  ),
-                                ],
-                              ),
-                            )
-                          ]),
-                    ],
+                      
+                                    Container( height: 0.01.h, color: Colors.black, ),
+                                    
+                                    InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Text("الابلاغ عن محتوي غير مناسب",
+                                            style: GoogleFonts.almarai( fontWeight: FontWeight.w300)),
+                                      ),
+                                      onTap: (){ ReportAnIssuePressed(context); },
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ]),
+                      ],
+                    ),
+                  )
+                ],
+                leading: InkWell(
+                  onTap: () { Navigator.pop(context); },
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
                   ),
-                )
-              ],
-              leading: InkWell(
-                onTap: () { Navigator.pop(context); },
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
                 ),
               ),
-            ),
 
-            body: SingleChildScrollView(
-              // ويدجيت لعرض بيانات المستخدم،
-              child: DetailsWidget(
-                state: state,
-                messageVisibility: widget.messageVisibility,
-                otherUser: this.otherUser,
+              body: 
+                SingleChildScrollView(
+                  // ويدجيت لعرض بيانات المستخدم،
+                  child: 
+                    ConditionalBuilder(
+                      condition: state is UserDetailsLoadingState,
+                      builder:  (context) => LoadingGif(),
+                      fallback: (context) => 
+                        DetailsWidget(
+                          state: state,
+                          messageVisibility: widget.messageVisibility,
+                          otherUser: this.otherUser,
+                        ),
+                      ),
+                      ),
+                ),
               ),
-              
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-//
+
+        );
+  } //end
+
   void blockUser_pressed(BuildContext context)
   {
     UserDetailsCubit.get(context)

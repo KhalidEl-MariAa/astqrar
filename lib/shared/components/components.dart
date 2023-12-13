@@ -8,8 +8,15 @@ import '../../constants.dart';
 import '../../models/user.dart';
 import '../styles/colors.dart';
 
-navigateTo({required BuildContext context, required widget}) =>
-    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+void navigateTo({required BuildContext context, required widget}) 
+{
+  Navigator.push(
+    context, 
+    MaterialPageRoute(
+      builder: (context) => widget)
+    );
+}
+    
 
 enum ToastStates { SUCCESS, ERROR, WARNING }
 

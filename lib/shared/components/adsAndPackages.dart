@@ -114,27 +114,18 @@ class AdsAndPackages extends StatelessWidget
           idService: packages[index].id,
         ));
     } else {
-      navigateTo(context: context, 
-        widget: PaymentScreen(
-          price: AdsCubit.get(context).ads[index].price,
-          serviceType: "Ads",
-          idService: AdsCubit.get(context).ads[index].id!,
-      ));
-    
-      // showDialog(
-      //     context: context,
-      //     builder: (context) => CustomDialog(
-      //           price: AdsCubit.get(context)
-      //               .getAdsModel
-      //               .data[index]
-      //               .price
-      //               .toString(),
-      //           text:
-      //               "اسم العميل :name \n\n باقة الاعلان: ${AdsCubit.get(context).getAdsModel.data[index].nameAr}",
-      //         ));
-      
-      AdsCubit.get(context).addAds(
-          adId: AdsCubit.get(context).ads[index].id!);
+      navigateTo(
+        context: context, 
+        widget: 
+          PaymentScreen(
+            price: AdsCubit.get(context).ads[index].price,
+            serviceType: "Ads",
+            idService: AdsCubit.get(context).ads[index].id!,
+          )
+      );
+        
+      // AdsCubit.get(context).addAds(
+      //     adId: AdsCubit.get(context).ads[index].id!);
     }
   }
 }

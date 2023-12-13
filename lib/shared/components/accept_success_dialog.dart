@@ -5,11 +5,19 @@ import 'package:sizer/sizer.dart';
 import '../../modules/home/layout/layout.dart';
 import '../styles/colors.dart';
 
-class SuccessDialog extends StatelessWidget {
+class SuccessDialog extends StatelessWidget 
+{
   final String successText;
   final String subTitle;
-  final String actionText;
-  SuccessDialog({Key? key,required this.successText,required this.subTitle,required this.actionText}) : super(key: key);
+  final String? actionText;
+  final Function? actionFunc;
+
+  SuccessDialog({Key? key,
+    required this.successText,
+    required this.subTitle,
+    this.actionText,
+    this.actionFunc
+    }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,19 +55,23 @@ shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             subTitle,
               style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 10.sp),
             ),
-            SizedBox(
-              height: 4.h,
-            ),
-            InkWell(
-              onTap: (){
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LayoutScreen()), (route) => false);
-              },
-              child: Center(
-                  child: Text(
-                    actionText,
-                    style: GoogleFonts.almarai(color: PRIMARY,decoration: TextDecoration.underline),
-                  )),
-            ),
+            
+            SizedBox(height: 4.h,),
+
+            if( this.actionText != null )
+              InkWell(
+                onTap: (){
+                  // if null do nothing --> (){}
+                  this.actionFunc??(){}();                  
+                },
+                child:               
+                  Center(
+                    child: Text(
+                      actionText??"-----",
+                      style: GoogleFonts.almarai(color: PRIMARY,decoration: TextDecoration.underline),
+                    )),
+              ),
+              
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: [

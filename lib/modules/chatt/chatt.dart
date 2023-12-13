@@ -438,9 +438,8 @@ class ConversationScreenState extends State<ConversationScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                          // opacity: this.widget.otherUser!.IsActive! ? 1.0 : 0.5,
-                                          // image: getUserImage(this.widget.otherUser)
-                                          image: AssetImage(femaleImage)
+                                          opacity: this.widget.otherUser!.IsActive! ? 1.0 : 0.5,
+                                          image: getUserImage(this.widget.otherUser)
                                         )
                                     ),
                                   ),

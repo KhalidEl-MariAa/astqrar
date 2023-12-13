@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -54,24 +55,25 @@ class Web extends StatelessWidget
                 PaymentCubit.get(context).setControler(_controler);
               },
 
-              onLoadStart: (InAppWebViewController _controler, Uri? _uri) {
+              // https://payment.paylink.sa/pay/info/1702385038535
+              onLoadStart: (InAppWebViewController _controler, Uri? _uri) 
+              {
                 PaymentCubit.get(context).setUrl(_uri!);
                 log(_uri.toString());
               },
 
-              onLoadStop:
-                  (InAppWebViewController _controler, Uri? _uri) async 
+              // بعد تحميل الصفحة
+              onLoadStop: (InAppWebViewController _controler, Uri? _uri) async 
               {
-                if (_uri.toString()
-                        .endsWith(PaymentCubit.get(context).transactionNo!) 
+                bool is_correct_callback_uri = 
+                    _uri.toString().endsWith(PaymentCubit.get(context).transactionNo!) 
                     &&
-                    _uri.toString()
-                        .startsWith("https://www.example.com") ) 
+                    _uri.toString().startsWith("https://www.example.com") ;
+                
+                if(IS_DEVELOPMENT_MODE) is_correct_callback_uri=true;
+
+                if (is_correct_callback_uri) 
                 {
-                  PaymentCubit.get(context).getInvoiceStatus(
-                    serviceId: idService!,
-                    type: serviceType,
-                  );
                   Navigator.pushAndRemoveUntil(
                       scaffoldKey.currentContext!,
                       MaterialPageRoute(
@@ -81,6 +83,12 @@ class Web extends StatelessWidget
                         }
                       ),
                       (route) => false,);
+
+                  PaymentCubit.get(context).getInvoiceStatus(
+                    serviceId: idService!,
+                    type: serviceType,
+                  );
+
                 }else{
                   PaymentCubit.get(context).setUrl(_uri!);
                 }

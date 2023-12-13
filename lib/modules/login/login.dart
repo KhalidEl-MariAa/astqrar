@@ -1,5 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:astarar/modules/home/6_profile/user_profile/user_profile.dart';
+import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
+import 'package:astarar/notification.dart';
 import 'package:astarar/shared/components/defaultTextFormField.dart';
 import 'package:astarar/shared/components/double_infinity_material_button.dart';
 import 'package:astarar/shared/network/remote.dart';
@@ -23,7 +27,8 @@ import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'not_subscribed.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget 
+{
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -39,6 +44,13 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() 
   {
     super.initState();
+
+    NotificationWidget(context).init();
+    if(Platform.isIOS){
+      NotificationWidget(context).requestIOSLocalNotificationsPermissions();
+    }
+    SplashCubit.Firebase_init( context );
+
   }
 
   @override
@@ -60,6 +72,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   context,
                   MaterialPageRoute(builder: (context) => LayoutScreen()),
                   (route) => false);
+
+            }else if (state is LoginSuccessButProfileIsNotCompleted) {
+
+              navigateTo(context: context, widget: UserProfileScreen( )  );
 
             } else if (state is LoginSuccessButInActiveState) 
             {

@@ -137,13 +137,10 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                           this.current_user.gender=2;
                                         });
                                       })
-
                                   ]
                               ),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h, ),
 
                               defaultTextFormField(
                                   context: context,
@@ -167,9 +164,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   label: "الرجاء ادخال البريد الالكتروني",
                                   prefixIcon: Icons.email_outlined),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
 
                               defaultTextFormField(
                                   context: context,
@@ -245,9 +240,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               //     label: "الرجاء ادخال الجنسية",
                               //     prefixIcon: Icons.person_outline),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
 
                               Row(
                                 children: [
@@ -266,8 +259,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                                 (e) => e.id == current_user.countryId)
                                             .firstOrNull ??
                                         LayoutCubit.Countries[0],
-                                    style:
-                                        const TextStyle(color: BLACK, fontSize: 16),
+                                    style: const TextStyle(color: BLACK, fontSize: 16),
                                     underline: Container(
                                       height: 2,
                                       color: BLACK,
@@ -321,13 +313,13 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   labelTextcolor: Colors.black,
                                   validate: (value) {
                                     current_user.tribe = value;
-                                    return null;
+                                    return (value!.isEmpty)
+                                        ? "أدخل اسم العائلة أو القبيلة"
+                                        : null;
                                   },
                                   label: "ادخل اسم العائلة/القبيلة"),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
 
                               defaultTextFormField(
                                   context: context,
@@ -866,7 +858,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
 
   void confirmOnPress(BuildContext context) {
     if (!formkey.currentState!.validate()) {
-      showToast(msg: "يوجد بيانات غير صحيحة", state: ToastStates.ERROR);
+      showToast(msg: "يوجد بيانات غير صحيحة أو غير مكتملة", state: ToastStates.ERROR);
       return;
     }
 

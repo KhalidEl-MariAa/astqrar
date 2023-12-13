@@ -55,16 +55,18 @@ class LoginCubit extends Cubit<LoginStates> {
 
       loggedinUser = User.fromJson(res.data);
 
+      CacheHelper.saveData(key: "id", value: loggedinUser.id);
+      CacheHelper.saveData(key: "name", value: loggedinUser.user_Name);
       CacheHelper.saveData(key: "phone", value: loggedinUser.phone);
       CacheHelper.saveData(key: "token", value: loggedinUser.Token);
       CacheHelper.saveData(key: "typeUser", value: loggedinUser.typeUser);
-      CacheHelper.saveData(key: "id", value: loggedinUser.id);
-      CacheHelper.saveData(key: "name", value: loggedinUser.user_Name);
       CacheHelper.saveData(key: "age", value: loggedinUser.age.toString());
       CacheHelper.saveData(key: "email", value: loggedinUser.email);
       CacheHelper.saveData(key: "gender", value: loggedinUser.gender);
       CacheHelper.saveData(key: "imgProfile", value: loggedinUser.imgProfile);
       CacheHelper.saveData(key: "isActive", value: loggedinUser.IsActive);
+      CacheHelper.saveData(key: "profileIsCompleted", value: loggedinUser.ProfileIsCompleted);
+      
 
       PHONE = CacheHelper.getData(key: "phone");
       TOKEN = CacheHelper.getData(key: "token");
@@ -76,8 +78,14 @@ class LoginCubit extends Cubit<LoginStates> {
       GENDER_USER = CacheHelper.getData(key: "gender");
       IMG_PROFILE = CacheHelper.getData(key: "imgProfile");
       IS_ACTIVE = CacheHelper.getData(key: "isActive");
+      PROFILE_IS_COMPLETED = CacheHelper.getData(key: "profileIsCompleted");
 
-      if (loggedinUser.status == true) //|| IS_DEVELOPMENT_MODE
+      if (loggedinUser.status == true && !PROFILE_IS_COMPLETED)
+      {
+        CacheHelper.saveData(key: "isLogin", value: true);
+        emit( LoginSuccessButProfileIsNotCompleted() );        
+      }
+      else if (loggedinUser.status == true) //|| IS_DEVELOPMENT_MODE
       {
         CacheHelper.saveData(key: "isLogin", value: true);
         emit( LoginSuccessAndActiveState() );
