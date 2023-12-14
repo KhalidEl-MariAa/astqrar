@@ -245,24 +245,25 @@ class _MoreTabState extends State<MoreTab> {
                             style: GoogleFonts.almarai( fontSize: 13.sp, color: Colors.grey[600]),
                           ),
                           
-                          SizedBox( height: 2.h,),
-                          InkWell(
-                            onTap: () {
-                              navigateTo(context: context, widget: const AboutScreen() );
-                            },
-                            child: DefaultRaw(
-                                image: "assets/information.png",
-                                text: "عن التطبيق"),
-                          ),
+                          // SizedBox( height: 2.h,),
+                          // InkWell(
+                          //   onTap: () {
+                          //     navigateTo(context: context, widget: const AboutScreen() );
+                          //   },
+                          //   child: DefaultRaw(
+                          //       image: "assets/information.png",
+                          //       text: "عن التطبيق"),
+                          // ),
                           SizedBox( height: 3.h, ),
                           InkWell(
-                            onTap: () {
-                              navigateTo( context: context, widget: const TermsScreen() );
-                            },
-                            child: DefaultRaw(
-                                image: "assets/Filled outline.png",
-                                text: "الشروط و الاحكام"),
-                          ),
+                              onTap: () {
+                                navigateTo( context: context, widget: AboutVersion( isFromLogin: false, ) );
+                              },
+                              child: DefaultRaw(
+                                  image: "assets/information.png",
+                                  //+ " " + appVersion
+                                  text: "عن الإصدار وفريق البرمجة"  )),
+
                           SizedBox( height: 3.h, ),
                           InkWell(
                             onTap: () {
@@ -284,16 +285,17 @@ class _MoreTabState extends State<MoreTab> {
                                   image: "assets/sharing.png",
                                   text: "مشاركة التطبيق")),
 
+                          
                           SizedBox( height: 3.h, ),
                           InkWell(
-                              onTap: () {
-                                navigateTo( context: context, widget: AboutVersion( isFromLogin: false, ) );
-                              },
-                              child: DefaultRaw(
-                                  image: "assets/information.png",
-                                  //+ " " + appVersion
-                                  text: "عن الإصدار وفريق البرمجة"  )),
-                          
+                            onTap: () {
+                              navigateTo( context: context, widget: const TermsScreen() );
+                            },
+                            child: DefaultRaw(
+                                image: "assets/Filled outline.png",
+                                text: "الشروط و الاحكام"),
+                          ),
+
                           SizedBox( height: 3.h, ),
 
                         ],

@@ -9,15 +9,17 @@ import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 import 'payment_screen.dart';
 
+// ignore: must_be_immutable
 class Web extends StatelessWidget 
 {
   final double? price;
   final dynamic idService;
   final String serviceType;
+  bool callback_done = false;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   
-  Web({Key? key, this.price, required this.serviceType, required this.idService}) : super(key: key);
+  Web({Key? key, this.price, required this.serviceType, required this.idService, this.callback_done=false}) : super(key: key);
 
   final InAppWebViewGroupOptions inAppWebViewOptions = InAppWebViewGroupOptions(
       crossPlatform: InAppWebViewOptions(
@@ -40,6 +42,9 @@ class Web extends StatelessWidget
   @override
   Widget build(BuildContext context) 
   {
+    this.callback_done=false;
+    log('Web build ..... ');
+
     return BlocConsumer<PaymentCubit, PaymentStates>(
       listener: (context, state) {},
       builder: (context, state) => 
@@ -70,7 +75,15 @@ class Web extends StatelessWidget
                     &&
                     _uri.toString().startsWith("https://www.example.com") ;
                 
-                if(IS_DEVELOPMENT_MODE) is_correct_callback_uri=true;
+                
+                if(IS_DEVELOPMENT_MODE ) 
+                {
+                  is_correct_callback_uri=false;
+                  if(!this.callback_done){
+                    is_correct_callback_uri=true;
+                    this.callback_done=true;
+                  }
+                }
 
                 if (is_correct_callback_uri) 
                 {
@@ -80,9 +93,9 @@ class Web extends StatelessWidget
                         builder: (context) {
                           return PaymentScreen(price: price,
                           idService: idService,serviceType: serviceType,);
-                        }
-                      ),
-                      (route) => false,);
+                       }),
+                      (context) => false
+                  );
 
                   PaymentCubit.get(context).getInvoiceStatus(
                     serviceId: idService!,

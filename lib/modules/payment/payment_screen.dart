@@ -1,3 +1,5 @@
+import 'package:astarar/modules/home/layout/layout.dart';
+
 import '../chatt/cubit/states.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/double_infinity_material_button.dart';
@@ -62,8 +64,9 @@ class PaymentScreen extends StatelessWidget
 
         if(state is ActivateSuccessState)
         {
-          if(state.status && state.type==2){
+          if(state.status && state.type == "Ads"){
             HomeCubit.get(context).getUserAds();
+            navigateTo(context: context, widget: LayoutScreen() );
           }
 
           // if(state.status) {
@@ -74,7 +77,7 @@ class PaymentScreen extends StatelessWidget
           //             subTitle: "يمكنك الان التصفح و المحادثة",
           //           ));
           // }
-          showToast(msg: "تم ", state: ToastStates.SUCCESS);
+          showToast(msg: "تم نشر الملف الشخصي ", state: ToastStates.SUCCESS);
 
         }
 

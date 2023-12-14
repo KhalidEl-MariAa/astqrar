@@ -69,7 +69,7 @@ class PaymentCubit extends Cubit<PaymentStates>
       emit(AddInvoiceSuccessState());
 
     }).catchError((error) {
-      print(error.toString());
+      log(error.toString());
       emit(AddInvoiceErrorState(error.toString()));
     });
   }
@@ -135,7 +135,7 @@ class PaymentCubit extends Cubit<PaymentStates>
       if( type == "Ads" && activateModel.status! ){
           this.sendNotificationToAll(body: "تمت اضافة اعلان من قبل $NAME");
       }
-      log( " ACCCCCC ------------------");
+      log( " ACTIVATE, Ad is Saved in DB ------------------");
 
     }).catchError((error) {
       log(error.toString());
@@ -143,12 +143,12 @@ class PaymentCubit extends Cubit<PaymentStates>
     });
   }
 
-  sendNotificationToAll({String title=" ", required String body}) async
+  void sendNotificationToAll({String title=" ", required String body}) async
   {
     emit(SendNotificationToAllLoadingState());
 
     DioHelper.postDataWithBearearToken(
-        url: SENDNOTIFICATIONTOALL,
+        url: "api/v2/send-notifications-to-all",
         data:{
           // "projectName": APP_NAME,
           // "deviceType":"android",
@@ -159,11 +159,11 @@ class PaymentCubit extends Cubit<PaymentStates>
         token: TOKEN )
     .then((value) 
     {
-          log(value.toString() + "------------------");
-          emit(SendNotificationToAllSuccessState());
+      log(value.toString() + "------------------");
+      emit(SendNotificationToAllSuccessState());
     }).catchError((error){
-          log(error.toString());
-          emit( SendNotificationToAllErrorState(error.toString())  );
+      log(error.toString());
+      emit( SendNotificationToAllErrorState(error.toString())  );
     });
   }
 

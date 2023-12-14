@@ -38,51 +38,45 @@ class _DetailsWidgetState extends State<DetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      // padding: EdgeInsetsDirectional.only(top: 1.h),
       children: [
-        Padding(
-          padding: EdgeInsetsDirectional.only(top: 1.h),
-          child: 
-            // صورة البروفايل
-            Center(
-              child: InkWell(
-                onTap: () 
-                {                  
-                  ImageProvider img = getUserImage( widget.otherUser, larg: true );
 
-                  navigateTo(
-                    context: context, 
-                    widget: ImageViewer(theImage: img ) );
-                },
-                child: 
-                  Stack(
-                    children: <Widget> [
-                      Container(
-                        height: 20.h,
-                        width: 50.w,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            image: DecorationImage(
-                              opacity: widget.otherUser.IsActive! ? 1.0: 0.5,
-                              fit: BoxFit.fitHeight,
-                              image: getUserImage(widget.otherUser, larg: true) ,                    
-                            )),
-                      ),
+        if(!widget.otherUser.IsActive!)
+          Center(            
+            child: Text("غير مشترك",  
+                style: GoogleFonts.almarai(color: Colors.red[600], fontSize: 24), )),
 
-                      if(!widget.otherUser.IsActive!)
-                        Center(child: Text("غير مشترك",  
-                              style: GoogleFonts.almarai(color: Colors.red[600], fontSize: 24), ))                    
-                      ,
-                    ],
-                  ),
-              )
-            ),
-          ),
-        SizedBox(
-          height: 2.h,
+        // صورة البروفايل
+        Center(
+          child: InkWell(
+            onTap: () 
+            {                  
+              ImageProvider img = getUserImage( widget.otherUser, larg: true );
+
+              navigateTo(
+                context: context, 
+                widget: ImageViewer(theImage: img ) );
+            },
+            child: 
+              Container(
+                height: 20.h,                
+                // width: 50.w,
+                decoration: BoxDecoration(
+                    color: WHITE,
+                    image: DecorationImage(
+                      opacity: widget.otherUser.IsActive! ? 1.0: 0.5,
+                      fit: BoxFit.fitHeight,
+                      image: getUserImage(widget.otherUser, larg: true) ,                    
+                    )),
+              ),
+          )
         ),
 
+        SizedBox(height: 2.h,),
+
+        // Like, Chat, LastLogin ...etc
         Padding(
-          padding: EdgeInsetsDirectional.only(end: 2.w),
+          padding: EdgeInsetsDirectional.only(end: 2.w),          
           child: Row(
             children: [
               Container(
@@ -188,9 +182,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
             ],
           ),
         ),
-        SizedBox(
-          height: 2.h,
-        ),
+
+        SizedBox(height: 2.h,),
 
         Container(
           // height: 9.5.h,
@@ -288,23 +281,6 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           ),
         ),
 
-        Container(
-          // height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
-              // Container(
-              //   width: 45.w,
-              //   child: DetailsItem(
-              //     title: 'الوظيفة',
-              //     subTitle:
-              //         findSubSpecificationOrEmptyStr(SpecificationIDs.job),
-              //   ),
-              // ),
-            ],
-          ),
-        ),
 
         Container(
           // height: 9.5.h,
@@ -331,55 +307,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
             ],
           ),
         ),
-        Container(
-          // height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
-              Container(
-                  width: 45.w,
-                  child: DetailsItem(
-                    title: 'لون الشعر',
-                    subTitle: findSubSpecificationOrEmptyStr(
-                        SpecificationIDs.hair_colour),
-                  )),
-              Container(
-                  width: 45.w,
-                  child: DetailsItem(
-                    title: 'نوع الشعر',
-                    subTitle: findSubSpecificationOrEmptyStr(
-                        SpecificationIDs.hair_type),
-                  )),
-            ],
-          ),
-        ),
 
-        Container(
-          // height: 9.5.h,
-          width: double.infinity,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Row(
-            children: [
-              Container(
-                width: 45.w,
-                child: DetailsItem(
-                  title: 'من عرق',
-                  subTitle:
-                      findSubSpecificationOrEmptyStr(SpecificationIDs.strain),
-                ),
-              ),
-              Container(
-                width: 45.w,
-                child: DetailsItem(
-                  title: 'لون البشرة',
-                  subTitle: findSubSpecificationOrEmptyStr(
-                      SpecificationIDs.skin_colour),
-                ),
-              ),
-            ],
-          ),
-        ),
         Container(
           // height: 9.5.h,
           width: double.infinity,
@@ -405,7 +333,56 @@ class _DetailsWidgetState extends State<DetailsWidget> {
         ),
 
         Container(
-          // height: 9.5.h,
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                    title: 'لون الشعر',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.hair_colour),
+                  )),
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                    title: 'نوع الشعر',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.hair_type),
+                  )),
+            ],
+          ),
+        ),
+
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                width: 45.w,
+                child: DetailsItem(
+                  title: 'من عرق',
+                  subTitle:
+                      findSubSpecificationOrEmptyStr(SpecificationIDs.strain),
+                ),
+              ),
+              Container(
+                width: 45.w,
+                child: DetailsItem(
+                  title: 'لون البشرة',
+                  subTitle: findSubSpecificationOrEmptyStr(
+                      SpecificationIDs.skin_colour),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+
+
+        Container(
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -426,13 +403,11 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                       SpecificationIDs.financial_situation),
                 ),
               ),
-
             ],
           ),
         ),
 
         Container(
-          // height: 9.5.h,
           width: double.infinity,
           decoration: BoxDecoration(color: Colors.white),
           child: Row(
@@ -454,6 +429,31 @@ class _DetailsWidgetState extends State<DetailsWidget> {
             ],
           ),
         ),
+
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                    title: 'التدخين',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.smoking),
+                  )),
+              Container(
+                  width: 45.w,
+                  child: DetailsItem(
+                    title: 'النظرة الشرعية',
+                    subTitle: findSubSpecificationOrEmptyStr(
+                        SpecificationIDs.have_a_legitimate_view),
+                  )),
+            ],
+          ),
+        ),
+
+
         Container(
           // height: 9.5.h,
           width: double.infinity,
@@ -479,6 +479,15 @@ class _DetailsWidgetState extends State<DetailsWidget> {
             ],
           ),
         ),
+
+
+        //---------------------------------------------
+        
+        
+        
+        //---------------------------------------------
+
+
         Container(
           // height: 9.5.h,
           width: double.infinity,
@@ -561,7 +570,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
     // }
   }
 
-  findSubSpecificationOrEmptyStr(int specId) {
+  findSubSpecificationOrEmptyStr(int specId) 
+  {
     var subkeys = SpecificationIDs.getSubSpecificationKeys(specId);
 
     return widget.otherUser.subSpecifications

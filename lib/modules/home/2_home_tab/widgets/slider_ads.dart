@@ -44,7 +44,7 @@ class SliderAds extends StatelessWidget
               width: double.infinity,
               height: 25.h,
               decoration: BoxDecoration(
-                  color: BG_DARK_COLOR,
+                  color: DARK_PRIMARY,
                   borderRadius: BorderRadius.circular(15)),
               child: InkWell(
                 onTap: (){
@@ -84,9 +84,9 @@ class SliderAds extends StatelessWidget
                             )),
                       ),
                     ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
+
+                    SizedBox(width: 5.w,),
+
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +95,7 @@ class SliderAds extends StatelessWidget
                           HomeCubit.get(context)
                               .userAds[realindex]
                               .user_Name??"XX",
-                          style: GoogleFonts.almarai(color: PRIMARY, fontSize: 16, fontWeight: FontWeight.w600 )
+                          style: GoogleFonts.almarai(color: WHITE, fontSize: 16, fontWeight: FontWeight.w600 )
                         ),
                         SizedBox(height: 2.h,),
                         Container(
@@ -111,14 +111,10 @@ class SliderAds extends StatelessWidget
                                       .toString()
                                   ,
                                   textAlign: TextAlign.start,
-                                  style: GoogleFonts.almarai(color: CUSTOME_GREY_2)
+                                  style: GoogleFonts.almarai(color: WHITE, fontWeight: FontWeight.w600)
                               ),
 
                               Text("الجنسية : " + 
-                                  // HomeCubit.get(context)
-                                  //                 .getAllAdsWithUsersModel
-                                  //                 .data[realindex]
-                                  //                 .countryId.toString(),
                                   LayoutCubit.Countries
                                     .where((c) => 
                                         c.id == HomeCubit.get(context)
@@ -127,7 +123,7 @@ class SliderAds extends StatelessWidget
                                     .first
                                     .NameAr!,
                                   textAlign: TextAlign.start,
-                                  style: GoogleFonts.almarai(color: CUSTOME_GREY_2)
+                                  style: GoogleFonts.almarai(color: WHITE,fontWeight: FontWeight.w600)
                               ),
                               SizedBox(height: 0.5.h,),
 
@@ -137,7 +133,7 @@ class SliderAds extends StatelessWidget
                                           .typeOfMarriage
                                           ,
                                   textAlign: TextAlign.start,
-                                  style: GoogleFonts.almarai(color: CUSTOME_GREY_2,fontSize: 10.sp)
+                                  style: GoogleFonts.almarai(color: WHITE, fontWeight: FontWeight.w600)
                               ),
                               
                             ],

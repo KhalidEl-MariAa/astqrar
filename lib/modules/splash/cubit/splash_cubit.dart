@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 
+import 'package:astarar/models/get_notifications.dart';
+
 import '../../user_details/user_details.dart';
 import '../../../notification.dart';
 import '../../../shared/components/components.dart';
@@ -92,6 +94,7 @@ class SplashCubit extends Cubit<SplashState>
       {
         log('Notification Arrived !!!!!!!!!'+ message.toString());
         
+        _firebaseMessagingHandler( message );
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
 
@@ -103,7 +106,7 @@ class SplashCubit extends Cubit<SplashState>
             title: notification.title,
             body: notification.body,
             payload: json.encode(message.data) , //to jsonStr
-          );
+          );          
         }
       });
       
@@ -153,4 +156,19 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async
       // log("Handling a background message: ${message.notification?.body}");
       log("Handling a background message: ");
     }
+}
+
+// Must be outside of the class and same name.
+Future<void> _firebaseMessagingHandler(RemoteMessage message) async 
+{
+    log("Handling a message: -----------------------------");
+    log(message.data.toString());
+
+    // Map data = (message.data);
+    if( message.data['NotificationType'] == NotificationTypes.AdIsPublished.toString() )
+    {
+
+    }
+
+
 }

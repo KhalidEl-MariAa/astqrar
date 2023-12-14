@@ -290,7 +290,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     fontSize: 13.sp,
                                     fontWeight: FontWeight.w500),
                               ),
-
                               GridView.count(
                                   shrinkWrap: true,
                                   crossAxisCount:
@@ -319,7 +318,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   label: "ادخل اسم العائلة/القبيلة"),
 
                               SizedBox(height: 1.5.h,),
-
                               defaultTextFormField(
                                   context: context,
                                   container: Colors.grey[100],
@@ -337,10 +335,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   labelText: "العمر",
                                   label: "الرجاء ادخال العمر",
                                   prefixIcon: Icons.person_outline),
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
 
+                              SizedBox(height: 1.5.h,),
                               defaultTextFormField(
                                   context: context,
                                   container: Colors.grey[100],
@@ -356,9 +352,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   labelText: "الطول",
                                   label: "الرجاء ادخال الطول",
                                   prefixIcon: Icons.person_outline),
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+
+                              SizedBox(height: 1.5.h,),
                               defaultTextFormField(
                                   context: context,
                                   container: Colors.grey[100],
@@ -374,17 +369,11 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   labelText: "الوزن",
                                   label: "الرجاء ادخال الوزن",
                                   prefixIcon: Icons.person_outline),
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
 
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "لون الشعر",
                                 style: TextStyle(color: BLACK, fontSize: 12.sp),
-                              ),
-
-                              SizedBox(
-                                height: 1.h,
                               ),
                               GridView.count(
                                 shrinkWrap: true,
@@ -400,15 +389,10 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     SpecificationIDs.hair_colour),
                               ),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "نوع الشعر",
                                 style: TextStyle(color: BLACK, fontSize: 14),
-                              ),
-                              SizedBox(
-                                height: 1.h,
                               ),
                               GridView.count(
                                   shrinkWrap: true,
@@ -422,15 +406,11 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   childAspectRatio: 0.6 / 0.1,
                                   children: getListofRadioButtons(
                                       SpecificationIDs.hair_type)),
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "لون البشرة",
                                 style: TextStyle(color: BLACK, fontSize: 14),
-                              ),
-                              SizedBox(
-                                height: 1.h,
                               ),
                               GridView.count(
                                 shrinkWrap: true,
@@ -444,15 +424,11 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                 children: getListofRadioButtons(
                                     SpecificationIDs.skin_colour),
                               ),
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "من عرق",
                                 style: TextStyle(color: BLACK, fontSize: 14),
-                              ),
-                              SizedBox(
-                                height: 1.h,
                               ),
                               GridView.count(
                                 shrinkWrap: true,
@@ -466,37 +442,30 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                 children:
                                     getListofRadioButtons(SpecificationIDs.strain),
                               ),
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+
+
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "الموهل العلمي",
                                 style: TextStyle(color: BLACK, fontSize: 14),
                               ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
                               GridView.count(
                                 shrinkWrap: true,
-                                padding: const EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),                               
                                 crossAxisCount: (MediaQuery.of(context).orientation ==
                                         Orientation.landscape)
                                     ? 5
-                                    : 3,
+                                    : 2,
                                 physics: const NeverScrollableScrollPhysics(),
-                                childAspectRatio: 0.6 / 0.19,
+                                childAspectRatio: 5,
                                 children: getListofRadioButtons(
                                     SpecificationIDs.qualification),
                               ),
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "الوظيفة",
                                 style: TextStyle(color: BLACK, fontSize: 14),
-                              ),
-                              SizedBox(
-                                height: 1.h,
                               ),
                               GridView.count(
                                 shrinkWrap: true,
@@ -525,33 +494,24 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   label: "الرجاء ادخال اسم الوظيفة (ان وجدت)",
                                   prefixIcon: Icons.person),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "الحالة الصحية",
                                 style: TextStyle(color: BLACK, fontSize: 14),
                               ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-
                               GridView.count(
-                                padding: const EdgeInsets.all(0),
-                                shrinkWrap: true,
+                                shrinkWrap: true,                                
                                 crossAxisCount: (MediaQuery.of(context).orientation ==
                                         Orientation.landscape)
-                                    ? 5
+                                    ? 2
                                     : 1,
                                 physics: const NeverScrollableScrollPhysics(),
-                                childAspectRatio: 0.9 / 0.1,
-                                children: getListofRadioButtons(
-                                    SpecificationIDs.health_status),
+                                padding: const EdgeInsets.all(0),
+                                childAspectRatio: 1.0 / 0.1,
+                                children: getListofRadioButtons(SpecificationIDs.health_status),
                               ),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
 
                               defaultTextFormField(
                                   context: context,
@@ -567,18 +527,12 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   labelText: "نوع المرض",
                                   label: "الرجاء ادخال نوع المرض (ان وجد)",
                                   prefixIcon: Icons.person),
-                              SizedBox(
-                                height: 2.h,
-                              ),
 
+                              SizedBox(height: 2.h,),
                               Text(
                                 "الحالة الاجتماعية",
                                 style: TextStyle(color: BLACK, fontSize: 14),
                               ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-
                               GridView.count(
                                 shrinkWrap: true,
                                 crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -598,9 +552,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                               Text(
                                 "هل لديك اطفال",
                                 style: TextStyle(color: BLACK, fontSize: 14),
-                              ),
-                              SizedBox(
-                                height: 1.h,
                               ),
                               GridView.count(
                                 shrinkWrap: true,
@@ -653,9 +604,6 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                 "نبذة عن مظهرك",
                                 style: TextStyle(color: BLACK, fontSize: 14),
                               ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
                               GridView.count(
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(0),
@@ -669,16 +617,11 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     SpecificationIDs.appearance),
                               ),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
 
                               Text(
                                 "الوضع المالي",
                                 style: TextStyle(color: BLACK, fontSize: 14),
-                              ),
-                              SizedBox(
-                                height: 1.h,
                               ),
                               GridView.count(
                                 shrinkWrap: true,
@@ -693,13 +636,49 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     SpecificationIDs.financial_situation),
                               ),
 
+                              SizedBox(height: 1.5.h,),
+                              Text(
+                                "التدخين",
+                                style: TextStyle(color: BLACK, fontSize: 14),
+                              ),
+                              // SizedBox(height: 1.h,),
+                              GridView.count(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(0),
+                                crossAxisCount: (MediaQuery.of(context).orientation ==
+                                        Orientation.landscape)
+                                    ? 5
+                                    : 2,
+                                physics: const NeverScrollableScrollPhysics(),
+                                childAspectRatio: 0.8 / 0.15,
+                                children: getListofRadioButtons(
+                                    SpecificationIDs.smoking),
+                              ),
+
+                              SizedBox(height: 1.5.h,),
+                              Text(
+                                "هل لديكم نظرة شرعية",
+                                style: TextStyle(color: BLACK, fontSize: 14),
+                              ),
+                              GridView.count(
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(0),
+                                crossAxisCount: (MediaQuery.of(context).orientation ==
+                                        Orientation.landscape)
+                                    ? 5
+                                    : 2,
+                                physics: const NeverScrollableScrollPhysics(),
+                                childAspectRatio: 0.8 / 0.15,
+                                children: getListofRadioButtons(
+                                    SpecificationIDs.have_a_legitimate_view),
+                              ),
+
+                              SizedBox(height: 1.5.h,),
                               Text(
                                 "نوع الزواج",
                                 style: TextStyle(color: BLACK, fontSize: 14),
                               ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
+                              SizedBox( height: 1.h, ),
                               GridView.count(
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(0),
@@ -713,9 +692,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                     SpecificationIDs.marriage_Type),
                               ),
 
-                              SizedBox(
-                                height: 1.5.h,
-                              ),
+                              SizedBox(height: 1.5.h,),
 
                               defaultTextFormField(
                                   context: context,

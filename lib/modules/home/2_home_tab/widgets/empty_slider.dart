@@ -23,7 +23,7 @@ class EmptySlider extends StatelessWidget
               width: double.infinity,
               height: 35.h,
               decoration: BoxDecoration(
-                  color: BG_DARK_COLOR,
+                  color: DARK_PRIMARY,
                   borderRadius: BorderRadius.circular(15)),
               child: 
                 Column(
@@ -34,7 +34,7 @@ class EmptySlider extends StatelessWidget
                     Text(
                       "حياكم الله",
                         style: GoogleFonts.almarai(
-                            color: PRIMARY, fontSize: 16.0.sp),
+                            color: WHITE, fontSize: 16.0.sp, fontWeight: FontWeight.w400),
                       ),
 
                     SizedBox(height: 4.0.h,),
@@ -42,26 +42,11 @@ class EmptySlider extends StatelessWidget
                     Text(
                       " في تطبيق استقرار جميع عروض الزواج متوفرة لدينا",
                         style: GoogleFonts.almarai(
-                            color: OFF_WHITE, fontSize: 10.5.sp),
+                            color: WHITE, fontSize: 10.5.sp, fontWeight: FontWeight.w400),
                       ),
 
                   ],
                 )
-                // InkWell(
-                //   onTap: (){ },
-                //   child: Row(
-                //     children: [                    
-                //       Padding(
-                //         padding: EdgeInsets.symmetric(horizontal: 2.w),
-                //         child: Text(
-                //         "عَنْ عَبْدِاللَّهِ بْنِ مَسْعُودٍ : قَالَ لَنَا رَسُولُ اللَّهِ ﷺ:\n( يَا مَعْشَرَ الشَّبَابِ، مَنِ اسْتَطَاعَ مِنْكُمُ الْبَاءَةَ فَلْيَتَزَوَّجْ، \n فَإِنَّهُ أَغَض لِلْبَصَرِ، وَأَحْصَنُ لِلْفَرْجِ، وَمَنْ لَمْ يَسْتَطِعْ فَعَلَيْهِ بِالصَّوْمِ؛\n فَإِنَّهُ لَهُ وِجَاءٌ.) مُتَّفَقٌ عَلَيْهِ.",
-                //           style: TextStyle(
-                //               color: Colors.white54, fontSize: 9.5.sp),
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // ),
             ),
           options: CarouselOptions(
             height: 19.h,
