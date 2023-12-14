@@ -15,6 +15,7 @@ class SearchCubit extends Cubit<SearchStates> {
   List<User> searchResult = [];
   bool isSearchByTextOnly = true;
   Map query = {};
+  String searchText = "";
 
   void searchByText({required String text}) 
   {
@@ -46,7 +47,6 @@ class SearchCubit extends Cubit<SearchStates> {
 
   void searchByFilter() 
   {
-  
     log(this.query.toString());
 
     emit(FilterSearchLoadingState());
@@ -64,7 +64,6 @@ class SearchCubit extends Cubit<SearchStates> {
 
       emit(FilterSearchSuccessState(searchResult));
       emit(GetSearchSuccessState(searchResult));
-
 
     }).catchError((error) {
       log(error.toString());

@@ -287,9 +287,8 @@ class _ResultScreenState extends State<ResultScreen>
                           ),
                         ]),
                       ),
-                      SizedBox(
-                        height: 2.5.h,
-                      ),
+
+                      SizedBox(height: 2.5.h,),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: defaultTextFormField(
@@ -298,12 +297,14 @@ class _ResultScreenState extends State<ResultScreen>
                             container: BG_DARK_COLOR,
                             onsubmit: (value) {
                               this.searchResult.clear();
-                              SearchCubit.get(context).isSearchByTextOnly = true;
+                              SearchCubit.get(context).searchText = value??"";
+                              // SearchCubit.get(context).isSearchByTextOnly = true;
                               start_searching(context);
                             },
                             suffixPressed: () {
                               this.searchResult.clear();
-                              SearchCubit.get(context).isSearchByTextOnly = true;
+                              SearchCubit.get(context).searchText = searchTextController.text;
+                              // SearchCubit.get(context).isSearchByTextOnly = true;
                               start_searching(context);
                             },
                             onchange: (value) {},
@@ -316,18 +317,18 @@ class _ResultScreenState extends State<ResultScreen>
                             },
                             label: "  البحث   "),
                       ),
+
                       Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.only(
-                                  start: 5.w, top: 2.h),
-                              child: Text(
-                                  'النتائج' + " ( ${this.searchResult.length} )",
-                                  style: GoogleFonts.almarai(
-                                      fontWeight: FontWeight.w200, fontSize: 19)),
-                            ),
+                            // Padding(
+                            //   padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
+                            //   child: Text(
+                            //       'النتائج' + " ( ${this.searchResult.length} )",
+                            //       style: GoogleFonts.almarai(
+                            //           fontWeight: FontWeight.w200, fontSize: 19)),
+                            // ),
                             RefreshIndicator(
                               key: _refreshIndicatorKey,
                               onRefresh: () async {
@@ -351,8 +352,7 @@ class _ResultScreenState extends State<ResultScreen>
                               ),
                             ),
                             ConditionalBuilder(
-                              condition: (state is GetSearchLoadingState) ||
-                                  (state is FilterSearchLoadingState),
+                              condition: (state is GetSearchLoadingState) || (state is FilterSearchLoadingState),
                               builder: (context) => LoadingGif(),
                               fallback: (context) => Center(
                                 child: InkWell(
@@ -414,12 +414,10 @@ class _ResultScreenState extends State<ResultScreen>
 
   void start_searching(BuildContext context) 
   {
-    if (SearchCubit.get(context).query.isNotEmpty) 
-    {
+    if (SearchCubit.get(context).query.isNotEmpty) {
       SearchCubit.get(context).searchByFilter();
     }
-    else if (searchTextController.text.isNotEmpty) 
-    {
+    else if (searchTextController.text.isNotEmpty) {
       SearchCubit.get(context).searchByText(text: searchTextController.text);
     } else {
       showToast(msg: "من فضلك اكتب اي كلمة بحثية", state: ToastStates.SUCCESS);

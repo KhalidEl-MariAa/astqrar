@@ -160,8 +160,7 @@ class SectionMenOrWomen extends StatelessWidget
                                       ),
                                       SizedBox(width: 2.w,),
                                       Padding(
-                                          padding: EdgeInsetsDirectional.only(
-                                              top: 2.h, start: 0.w),
+                                          padding: EdgeInsetsDirectional.only(top: 2.h, start: 0.w),
                                           child:
                                               Container(
                                                 height: 7.h,
@@ -290,13 +289,13 @@ class SectionMenOrWomen extends StatelessWidget
                       ),
 
 
-                      Padding(
-                        padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
-                        child: Text( 'النتائج' + " ( ${MenWomenCubit.get(context).users.length} )" ,
-                            style: GoogleFonts.almarai(
-                                fontWeight: FontWeight.w200,
-                                fontSize: 19)),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
+                      //   child: Text( 'النتائج' + " ( ${MenWomenCubit.get(context).users.length} )" ,
+                      //       style: GoogleFonts.almarai(
+                      //           fontWeight: FontWeight.w200,
+                      //           fontSize: 19)),
+                      // ),
 
 
                       RefreshIndicator(

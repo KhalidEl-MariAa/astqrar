@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:astarar/shared/components/components.dart';
+
 import '../../shared/components/defaultTextFormField.dart';
 import '../../shared/components/double_infinity_material_button.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
   Widget build(BuildContext context) 
   {
     // reset filter
-    SearchCubit.get(context).query = {};
+    // SearchCubit.get(context).query = {};
 
     return BlocConsumer<SearchCubit, SearchStates>(
       listener: (context, state) {
@@ -60,26 +62,20 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                 appbarTitle: "الفلتر",
               )
             ),
+
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.w),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 0.9.h,
-                  ),
 
-                  //الجنس
-                  Text("نوع الجنس",
+                  SizedBox(height: 0.9.h,),
+                  Text("الجنس",
                       style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
                   GridView.count(
                     shrinkWrap: true,
-                    crossAxisCount: (MediaQuery.of(context).orientation ==
-                            Orientation.landscape)
+                    crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape)
                         ? 4
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
@@ -94,22 +90,15 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                             changeFunction: () {
                               setState(() {
                                 genderIndex = index1;
-                                log(gender[index1],);
                               });
                             })),
                   ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
 
-                  //الحالة الاجتماعية
+                  SizedBox(height: 1.5.h,),
                   Text("الحالة الاجتماعية", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox( height: 1.5.h, ),
-
                   GridView.count(
                     shrinkWrap: true,
-                    crossAxisCount: (MediaQuery.of(context).orientation ==
-                            Orientation.landscape)
+                    crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape)
                         ? 4
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
@@ -118,16 +107,11 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     children: getListofRadioButtons(SpecificationIDs.social_status)
                   ),
 
+                  SizedBox(height: 1.5.h,),
                   Text("المظهر", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                    
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-
                   GridView.count(
                     shrinkWrap: true,
-                    crossAxisCount: (MediaQuery.of(context).orientation ==
-                            Orientation.landscape)
+                    crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape)
                         ? 4
                         : 2,
                     physics: const NeverScrollableScrollPhysics(),
@@ -136,15 +120,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     children: getListofRadioButtons(SpecificationIDs.appearance),
                   ),
 
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-
-                  //الاطفال
+                  SizedBox(height: 1.5.h,),
                   Text("الاطفال", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-
-                  SizedBox( height: 1.5.h,),
-
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -157,13 +134,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     children: getListofRadioButtons(SpecificationIDs.have_children)
                     ),
 
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-
-                  Text("الموهل العلمي", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(height: 1.5.h,),
-
+                  Text("الموهل العلمي", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -177,10 +149,7 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                   ),
 
                   SizedBox(height: 1.5.h,),
-
                   Text("الاسم ينتهي ب ", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox( height: 1.5.h,),
-
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -193,13 +162,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     children: getListofRadioButtons(SpecificationIDs.name_end_with)
                   ),
 
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-
-                  Text("الوظيفة", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   SizedBox(height: 1.5.h,),
-
+                  Text("الوظيفة", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -214,10 +178,7 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
 
                   
                   SizedBox(height: 1.5.h,),
-                  
                   Text("لون البشرة", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox(height: 1.5.h,),
-
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -230,13 +191,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     children: getListofRadioButtons(SpecificationIDs.skin_colour)
                   ),
 
-                  if (genderIndex != null)
-                    SizedBox(height: 1.5.h,),
-
-                  //الحالة الصحية
+                  SizedBox(height: 1.5.h,),
                   Text("الحالة الصحية", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox(height: 1.5.h, ),
-
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: (MediaQuery.of(context).orientation ==
@@ -249,12 +205,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     children: getListofRadioButtons(SpecificationIDs.health_status)
                   ),
 
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-
+                  SizedBox(height: 1.5.h,),
                   Text("الطول", style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox(height: 1.5.h, ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -273,9 +225,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                             },
                             label: "الحد الادني للطول"),
                       ),
-                      SizedBox(
-                        width: 6.w,
-                      ),
+
+                      SizedBox(width: 6.w,),
                       Container(
                         width: 44.w,
                         child: defaultTextFormField(
@@ -293,16 +244,10 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
 
-                  //الوزن
+                  SizedBox(height: 1.5.h,),
                   Text("الوزن",
                       style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -321,9 +266,7 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                             },
                             label: "الحد الادني للوزن"),
                       ),
-                      SizedBox(
-                        width: 6.w,
-                      ),
+                      SizedBox(width: 6.w,),
                       Container(
                         width: 44.w,
                         child: defaultTextFormField(
@@ -341,15 +284,10 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
 
+                  SizedBox(height: 1.5.h,),
                   Text("العمر",
                       style: TextStyle(color: BLACK, fontSize: 12.3.sp)),
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: 
@@ -370,10 +308,7 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                             label: "الحد الادني للعمر"),
                       ),
 
-                      SizedBox(
-                        width: 6.w,
-                      ),
-
+                      SizedBox(width: 6.w,),
                       Container(
                         width: 44.w,
                         child: defaultTextFormField(
@@ -392,14 +327,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     ],
                   ),
 
-                  SizedBox(
-                    height: 1.5.h,
-                  ),
-
-                  Text("نوع الزواج", style: TextStyle(color: BLACK, fontSize: 11.sp),
-                  ),
-                  SizedBox(height: 1.h,),
-                  
+                  SizedBox(height: 1.5.h,),
+                  Text("نوع الزواج", style: TextStyle(color: BLACK, fontSize: 11.sp),),
                   GridView.count(
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(0),
@@ -412,16 +341,12 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                     children: getListofRadioButtons(SpecificationIDs.marriage_Type)
                   ),
 
-                  SizedBox(
-                    height: 3.5.h,
-                  ),
-
+                  SizedBox(height: 3.5.h,),
                   doubleInfinityMaterialButton(
                       text: "بحث",
-                      onPressed: () { searchOnPressed(context);}),
+                      onPressed: () { searchOnPressed(context); }),
 
                   SizedBox(height: 1.5.h,),
-
                   doubleInfinityMaterialButton(
                       text: "مسح",
                       onPressed: () { clearAll(context); }),
@@ -462,6 +387,8 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
             .firstWhere((s) => s.specId == specId,
             orElse: () => SubSpecification(0, null, 0, null)).value;
   }
+
+
   void searchOnPressed(BuildContext context) 
   {
       Map query = {
@@ -487,9 +414,20 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
       };
 
       SearchCubit.get(context).searchResult.clear();
-      SearchCubit.get(context).isSearchByTextOnly = false;
+      // SearchCubit.get(context).isSearchByTextOnly = false;
       SearchCubit.get(context).query = query;
+
+    if (SearchCubit.get(context).query.isNotEmpty) {
       SearchCubit.get(context).searchByFilter();
+    }
+    else if (SearchCubit.get(context).searchText.isNotEmpty) {
+      String s = SearchCubit.get(context).searchText;
+      SearchCubit.get(context).searchByText(text: s);
+    } else {
+      showToast(msg: "من فضلك اكتب اي كلمة بحثية", state: ToastStates.SUCCESS);
+    }
+
+      // SearchCubit.get(context).searchByFilter();
 
   }
 
