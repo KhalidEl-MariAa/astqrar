@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "458193872335",
-    "project_id": "astqrar65",
-    "storage_bucket": "astqrar65.appspot.com"
+    "project_number": "1073276999902",
+    "project_id": "astqrar64",
+    "storage_bucket": "astqrar64.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:458193872335:android:14499751ed36c9823bdeba",
+        "mobilesdk_app_id": "1:1073276999902:android:fadab56685ba6b33568a4f",
         "android_client_info": {
           "package_name": "com.astqrar.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "458193872335-utesjdoa315472ro2lmo0t1d40ub4480.apps.googleusercontent.com",
+          "client_id": "1073276999902-1b01l95robngjj0u664q5jmsc5ameko7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB7usHblSxEooxPFyFQN40S42LSJzVGBNE"
+          "current_key": "AIzaSyBGqsO-7nZSLcVE6ivyM1mxe1wsaj4fM2c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "458193872335-utesjdoa315472ro2lmo0t1d40ub4480.apps.googleusercontent.com",
+              "client_id": "1073276999902-1b01l95robngjj0u664q5jmsc5ameko7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

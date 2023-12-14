@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:astarar/modules/user_details/cubit/cubit.dart';
-import 'package:astarar/modules/user_details/user_details.dart';
-import 'package:astarar/shared/components/components.dart';
+import 'modules/user_details/cubit/cubit.dart';
+import 'modules/user_details/user_details.dart';
+import 'shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 

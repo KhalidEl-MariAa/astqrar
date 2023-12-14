@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:upgrader/upgrader.dart';
-
-import 'modules/splash/cubit/splash_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+import 'package:upgrader/upgrader.dart';
 
+import 'bloc_observer.dart';
 import 'constants.dart';
 import 'modules/ads/cubit/cubit.dart';
 import 'modules/home/2_home_tab/cubit/cubit.dart';
@@ -18,9 +17,9 @@ import 'modules/packages/cubit/cubit.dart';
 import 'modules/payment/cubit/cubit.dart';
 import 'modules/search/cubit/cubit.dart';
 import 'modules/section_men_women/cubit/cubit.dart';
+import 'modules/splash/cubit/splash_cubit.dart';
 import 'modules/splash/splash.dart';
 import 'modules/user_details/cubit/cubit.dart';
-import 'bloc_observer.dart';
 
 
 class MyHttpOverrides extends HttpOverrides 

@@ -1,7 +1,7 @@
-import 'package:astarar/constants.dart';
-import 'package:astarar/end_points.dart';
-import 'package:astarar/shared/components/components.dart';
-import 'package:astarar/shared/network/remote.dart';
+import 'constants.dart';
+import 'end_points.dart';
+import 'shared/components/components.dart';
+import 'shared/network/remote.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 

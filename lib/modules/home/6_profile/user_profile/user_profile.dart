@@ -1,8 +1,3 @@
-import 'package:astarar/shared/components/defaultTextFormField.dart';
-import 'package:astarar/shared/components/double_infinity_material_button.dart';
-
-import '../../../../constants.dart';
-import '../../../../models/country.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,16 +5,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../constants.dart';
+import '../../../../models/country.dart';
 import '../../../../models/user.dart';
 import '../../../../shared/components/components.dart';
+import '../../../../shared/components/defaultTextFormField.dart';
+import '../../../../shared/components/double_infinity_material_button.dart';
 import '../../../../shared/components/loading_gif.dart';
 import '../../../../shared/components/logo/normal_logo.dart';
 import '../../../../shared/components/radiobuttonregister.dart';
 import '../../../../shared/styles/colors.dart';
-import '../change_password/change_password.dart';
-import '../change_profile_img/change_profile_img.dart';
 import '../../layout/cubit/cubit.dart';
 import '../../layout/layout.dart';
+import '../change_password/change_password.dart';
+import '../change_profile_img/change_profile_img.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 

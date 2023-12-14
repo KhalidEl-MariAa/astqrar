@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:astarar/models/get_notifications.dart';
-import 'package:astarar/shared/components/components.dart';
+import '../../../models/get_notifications.dart';
+import '../../../shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 

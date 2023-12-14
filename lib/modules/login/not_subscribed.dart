@@ -1,8 +1,8 @@
-import 'package:astarar/modules/home/4_more/5_account/account.dart';
-import 'package:astarar/modules/login/login.dart';
-import 'package:astarar/shared/components/double_infinity_material_button.dart';
-import 'package:astarar/shared/styles/colors.dart';
-import 'package:astarar/utils.dart';
+import '../home/4_more/5_account/account.dart';
+import 'login.dart';
+import '../../shared/components/double_infinity_material_button.dart';
+import '../../shared/styles/colors.dart';
+import '../../utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';

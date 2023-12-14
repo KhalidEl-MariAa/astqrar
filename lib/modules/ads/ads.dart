@@ -1,6 +1,6 @@
-import 'package:astarar/modules/home/2_home_tab/cubit/cubit.dart';
-import 'package:astarar/modules/home/2_home_tab/home_tab.dart';
-import 'package:astarar/modules/home/layout/layout.dart';
+import '../home/2_home_tab/cubit/cubit.dart';
+import '../home/2_home_tab/home_tab.dart';
+import '../home/layout/layout.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,5 +1,4 @@
 
-import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
@@ -7,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 import '../styles/colors.dart';
+import 'components.dart';
 
 class CustomDialog extends StatelessWidget {
   final String text;

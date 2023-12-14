@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:astarar/firebase_options.dart';
-import 'package:astarar/modules/home/6_profile/user_profile/user_profile.dart';
-import 'package:astarar/shared/components/components.dart';
+import '../../../firebase_options.dart';
+import '../6_profile/user_profile/user_profile.dart';
+import '../../../shared/components/components.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

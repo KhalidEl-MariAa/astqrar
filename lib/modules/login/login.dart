@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:astarar/modules/home/6_profile/user_profile/user_profile.dart';
-import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
-import 'package:astarar/notification.dart';
-import 'package:astarar/shared/components/defaultTextFormField.dart';
-import 'package:astarar/shared/components/double_infinity_material_button.dart';
-import 'package:astarar/shared/network/remote.dart';
+import '../home/6_profile/user_profile/user_profile.dart';
+import '../splash/cubit/splash_cubit.dart';
+import '../../notification.dart';
+import '../../shared/components/defaultTextFormField.dart';
+import '../../shared/components/double_infinity_material_button.dart';
+import '../../shared/network/remote.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

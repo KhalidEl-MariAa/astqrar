@@ -1,4 +1,4 @@
-import 'package:astarar/shared/components/double_infinity_material_button.dart';
+import 'double_infinity_material_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';

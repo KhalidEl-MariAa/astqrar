@@ -1,16 +1,13 @@
 import 'dart:developer';
 
-import 'package:astarar/models/server_response_model.dart';
-import 'package:astarar/modules/home/6_profile/user_profile/user_profile.dart';
-import 'package:astarar/modules/login/not_subscribed.dart';
+import '../../models/server_response_model.dart';
+import '../home/6_profile/user_profile/user_profile.dart';
+import '../login/not_subscribed.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../end_points.dart';
-import '../../notification.dart';
 import 'cubit/splash_cubit.dart';
-import 'package:firebase_core/firebase_core.dart';
-import '../../firebase_options.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,7 +73,7 @@ class _SplashState extends State<Splash>
 
     setState(() { loading_desc = "Connecting to Firebase Messaging..."; });
 
-    WidgetsFlutterBinding.ensureInitialized();
+    // WidgetsFlutterBinding.ensureInitialized();
 
     // await Firebase.initializeApp(
     //   // name: /* DON'T USE IT WITH DEFAULT OPTIONS */

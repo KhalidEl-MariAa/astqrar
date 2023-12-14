@@ -1,15 +1,15 @@
 import 'dart:developer';
 
-import '../../../models/server_response_model.dart';
-import '../../home/layout/cubit/cubit.dart';
-import 'states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';
 import '../../../end_points.dart';
+import '../../../models/server_response_model.dart';
 import '../../../models/user.dart';
 import '../../../shared/network/remote.dart';
+import '../../home/layout/cubit/cubit.dart';
 import '../section_men_women.dart';
+import 'states.dart';
 
 class MenWomenCubit extends Cubit<MenWomenStates> 
 {

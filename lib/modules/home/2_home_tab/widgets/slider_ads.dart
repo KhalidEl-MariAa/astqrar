@@ -1,17 +1,16 @@
 
 
-import 'package:astarar/shared/components/components.dart';
-
-import '../../layout/cubit/cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../constants.dart';
+import '../../../../shared/components/components.dart';
 import '../../../../shared/styles/colors.dart';
 import '../../../user_details/cubit/cubit.dart';
 import '../../../user_details/user_details.dart';
+import '../../layout/cubit/cubit.dart';
 import '../cubit/cubit.dart';
 
 class SliderAds extends StatelessWidget 

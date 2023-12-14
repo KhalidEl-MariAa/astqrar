@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:astarar/models/get_notifications.dart';
-import 'package:astarar/utils.dart';
+import '../../../models/get_notifications.dart';
+import '../../../utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../constants.dart';

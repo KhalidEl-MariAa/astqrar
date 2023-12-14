@@ -2,15 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 
-import 'package:astarar/modules/user_details/cubit/cubit.dart';
-import 'package:astarar/modules/user_details/user_details.dart';
-import 'package:astarar/notification.dart';
-import 'package:astarar/shared/components/components.dart';
+import '../../user_details/user_details.dart';
+import '../../../notification.dart';
+import '../../../shared/components/components.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/widgets.dart';
 import '../../../constants.dart';
 import '../../../firebase_options.dart';
 import '../../../shared/network/local.dart';
@@ -29,11 +27,15 @@ class SplashCubit extends Cubit<SplashState>
   {
     //FirebaseMessaging.instance.subscribeToTopic("all"); 
 
+    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
-      // name: /* DON'T USE IT WITH DEFAULT OPTIONS */
+      // name: "astqrar65", /* DON'T USE IT WITH DEFAULT OPTIONS */
       options: DefaultFirebaseOptions.currentPlatform,
     ).then((value){
       log('Firebase initialized ${value.toString()}' );
+    })
+    .catchError( (err) {
+      log('Firebase initialization ERROR ${err.toString()}' );
     })
     .whenComplete(() {
       log('Firebase completed ..................................');
@@ -82,9 +84,6 @@ class SplashCubit extends Cubit<SplashState>
       badge: true,
       sound: true,
     );
-
-
-
 
     // listen to any Notification Arrived
     FirebaseMessaging
@@ -146,7 +145,6 @@ class SplashCubit extends Cubit<SplashState>
 // Must be outside of the class and same name.
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async 
 {
-    // await Firebase.initializeApp();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

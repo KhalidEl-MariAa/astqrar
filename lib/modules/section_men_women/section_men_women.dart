@@ -1,7 +1,7 @@
 
 import 'dart:developer';
 
-import 'package:astarar/shared/components/components.dart';
+import '../../shared/components/components.dart';
 
 import '../user_details/cubit/cubit.dart';
 import '../user_details/user_details.dart';

@@ -1,6 +1,6 @@
 
 
-import 'package:astarar/constants.dart';
+import '../constants.dart';
 
 class Message 
 {

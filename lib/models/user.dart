@@ -1,4 +1,4 @@
-import 'package:astarar/models/device.dart';
+import 'device.dart';
 
 import '../modules/home/layout/cubit/cubit.dart';
 import 'package:path/path.dart' as p;

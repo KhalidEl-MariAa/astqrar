@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:astarar/shared/components/defaultTextFormField.dart';
-import 'package:astarar/shared/components/double_infinity_material_button.dart';
+import '../../shared/components/defaultTextFormField.dart';
+import '../../shared/components/double_infinity_material_button.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

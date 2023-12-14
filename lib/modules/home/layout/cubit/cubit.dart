@@ -77,9 +77,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
       url: GET_PHONE_NUMBER, 
       data: {})
     .then((value) {
-      // log(value.toString());
-      MOBILE_PHONE = value.data['mobilePhone'];
-      log("phoneeeee : " + MOBILE_PHONE.toString());
+      ADMIN_MOBILE_PHONE = value.data['mobilePhone'];
       emit(GetPhoneSuccessState());
     }).catchError((error) {
       // log(error.toString());

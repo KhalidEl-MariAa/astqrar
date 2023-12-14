@@ -1,21 +1,20 @@
 import 'dart:developer';
 
-import 'package:google_fonts/google_fonts.dart';
-
-import '../../models/user_other.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/user_other.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/loading_gif.dart';
-import 'details_widget.dart';
 import '../../shared/styles/colors.dart';
 import '../home/4_more/3_contact_us/contact_us.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
+import 'details_widget.dart';
 
 class UserDetailsScreen extends StatefulWidget 
 {

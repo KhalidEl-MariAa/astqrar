@@ -1,23 +1,22 @@
 
-import 'package:astarar/modules/user_details/image_viewer.dart';
-import 'package:astarar/utils.dart';
-
-import '../home/layout/cubit/cubit.dart';
-import '../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants.dart';
-import '../../models/user_other.dart';
 import '../../models/user.dart';
-import '../chatt/chatt.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
+import '../../models/user_other.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/dialog_please_login.dart';
+import '../../shared/styles/colors.dart';
+import '../../utils.dart';
+import '../chatt/chatt.dart';
+import '../home/layout/cubit/cubit.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 import 'details_item.dart';
+import 'image_viewer.dart';
 
 class DetailsWidget extends StatefulWidget 
 {

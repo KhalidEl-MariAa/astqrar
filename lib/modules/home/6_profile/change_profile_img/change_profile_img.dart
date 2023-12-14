@@ -1,8 +1,8 @@
 
-import 'package:astarar/constants.dart';
-import 'package:astarar/models/user.dart';
-import 'package:astarar/shared/components/double_infinity_material_button.dart';
-import 'package:astarar/shared/styles/colors.dart';
+import '../../../../constants.dart';
+import '../../../../models/user.dart';
+import '../../../../shared/components/double_infinity_material_button.dart';
+import '../../../../shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

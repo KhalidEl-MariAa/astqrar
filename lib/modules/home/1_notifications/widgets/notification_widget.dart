@@ -1,4 +1,3 @@
-import 'package:astarar/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -6,11 +5,10 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../models/get_notifications.dart';
 import '../../../../models/user.dart';
+import '../../../../shared/components/components.dart';
 import '../../../../shared/styles/colors.dart';
 import '../../../user_details/cubit/cubit.dart';
 import '../../../user_details/user_details.dart';
-import '../cubit/cubit.dart';
-import 'status_button.dart';
 
 class NotificationWiget extends StatelessWidget 
 {

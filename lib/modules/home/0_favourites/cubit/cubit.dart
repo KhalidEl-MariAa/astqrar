@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/shared/components/components.dart';
+import '../../../../shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';

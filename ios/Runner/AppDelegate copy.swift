@@ -19,7 +19,7 @@ import FirebaseMessaging
     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
     {
       Messaging.messaging().apnsToken = deviceToken;
-      print("Device TOKENNNN: \(deviceToken)")
+      print("Device TOKEN NNN: \(deviceToken)")
       super.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
     }
 }

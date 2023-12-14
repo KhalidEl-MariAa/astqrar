@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:astarar/modules/home/4_more/5_account/account.dart';
+import '5_account/account.dart';
 
 import '4_about_version/about_version.dart';
 import 'package:flutter/cupertino.dart';

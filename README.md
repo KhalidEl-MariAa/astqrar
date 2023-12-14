@@ -116,7 +116,9 @@ $ npm install -g firebase-tools
 $ firebase --version
 
 # login to your Gmail account that contains the Firebase project and authorize it.
-$ firebase login
+$ firebase login 
+# login to another user
+$ firebase login --reauth
 
 $ cd Downloads/Dating/astqrar/
 
@@ -129,53 +131,24 @@ $  dart pub global activate flutterfire_cli
 # Add it to PATH
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-# This will creates the 'firebase_options.dart' in your Flutter project
-$ flutterfire configure --project=astqrar-b5dbd
+# This will creates the 'firebase_options.dart' in your Flutter project.
+# This will creates 2 Apps (Android & iOS) in your Firebase Console.
+$ flutterfire configure --project=astqrar64
+
+$ flutter clean
+$ flutter build
 ```
 
 6. in flutter initialize the firebase object like this
 ```dart
+
 WidgetsFlutterBinding.ensureInitialized();
 
 await Firebase.initializeApp(
-  name: "astqrar", //project name in Firebase Console
+  //project name in Firebase Console
+  name: "astqrar", /* DON'T USE IT WITH DEFAULT OPTIONS */
   options: DefaultFirebaseOptions.currentPlatform,
 );
 
 ```
 
-
-التحديث الجديد
-
-1-اضافة صور شخصيه ✅
--  امكانية عرض الصورة في صفحة خاصة مع امكانية التكبير والتصغير باستخدام اصبعين ✅
-
-2- تعديل الوقت الزمني لملف العملاء من اسبوعين الى مفتوح ع طول( يصير معاد يختفي ملف العميل يكون موجود حتى لو اخر ظهور قبل سنتين ) ✅
-
-3- تعديل الرسائل لان اخر الرسائل تكون في اخر القائمة ✅
-
-4- وضع علامة وصول رساله جديدة بالرسائل مثل الواتس. ✅
-- بمجرد الدخول الى الرسائل الجديدة سيتم تعديل رقم العلامة الى صفر
-
-
-5- الدخول على الرسائل كذلك عن طريق الاشعار. 
-
- 6- مشكلة تحديد الجنس كثير نساء احصلهم في قسم رجال ( لو يكون فيه خيار ضمن الملف الشخصي يكون افضل ) ✅
-
-7- نحذف رقم الهويه ونعتمد رقم الجوال في التسجيل ✅
-- سيتم ارسال كود التفعيل عن طريق الاشعارات ✅
-- ملاحظة: المفروض يكون لكل حساب رقم جوال غير مكرر، ولكن حاليا لدينا مستخدمين الذين لديهم حسابين بنفس رقم الجوال ولذلك سيكون واحد برقم جواله الحالي والحساب الاخر رقم جواله يكون هو نفسه رقم هويته ✅
-
-8- ملف تعريف العملاء يكون اجباري الاختيار .
-
-9- خانة الشروط تلغى الأرقام ( العربيه او الانجليزيه ) ✅
-
-10- توجد مشكله في قيمة المهر ( كما في الصوره اعلاه ) ✅
-  
-11- توجد مشكله في نبذه في مظهرك (كما في الصوره اعلاه ) ✅
-
-12- مشكلة اشعار العملاء في حال نشر ملف.
-
-13- مشكلة اشعار الاداره لايوصل اشعار الا داخل التطبيق سابقا يوجد اشعار خارج التطبيق ك تنويه بتحديث جديد او عروض وهكذا .
-
-14- حذف الاشعارات مثل حذف المحادثات ✅

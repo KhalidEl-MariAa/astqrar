@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io' as io;
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,6 @@ import '../../../../../models/server_response_model.dart';
 import '../../../../../models/user.dart';
 import '../../../../../shared/network/remote.dart';
 import 'states.dart';
-import 'dart:io' as io;
 
 class ChangeProfileImageCubit extends Cubit<ChangeProfileImgStates> 
 {

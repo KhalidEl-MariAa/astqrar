@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:astarar/models/server_response_model.dart';
+import '../../../models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/pakage.dart';
 import '../../../end_points.dart';

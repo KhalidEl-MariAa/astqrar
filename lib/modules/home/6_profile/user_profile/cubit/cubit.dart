@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:astarar/models/server_response_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../constants.dart';
 import '../../../../../end_points.dart';
+import '../../../../../models/server_response_model.dart';
 import '../../../../../models/user.dart';
 import '../../../../../shared/network/local.dart';
 import '../../../../../shared/network/remote.dart';
@@ -95,17 +95,21 @@ class UserProfileCubit extends Cubit<UserProfileStates>
 
       updatedUser = User.fromJson(res.data);
 
-
       CacheHelper.saveData(key: "name", value: updatedUser.user_Name);
       CacheHelper.saveData(key: "age", value: updatedUser.age.toString());
       CacheHelper.saveData(key: "email", value: updatedUser.email);
       CacheHelper.saveData(key: "profileIsCompleted", value: updatedUser.ProfileIsCompleted);
+      CacheHelper.saveData(key: "gender", value: updatedUser.gender);
+      CacheHelper.saveData(key: "phone", value: updatedUser.phone);
+      CacheHelper.saveData(key: "imgProfile", value: updatedUser.imgProfile);
 
-      //TODO: needs review
       NAME = CacheHelper.getData(key: "name");
       AGE = CacheHelper.getData(key: "age");
       EMAIL = CacheHelper.getData(key: "email");
       PROFILE_IS_COMPLETED = CacheHelper.getData(key: "profileIsCompleted");
+      GENDER_USER = CacheHelper.getData(key: "gender");
+      PHONE = CacheHelper.getData(key: "phone");
+      IMG_PROFILE = CacheHelper.getData(key: "imgProfile");
 
       emit(UpdateUserDataSucccessState(updatedUser));
     }).catchError((error) {
