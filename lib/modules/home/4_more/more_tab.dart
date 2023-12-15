@@ -17,7 +17,6 @@ import '../../../shared/components/logo/normal_logo.dart';
 import '../../../shared/styles/colors.dart';
 import '../../login/login.dart';
 import '../6_profile/user_profile/user_profile.dart';
-import '1_about/about.dart';
 import '2_terms/terms.dart';
 import '3_contact_us/contact_us.dart';
 import 'cubit/cubit.dart';

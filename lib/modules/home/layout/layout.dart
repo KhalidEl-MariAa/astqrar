@@ -1,16 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import '../../../firebase_options.dart';
-import '../6_profile/user_profile/user_profile.dart';
-import '../../../shared/components/components.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../notification.dart';
 import '../../../shared/components/dialog_please_login.dart';
 import '../../../constants.dart';

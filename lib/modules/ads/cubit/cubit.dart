@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../constants.dart';
 import '../../../end_points.dart';
 import '../../../models/ad.dart';
 import '../../../models/server_response_model.dart';
