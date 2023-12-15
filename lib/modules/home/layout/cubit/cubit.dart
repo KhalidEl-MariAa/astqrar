@@ -39,10 +39,13 @@ class LayoutCubit extends Cubit<LayoutStates> {
       emit(GetSpecificationsErrorState(error.toString()));
     });
 
-    await DioHelper.getData(url: "api/v2/Specifications/all").then((res) {
+    await DioHelper
+    .getData(url: "api/v2/Specifications/all")
+    .then((res) {
       // fill AppCubit.Specifications object
       LayoutCubit.Specifications = {};
-      res.data['specs'].forEach((spec) {
+      res.data['specs'].forEach((spec) 
+      {
         int key = spec['id'];
         LayoutCubit.Specifications[key] = spec;
         Map subspecs = {};
@@ -50,10 +53,11 @@ class LayoutCubit extends Cubit<LayoutStates> {
         // log(spec['subSpecifications'].toString());
         spec['subSpecifications']
             .where((subspec) => subspec["isActive"] == true)
-            .forEach((subspec) {
-          int key = subspec['id'];
-          subspecs[key] = subspec;
-        });
+            .forEach((subspec) 
+            {
+              int key = subspec['id'];
+              subspecs[key] = subspec;
+            });
         spec['subSpecifications'] = subspecs;
       });
 

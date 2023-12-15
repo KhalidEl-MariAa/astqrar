@@ -71,8 +71,8 @@ class AdsAndPackages extends StatelessWidget
                           padding: EdgeInsets.symmetric(horizontal: 2.w),
                           child: Text(
                             isPackages
-                                ? '${packages[index].description}'
-                                : '${packages[index].descriptionAr + " , " + packages[index].nameAr}',
+                                ? packages[index].description??"" 
+                                : packages[index].descriptionAr??"" + " , " + packages[index].nameAr??"",
                             textAlign: TextAlign.center,
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,

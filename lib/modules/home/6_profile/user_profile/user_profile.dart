@@ -841,20 +841,24 @@ class UserProfileScreenState extends State<UserProfileScreen> {
     UserProfileCubit.get(context).updateUserData(this.current_user);
   } //edn confirmPress
 
-  List<Widget> getListofRadioButtons(int specificationId) {
+  List<Widget> getListofRadioButtons(int specificationId) 
+  {
     var Spec = LayoutCubit.Specifications[specificationId];
 
     if (Spec == null) return [Text("No Elements")];
 
     List<Widget> radios = [];
-    Spec["subSpecifications"].forEach((sub_id, sub) {
+    
+    Spec["subSpecifications"]
+    .forEach((sub_id, sub) 
+    {     
       SubSpecification found_or_created;
       found_or_created = this.current_user.subSpecifications.firstWhere(
-          (user_sub) => user_sub.specId == sub["specificationId"], orElse: () {
-        var new_sub =
-            new SubSpecification(0, sub["nameAr"], Spec["id"], Spec["nameAr"]);
-        return new_sub;
-      });
+          (user_sub) => user_sub.specId == sub["specificationId"] , 
+          orElse: () {
+            var new_sub = new SubSpecification(0, sub["nameAr"], Spec["id"], Spec["nameAr"]);
+            return new_sub;
+          });
 
       radios.add(
         WhiteRadioButton(

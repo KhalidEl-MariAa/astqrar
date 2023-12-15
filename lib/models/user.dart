@@ -157,6 +157,7 @@ class SubSpecification {
   int? specId;
   String? name;
   String? nameEn;
+  bool? isActive = true;
 
   SubSpecification(this.id, this.value, this.specId, this.name);
 
@@ -166,6 +167,7 @@ class SubSpecification {
 
     name = json['name']; //specification name, e.g لون الشعر
     nameEn = json['nameEn']; //specification name English, e.g Hair color
+    isActive = json['isActive'];
 
     specId = json['specificationId'];
   }

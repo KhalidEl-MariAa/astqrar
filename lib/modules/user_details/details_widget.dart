@@ -41,6 +41,8 @@ class _DetailsWidgetState extends State<DetailsWidget> {
       // padding: EdgeInsetsDirectional.only(top: 1.h),
       children: [
 
+        SizedBox(height: 1.h,),
+
         if(!widget.otherUser.IsActive!)
           Center(            
             child: Text("غير مشترك",  
