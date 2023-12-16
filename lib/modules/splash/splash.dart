@@ -58,7 +58,6 @@ class _SplashState extends State<Splash>
 
     TOKEN = CacheHelper.getData(key: "token");
     DEVICE_TOKEN = CacheHelper.getData(key: "deviceToken");
-    TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
     ID = CacheHelper.getData(key: "id");
     NAME = CacheHelper.getData(key: "name");
     AGE = CacheHelper.getData(key: "age");

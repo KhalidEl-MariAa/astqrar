@@ -11,14 +11,14 @@ class UserItemWidget extends StatelessWidget
 {
   final Function onclickUser;
   final Function removeUser;
-  final bool visibileRemoveIcon;
+  final bool showRemoveIcon;
   final User otherUser;
   
   UserItemWidget({
       required this.otherUser,
       required this.onclickUser,
       required this.removeUser,
-      required this.visibileRemoveIcon,
+      required this.showRemoveIcon,
   });
 
   @override
@@ -69,7 +69,7 @@ class UserItemWidget extends StatelessWidget
                   )),
             ),
 
-            if(TYPE_OF_USER==2 && visibileRemoveIcon)     
+            if(this.showRemoveIcon)     
               Positioned(
                     top:1,
                     left: 0,

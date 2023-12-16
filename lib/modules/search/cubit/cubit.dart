@@ -13,7 +13,6 @@ class SearchCubit extends Cubit<SearchStates> {
   static SearchCubit get(context) => BlocProvider.of(context);
   
   List<User> searchResult = [];
-  bool isSearchByTextOnly = true;
   Map query = {};
   String searchText = "";
 

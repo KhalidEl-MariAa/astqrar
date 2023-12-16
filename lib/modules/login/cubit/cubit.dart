@@ -59,7 +59,6 @@ class LoginCubit extends Cubit<LoginStates> {
       CacheHelper.saveData(key: "name", value: loggedinUser.user_Name);
       CacheHelper.saveData(key: "phone", value: loggedinUser.phone);
       CacheHelper.saveData(key: "token", value: loggedinUser.Token);
-      CacheHelper.saveData(key: "typeUser", value: loggedinUser.typeUser);
       CacheHelper.saveData(key: "age", value: loggedinUser.age.toString());
       CacheHelper.saveData(key: "email", value: loggedinUser.email);
       CacheHelper.saveData(key: "gender", value: loggedinUser.gender);
@@ -70,7 +69,6 @@ class LoginCubit extends Cubit<LoginStates> {
 
       PHONE = CacheHelper.getData(key: "phone");
       TOKEN = CacheHelper.getData(key: "token");
-      TYPE_OF_USER = CacheHelper.getData(key: "typeUser");
       ID = CacheHelper.getData(key: "id");
       NAME = CacheHelper.getData(key: "name");
       AGE = CacheHelper.getData(key: "age");

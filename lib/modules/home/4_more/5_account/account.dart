@@ -65,12 +65,6 @@ class AccountScreen extends StatelessWidget
                     ),
 
                     _infoTile(
-                      "حالةالتفعيل", 
-                      auser.ActiveCode == true? "مفعل" : "معطل" ,
-                      color: (auser.ActiveCode == false)? Colors.red: BLACK_OPACITY
-                    ),
-
-                    _infoTile(
                       "عدد الأجهزة المسجلة", 
                       auser.deviceIds.length.toString() ,
                       color: (auser.deviceIds.length == 0)? Colors.red: BLACK_OPACITY

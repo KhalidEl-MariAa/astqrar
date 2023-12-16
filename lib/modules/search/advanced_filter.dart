@@ -349,7 +349,11 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
                   SizedBox(height: 1.5.h,),
                   doubleInfinityMaterialButton(
                       text: "مسح",
-                      onPressed: () { clearAll(context); }),
+                      onPressed: () 
+                      { 
+                        clearAll(context); 
+                        SearchCubit.get(context).query.clear();
+                      }),
 
                   SizedBox(height: 1.5.h,),
 
@@ -410,11 +414,10 @@ class _AdvancedFilterScreenState extends State<AdvancedFilterScreen>
         "maxAge": int.tryParse(maxAge.text)?? 0,        
         "TextSearch": widget.textSearch,
         "Typeofmarriage": findSubSpecValueBySpecId_OrEmptyStr(SpecificationIDs.marriage_Type),
-        "skipPos": SearchCubit.get(context).searchResult.length,
+        "skipPos": 0,
       };
 
       SearchCubit.get(context).searchResult.clear();
-      // SearchCubit.get(context).isSearchByTextOnly = false;
       SearchCubit.get(context).query = query;
 
     if (SearchCubit.get(context).query.isNotEmpty) {

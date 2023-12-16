@@ -299,12 +299,14 @@ class _ResultScreenState extends State<ResultScreen>
                               this.searchResult.clear();
                               SearchCubit.get(context).searchText = value??"";
                               // SearchCubit.get(context).isSearchByTextOnly = true;
+                              SearchCubit.get(context).query.clear();
                               start_searching(context);
                             },
                             suffixPressed: () {
                               this.searchResult.clear();
                               SearchCubit.get(context).searchText = searchTextController.text;
                               // SearchCubit.get(context).isSearchByTextOnly = true;
+                              SearchCubit.get(context).query.clear();
                               start_searching(context);
                             },
                             onchange: (value) {},
@@ -360,7 +362,8 @@ class _ResultScreenState extends State<ResultScreen>
                                       style: GoogleFonts.almarai(
                                           fontSize: 15.5.sp, color: PRIMARY)),
                                   onTap: () {
-                                    _refreshIndicatorKey.currentState?.show();
+                                    // _refreshIndicatorKey.currentState?.show();
+                                    start_searching(context);
                                   },
                                 ),
                               ),
@@ -381,7 +384,7 @@ class _ResultScreenState extends State<ResultScreen>
 
   UserItemWidget user_item_thmbnail(BuildContext context, int index) {
     return UserItemWidget(
-      visibileRemoveIcon: false,
+      showRemoveIcon: false,
       removeUser: () {},
       onclickUser: () {
         if (IS_LOGIN) {
@@ -415,6 +418,7 @@ class _ResultScreenState extends State<ResultScreen>
   void start_searching(BuildContext context) 
   {
     if (SearchCubit.get(context).query.isNotEmpty) {
+      SearchCubit.get(context).query["skipPos"] = SearchCubit.get(context).searchResult.length;
       SearchCubit.get(context).searchByFilter();
     }
     else if (searchTextController.text.isNotEmpty) {

@@ -316,7 +316,7 @@ class SectionMenOrWomen extends StatelessWidget
                                 (index) {
                                   return Center(
                                       child: UserItemWidget(
-                                          visibileRemoveIcon: false,
+                                          showRemoveIcon: false,
                                           removeUser: () {},
                                           onclickUser: () { onClickUserItem(context, index); },
                                           otherUser: MenWomenCubit.get(context).users[index],

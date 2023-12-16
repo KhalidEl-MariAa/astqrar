@@ -7,7 +7,6 @@ String? EMAIL;
 int? GENDER_USER;
 String? DEVICE_TOKEN; //got by Firebase messaging
 String? PHONE;
-int? TYPE_OF_USER;
 String? IMG_PROFILE;
 
 bool IS_LOGIN = true;
