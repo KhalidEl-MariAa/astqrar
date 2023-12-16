@@ -61,7 +61,6 @@ class NotificationWiget extends StatelessWidget
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(35),
                     image: DecorationImage(
-                        opacity: this.user.IsActive! ? 1.0 : 0.5,
                         image: 
                           this.note.notificationType == 10 ? 
                             AssetImage("assets/icon.png")

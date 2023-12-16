@@ -10,11 +10,6 @@ import '../../modules/user_details/user_details.dart';
 
 class FavouriteItem extends StatelessWidget 
 {
-  // final String otherId;
-  // final String name;
-  // final int gender;
-  // final String imgProfile;
-  // bool? isActive = true; 
   final Widget widget;
   final Function onClicked;
   final User contactor;
@@ -56,22 +51,13 @@ class FavouriteItem extends StatelessWidget
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            opacity: this.contactor.IsActive??true ? 1.0 : 0.5,
+                            opacity: this.contactor.IsExpired??true ? 0.5 : 1.0,
                             image: getUserImageByPath(
                               imgProfilePath: this.contactor.imgProfile??"",
                               gender:  this.contactor.gender??0)
                       )),
                     ),
 
-                    // DecorationImage(
-                    //   opacity: IS_ACTIVE ? 1.0 : 0.5,
-                    //   image:                     Image(                      
-                    //   width: 14.w, height: 14.h,
-                    //   image: getUserImageByPath(                        
-                    //     imgProfilePath:  this.imgProfile,  
-                    //     gender: this.gender),
-                    // )
-                    // ),
                 ),
 
                 SizedBox( width: 3.w, ),

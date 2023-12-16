@@ -237,6 +237,10 @@ class ConversationScreenState extends State<ConversationScreen>
 
                 messagecontroller.clear();
             }
+            else if( state is SendMessageByOtherSuccessState)
+            {
+              messagecontroller.clear();
+            }
           },
           builder: (context, state) => Directionality(
             textDirection: TextDirection.rtl,
@@ -277,7 +281,7 @@ class ConversationScreenState extends State<ConversationScreen>
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                opacity: widget.otherUser?.IsActive??false ? 1.0 : 0.5,
+                                opacity: this.widget.otherUser?.IsExpired??true ? 0.5 : 1.0,
                                 image: getUserImage(widget.otherUser)
                                 // image: AssetImage(femaleImage)
                           )),
@@ -438,7 +442,7 @@ class ConversationScreenState extends State<ConversationScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                          opacity: this.widget.otherUser!.IsActive! ? 1.0 : 0.5,
+                                          opacity: this.widget.otherUser!.IsExpired! ? 0.5 : 1.5,
                                           image: getUserImage(this.widget.otherUser)
                                         )
                                     ),
@@ -533,11 +537,17 @@ class ConversationScreenState extends State<ConversationScreen>
                             onTap: ()  
                             {
                               if( messagecontroller.text.trim().isEmpty ) return;
+
                               if (widget.otherUser!.isBlockedByMe || widget.otherUser!.heBlockedMe) {
                                 showToast(
                                     msg: "قام أحد الطرفين بحظر الطرف الاخر", 
                                     state: ToastStates.ERROR);
                                 return;
+                              }
+                              
+                              if (widget.otherUser!.IsActive! == false) {
+                                ConversationCubit.get(context)
+                                  .send_a_message(this.hub, ID!, "أنا غير مشترك ولا يمكنني استلام رسالتك أو الرد عليك حالياً" , senderId: widget.otherId);
                               }
                               ConversationCubit.get(context)
                                 .send_a_message(this.hub, widget.otherUser!.id!, messagecontroller.text);

@@ -3,6 +3,8 @@ import 'dart:developer';
 
 
 import 'package:astarar/models/get_notifications.dart';
+import 'package:astarar/modules/home/2_home_tab/cubit/cubit.dart';
+import 'package:astarar/modules/home/layout/cubit/cubit.dart';
 
 import '../../user_details/user_details.dart';
 import '../../../notification.dart';
@@ -94,7 +96,7 @@ class SplashCubit extends Cubit<SplashState>
       {
         log('Notification Arrived !!!!!!!!!'+ message.toString());
         
-        _firebaseMessagingHandler( message );
+        _firebaseMessagingHandler( message, context );
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
 
@@ -159,7 +161,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async
 }
 
 // Must be outside of the class and same name.
-Future<void> _firebaseMessagingHandler(RemoteMessage message) async 
+Future<void> _firebaseMessagingHandler(RemoteMessage message, BuildContext context) async 
 {
     log("Handling a message: -----------------------------");
     log(message.data.toString());
@@ -167,7 +169,8 @@ Future<void> _firebaseMessagingHandler(RemoteMessage message) async
     // Map data = (message.data);
     if( message.data['NotificationType'] == NotificationTypes.AdIsPublished.toString() )
     {
-
+      log('AdIsPublished -/-/-/-/-/-/-/-/-/-') ;
+      HomeCubit.get(context).getUserAds();
     }
 
 

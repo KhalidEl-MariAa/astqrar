@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../constants.dart';
 import '../../models/user.dart';
 
 class UserItemWidget extends StatelessWidget 
@@ -52,7 +51,7 @@ class UserItemWidget extends StatelessWidget
                           BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(                            
-                              opacity: this.otherUser.IsActive! ? 1.0 : 0.5,
+                              opacity: this.otherUser.IsExpired! ?  0.5 : 1.0,
                               fit: BoxFit.fitHeight,
                               image:  getUserImage(this.otherUser)
                             ),

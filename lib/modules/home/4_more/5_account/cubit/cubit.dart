@@ -24,15 +24,13 @@ class AccountCubit extends Cubit<AccountStates>
     emit(AccountLoading());
 
     DioHelper.postDataWithBearearToken(
-            url: GETPROFILEDATA, 
+            url: GETUSERDATA, 
             data: {}, 
             token: TOKEN.toString())
     .then((value) 
     {
       ServerResponse res = ServerResponse.fromJson(value.data);
       user = User.fromJson(res.data);
-
-      GENDER_USER = user.gender!;
 
       emit(AccountSuccess(user));
     }).catchError((error) {

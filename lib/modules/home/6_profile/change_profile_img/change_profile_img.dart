@@ -118,7 +118,7 @@ class _ChangeProfileImgState extends State<ChangeProfileImg>
                             decoration: BoxDecoration(
                                 color: Colors.grey,
                                 image: DecorationImage(
-                                  opacity: this.widget.current_user.IsActive! ? 1.0 : 0.5,
+                                  opacity: this.widget.current_user.IsExpired! ? 0.5 : 1.0,
                                   fit: BoxFit.fitWidth,
                                   image: getUserImage(this.widget.current_user) ,                    
                                 )),

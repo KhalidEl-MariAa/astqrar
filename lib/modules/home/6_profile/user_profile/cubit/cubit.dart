@@ -24,13 +24,11 @@ class UserProfileCubit extends Cubit<UserProfileStates>
     emit(GetUserDataLoadingState());
 
     DioHelper.postDataWithBearearToken(
-            url: GETPROFILEDATA, data: {}, 
+            url: GETUSERDATA, data: {}, 
             token: TOKEN.toString())
     .then((value) 
     {
       user = User.fromJson(value.data["data"]);
-
-      GENDER_USER = user.gender!;
       emit(GetUserDataSucccessState(user));
 
     }).catchError((error) {
@@ -116,6 +114,36 @@ class UserProfileCubit extends Cubit<UserProfileStates>
       log(error.toString());
       emit(UpdateUserDataErrorState(error.toString()));
     });
+  }
+
+  bool? isDuplicatedUserName;
+  void checkDuplicatedUserName(String user_Name) 
+  {
+    emit(CheckUserNameLoadingState());
+    
+    DioHelper.postDataWithBearearToken(
+      token: TOKEN.toString(),
+      url: "api/v1/CheckDuplicatedUserName",
+      data: {
+        "user_Name" : user_Name,
+      },
+    ).then((value) {
+
+      ServerResponse res = ServerResponse.fromJson(value.data);
+
+      if (res.key == 0) {
+        emit(CheckUserNameErrorState(res.msg ?? "حدث خطأ ما"));
+        return;
+      }
+
+      this.isDuplicatedUserName = res.data;
+      emit(CheckUserNameSuccessState());
+
+    }).catchError((error) {
+      log(error.toString());
+      emit(CheckUserNameErrorState(error.toString()));
+    });
+
   }
   
 } //end class

@@ -43,7 +43,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
 
         SizedBox(height: 1.h,),
 
-        if(!widget.otherUser.IsActive!)
+        if(widget.otherUser.IsExpired!)
           Center(            
             child: Text("غير مشترك",  
                 style: GoogleFonts.almarai(color: Colors.red[600], fontSize: 24), )),
@@ -66,7 +66,7 @@ class _DetailsWidgetState extends State<DetailsWidget> {
                 decoration: BoxDecoration(
                     color: WHITE,
                     image: DecorationImage(
-                      opacity: widget.otherUser.IsActive! ? 1.0: 0.5,
+                      opacity: widget.otherUser.IsExpired! ? 0.5: 1.0,
                       fit: BoxFit.fitHeight,
                       image: getUserImage(widget.otherUser, larg: true) ,                    
                     )),

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import '../../../models/get_notifications.dart';
 import '../../../utils.dart';

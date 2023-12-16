@@ -16,6 +16,14 @@ class GetUserDataErrorState extends UserProfileStates {
   GetUserDataErrorState(this.error);
 }
 
+class CheckUserNameLoadingState extends UserProfileStates {}
+class CheckUserNameSuccessState extends UserProfileStates {}
+class CheckUserNameErrorState extends UserProfileStates {
+  final String error;
+  CheckUserNameErrorState(this.error);
+}
+
+
 class UpdateUserDataLoadingState extends UserProfileStates {}
 
 class UpdateUserDataSucccessState extends UserProfileStates {

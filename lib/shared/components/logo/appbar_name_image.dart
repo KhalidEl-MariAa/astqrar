@@ -94,7 +94,6 @@ class AppBarWithNameAndImage extends StatelessWidget {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      opacity: IS_ACTIVE ? 1.0 : 0.5,
                       image: getUserImageByPath(
                         imgProfilePath: IMG_PROFILE!,
                         gender:  GENDER_USER!)

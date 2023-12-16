@@ -67,15 +67,21 @@ class ConversationCubit extends Cubit<ConversationStates>
   }
 
 
-  void send_a_message(HubConnection hub, String receiverId, String msgText)
+  void send_a_message(HubConnection hub, String receiverId, String msgText, {String? senderId})
   {
     emit(SendMessageLoadingState());
 
-    var OrderId = 0;
-    var Type = 1;
-    var Duration = 1;
+    var orderId = 0;
+    var type = 1;
+    var duration = 1;
+    senderId = (senderId==null)? ID! : senderId;
 
-    hub.invoke('SendMessagee', args: [ID!, receiverId, msgText, OrderId, Type, Duration])
+    hub.invoke('SendMessagee', args: [ 
+      senderId, 
+      receiverId, 
+      msgText, 
+      orderId, type, duration]
+    )
     .then( (value) 
     {
       log(value.toString());
@@ -88,7 +94,12 @@ class ConversationCubit extends Cubit<ConversationStates>
       String str = jsonEncode( value );
       dynamic msg = jsonDecode(str);
       
-      emit(SendMessageSuccessState( Message.fromJson(msg) ));
+      if(senderId == ID){
+        emit(SendMessageSuccessState( Message.fromJson(msg) ));
+      }else{
+        emit(SendMessageByOtherSuccessState( Message.fromJson(msg) ));
+      }
+      
 
     }).catchError((e) {
       log('Failed to send ....... ❌❌ ');

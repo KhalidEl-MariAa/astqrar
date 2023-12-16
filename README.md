@@ -76,12 +76,13 @@ flutter build apk
 
 # for AAB file
 flutter build appbundle
-#  build/app/outputs/bundle/release/app-release.aab
+# build/app/outputs/bundle/release/app-release.aab
 ```
 
 5. upload Sybmols file. compress all folders in:
-```
-  astqrar/build/app/intermediates/merged_native_libs/release/out/lib
+```bash
+#  build/app/intermediates/merged_native_libs/release/out/lib
+(cd build/app/intermediates/merged_native_libs/release/out/lib && zip -r ../../../../../../app/outputs/bundle/release/symbols.zip *)
 ```
 
 ## Deploy to IOS (MacOS)

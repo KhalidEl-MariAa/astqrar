@@ -54,6 +54,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
   var conditionsController = TextEditingController();
 
   late User current_user;
+  
+  bool isDuplicatedUserName=true;
 
   @override
   Widget build(BuildContext context) 
@@ -175,17 +177,30 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   type: TextInputType.text,
                                   validate: (String? value) {
                                     current_user.user_Name = value;
+                                    if( this.isDuplicatedUserName)
+                                      return "❌" + " هذا الاسم مكرر ";
+
                                     return (value!.isEmpty)
                                         ? "من فضلك ادخل الاسم"
                                         : null;
+                                  },
+                                  onchange: (String? val) {
+                                    UserProfileCubit.get(context).checkDuplicatedUserName( val??"" );
                                   },
                                   labelText: "الاسم",
                                   label: "الرجاء ادخال اسمك",
                                   prefixIcon: Icons.person_outline),
 
-                              SizedBox(
-                                height: 1.5.h,
+                              
+                              ConditionalBuilder(
+                                condition: state is CheckUserNameLoadingState ,
+                                builder: (context) => CircularProgressIndicator(),                                
+                                fallback: (context) => Text(  this.isDuplicatedUserName? "" :  "✅" + " اسم مميز وغير متكرر " ),
                               ),
+
+                              SizedBox(height: 1.5.h,),
+
+
                               defaultTextFormField(
                                   context: context,
                                   controller: cityController,
@@ -881,7 +896,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
     return radios;
   }
 
-  void on_state_is_changed(BuildContext context, UserProfileStates state) {
+  void on_state_is_changed(BuildContext context, UserProfileStates state) 
+  {
     if (state is GetUserDataSucccessState) {
       this.current_user = state.current_user;
       emailController.text = current_user.email ?? "";
@@ -912,6 +928,8 @@ class UserProfileScreenState extends State<UserProfileScreen> {
           (route) => false);
     } else if (state is UpdateUserDataErrorState) {
       showToast(msg: state.error, state: ToastStates.ERROR);
+    } else if ( state is CheckUserNameSuccessState) {
+      this.isDuplicatedUserName = UserProfileCubit.get(context).isDuplicatedUserName!;
     }
   }
 }//end class

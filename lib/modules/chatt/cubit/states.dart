@@ -18,6 +18,10 @@ class SendMessageSuccessState extends ConversationStates {
   Message sentMsg;
   SendMessageSuccessState(this.sentMsg);
 }
+class SendMessageByOtherSuccessState extends ConversationStates {
+  Message sentMsg;
+  SendMessageByOtherSuccessState(this.sentMsg);
+}
 
 class SendMessageErrorState extends ConversationStates {
   String error ;
