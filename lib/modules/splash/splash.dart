@@ -91,8 +91,7 @@ class _SplashState extends State<Splash>
 
     setState(() { loading_desc = "Checking login status..."; });
     if (IS_LOGIN) {
-      await checkUserLoginStatus();
-      updateLastLogin();
+      await checkUserLoginStatus();      
     }
 
     context.read<LayoutCubit>().loadCountries();
@@ -111,6 +110,8 @@ class _SplashState extends State<Splash>
     {
       if (this.loginStatus == true) 
       {
+        setState(() { loading_desc = "Updating last login..."; });
+        updateLastLogin();
         if( !PROFILE_IS_COMPLETED ){
           nextPage= const UserProfileScreen();
         }else{
@@ -144,7 +145,10 @@ class _SplashState extends State<Splash>
     var value = await DioHelper.postDataWithBearearToken(
         url: CHECKUSERLOGINSTATUS, 
         token: TOKEN.toString(), 
-        data: {"userId": ID}
+        data: {
+          "deviceToken": DEVICE_TOKEN,
+          "userId": ID
+        }
     );
 
     this.loginStatus = value.data['status'];

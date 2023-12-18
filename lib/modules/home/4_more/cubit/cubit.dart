@@ -58,9 +58,9 @@ void logOut(){
     CacheHelper.sharedpreferneces.remove("imgProfile");
     CacheHelper.sharedpreferneces.remove("isActive");
 
-    CacheHelper.saveData(
-        key: "isLogin", value: false);
+    CacheHelper.saveData(key: "isLogin", value: false);
     IS_LOGIN = CacheHelper.getData(key: "isLogin");
+    
     emit(LogoutSuccessState());
   })
   .catchError((error){

@@ -17,8 +17,8 @@ class NotificationWidget
 
   Future init({bool scheduled = false}) async 
   {
-    var initAndroidSettings =
-    const AndroidInitializationSettings('drawable/icon');
+    // ./android/app/src/main/res/drawable/icon.png
+    var initAndroidSettings = const AndroidInitializationSettings('drawable/icon.png');
 
     var ios = IOSInitializationSettings(
         requestSoundPermission: true,

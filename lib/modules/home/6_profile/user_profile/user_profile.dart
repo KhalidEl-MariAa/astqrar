@@ -176,16 +176,21 @@ class UserProfileScreenState extends State<UserProfileScreen> {
                                   //   labelTextcolor: white,
                                   type: TextInputType.text,
                                   validate: (String? value) {
-                                    current_user.user_Name = value;
+                                    current_user.user_Name = value??"";
+                                    if (value!.isEmpty)
+                                        return "من فضلك ادخل الاسم";
+
                                     if( this.isDuplicatedUserName)
                                       return "❌" + " هذا الاسم مكرر ";
-
-                                    return (value!.isEmpty)
-                                        ? "من فضلك ادخل الاسم"
-                                        : null;
+                                    
+                                    return null;
                                   },
                                   onchange: (String? val) {
-                                    UserProfileCubit.get(context).checkDuplicatedUserName( val??"" );
+                                    if( val == null || val == "" ){
+                                      setState(() { this.isDuplicatedUserName = true;  });
+                                      return;
+                                    } 
+                                    UserProfileCubit.get(context).checkDuplicatedUserName( val );
                                   },
                                   labelText: "الاسم",
                                   label: "الرجاء ادخال اسمك",

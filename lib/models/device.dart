@@ -5,6 +5,7 @@ class Device
   String? deviceId;
   String? deviceType;
   DateTime? date;
+  bool? isActive;
 
   // Device({this.id, this.deviceId, this.deviceType, this.date});
 
@@ -13,6 +14,7 @@ class Device
     id = json['id'];
     deviceId = json['deviceId_'];
     deviceType = json['deviceType'];
+    isActive = json['isActive'];
 
     date = DateTime.parse(json['date'] ?? "2002-01-01");
   }
@@ -23,6 +25,7 @@ class Device
     data['id'] = this.id;
     data['deviceId_'] = this.deviceId;
     data['deviceType'] = this.deviceType;
+    data['isActive'] = this.isActive;
     
     data['date'] = this.date;
     return data;

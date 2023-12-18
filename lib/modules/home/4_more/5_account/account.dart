@@ -79,6 +79,11 @@ class AccountScreen extends StatelessWidget
                       color: auser.deviceIds.any( (d) => d.deviceId == DEVICE_TOKEN )? BLACK_OPACITY : Colors.red
                     ),
                     
+                    if(auser.deviceIds.any( (d) => d.isActive! == false ))
+                    _infoTile(
+                      "","تم حظر الجهاز الحالي، راجع الإدارة",
+                      color: Colors.red 
+                    ),
 
                   ],
                 ),

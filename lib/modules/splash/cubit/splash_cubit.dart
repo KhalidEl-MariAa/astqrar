@@ -4,7 +4,10 @@ import 'dart:developer';
 
 import 'package:astarar/models/get_notifications.dart';
 import 'package:astarar/modules/home/2_home_tab/cubit/cubit.dart';
+import 'package:astarar/modules/home/4_more/cubit/cubit.dart';
 import 'package:astarar/modules/home/layout/cubit/cubit.dart';
+import 'package:astarar/modules/login/login.dart';
+import 'package:flutter/material.dart';
 
 import '../../user_details/user_details.dart';
 import '../../../notification.dart';
@@ -165,6 +168,17 @@ Future<void> _firebaseMessagingHandler(RemoteMessage message, BuildContext conte
 {
     log("Handling a message: -----------------------------");
     log(message.data.toString());
+
+    if( message.data['NotificationType'] == NotificationTypes.BlockedByDashboard.toString() )
+    {
+      log('BlockedByDashboard -/-/-/-/-/-/-/-/-/-') ;
+      CacheHelper.saveData(key: "isLogin", value: false);
+      IS_LOGIN = CacheHelper.getData(key: "isLogin");
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false);
+    }
 
     // Map data = (message.data);
     if( message.data['NotificationType'] == NotificationTypes.AdIsPublished.toString() )
