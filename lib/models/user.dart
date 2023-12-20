@@ -77,7 +77,7 @@ class User {
     specialNeeds = json['specialNeeds'];
 
     closeNotify = json['closeNotify'];
-    status = json['status'];
+    //status = json['status'];
     imgProfile = json['imgProfile'];
     larg_imgProfile = this.get_large_file_path( json['imgProfile'] );
     hideImg = json['hideImg'];

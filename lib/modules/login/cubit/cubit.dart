@@ -47,13 +47,15 @@ class LoginCubit extends Cubit<LoginStates> {
       // log(value.toString());
 
       ServerResponse res = ServerResponse.fromJson(value.data);
+      
 
       if (res.key == 0) {
         emit(LoginErrorState(res.msg!));
         return;
       }
-
+      
       loggedinUser = User.fromJson(res.data);
+      bool loginStatus = value.data['loginStatus'];
 
       CacheHelper.saveData(key: "id", value: loggedinUser.id);
       CacheHelper.saveData(key: "name", value: loggedinUser.user_Name);
@@ -66,7 +68,6 @@ class LoginCubit extends Cubit<LoginStates> {
       CacheHelper.saveData(key: "isActive", value: loggedinUser.IsActive);
       CacheHelper.saveData(key: "profileIsCompleted", value: loggedinUser.ProfileIsCompleted);
       
-
       PHONE = CacheHelper.getData(key: "phone");
       TOKEN = CacheHelper.getData(key: "token");
       ID = CacheHelper.getData(key: "id");
@@ -78,12 +79,12 @@ class LoginCubit extends Cubit<LoginStates> {
       IS_ACTIVE = CacheHelper.getData(key: "isActive");
       PROFILE_IS_COMPLETED = CacheHelper.getData(key: "profileIsCompleted");
 
-      if (loggedinUser.status == true && !PROFILE_IS_COMPLETED)
+      if (loginStatus == true && !PROFILE_IS_COMPLETED)
       {
         CacheHelper.saveData(key: "isLogin", value: true);
         emit( LoginSuccessButProfileIsNotCompleted() );        
       }
-      else if (loggedinUser.status == true) //|| IS_DEVELOPMENT_MODE
+      else if (loginStatus == true) //|| IS_DEVELOPMENT_MODE
       {
         CacheHelper.saveData(key: "isLogin", value: true);
         emit( LoginSuccessAndActiveState() );
