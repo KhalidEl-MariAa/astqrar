@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:astarar/utils.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
@@ -15,7 +17,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
-  void RegisterClient(User newUser, var formkey) {
+  void RegisterClient(User newUser, var formkey) async
+  {
     emit(RegisterState_Loading());
 
     if (!formkey.currentState!.validate()) {
@@ -23,11 +26,22 @@ class RegisterCubit extends Cubit<RegisterState> {
       return;
     }
 
+    String deviceName = "Unkown";
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if(Platform.isAndroid){
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceName = androidInfo.manufacturer.capitalize() + " " +  androidInfo.model;
+    }
+    if(Platform.isIOS){
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      deviceName = iosInfo.utsname.machine;
+    }
+
     newUser.countryId = 3; //default to SA
     Map registeration_data = newUser.toMap();
     registeration_data['deviceToken'] = DEVICE_TOKEN;
     registeration_data['deviceType'] = Platform.isIOS ? "ios" : "android";
-    registeration_data['projectName'] = APP_NAME;
+    registeration_data['deviceName'] = deviceName;
 
     DioHelper.postData(
       url: REGISTERCLIENT, 

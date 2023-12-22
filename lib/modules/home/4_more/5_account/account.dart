@@ -1,4 +1,8 @@
 
+import 'dart:developer';
+
+import 'package:flutter/services.dart';
+
 import '../../../../constants.dart';
 import '../../../../shared/components/loading_gif.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -14,14 +18,16 @@ import '../../../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
+
 class AccountScreen extends StatelessWidget 
 {
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) 
-  {
+  {    
     late User auser = new User();
+
 
     return BlocProvider(
       create: (BuildContext context) => AccountCubit()..getUserData(),
@@ -71,6 +77,23 @@ class AccountScreen extends StatelessWidget
                     ),
 
                     _infoTile(
+                      "الجهاز الحالي", 
+                      AccountCubit.get(context).deviceName ,
+                    ),
+
+                    InkWell(
+                      onTap: () {
+                        Clipboard.setData(ClipboardData(text: DEVICE_TOKEN!));
+                      },
+                      child: 
+                        _infoTile(
+                          "رقم الجهاز الحالي", 
+                          DEVICE_TOKEN!.substring(0, 20) ,
+                        )
+                    ),
+
+
+                    _infoTile(
                       "هل الجهاز الحالي مسجل؟", 
                       auser.deviceIds.any( (d) => d.deviceId == DEVICE_TOKEN ) ? 
                         "نعم" 
@@ -79,7 +102,7 @@ class AccountScreen extends StatelessWidget
                       color: auser.deviceIds.any( (d) => d.deviceId == DEVICE_TOKEN )? BLACK_OPACITY : Colors.red
                     ),
                     
-                    if(auser.deviceIds.any( (d) => d.isActive! == false ) )
+                    if( !auser.deviceIds.where( (d) => d.deviceId == DEVICE_TOKEN ).first.isActive! )
                       _infoTile(
                         "","تم حظر الجهاز الحالي، راجع الإدارة",
                         color: Colors.red 

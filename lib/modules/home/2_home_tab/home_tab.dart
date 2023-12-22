@@ -318,7 +318,8 @@ class _HomeTabState extends State<HomeTab>
                 ),
                 
               if (IS_DEVELOPMENT_MODE)
-                Text(BASE_URL, style: TextStyle(fontSize: 12.sp),)
+                Text(BASE_URL, style: TextStyle(fontSize: 12.sp),),
+
             ],
           ),
         ),

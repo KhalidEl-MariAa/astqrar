@@ -1,6 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:astarar/utils.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+
 import '../../../models/server_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,8 +35,22 @@ class LoginCubit extends Cubit<LoginStates> {
   Future UserLogin(
       {required String phoneNumber, required String password}) async 
   {
+    String deviceName = "Unkown";
     
     emit(LoginLoadingState());
+
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if(Platform.isAndroid){
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      log('Running on ${androidInfo.model}');  // e.g. "Moto G (4)"
+      deviceName = androidInfo.manufacturer.capitalize() + " " +  androidInfo.model;
+    }
+
+    if(Platform.isIOS){
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      log('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"   
+      deviceName = iosInfo.utsname.machine;
+    }    
 
     await DioHelper.postData(
       url: LOGIN, 
@@ -42,7 +59,7 @@ class LoginCubit extends Cubit<LoginStates> {
       "password": password,
       "deviceToken": DEVICE_TOKEN,
       "deviceType" : Platform.isIOS?"ios":"android",
-      "projectName" : APP_NAME,
+      "deviceName" : deviceName,
     }).then((value) async {
       // log(value.toString());
 

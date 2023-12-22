@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../../../../constants.dart';
 import '../../../../shared/components/components.dart';
 import 'package:flutter/material.dart';

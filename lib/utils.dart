@@ -5,7 +5,15 @@ import 'shared/network/remote.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
-String formatTimeAgo(DateTime dateTime) {
+extension StringExtension on String 
+{
+    String capitalize() {
+      return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+    }
+}
+
+String formatTimeAgo(DateTime dateTime) 
+{
   final now = DateTime.now();
   final difference = now.difference(dateTime);
 
@@ -47,8 +55,6 @@ bool ifThereAreMoreWidgets(BuildContext context) {
         data: {
           "userId": userid,
           "notificationType": type,
-          // "projectName": APP_NAME,
-          // "deviceType": Platform.isIOS ? "ios" : "android",          
           "title": title,
           "body": body,
           "save": save,

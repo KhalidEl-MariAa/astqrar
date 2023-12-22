@@ -150,8 +150,6 @@ class PaymentCubit extends Cubit<PaymentStates>
     DioHelper.postDataWithBearearToken(
         url: "api/v2/send-notifications-to-all",
         data:{
-          // "projectName": APP_NAME,
-          // "deviceType":"android",
           "title": title,
           "body": body,
           "notificationType": NotificationTypes.AdIsPublished,
