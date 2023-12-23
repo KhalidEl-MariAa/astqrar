@@ -36,6 +36,7 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
           title: APP_NAME,
           save: true,
       );
+
     }).catchError((error) {
       emit(UserDetailsErrorState(error.toString()));
     });

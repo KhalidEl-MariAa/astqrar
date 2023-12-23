@@ -79,10 +79,13 @@ flutter build appbundle
 # build/app/outputs/bundle/release/app-release.aab
 ```
 
-5. upload Sybmols file. compress all folders in:
+5. upload Sybmols file. compress all folders in [(Windows zip)](https://github.com/bmatzelle/gow/releases):
 ```bash
 #  build/app/intermediates/merged_native_libs/release/out/lib
 (cd build/app/intermediates/merged_native_libs/release/out/lib && zip -r ../../../../../../app/outputs/bundle/release/symbols.zip *)
+
+# on Windows download zip from here 
+https://github.com/bmatzelle/gow/releases
 ```
 
 ## Deploy to IOS (MacOS)
