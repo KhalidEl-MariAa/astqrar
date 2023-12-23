@@ -62,6 +62,7 @@ class UserProfileScreenState extends State<UserProfileScreen> {
   {
     return BlocProvider(
       create: (BuildContext context) => UserProfileCubit()..getUserData(),
+                                          
       child: BlocConsumer<UserProfileCubit, UserProfileStates>(
         listener: (context, state) {
           on_state_is_changed(context, state);
@@ -922,6 +923,9 @@ class UserProfileScreenState extends State<UserProfileScreen> {
 
       conditionsController.text = current_user.terms ?? "";
       dowryController.text = current_user.dowry ?? "";
+
+      UserProfileCubit.get(context).checkDuplicatedUserName( current_user.user_Name! );
+
     } else if (state is GetUserDataErrorState) {
       showToast(msg: state.error, state: ToastStates.ERROR);
     } else if (state is UpdateUserDataSucccessState) {

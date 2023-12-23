@@ -15,7 +15,8 @@ import '../../../shared/network/local.dart';
 import '../../../shared/network/remote.dart';
 import 'states.dart';
 
-class LoginCubit extends Cubit<LoginStates> {
+class LoginCubit extends Cubit<LoginStates> 
+{
   LoginCubit() : super(LoginInitialState());
 
   //late LoginModel loginModel;
@@ -42,13 +43,11 @@ class LoginCubit extends Cubit<LoginStates> {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if(Platform.isAndroid){
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      log('Running on ${androidInfo.model}');  // e.g. "Moto G (4)"
       deviceName = androidInfo.manufacturer.capitalize() + " " +  androidInfo.model;
     }
 
     if(Platform.isIOS){
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      log('Running on ${iosInfo.utsname.machine}');  // e.g. "iPod7,1"   
       deviceName = iosInfo.utsname.machine;
     }    
 

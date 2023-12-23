@@ -60,7 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
       child: BlocProvider(
         create: (BuildContext context) => LoginCubit(),
         child: BlocConsumer<LoginCubit, LoginStates>(
-          listener: (context, state) {
+          listener: (context, state) 
+          {
             if (state is LoginSuccessAndActiveState) 
             {
               log("IS_DEVELOPMENT_MODE: ${IS_DEVELOPMENT_MODE}, kReleaseMode: ${kReleaseMode}");

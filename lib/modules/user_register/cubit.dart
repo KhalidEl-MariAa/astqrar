@@ -12,7 +12,8 @@ import '../../models/user.dart';
 import '../../shared/network/remote.dart';
 import 'states.dart';
 
-class RegisterCubit extends Cubit<RegisterState> {
+class RegisterCubit extends Cubit<RegisterState> 
+{
   RegisterCubit() : super(RegisterState_Initial());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
@@ -56,6 +57,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       emit(RegisterState_Success(response));
       emit(LoginAfterRegisterState());
+
     }).catchError((error) {
       log(error.toString());
       emit(RegisterState_Error(error.toString()));

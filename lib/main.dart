@@ -74,10 +74,10 @@ class MyApp extends StatelessWidget
           providers: [
             BlocProvider<LayoutCubit>(
                 create: (BuildContext context) =>
-                LayoutCubit()
-                  ..loadSpecificationsFromBackend()
-                  ..loadCountries()
-                  ..getPhone()
+                  LayoutCubit()
+                    ..loadSpecificationsFromBackend()
+                    ..loadCountries()
+                    ..getPhone()
             ),
 
             BlocProvider<HomeCubit>(
