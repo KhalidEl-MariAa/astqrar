@@ -64,4 +64,5 @@ abstract class NotificationTypes
   static int MsgFromDashBord = 10;
   static int AccountIsRemoved = 11;
   static int BlockedByDashboard = 12;
+  static int AuthinticationCode = 13;
 }

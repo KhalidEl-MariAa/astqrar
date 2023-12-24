@@ -141,7 +141,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             log("WHASTAPP DONE ");
                           } else {
                             showToast(
-                              msg: '-------------------------------------- ${uri.toString()}',
+                              msg: "Could not open: ${uri.toString()} ",
                               state: ToastStates.ERROR);
                           }
                         }),

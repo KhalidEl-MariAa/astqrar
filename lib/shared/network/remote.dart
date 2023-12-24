@@ -154,7 +154,7 @@ class DioHelper
       'Connection': 'keep-alive',
       'Content-Type': 'application/json',
     };
-    log("token: ${token.toString()}");
+    log("post: ${ url.toString() }");
     var res = await dio.post(url, data: data);
     return res;
   }
@@ -176,11 +176,11 @@ class DioHelper
     // Dio dio1 = Dio();
     try{
       Response response = await dio1.get(url);
-      log('Connection OK ✅: ' + baseurl + url);
+      log('ServerConnect OK ✅: ' + baseurl + url);
       // Process the response and return the data if successful
       return response.data;
     }catch( err ){      
-      log('FAILED: ' + baseurl + url);
+      log('FAILED Server: ' + baseurl + url);
       log(err.toString());
     }
     return { };

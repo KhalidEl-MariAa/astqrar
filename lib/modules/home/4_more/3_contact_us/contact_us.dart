@@ -111,7 +111,8 @@ class ContactUS extends StatelessWidget
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
 
-                              ContactUsCubit.get(context).sendContact(message: messageController.text,
+                              ContactUsCubit.get(context).sendContact(
+                                  message: messageController.text,
                                   userName: nameController.text,
                                   phone: phoneController.text);
                             }

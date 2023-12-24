@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import '../../../notification.dart';
 import '../../../shared/components/dialog_please_login.dart';
 import '../../../constants.dart';
 import '../../../shared/styles/colors.dart';
@@ -39,23 +38,13 @@ class _LayoutScreenState extends State<LayoutScreen>
   {
     super.initState();
 
-    doFirebaseJob();
-
-  }
-
-  void doFirebaseJob() async
-  {
-    NotificationWidget(context).init();
-    if(Platform.isIOS){
-      NotificationWidget(context).requestIOSLocalNotificationsPermissions();
-    }
-
     SplashCubit.Firebase_init( context );
-    
+
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

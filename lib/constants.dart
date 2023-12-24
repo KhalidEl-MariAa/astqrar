@@ -14,6 +14,7 @@ bool IS_ACTIVE = true;
 bool PROFILE_IS_COMPLETED = false;
 bool IS_DEVELOPMENT_MODE = true;
 
+//! TODO: change before release
 // String OUR_HOST = "https://estqrar-001-site1.ctempurl.com/";
 String OUR_HOST = "http://estqrar-001-site2.ctempurl.com/"; //Testing
 

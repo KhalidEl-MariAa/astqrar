@@ -24,11 +24,10 @@ import 'package:sizer/sizer.dart';
 class ConversationScreen extends StatefulWidget 
 {
 
-  late OtherUser? otherUser = null;
   late String? otherId = null;
 
-  ConversationScreen({ Key? key, this.otherUser, }) : super(key: key) {
-    this.otherId = this.otherUser!.id!;
+  ConversationScreen({ Key? key,  otherUser, }) : super(key: key) {
+    this.otherId = otherUser!.id!;
   }
 
   ConversationScreen.byOtherId({Key? key, otherId}) : super(key: key) {
@@ -43,6 +42,7 @@ class ConversationScreenState extends State<ConversationScreen>
 {
   static var messagecontroller = new TextEditingController();
 
+  late OtherUser? otherUser = null;
   late HubConnection hub;
   bool otherUserIsConnected = false;
   bool IamConnected = false;
@@ -99,7 +99,7 @@ class ConversationScreenState extends State<ConversationScreen>
       String str = jsonEncode( args![0] );
       dynamic diconnectedUserId = jsonDecode(str);
 
-      if (diconnectedUserId == widget.otherUser?.id) {
+      if (diconnectedUserId == this.otherUser?.id) {
         setState(() {
           this.otherUserIsConnected = false;
         });
@@ -184,10 +184,10 @@ class ConversationScreenState extends State<ConversationScreen>
         {
           ConversationCubit cub = ConversationCubit();
 
-          if (widget.otherUser == null) {
-            cub.getMessages(userId: widget.otherId ?? "");
+          if (this.otherUser == null) {
+            cub.getMessages(userId: widget.otherId?? "");
           } else {
-            cub.getMessages(userId: widget.otherUser!.id ?? "");
+            cub.getMessages(userId: this.otherUser!.id?? "");
           }
           return cub;
         },
@@ -197,7 +197,7 @@ class ConversationScreenState extends State<ConversationScreen>
             if (state is GetOtherUserSuccess)
             {
               setState(() {
-                widget.otherUser = state.otherUser;
+                this.otherUser = state.otherUser;
               });
             }
             else if (state is GetMessagesSuccessState) 
@@ -276,33 +276,36 @@ class ConversationScreenState extends State<ConversationScreen>
 
                         // صورة المستخدم
                         Container(
-                          height: 30.h,
-                          width: 20.w,
-                          decoration: BoxDecoration(
+                          height: 20.h,
+                          width: 30.w, 
+                          decoration: 
+                            BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                opacity: this.widget.otherUser?.IsExpired??true ? 0.5 : 1.0,
-                                image: getUserImage(widget.otherUser)
-                                // image: AssetImage(femaleImage)
+                                alignment: Alignment.bottomCenter,
+                                opacity: this.otherUser?.IsExpired??true ? 0.5 : 1.0,
+                                image: getUserImage(this.otherUser),
+                                fit: BoxFit.fitWidth
                           )),
                         ),
 
-                        Column(
+                        SizedBox(width: 1.0.h,),
+
+                        Column(                          
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // اسم اليوزر
                             Text(
-                              widget.otherUser?.user_Name ?? "------",
+                              this.otherUser?.user_Name?? "------",
                               style: GoogleFonts.almarai(
-                                  color: OFF_WHITE, fontSize: 16.sp),
+                                  color: BLACK, fontSize: 16.sp),
                             ),
-                            SizedBox(
-                              height: 0.4.h,
-                            ),
+                            
+                            SizedBox(height: 1.0.h,),
 
                             //متصل او غير متصل
                             Text(
-                              this.otherUserIsConnected? "متصل" : "غير متصل",
+                              this.otherUserIsConnected? "🟢" + "متصل" : "غير متصل",
                               style: GoogleFonts.almarai(
                                   color: this.otherUserIsConnected? Colors.green : CUSTOME_GREY, 
                                   fontSize: 11.sp,
@@ -442,8 +445,8 @@ class ConversationScreenState extends State<ConversationScreen>
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                          opacity: this.widget.otherUser!.IsExpired! ? 0.5 : 1.5,
-                                          image: getUserImage(this.widget.otherUser)
+                                          opacity: this.otherUser!.IsExpired! ? 0.5 : 1.5,
+                                          image: getUserImage(this.otherUser)
                                         )
                                     ),
                                   ),
@@ -538,19 +541,19 @@ class ConversationScreenState extends State<ConversationScreen>
                             {
                               if( messagecontroller.text.trim().isEmpty ) return;
 
-                              if (widget.otherUser!.isBlockedByMe || widget.otherUser!.heBlockedMe) {
+                              if (this.otherUser!.isBlockedByMe || this.otherUser!.heBlockedMe) {
                                 showToast(
                                     msg: "قام أحد الطرفين بحظر الطرف الاخر", 
                                     state: ToastStates.ERROR);
                                 return;
                               }
                               
-                              if (widget.otherUser!.IsActive! == false) {
+                              if (this.otherUser!.IsActive! == false) {
                                 ConversationCubit.get(context)
                                   .send_a_message(this.hub, ID!, "أنا غير مشترك ولا يمكنني استلام رسالتك أو الرد عليك حالياً" , senderId: widget.otherId);
                               }
                               ConversationCubit.get(context)
-                                .send_a_message(this.hub, widget.otherUser!.id!, messagecontroller.text);
+                                .send_a_message(this.hub, this.otherUser!.id!, messagecontroller.text);
                             },
                           ),
                       ),

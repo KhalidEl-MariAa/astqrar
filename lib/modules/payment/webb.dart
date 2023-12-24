@@ -90,10 +90,14 @@ class Web extends StatelessWidget
                   Navigator.pushAndRemoveUntil(
                       scaffoldKey.currentContext!,
                       MaterialPageRoute(
-                        builder: (context) {
-                          return PaymentScreen(price: price,
-                          idService: idService,serviceType: serviceType,);
-                       }),
+                        builder: (context) 
+                        {
+                          return PaymentScreen(
+                            price: price,
+                            idService: idService,
+                            serviceType: serviceType
+                          );
+                        }),
                       (context) => false
                   );
 

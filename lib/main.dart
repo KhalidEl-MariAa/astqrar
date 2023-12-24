@@ -33,6 +33,7 @@ class MyHttpOverrides extends HttpOverrides
 }
 
 
+
 void main()  async
 {
   
@@ -52,6 +53,9 @@ void main()  async
 
 class MyApp extends StatelessWidget 
 {
+  //todo: better change place 
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.

@@ -99,7 +99,8 @@ class UserDetailsCubit extends Cubit<UserDetailsStates> {
   }
 
   //delete from favourite
-  void deleteFromFavourite({required String userId}) {
+  void deleteFromFavourite({required String userId}) 
+  {
     late ServerResponse res;
     // getInformationUserModel.isFavorate = !getInformationUserModel.isFavorate!;
     emit(ToggleFavouriteLoading());

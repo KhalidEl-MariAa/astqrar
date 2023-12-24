@@ -1,4 +1,6 @@
 
+import 'package:astarar/shared/network/local.dart';
+
 import '../../../../constants.dart';
 import '../../../../models/user.dart';
 import '../../../../shared/components/double_infinity_material_button.dart';
@@ -44,8 +46,8 @@ class _ChangeProfileImgState extends State<ChangeProfileImg>
               this.widget.current_user.imgProfile = state.updatedUser.imgProfile;
               this.widget.current_user.hideImg = state.updatedUser.hideImg;
               IMG_PROFILE = state.updatedUser.imgProfile;
-              // log(state.updatedUser.imgProfile??"XXXX");
-              // log("${state.updatedUser.hideImg??true}");
+              CacheHelper.saveData(key: "imgProfile", value: state.updatedUser.imgProfile);
+
             });
 
             showToast(msg: "تم رفع الصورة بنجاح", state: ToastStates.SUCCESS);

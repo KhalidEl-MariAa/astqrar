@@ -152,8 +152,8 @@ class _HomeTabState extends State<HomeTab>
                                     String uristr = "https://www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE";
                                     Uri uri = Uri(
                                         scheme: "https",
-                                        path:
-                                            "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE");
+                                        path: "www.snapchat.com/add/zoagge?share_id=lRtrrfi6OZo&locale=ar-AE"
+                                      );
                                     // if (await launchUrl( Uri.parse(uristr) )) {
                                     if (await launch( uristr )) {
                                       log("SNap Done");
