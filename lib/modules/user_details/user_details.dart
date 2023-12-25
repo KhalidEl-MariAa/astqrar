@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:astarar/constants.dart';
+import 'package:astarar/shared/components/dialog_please_login.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,13 +21,15 @@ import 'details_widget.dart';
 
 class UserDetailsScreen extends StatefulWidget 
 {
-  final bool messageVisibility;  
   final String? otherUserId;
+  // final ReceivedAction? receivedAction;
   
   UserDetailsScreen({
-    Key? key, 
-    required this.messageVisibility, 
-    String? this.otherUserId}) : super(key: key);
+      Key? key, 
+      String? this.otherUserId,
+      // ReceivedAction? this.receivedAction,
+    }
+  ):super(key: key);
 
   @override
   State<UserDetailsScreen> createState() => _UserDetailsScreenState();
@@ -38,6 +43,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
   void initState() 
   {
     super.initState();
+
 
     if (widget.otherUserId != null){
       UserDetailsCubit.get(context).getOtherUser(otherId: widget.otherUserId??"");
@@ -140,8 +146,17 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                                                 fallback: (context)  => Icon(Icons.block, color: PRIMARY,size: 33,)
                                                 ),
                                           ]),
-                                        ),                                    
-                                      onTap: () { blockUser_pressed(context); },
+                                        ),
+                                      onTap: () 
+                                      {
+                                        if (IS_LOGIN == false) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => const DialogPleaseLogin());
+                                          return;
+                                        }
+                                        blockUser_pressed(context); 
+                                      },
                                     ),
                       
                                     Container( height: 0.01.h, color: Colors.black, ),
@@ -181,7 +196,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen>
                       fallback: (context) => 
                         DetailsWidget(
                           state: state,
-                          messageVisibility: widget.messageVisibility,
                           otherUser: this.otherUser,
                         ),
                       ),

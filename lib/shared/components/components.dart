@@ -62,11 +62,13 @@ Color chooseToastColor(ToastStates state)
   return color;
 }
 
-ImageProvider getUserImageByPath({String imgProfilePath="", int gender=1})
+ImageProvider getUserImageByPath({String? imgProfilePath="", int? gender=1})
 {
-  log(imgProfilePath);
+  //log(imgProfilePath);
+  imgProfilePath = imgProfilePath??"";
+  gender = gender??1;
   
-  if(imgProfilePath != "")
+  if(imgProfilePath.isNotEmpty)
   {
     return NetworkImage(imgProfilePath);
   }else{

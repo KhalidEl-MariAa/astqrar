@@ -56,7 +56,7 @@ class AppBarWithNameAndImage extends StatelessWidget {
                       "من هنا",
                       textAlign: TextAlign.start,
                       style:
-                      GoogleFonts.almarai(color: WHITE, fontSize: 10.sp,decoration:TextDecoration.underline),
+                      GoogleFonts.almarai(color: WHITE, fontSize: 10.sp, decoration: TextDecoration.underline),
                     ),
                   ),
                 ],
@@ -95,8 +95,8 @@ class AppBarWithNameAndImage extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: getUserImageByPath(
-                        imgProfilePath: IMG_PROFILE!,
-                        gender:  GENDER_USER!)
+                        imgProfilePath: IMG_PROFILE,
+                        gender:  GENDER_USER)
 
                 )),
               ),

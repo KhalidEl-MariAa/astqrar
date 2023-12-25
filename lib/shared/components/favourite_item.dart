@@ -42,7 +42,7 @@ class FavouriteItem extends StatelessWidget
                       UserDetailsCubit.get(context)
                           .getOtherUser(otherId: this.contactor.id! );
 
-                      navigateTo(context: context, widget: UserDetailsScreen( messageVisibility: true,));
+                      navigateTo(context: context, widget: UserDetailsScreen( ));
                   },
                   child:
                     Container(
@@ -53,8 +53,8 @@ class FavouriteItem extends StatelessWidget
                           image: DecorationImage(
                             opacity: this.contactor.IsExpired??true ? 0.5 : 1.0,
                             image: getUserImageByPath(
-                              imgProfilePath: this.contactor.imgProfile??"",
-                              gender:  this.contactor.gender??0)
+                              imgProfilePath: this.contactor.imgProfile,
+                              gender:  this.contactor.gender)
                       )),
                     ),
 

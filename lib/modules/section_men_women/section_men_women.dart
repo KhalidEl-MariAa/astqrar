@@ -109,8 +109,7 @@ class SectionMenOrWomen extends StatelessWidget
                                             Text(
                                               "سجل دخول",
                                               textAlign: TextAlign.start,
-                                              style: GoogleFonts.almarai(
-                                                  color: WHITE, fontSize: 10.sp),
+                                              style: GoogleFonts.almarai(color: WHITE, fontSize: 10.sp),
                                             ),
                                             SizedBox(
                                               width: 1.w,
@@ -129,8 +128,7 @@ class SectionMenOrWomen extends StatelessWidget
                                                 style: GoogleFonts.almarai(
                                                     color: WHITE,
                                                     fontSize: 10.sp,
-                                                    decoration:
-                                                        TextDecoration.underline),
+                                                    decoration: TextDecoration.underline),
                                               ),
                                             ),
                                           ],
@@ -169,8 +167,8 @@ class SectionMenOrWomen extends StatelessWidget
                                                     shape: BoxShape.circle,
                                                     image: DecorationImage(
                                                         image: getUserImageByPath(
-                                                          imgProfilePath: IMG_PROFILE!,
-                                                          gender:  GENDER_USER!)
+                                                          imgProfilePath: IMG_PROFILE,
+                                                          gender:  GENDER_USER)
                                                   )),
                                               ),
                                             ),
@@ -373,7 +371,7 @@ class SectionMenOrWomen extends StatelessWidget
     }
     navigateTo(
       context: context, 
-      widget: UserDetailsScreen(messageVisibility: true,)
+      widget: UserDetailsScreen()
     );
   }
 

@@ -102,8 +102,7 @@ class _ResultScreenState extends State<ResultScreen>
                                             Text(
                                               "سجل دخول",
                                               textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: WHITE, fontSize: 10.sp),
+                                              style: GoogleFonts.almarai(color: WHITE, fontSize: 10.sp),
                                             ),
                                             SizedBox(
                                               width: 1.w,
@@ -122,8 +121,7 @@ class _ResultScreenState extends State<ResultScreen>
                                                 style: GoogleFonts.almarai(
                                                     color: WHITE,
                                                     fontSize: 10.sp,
-                                                    decoration:
-                                                        TextDecoration.underline),
+                                                    decoration: TextDecoration.underline),
                                               ),
                                             ),
                                           ],
@@ -165,8 +163,8 @@ class _ResultScreenState extends State<ResultScreen>
                                               image: DecorationImage(
                                                   image: getUserImageByPath(
                                                       imgProfilePath:
-                                                          IMG_PROFILE!,
-                                                      gender: GENDER_USER!))),
+                                                          IMG_PROFILE,
+                                                      gender: GENDER_USER))),
                                         ),
                                       ),
                                     ],
@@ -396,9 +394,8 @@ class _ResultScreenState extends State<ResultScreen>
 
         navigateTo(
             context: context,
-            widget: UserDetailsScreen(
-              messageVisibility: true,
-            ));
+            widget: UserDetailsScreen( ) 
+        );
       },
       // genderValue: this.searchResult[index].gender!,
       // username: this.searchResult[index].user_Name!,

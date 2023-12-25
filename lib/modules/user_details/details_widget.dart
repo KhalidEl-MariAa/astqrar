@@ -20,13 +20,11 @@ import 'image_viewer.dart';
 
 class DetailsWidget extends StatefulWidget 
 {
-  final bool messageVisibility;
   final UserDetailsStates state;
   final OtherUser otherUser;
 
   DetailsWidget(
       {required this.state,
-      required this.messageVisibility,
       required this.otherUser});
 
   @override
@@ -129,56 +127,48 @@ class _DetailsWidgetState extends State<DetailsWidget> {
               ),
 
               // زر اللايك
-              Visibility(
-                visible: widget.messageVisibility ,
-                child: ConditionalBuilder(
-                  condition: widget.state is ToggleFavouriteLoading,
-                  builder: (context) => CircularProgressIndicator(),
-                  fallback: (context) => InkWell(
-                    onTap: () {
-                      if (IS_LOGIN == false) {
-                        showDialog(
-                            context: context,
-                            builder: (context) => const DialogPleaseLogin());
-                        return;
-                      }
-                      favourite_on_click(context);
-                    },
-                    child: Image(
-                        height: 3.5.h,
-                        image: (widget.otherUser.isFavorate ?? false)
-                            ? const AssetImage("assets/fullFavorite.png")
-                            : const AssetImage('assets/Frame 146.png')),
-                  ),
+              ConditionalBuilder(
+                condition: widget.state is ToggleFavouriteLoading,
+                builder: (context) => CircularProgressIndicator(),
+                fallback: (context) => InkWell(
+                  onTap: () {
+                    if (IS_LOGIN == false) {
+                      showDialog(
+                          context: context,
+                          builder: (context) => const DialogPleaseLogin());
+                      return;
+                    }
+                    favourite_on_click(context);
+                  },
+                  child: Image(
+                      height: 3.5.h,
+                      image: (widget.otherUser.isFavorate ?? false)
+                          ? const AssetImage("assets/fullFavorite.png")
+                          : const AssetImage('assets/Frame 146.png')),
                 ),
               ),
 
-              // زر الشات
-              Visibility(
-                visible: widget.messageVisibility,
-                child: SizedBox(width: 3.w,),
-              ),
+              SizedBox(width: 3.w,),
 
-              Visibility(
-                  visible: widget.messageVisibility,
-                  child: ConditionalBuilder(
-                    condition: widget.state is AddHimToMyContactsLoading,
-                    builder: (context) => CircularProgressIndicator(),
-                    fallback: (context) => InkWell(
-                      onTap: () {
-                        if (IS_LOGIN == false) {
-                          showDialog(
-                              context: context,
-                              builder: (context) => const DialogPleaseLogin());
-                          return;
-                        }
-                        enter_chatt_screen(context);
-                      },
-                      child: Image(
-                          height: 3.h,
-                          image: const AssetImage('assets/chat (7).png')),
-                    ),
-                  )),
+              // زر الشات
+              ConditionalBuilder(
+                condition: widget.state is AddHimToMyContactsLoading,
+                builder: (context) => CircularProgressIndicator(),
+                fallback: (context) => InkWell(
+                  onTap: () {
+                    if (IS_LOGIN == false) {
+                      showDialog(
+                          context: context,
+                          builder: (context) => const DialogPleaseLogin());
+                      return;
+                    }
+                    enter_chatt_screen(context);
+                  },
+                  child: Image(
+                      height: 3.h,
+                      image: const AssetImage('assets/chat (7).png')),
+                ),
+              ),
               
               SizedBox(width: 2.w,),
             ],
@@ -545,9 +535,10 @@ class _DetailsWidgetState extends State<DetailsWidget> {
     }
   }
 
-//favourite_on_click
-  void enter_chatt_screen(BuildContext context) {
-    // حسب طلب صاحب التطبيق ان يتم الدخول على الشات مباشرة بدون طلب
+  //favourite_on_click
+  void enter_chatt_screen(BuildContext context) 
+  {
+
     UserDetailsCubit.get(context)
         .addHimToMyContacts(hisUserId: widget.otherUser.id!);
 

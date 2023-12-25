@@ -67,7 +67,7 @@ class FavouritesTab extends StatelessWidget
                                       }
                                       navigateTo(
                                         context: context, 
-                                        widget: UserDetailsScreen(messageVisibility: true,)
+                                        widget: UserDetailsScreen()
                                       );
                                     },
 

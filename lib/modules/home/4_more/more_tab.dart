@@ -85,8 +85,8 @@ class _MoreTabState extends State<MoreTab> {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                     image: getUserImageByPath(
-                                      imgProfilePath: IMG_PROFILE!,
-                                      gender:  GENDER_USER!)
+                                      imgProfilePath: IMG_PROFILE,
+                                      gender:  GENDER_USER)
                               )),
                             ),
                           SizedBox(

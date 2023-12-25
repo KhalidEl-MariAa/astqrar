@@ -47,7 +47,8 @@ class _HomeTabState extends State<HomeTab>
       listener: (context, state) {
         if (state is GetUserAdsSuccessState) {}
       },
-      builder: (context, state) => Scaffold(
+      builder: (context, state) => 
+      Scaffold(
         backgroundColor: WHITE,
         body: SingleChildScrollView(
           child: Column(
@@ -97,8 +98,7 @@ class _HomeTabState extends State<HomeTab>
                                     Text(
                                       "سجل دخول",
                                       textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          color: WHITE, fontSize: 10.sp),
+                                      style: GoogleFonts.almarai(color: WHITE, fontSize: 10.sp),
                                     ),
                                     SizedBox(
                                       width: 1.w,
@@ -114,11 +114,10 @@ class _HomeTabState extends State<HomeTab>
                                       child: Text(
                                         "من هنا",
                                         textAlign: TextAlign.start,
-                                        style: TextStyle(
+                                        style: GoogleFonts.almarai(
                                             color: WHITE,
                                             fontSize: 10.sp,
-                                            decoration:
-                                                TextDecoration.underline),
+                                            decoration: TextDecoration.underline),
                                       ),
                                     ),
                                   ],
@@ -139,8 +138,8 @@ class _HomeTabState extends State<HomeTab>
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: getUserImageByPath(
-                                          imgProfilePath:  IMG_PROFILE!, 
-                                          gender: GENDER_USER!)
+                                          imgProfilePath:  IMG_PROFILE, 
+                                          gender: GENDER_USER)
                                     )),
                               )),
                           actions: [
@@ -189,10 +188,6 @@ class _HomeTabState extends State<HomeTab>
                             readOnly: true,
                             onTap: () {
                               navigateTo(context: context, widget: ResultScreen() );
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => ResultScreen()));
                             },
                             decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.search),
@@ -243,10 +238,7 @@ class _HomeTabState extends State<HomeTab>
                               fontWeight: FontWeight.bold),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AdsScreen()));
+                          navigateTo(context: context, widget: AdsScreen() );
                         },
                       )
                     ],
@@ -335,8 +327,7 @@ class _HomeTabState extends State<HomeTab>
 
     MenWomenCubit.get(context).getUsersByQuickFilter(gender: "2");
 
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => SectionMenOrWomen(gender: "2")));
+    navigateTo(context: context, widget: SectionMenOrWomen(gender: "2") );
   }
 
   void MenSectionClick(BuildContext context) 
@@ -348,11 +339,7 @@ class _HomeTabState extends State<HomeTab>
     SectionMenOrWomen.threeIndexSection = 0;
     
     MenWomenCubit.get(context).getUsersByQuickFilter(gender: "1");
-
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => SectionMenOrWomen( gender: "1",)
-        ));
+    
+    navigateTo(context: context, widget: SectionMenOrWomen(gender: "1") );
   }
 }
