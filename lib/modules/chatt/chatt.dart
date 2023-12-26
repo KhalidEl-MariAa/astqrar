@@ -270,7 +270,7 @@ class ConversationScreenState extends State<ConversationScreen>
                             onTap: () { Navigator.pop(context); },
                             child: Padding(
                               padding: EdgeInsetsDirectional.only(end: 2.w, start: 1.w),
-                              child: Icon(Icons.arrow_back_ios, color: WHITE, size: 20.sp,
+                              child: Icon(Icons.arrow_back_ios, color: GREY, size: 20.sp,
                               ),
                             )),
 
@@ -278,15 +278,22 @@ class ConversationScreenState extends State<ConversationScreen>
                         Container(
                           height: 20.h,
                           width: 30.w, 
+                          
+                          child: 
+                            ClipOval(child: 
+                              getUserImage(this.otherUser),
+                            ),
+                            
                           decoration: 
                             BoxDecoration(
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                alignment: Alignment.bottomCenter,
-                                opacity: this.otherUser?.IsExpired??true ? 0.5 : 1.0,
-                                image: getUserImage(this.otherUser),
-                                fit: BoxFit.fitWidth
-                          )),
+                              // image: DecorationImage(
+                              //   alignment: Alignment.bottomCenter,
+                              //   opacity: this.otherUser?.IsExpired??true ? 0.5 : 1.0,
+                              //   image: ,
+                              //   fit: BoxFit.fitWidth)
+                                                        
+                          ),
                         ),
 
                         SizedBox(width: 1.0.h,),
@@ -442,12 +449,13 @@ class ConversationScreenState extends State<ConversationScreen>
                                   child: Container(
                                     height: 5.h,
                                     width: 8.w,
+                                    
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          opacity: this.otherUser!.IsExpired! ? 0.5 : 1.5,
-                                          image: getUserImage(this.otherUser)
-                                        )
+                                        // image: DecorationImage(
+                                        //   opacity: this.otherUser!.IsExpired! ? 0.5 : 1.5,
+                                        //   image: getUserImage(this.otherUser)
+                                        // )
                                     ),
                                   ),
                                 )

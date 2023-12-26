@@ -54,7 +54,8 @@ class FavouriteItem extends StatelessWidget
                             opacity: this.contactor.IsExpired??true ? 0.5 : 1.0,
                             image: getUserImageByPath(
                               imgProfilePath: this.contactor.imgProfile,
-                              gender:  this.contactor.gender)
+                              gender:  this.contactor.gender),
+                            fit: BoxFit.cover,
                       )),
                     ),
 

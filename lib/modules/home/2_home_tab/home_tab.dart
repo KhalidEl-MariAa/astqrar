@@ -125,23 +125,28 @@ class _HomeTabState extends State<HomeTab>
                             ],
                           ),
                           //   titleSpacing: -10,
-                          leadingWidth: 13.w,
+                          leadingWidth: 20.w,
                           centerTitle: false,
                           backgroundColor: Colors.transparent,
                           elevation: 0,
-                          leading: Padding(
-                              padding: EdgeInsetsDirectional.only(
-                                  top: 2.h, start: 2.5.w),
-                              child: Container(
-                                height: 2.h,
+                          leading: 
+                              SizedBox(
+                                width: 15,
+                                child: 
+                                Container(
+                                height: 7.h,
+                                width: 12.w,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: getUserImageByPath(
                                           imgProfilePath:  IMG_PROFILE, 
-                                          gender: GENDER_USER)
+                                          gender: GENDER_USER),
+                                    fit: BoxFit.cover
                                     )),
-                              )),
+                                ),
+                              ),
+                          
                           actions: [
                             Padding(
                               padding: EdgeInsetsDirectional.only(
@@ -171,6 +176,8 @@ class _HomeTabState extends State<HomeTab>
                       ),
                     ),
                   ),
+
+
                   Positioned(
                     bottom: 0.h,
                     top: 13.8.h,

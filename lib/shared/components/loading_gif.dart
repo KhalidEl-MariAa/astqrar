@@ -7,7 +7,7 @@ class LoadingGif extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Image(image:AssetImage("assets/loading2.gif")),
+      child: Image( image: AssetImage("assets/loading2.gif")),
     );
   }
 }

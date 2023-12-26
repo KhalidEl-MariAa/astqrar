@@ -90,15 +90,13 @@ class SliderAds extends StatelessWidget
                                   EdgeInsetsDirectional.only(start: 5.w),
                                   child: Container(
                                     width: 25.w,
-                                    height: 13.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(22.0),
-                                        image: DecorationImage(
-                                          image: getUserImage(HomeCubit.get(context)
-                                                  .userAds[realindex]),
-                                          fit: BoxFit.cover,
-                                        )),
+                                    height: 16.h,
+                                    child: 
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        child: getUserImage(HomeCubit.get(context).userAds[realindex])
+                                      )
+                                      ,
                                   ),
                                 ),
                           

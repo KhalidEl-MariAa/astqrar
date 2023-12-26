@@ -86,7 +86,8 @@ class _MoreTabState extends State<MoreTab> {
                                   image: DecorationImage(
                                     image: getUserImageByPath(
                                       imgProfilePath: IMG_PROFILE,
-                                      gender:  GENDER_USER)
+                                      gender:  GENDER_USER),
+                                  fit: BoxFit.cover,
                               )),
                             ),
                           SizedBox(

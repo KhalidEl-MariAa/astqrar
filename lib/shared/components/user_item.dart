@@ -22,63 +22,36 @@ class UserItemWidget extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return 
+    InkWell(
       onTap: () {
         onclickUser();
       },
-      child: Container(
-        // color: Colors.purple,
-        // height: 50.h,
-        child: Stack(
+      child: 
+        // اللي شايل الصورة والاسم
+        Column(
           children: [
-            Positioned(
-              top: 5,
+            Container(
+              height: 13.h, //Must be determined
               child: 
-                // اللي شايل الصورة والاسم
-                Container(
-                  height: 20.h,
-                  // width: 35.w,
-                  decoration: BoxDecoration(
-                    color: WHITE, // Colors.pink,
-                  ),
-
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 12.5.h,
-                        width: 32.w,
-                        decoration: 
-                          BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            image: DecorationImage(                            
-                              opacity: this.otherUser.IsExpired! ?  0.5 : 1.0,
-                              fit: BoxFit.fitHeight,
-                              image:  getUserImage(this.otherUser)
-                            ),
-                        ),
-                      ),
-                      
-                      SizedBox(height: 0.5.h,),
-                      
-                      Text(
-                        this.otherUser.user_Name??"--------",
-                        style: GoogleFonts.almarai(fontSize: 9.sp),
-                      )
-                    ],
-                  )),
+                ClipOval(
+                  child: getUserImage( this.otherUser )
+                )
             ),
 
-            if(this.showRemoveIcon)     
-              Positioned(
-                    top:1,
-                    left: 0,
-                    child: InkWell(
-                        onTap: (){ removeUser(); },
-                        child: Icon(Icons.remove_circle,color: Colors.red,size: 19.sp,)
-                    ))
+            SizedBox(height: 0.5.h,),                                              
+            
+            Text(
+              this.otherUser.user_Name??"--------",
+              style: GoogleFonts.almarai(fontSize: 9.sp),
+            ),
+
+            Text( this.otherUser.city??"" ),
+
           ],
+          
         ),
-      ),
+
     );
   }
 }

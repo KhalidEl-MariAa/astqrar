@@ -17,11 +17,14 @@ class GetContactsErrorState extends ContactsStates{
   GetContactsErrorState(this.error);
 }
 
-class RemoveChatLoadingState extends ContactsStates{}
+class RemoveChatLoadingState extends ContactsStates{
+  final int index;
+  RemoveChatLoadingState(this.index);
+}
 
 class RemoveChatSuccessState extends ContactsStates{
-  final int statusCode;
-  RemoveChatSuccessState(this.statusCode);
+  final String msg;
+  RemoveChatSuccessState(this.msg);
 }
 
 class RemoveChateErrorState extends ContactsStates{

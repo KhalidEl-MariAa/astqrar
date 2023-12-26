@@ -51,23 +51,25 @@ class _DetailsWidgetState extends State<DetailsWidget> {
           child: InkWell(
             onTap: () 
             {                  
-              ImageProvider img = getUserImage( widget.otherUser, larg: true );
+              ImageProvider img = getUserImageProvider( widget.otherUser, larg: true );
 
               navigateTo(
                 context: context, 
-                widget: ImageViewer(theImage: img ) );
+                widget: 
+                  ImageViewer( 
+                    theImage: img
+                  ) 
+              );
             },
             child: 
               Container(
-                height: 20.h,                
-                // width: 50.w,
-                decoration: BoxDecoration(
-                    color: WHITE,
-                    image: DecorationImage(
-                      opacity: widget.otherUser.IsExpired! ? 0.5: 1.0,
-                      fit: BoxFit.fitHeight,
-                      image: getUserImage(widget.otherUser, larg: true) ,                    
-                    )),
+                height: 20.h,
+                width: 60.w,
+                child: 
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: getUserImage( widget.otherUser, larg: true )
+                  ),
               ),
           )
         ),

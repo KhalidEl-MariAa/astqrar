@@ -92,47 +92,45 @@ class _ContactsTabState extends State<ContactsTab>
                               separatorBuilder: (context, index) => SizedBox( height: 0.5.h,),
                               itemCount: this.contacts.length,
                               itemBuilder: (context, index) => 
-                                // عنصر اللستة القابل للحذف لكل مستخدم
-                                Dismissible(
-                                  key: UniqueKey(),
-                                  onDismissed: (value) 
-                                  {
-                                    ContactsCubit.get(context).removeChat(
-                                        userId: ContactsCubit.get(context)
-                                            .contacts[index]
-                                            .contactorId);
-                                  },
-                                  
-                                  background: Container(
-                                    color: PRIMARY,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.only(
-                                              start: MediaQuery.of(context).size.width * 0.055),
-
-                                          child: Icon( Icons.delete_outline, color: WHITE,
-                                          ),
-                                        ),
-                                      ],
+                                ConditionalBuilder(
+                                  condition: state is RemoveChatLoadingState && state.index == index,
+                                  builder: (context) => 
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      height: 8.5.h,
+                                      width: 5,
+                                      child: LoadingGif(),
                                     ),
-                                  ),
-                                  
-                                  // 
-                                  child: 
-                                    Stack(
-                                      children: [
-                                        if (state is RemoveChatLoadingState)
-                                          Positioned.fill(
-                                            child: Container(
-                                              color: Colors.black54,
-                                              child: Center(
-                                                child: CircularProgressIndicator(),
-                                              ),
+                                    
+                                  fallback: (context) =>
+                                    // عنصر اللستة القابل للحذف لكل مستخدم
+                                    Dismissible(
+                                      key: UniqueKey(),
+                                      onResize: () 
+                                      {
+                                        ContactsCubit.get(context).removeChat(
+                                            userId: ContactsCubit.get(context)
+                                                .contacts[index]
+                                                .contactorId,
+                                            index: index);
+                                      },
+                                      
+                                      background: Container(
+                                        color: PRIMARY,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional.only(
+                                                  start: MediaQuery.of(context).size.width * 0.055),
+
+                                              child: Icon( Icons.delete_outline, color: WHITE ),
                                             ),
-                                          ),
-                                        
+                                          ],
+                                        ),
+                                      ),
+                                      
+                                      child: 
                                         // الصورة والاسم
                                         FavouriteItem (
                                           contactor: this.contacts[index], 
@@ -171,8 +169,9 @@ class _ContactsTabState extends State<ContactsTab>
                                             ],),
 
                                         ),
-                                    ],)
-                                ),
+                                    ),
+
+                                )
                             ),
 
                         )

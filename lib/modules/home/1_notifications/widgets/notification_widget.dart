@@ -39,7 +39,7 @@ class NotificationWiget extends StatelessWidget
 
         navigateTo(
           context: context, 
-          widget: UserDetailsScreen(messageVisibility: true,)
+          widget: UserDetailsScreen()
         );
 
       },
@@ -47,8 +47,6 @@ class NotificationWiget extends StatelessWidget
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
         child: Container(
-          // height: this.note.notificationType == 0 ? 12.h : 12.h,
-          width: double.infinity,
           decoration: BoxDecoration(
               color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
           child: Row(
@@ -58,15 +56,15 @@ class NotificationWiget extends StatelessWidget
               Container(
                 width: 18.w,
                 height: 8.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(35),
-                    image: DecorationImage(
-                        image: 
-                          this.note.notificationType == 10 ? 
-                            AssetImage("assets/icon.png")
+                child: 
+                  ClipOval(
+                    child: this.note.notificationType == 10 ? 
+                            Image.asset("assets/icon.png", fit: BoxFit.cover,)
                             :
                             getUserImage(this.user)
-                    )),
+
+                  ),
+
               ),
 
               SizedBox(width: 3.w,),

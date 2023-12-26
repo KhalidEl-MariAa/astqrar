@@ -33,17 +33,17 @@ class SectionMenOrWomen extends StatelessWidget
   final List<String> threeSection = ["#الكل", "سعودي", "مقيم"];
   static int oneIndexSection = 0;
   static int twoIndexSection = 0;
-  static int threeIndexSection = 0;
+  static int threeIndexSection = 0;  
 
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-    GlobalKey<RefreshIndicatorState>();
-
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   SectionMenOrWomen({required this.gender});
 
   @override
   Widget build(BuildContext context) 
   {
+    bool is_landscape = (MediaQuery.of(context).orientation == Orientation.landscape);
+
     return BlocConsumer<MenWomenCubit, MenWomenStates>(      
       listener: (context, state) 
       {
@@ -141,39 +141,41 @@ class SectionMenOrWomen extends StatelessWidget
                                   backgroundColor: Colors.transparent,
                                   elevation: 0,
 
-                                  leading: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsetsDirectional.only(start: 3.w,top:0.h ),
-                                          child: Icon(
-                                            Icons.arrow_back_ios,
-                                            color: WHITE,
-                                            size: 13.sp,
+                                  leading: 
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional.only(start: 3.w,top:0.h ),
+                                            child: Icon(
+                                              Icons.arrow_back_ios,
+                                              color: WHITE,
+                                              size: 13.sp,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(width: 2.w,),
-                                      Padding(
-                                          padding: EdgeInsetsDirectional.only(top: 2.h, start: 0.w),
-                                          child:
-                                              Container(
-                                                height: 7.h,
-                                                width: 12.w,
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                        image: getUserImageByPath(
-                                                          imgProfilePath: IMG_PROFILE,
-                                                          gender:  GENDER_USER)
-                                                  )),
+                                        SizedBox(width: 2.w,),
+                                        Padding(
+                                            padding: EdgeInsetsDirectional.only(top: 2.h, start: 0.w),
+                                            child:
+                                                Container(
+                                                  height: 7.h,
+                                                  width: 12.w,
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      image: DecorationImage(
+                                                          image: getUserImageByPath(
+                                                            imgProfilePath: IMG_PROFILE,
+                                                            gender:  GENDER_USER),
+                                                          fit: BoxFit.cover
+                                                    )),
+                                                ),
                                               ),
-                                            ),
-                                    ],
-                                  ),
+                                      ],
+                                    ),
                                 ),
                               ),
                             ),
@@ -181,146 +183,133 @@ class SectionMenOrWomen extends StatelessWidget
 
                           Positioned(
                             bottom: 0,
-                            right: 4.w,
-                            child: Container(
-                              height: 4.5.h,
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: oneSection.length,
-                                separatorBuilder: (context, index) => SizedBox(width: 2.w,),
-                                itemBuilder: (context, index) => 
+                            child: 
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 3.3.w),
+                                height: 4.5.h,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: oneSection.length,
+                                  separatorBuilder: (context, index) => SizedBox(width: 2.w,),
+                                  itemBuilder: (context, index) => 
 
-                                  // البادج حق الفلتر - نوع الزواج
-                                  ChoiceChip (
-                                    padding: EdgeInsets.all(2.0),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                                    selectedColor: PRIMARY,
-                                    onSelected: (bool value) 
-                                    {
-                                      MenWomenCubit.get(context)
-                                          .changeindexonesection(
-                                              index: index,
-                                              gender: this.gender == "1" ? "1" : "2");
-                                    },
-                                    label: 
-                                      Text(oneSection[index],
-                                        style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
-                                      ),
-                                    backgroundColor: Colors.grey[400],
-                                    selected: index == oneIndexSection,
-                                  ),                                  
+                                    // البادج حق الفلتر - نوع الزواج
+                                    ChoiceChip (
+                                      padding: EdgeInsets.all(2.0),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                      selectedColor: PRIMARY,
+                                      onSelected: (bool value) 
+                                      {
+                                        MenWomenCubit.get(context)
+                                            .changeindexonesection(
+                                                index: index,
+                                                gender: this.gender == "1" ? "1" : "2");
+                                      },
+                                      label: 
+                                        Text(oneSection[index],
+                                          style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
+                                        ),
+                                      backgroundColor: Colors.grey[400],
+                                      selected: index == oneIndexSection,
+                                    ),                                  
+                                ),
+
                               ),
-
-                            ),
                           ),
                         ]),
                       ),
 
                       SizedBox(height: 0.5.h, ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.3.w),                        
-                        child: Container(
-                          height: 4.5.h,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => 
-                            // البادج حق الفلتر - العمر
-                            ChoiceChip(
-                              padding: EdgeInsets.all(2.0),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                              selectedColor: PRIMARY,
-                              onSelected: (bool value) {
-                                MenWomenCubit.get(context)
-                                    .changeindextwosection(
-                                        index: index,
-                                        gender: this.gender == "1" ? "1" : "2");
-                              },
-                              label: 
-                                Text(twoSection[index],
-                                  style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
-                                ),
-                              backgroundColor: Colors.grey[400],
-                              selected: index == twoIndexSection,
-                            ),
-                            itemCount: twoSection.length,
-                            separatorBuilder: (context, index) => SizedBox(width: 1.w,),
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 3.3.w),
+                        height: 4.5.h,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => 
+                          // البادج حق الفلتر - العمر
+                          ChoiceChip(
+                            padding: EdgeInsets.all(2.0),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                            selectedColor: PRIMARY,
+                            onSelected: (bool value) {
+                              MenWomenCubit.get(context)
+                                  .changeindextwosection(
+                                      index: index,
+                                      gender: this.gender == "1" ? "1" : "2");
+                            },
+                            label: 
+                              Text(twoSection[index],
+                                style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
+                              ),
+                            backgroundColor: Colors.grey[400],
+                            selected: index == twoIndexSection,
                           ),
+                          itemCount: twoSection.length,
+                          separatorBuilder: (context, index) => SizedBox(width: 1.w,),
                         ),
                       ),
-
                       SizedBox(height: 0.8.h,),
 
-                      Padding(
+                      Container(
                         padding: EdgeInsets.symmetric(horizontal: 3.3.w),
-                        child: Container(
-                          height: 4.5.h,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: threeSection.length,
-                            separatorBuilder: (context, index) => SizedBox(width: 1.w,),
-                            itemBuilder: (context, index) => 
-                            
-                            // البادج حق الفلتر - الجنسية
-                            ChoiceChip(
-                              padding: EdgeInsets.all(2.0),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                              selectedColor: PRIMARY,
-                              onSelected: (bool value) {
-                                MenWomenCubit.get(context)
-                                    .changeindexthreesection(
-                                        index: index,
-                                        gender: this.gender == "1" ? "1" : "2");
-                              },
-                              label: 
-                                Text(threeSection[index],
-                                  style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
+                        height: 4.5.h,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: threeSection.length,
+                          separatorBuilder: (context, index) => SizedBox(width: 1.w,),
+                          itemBuilder: (context, index) => 
+                          
+                          // البادج حق الفلتر - الجنسية
+                          ChoiceChip(
+                            padding: EdgeInsets.all(2.0),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                            selectedColor: PRIMARY,
+                            onSelected: (bool value) {
+                              MenWomenCubit.get(context)
+                                  .changeindexthreesection(
+                                      index: index,
+                                      gender: this.gender == "1" ? "1" : "2");
+                            },
+                            label: 
+                              Text(threeSection[index],
+                                style: GoogleFonts.almarai(fontSize: 8.5.sp, fontWeight: FontWeight.bold)
 
-                                ),
-                              backgroundColor: Colors.grey[400],
-                              selected: index == threeIndexSection,
-                            ),
+                              ),
+                            backgroundColor: Colors.grey[400],
+                            selected: index == threeIndexSection,
                           ),
                         ),
                       ),
-
-
-                      // Padding(
-                      //   padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
-                      //   child: Text( 'النتائج' + " ( ${MenWomenCubit.get(context).users.length} )" ,
-                      //       style: GoogleFonts.almarai(
-                      //           fontWeight: FontWeight.w200,
-                      //           fontSize: 19)),
-                      // ),
-
 
                       RefreshIndicator(
                         key: _refreshIndicatorKey,
                         onRefresh: () => _pullRefresh(context), 
                         child: 
-                          GridView.count(
+                          GridView.builder(
+                            padding: EdgeInsets.all(10),
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            // childAspectRatio: 1 / 0.2.h,
-                            childAspectRatio: .8,
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 0.0,
-                            mainAxisSpacing: 0.0.h,
-                            children: 
-                            List.generate(
-                                MenWomenCubit.get(context).users.length,
-                                (index) {
-                                  return Center(
-                                      child: UserItemWidget(
-                                          showRemoveIcon: false,
-                                          removeUser: () {},
-                                          onclickUser: () { onClickUserItem(context, index); },
-                                          otherUser: MenWomenCubit.get(context).users[index],
-                                  )
-                                );
-                              }
-                            ), 
+                            gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: is_landscape ? 5 : 3  ,
+                              childAspectRatio: 1/1.4,  // width/height
+                              crossAxisSpacing: 4.w,    // between columns
+                              mainAxisSpacing: 1.h,    //between rows
+                            ),
+                            itemCount: MenWomenCubit.get(context).users.length,
+                            itemBuilder: (context, index) => 
+                                Container(
+                                  // color: Colors.red,
+                                  child: 
+                                    UserItemWidget(
+                                        showRemoveIcon: false,
+                                        removeUser: () {},
+                                        onclickUser: () { onClickUserItem(context, index); },
+                                        otherUser: MenWomenCubit.get(context).users[index],
+                                    ),
+                                ),
                           )
                     ),
 
@@ -358,16 +347,12 @@ class SectionMenOrWomen extends StatelessWidget
     if (IS_LOGIN == true) 
      {
       UserDetailsCubit.get(context)
-          .getOtherUser(
-              otherId:
-                  MenWomenCubit.get(context).users[index].id!);
+        .getOtherUser(
+              otherId: MenWomenCubit.get(context).users[index].id!);
     }else{
       UserDetailsCubit.get(context)
           .getInformationUserByVisitor(
-              userId:
-                  MenWomenCubit.get(context)
-                      .users[index]
-                      .id!);
+              userId: MenWomenCubit.get(context).users[index].id!);
     }
     navigateTo(
       context: context, 

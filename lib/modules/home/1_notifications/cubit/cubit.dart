@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';
@@ -39,7 +41,7 @@ class NotificationCubit extends Cubit<NotificationStates>
 
   void removeNotification({required int index})
   {
-    emit(SendNotificationLoadingState());
+    emit(RemoveNotificationLoadingState(index));
     
     DioHelper.postDataWithBearearToken(
       token: TOKEN.toString(),
@@ -51,12 +53,18 @@ class NotificationCubit extends Cubit<NotificationStates>
       }
     )
     .then((value) {
-      log(value.toString());
+      
+      ServerResponse res = ServerResponse.fromJson(value.data);
+      if( res.key == 0){
+        RemoveNotificationErrorState(res.msg??"خطأ غير معروف");
+      }
+
       this.getNotificationsModel.data.removeAt(index);      
-      emit(SendNotificationSuccessState());
+      emit(RemoveNotificationSuccessState());
+
     }).catchError((error){
       log(error.toString());
-      emit(SendNotificationErrorState(error.toString()));
+      emit(RemoveNotificationErrorState(error.toString()));
     });
   }
 

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:astarar/models/server_response_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -43,9 +44,9 @@ class ContactsCubit extends Cubit<ContactsStates>
     });
   }
 
-   void removeChat({required String userId}) 
+   void removeChat({required String userId, required int index}) 
    {
-      emit(RemoveChatLoadingState());
+      emit(RemoveChatLoadingState(index));
 
       DioHelper.postDataWithBearearToken(
             url: REMOVECHAT, 
@@ -56,11 +57,14 @@ class ContactsCubit extends Cubit<ContactsStates>
             token: TOKEN.toString()
       ).then((value) 
       {
-        log(value.toString());
+        ServerResponse res = ServerResponse.fromJson(value.data);
+        if(res.key == 0){
+          emit(RemoveChateErrorState(res.msg??"حدث خطأ اثناء حذف المحادثة"));  
+        }
 
         contacts.removeWhere( (e) => e.contactorId ==  userId);
-
-        emit(RemoveChatSuccessState(value.statusCode!));
+        emit(RemoveChatSuccessState(res.msg!));
+        
       }).catchError((error) {
         log(error.toString());
         emit(RemoveChateErrorState(error));

@@ -117,15 +117,15 @@ class _ChangeProfileImgState extends State<ChangeProfileImg>
                         child: Container(
                             height: 20.h,
                             width: 50.w,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                image: DecorationImage(
-                                  opacity: this.widget.current_user.IsExpired! ? 0.5 : 1.0,
-                                  fit: BoxFit.fitWidth,
-                                  image: getUserImage(this.widget.current_user) ,                    
-                                )),
-                          ) 
-                        ),
+                            
+                            child: 
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(18.0),
+                                child: getUserImage(this.widget.current_user)
+                                ),
+                            ),
+                          ), 
+                        
 
                         SizedBox(height: 1.h,),
                       

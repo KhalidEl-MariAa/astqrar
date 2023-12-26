@@ -45,7 +45,10 @@ class _ResultScreenState extends State<ResultScreen>
             });
           }
         }, 
-        builder: (context, state) {
+        builder: (context, state) 
+        {
+          bool is_landscape = (MediaQuery.of(context).orientation == Orientation.landscape);
+          
           return Directionality(
             textDirection: TextDirection.rtl,
             child: Scaffold(
@@ -164,7 +167,11 @@ class _ResultScreenState extends State<ResultScreen>
                                                   image: getUserImageByPath(
                                                       imgProfilePath:
                                                           IMG_PROFILE,
-                                                      gender: GENDER_USER))),
+                                                      gender: GENDER_USER),
+                                                  fit: BoxFit.cover,
+                                              ),
+                                                  
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -295,14 +302,12 @@ class _ResultScreenState extends State<ResultScreen>
                             onsubmit: (value) {
                               this.searchResult.clear();
                               SearchCubit.get(context).searchText = value??"";
-                              // SearchCubit.get(context).isSearchByTextOnly = true;
                               SearchCubit.get(context).query.clear();
                               start_searching(context);
                             },
                             suffixPressed: () {
                               this.searchResult.clear();
                               SearchCubit.get(context).searchText = searchTextController.text;
-                              // SearchCubit.get(context).isSearchByTextOnly = true;
                               SearchCubit.get(context).query.clear();
                               start_searching(context);
                             },
@@ -321,35 +326,36 @@ class _ResultScreenState extends State<ResultScreen>
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Padding(
-                            //   padding: EdgeInsetsDirectional.only(start: 5.w, top: 2.h),
-                            //   child: Text(
-                            //       'النتائج' + " ( ${this.searchResult.length} )",
-                            //       style: GoogleFonts.almarai(
-                            //           fontWeight: FontWeight.w200, fontSize: 19)),
-                            // ),
+
                             RefreshIndicator(
                               key: _refreshIndicatorKey,
-                              onRefresh: () async {
-                                start_searching(context);
-                              },
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.only(bottom: 2.h),
-                                child: GridView.count(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    childAspectRatio: 1 / 1.2,
-                                    crossAxisCount: 3,
-                                    crossAxisSpacing: 0.0,
-                                    mainAxisSpacing: 12.0,
-                                    children: List.generate(
-                                        this.searchResult.length, (index) {
-                                      return Center(
-                                          child:
-                                              user_item_thmbnail(context, index));
-                                    })),
-                              ),
+                              onRefresh: () => start_searching(context), 
+                              child: 
+                                GridView.builder(
+                                  padding: EdgeInsets.all(10),
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: is_landscape ? 5 : 3  ,
+                                    childAspectRatio: 1/1.4,  // width/height
+                                    crossAxisSpacing: 4.w,    // between columns
+                                    mainAxisSpacing: 1.h,    //between rows
+                                  ),
+                                  itemCount: this.searchResult.length,
+                                  itemBuilder: (context, index) => 
+                                      Container(
+                                        // color: Colors.red,
+                                        child: 
+                                          UserItemWidget(
+                                              showRemoveIcon: false,
+                                              removeUser: () {},
+                                              onclickUser: () { onClickUserItem(context, index); },
+                                              otherUser: this.searchResult[index],
+                                          ),
+                                      ),
+                                )
                             ),
+
                             ConditionalBuilder(
                               condition: (state is GetSearchLoadingState) || (state is FilterSearchLoadingState),
                               builder: (context) => LoadingGif(),
@@ -379,28 +385,21 @@ class _ResultScreenState extends State<ResultScreen>
     );
   }//end build
 
-  UserItemWidget user_item_thmbnail(BuildContext context, int index) {
-    return UserItemWidget(
-      showRemoveIcon: false,
-      removeUser: () {},
-      onclickUser: () {
-        if (IS_LOGIN) {
-          UserDetailsCubit.get(context)
-              .getOtherUser(otherId: this.searchResult[index].id!);
-        } else {
-          UserDetailsCubit.get(context).getInformationUserByVisitor(
-              userId: this.searchResult[index].id!);
-        }
+  void onClickUserItem(BuildContext context, int index) 
+  {
+      if (IS_LOGIN) {
+        UserDetailsCubit.get(context).getOtherUser(
+          otherId: this.searchResult[index].id!);
+      } else {
+        UserDetailsCubit.get(context).getInformationUserByVisitor(
+          userId: this.searchResult[index].id!);
+      }
 
-        navigateTo(
-            context: context,
-            widget: UserDetailsScreen( ) 
-        );
-      },
-      // genderValue: this.searchResult[index].gender!,
-      // username: this.searchResult[index].user_Name!,
-      otherUser: this.searchResult[index],
-    );
+      navigateTo(
+          context: context,
+          widget: UserDetailsScreen( ) 
+      );
+
   }
 
   void show_filter_search_screen(BuildContext context) {
@@ -411,7 +410,7 @@ class _ResultScreenState extends State<ResultScreen>
         ));
   }
 
-  void start_searching(BuildContext context) 
+  Future<void> start_searching(BuildContext context) async
   {
     if (SearchCubit.get(context).query.isNotEmpty) {
       SearchCubit.get(context).query["skipPos"] = SearchCubit.get(context).searchResult.length;
@@ -423,4 +422,5 @@ class _ResultScreenState extends State<ResultScreen>
       showToast(msg: "من فضلك اكتب اي كلمة بحثية", state: ToastStates.SUCCESS);
     }
   }
+
 }

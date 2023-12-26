@@ -76,20 +76,68 @@ ImageProvider getUserImageByPath({String? imgProfilePath="", int? gender=1})
   }
 }
 
+ImageProvider getUserImageProvider(User? usr, {bool larg=false} )
+{
+  if (usr == null && usr?.imgProfile == null)
+    return AssetImage(DEFAULT_IMAGE);
 
+  if( usr!.imgProfile!.isNotEmpty && !(usr.hideImg??false) )
+  {
+    usr.imgProfile = larg? usr.larg_imgProfile : usr.imgProfile;    
+    return NetworkImage( usr.imgProfile??"" );
+  }else{
+    return AssetImage(usr.gender == 1? maleImage : femaleImage); 
+  }
+}
 
-ImageProvider getUserImage(User? usr, {bool larg=false} )
+Widget getUserImage(User? usr, {bool larg=false} )
+{
+  Widget w = SizedBox();
+  if (usr == null)
+    return Image.asset(DEFAULT_IMAGE);
+
+  if( usr.imgProfile != "" && !(usr.hideImg??false) )
+  {
+    usr.imgProfile = larg? usr.larg_imgProfile : usr.imgProfile;
+    
+    w = FadeInImage.assetNetwork(
+          height: double.infinity,
+          width: double.infinity,
+          placeholder: 'assets/loading2.gif', 
+          image: usr.imgProfile??"",
+          fit: BoxFit.cover,
+          
+        );
+  }else{
+    w = Image.asset(usr.gender == 1? maleImage : femaleImage); 
+  }
+
+  double opacity = usr.IsExpired!? 0.5: 0.0;
+  return Container(
+    foregroundDecoration: BoxDecoration(color: Color.fromRGBO(255, 255, 255, opacity),),
+    child: w,
+  );
+
+}
+
+ImageProvider getUserImage333(User? usr, {bool larg=false} )
 {
   if (usr == null)
-    return AssetImage(DEFAULT_IMAGE);
+    return Image.asset(DEFAULT_IMAGE).image;
 
   if( usr.imgProfile != "" && !(usr.hideImg??false) )
   {
     // log(usr.imgProfile??"XXXXXX img");
     usr.imgProfile = larg ? usr.larg_imgProfile : usr.imgProfile;
-    return NetworkImage(usr.imgProfile??"");
+    return 
+      FadeInImage.assetNetwork(
+        height: double.infinity,
+        width: double.infinity,
+        placeholder: 'assets/loading2.gif', 
+        image: usr.imgProfile??""
+      ).image;
   }else{
-    return AssetImage(usr.gender == 1? maleImage : femaleImage); 
+    return Image.asset(usr.gender == 1? maleImage : femaleImage).image; 
   }
 }
 

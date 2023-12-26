@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:astarar/shared/components/loading_gif.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,88 +109,97 @@ class NotificationTab extends StatelessWidget
                       ),
                     ),
                     ),
-                  fallback: (context) => SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 2.1.h,),
+                  fallback: (context) => 
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 2.1.h,),
 
-                        if(NotificationCubit.get(context).getNotificationsModel.data.length >= 1)
-                          Row(                          
-                            children: [
-                              SizedBox(width: 2.w,),
-                              Icon(Icons.delete, color: Colors.red,),
-                              Text("لحذف الإشعار اسحب لليسار", 
-                                style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
-                              ),
-                              
-                              Icon(Icons.arrow_forward_rounded, color: PRIMARY,),
-                            ],
-                          ),
+                          if(NotificationCubit.get(context).getNotificationsModel.data.length >= 1)
+                            Row(                          
+                              children: [
+                                SizedBox(width: 2.w,),
+                                Icon(Icons.delete, color: Colors.red,),
+                                Text("لحذف الإشعار اسحب لليسار", 
+                                  style: GoogleFonts.almarai(color: CUSTOME_GREY, fontSize: 11.sp),
+                                ),
+                                
+                                Icon(Icons.arrow_forward_rounded, color: PRIMARY,),
+                              ],
+                            ),
 
-                        ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            separatorBuilder: (context, index) => const SizedBox(height: 0,),
+                          ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) => const SizedBox(height: 0,),
 
-                            itemCount: NotificationCubit.get(context)
-                                .getNotificationsModel
-                                .data
-                                .length,
+                              itemCount: NotificationCubit.get(context)
+                                  .getNotificationsModel
+                                  .data
+                                  .length,
 
-                            itemBuilder: (context, index) => 
+                              itemBuilder: (context, index) => 
 
-                              ConditionalBuilder(
-                                condition: state is RemoveNotificationLoadingState,
-                                builder: (context) => CircularProgressIndicator(),
-                                fallback: (context) 
-                                {
-                                  return Dismissible(
-                                    key: UniqueKey(),
-                                    child:
-                                      NotificationWiget(
-                                        user: NotificationCubit.get(context)
-                                                .getNotificationsModel
-                                                .data[index]
-                                                .userInformation!,
-                                                
-                                        note: NotificationCubit.get(context)
-                                                .getNotificationsModel
-                                                .data[index]
-                                                .notification!
+                                ConditionalBuilder(
+                                  condition: state is RemoveNotificationLoadingState && state.index == index,
+                                  builder: (context) => 
+
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      height: 8.5.h,
+                                      width: 5,
+                                      child: LoadingGif(),
+                                    ),
                                     
-                                      ),
+                                  fallback: (context) 
+                                  {
+                                    return Dismissible(
+                                      key: UniqueKey(),
+                                      child:
+                                        NotificationWiget(
+                                          user: NotificationCubit.get(context)
+                                                  .getNotificationsModel
+                                                  .data[index]
+                                                  .userInformation!,
+                                                  
+                                          note: NotificationCubit.get(context)
+                                                  .getNotificationsModel
+                                                  .data[index]
+                                                  .notification!
                                       
-                                      onDismissed: (value) 
-                                      {
-                                        NotificationCubit.get(context)
-                                          .removeNotification(index: index);
-                                      },
-                                  
-                                      background: Container(
-                                        color: PRIMARY,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional.only(
-                                                  start: MediaQuery.of(context).size.width * 0.055),
-                                  
-                                              child: Icon( Icons.delete_outline, color: WHITE,
-                                              ),
-                                            ),
-                                          ],
                                         ),
-                                      ),
-                                  
-                                  );
-                                }
-                              ),
+                                        
+                                        onResize: ()
+                                        {
+                                          NotificationCubit.get(context)
+                                            .removeNotification(index: index);
+                                        },
+                                    
+                                        background: Container(
+                                          color: PRIMARY,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional.only(
+                                                    start: MediaQuery.of(context).size.width * 0.055),
+                                    
+                                                child: Icon( Icons.delete_outline, color: WHITE,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                    
+                                    );
+                                  }
+                                ),
 
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
                 )),
     ),);
   }
