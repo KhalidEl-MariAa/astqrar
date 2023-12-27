@@ -38,7 +38,7 @@ class _LayoutScreenState extends State<LayoutScreen>
   {
     super.initState();
 
-    SplashCubit.Firebase_init( context );
+    //SplashCubit.Firebase_init( context );
 
   }
 

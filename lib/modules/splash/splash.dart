@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import '../../models/server_response_model.dart';
 import '../home/6_profile/user_profile/user_profile.dart';
 import '../login/not_subscribed.dart';
@@ -50,6 +52,7 @@ class _SplashState extends State<Splash>
     setState(() { loading_desc = "Getting device information..."; });
     this.info = await PackageInfo.fromPlatform();
 
+
     setState(() { loading_desc = "Connecting to server..."; });
     await DioHelper.init();
 
@@ -68,24 +71,10 @@ class _SplashState extends State<Splash>
     IMG_PROFILE = CacheHelper.getData(key: "imgProfile");
     IS_ACTIVE = CacheHelper.getData(key: "isActive")?? false;
     PROFILE_IS_COMPLETED = CacheHelper.getData(key: "profileIsCompleted")?? false;
-
-
+  
     setState(() { loading_desc = "Connecting to Firebase Messaging..."; });
-
-    // WidgetsFlutterBinding.ensureInitialized();
-
-    // await Firebase.initializeApp(
-    //   // name: /* DON'T USE IT WITH DEFAULT OPTIONS */
-    //   options: DefaultFirebaseOptions.currentPlatform,
-    // ).then((value){
-    //   log('Firebase initialized ${value.toString()}' );
-    // })
-    // .whenComplete(() {
-    //   log('Firebase completed .........................................');
-    // });
-
-    // NotificationWidget(context).init();
-    // SplashCubit.Firebase_init(context);
+    await  SplashCubit.Firebase_init( );
+    await SplashCubit.AwesomeNotifications_init();
 
     //---------------
 
@@ -98,7 +87,7 @@ class _SplashState extends State<Splash>
     RouteBasedOnLoginStatus();
   }
 
-  void RouteBasedOnLoginStatus()
+  void RouteBasedOnLoginStatus() 
   {
     Widget nextPage = const LoginScreen();  
 
@@ -138,7 +127,10 @@ class _SplashState extends State<Splash>
       (route) => false,
     );
 
-  }
+    SplashCubit.initialMsgHandler();
+      
+
+  }// end RouteBasedOnLoginStatus
 
   Future checkUserLoginStatus() async 
   {

@@ -1,5 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:astarar/modules/home/layout/layout.dart';
+import 'package:astarar/modules/login/login.dart';
+import 'package:astarar/modules/user_details/user_details.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,59 +70,72 @@ class MyApp extends StatelessWidget
     return Sizer(
       builder: (context, orientation, devicetype) 
       {
-        return MultiBlocProvider(
-          child: 
-            MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: APP_NAME,
-              home: Splash(),
-              theme: ThemeData(
-                primarySwatch: Colors.grey,
-              ),
-          ),
-          providers: [
-            BlocProvider<LayoutCubit>(
-                create: (BuildContext context) =>
-                  LayoutCubit()
-                    ..loadSpecificationsFromBackend()
-                    ..loadCountries()
-                    ..getPhone()
+        return 
+          MultiBlocProvider(
+            child: 
+              MaterialApp(
+                debugShowCheckedModeBanner: false,
+                navigatorKey: MyApp.navigatorKey,
+                title: APP_NAME,
+                // home: Splash(),
+                theme: ThemeData( primarySwatch: Colors.grey,),
+
+                initialRoute: '/',
+                routes: <String, WidgetBuilder>
+                {
+                  '/' : (context) => Splash(),
+                  '/login' : (context) => LoginScreen(),
+                  '/user-details' : (context) {
+                    final Map args = ModalRoute.of(context)?.settings.arguments as Map;  
+                    return UserDetailsScreen(otherUserId: args['otherUserId'],);
+                  } ,
+                },
             ),
+            providers: [
 
-            BlocProvider<HomeCubit>(
-                create: (BuildContext context) => HomeCubit()..getUserAds()),
+              BlocProvider<SplashCubit>(
+                  create: (BuildContext context) => SplashCubit()),
 
-            BlocProvider<GetPackagesCubit>(
-                create: (BuildContext context) => GetPackagesCubit()..getPackages()),
+              BlocProvider<LayoutCubit>(
+                  create: (BuildContext context) =>
+                    LayoutCubit()
+                      ..loadSpecificationsFromBackend()
+                      ..loadCountries()
+                      ..getPhone()
+              ),
 
-            BlocProvider<AdsCubit>(
-                create: (BuildContext context) => AdsCubit()..getAds()),
+              BlocProvider<HomeCubit>(
+                  create: (BuildContext context) => HomeCubit()..getUserAds()),
 
-            BlocProvider<MenWomenCubit>(
-                create: (BuildContext context) => MenWomenCubit()),
+              BlocProvider<GetPackagesCubit>(
+                  create: (BuildContext context) => GetPackagesCubit()..getPackages()),
 
-            BlocProvider<UserDetailsCubit>(
-                create: (BuildContext context) => UserDetailsCubit()),
+              BlocProvider<AdsCubit>(
+                  create: (BuildContext context) => AdsCubit()..getAds()),
 
-            BlocProvider<MoreTabCubit>(
-                create: (BuildContext context) => MoreTabCubit()),
+              BlocProvider<MenWomenCubit>(
+                  create: (BuildContext context) => MenWomenCubit()),
 
-            BlocProvider<SearchCubit>(
-                create: (BuildContext context) => SearchCubit()),
+              BlocProvider<UserDetailsCubit>(
+                  create: (BuildContext context) => UserDetailsCubit()),
 
-            BlocProvider<AboutUsCubit>(
-                create: (BuildContext context) => AboutUsCubit()..aboutUs()),
+              BlocProvider<MoreTabCubit>(
+                  create: (BuildContext context) => MoreTabCubit()),
+
+              BlocProvider<SearchCubit>(
+                  create: (BuildContext context) => SearchCubit()),
+
+              BlocProvider<AboutUsCubit>(
+                  create: (BuildContext context) => AboutUsCubit()..aboutUs()),
 
 
-            BlocProvider<PaymentCubit>(
-                create: (BuildContext context) => PaymentCubit()),
-
-            BlocProvider<SplashCubit>(
-                create: (BuildContext context) => SplashCubit()),
+              BlocProvider<PaymentCubit>(
+                  create: (BuildContext context) => PaymentCubit()),
 
 
-          ],
-        );
+
+            ],
+          );
       }
     );
   }

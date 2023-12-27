@@ -90,7 +90,6 @@ const QUICKFILTER="api/v2/get-users-by-quick-filter";
 
 const GETNOTIFICATIONS="api/v2/get-my-notifications";
 const SENDNOTIFICATION="api/v2/send-notification";
-const SENDNOTIFICATIONTOALL="api/v2/send-notifications-to-all";
 const REMOVENOTIFICATION="api/v1/RemoveNotification";
 
 const GETMESSAGES="api/v2/get-messages-users";

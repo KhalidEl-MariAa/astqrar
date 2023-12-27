@@ -9,14 +9,16 @@ class OtherUser extends User
     bool isBlockedByMe = false;
     bool heBlockedMe = false;
     
+    OtherUser( )  : this.fromJson({"id": '111'});
+
     OtherUser.fromJson(Map<String, dynamic>? json)  : super.fromJson(json)
     {
       if(json == null) return;
 
-      this.isFavorate = json['isFavorate'];
-      this.isInMyContacts = json['isInMyContacts'];
-      this.isBlockedByMe = json['isBlockedByMe'];   
-      this.heBlockedMe = json['heBlockedMe'];   
+      this.isFavorate = json['isFavorate']??false;
+      this.isInMyContacts = json['isInMyContacts']??false;
+      this.isBlockedByMe = json['isBlockedByMe']??false;   
+      this.heBlockedMe = json['heBlockedMe']??false;   
     }
 }
 
