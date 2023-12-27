@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,25 +87,30 @@ class Web extends StatelessWidget
                 }
 
                 if (is_correct_callback_uri) 
-                {
-                  Navigator.pushAndRemoveUntil(
-                      scaffoldKey.currentContext!,
-                      MaterialPageRoute(
-                        builder: (context) 
-                        {
-                          return PaymentScreen(
-                            price: price,
-                            idService: idService,
-                            serviceType: serviceType
-                          );
-                        }),
-                      (context) => false
-                  );
+                {                  
+                    Future.delayed(const Duration(seconds: 3), () 
+                    {
+                      //do something after 3 seconds
+                      Navigator.pushAndRemoveUntil(
+                          scaffoldKey.currentContext!,
+                          MaterialPageRoute(
+                            builder: (context) 
+                            {
+                              return PaymentScreen(
+                                price: price,
+                                idService: idService,
+                                serviceType: serviceType
+                              );
+                            }),
+                          (context) => false
+                      );
 
-                  PaymentCubit.get(context).getInvoiceStatus(
-                    serviceId: idService!,
-                    type: serviceType,
-                  );
+                      PaymentCubit.get(context).getInvoiceStatus(
+                        serviceId: idService!,
+                        type: serviceType,
+                      );
+
+                    });
 
                 }else{
                   PaymentCubit.get(context).setUrl(_uri!);

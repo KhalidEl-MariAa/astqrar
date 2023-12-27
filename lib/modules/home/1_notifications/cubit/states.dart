@@ -9,6 +9,17 @@ class GetNotificationErrorState extends NotificationStates{
   GetNotificationErrorState(this.error);
 }
 
+class RemoveNotificationLoadingState extends NotificationStates{
+  final int index;
+  RemoveNotificationLoadingState(this.index);
+}
+class RemoveNotificationSuccessState extends NotificationStates{}
+class RemoveNotificationErrorState extends NotificationStates{
+  final String error;
+  RemoveNotificationErrorState(this.error);
+}
+
+
 class AcceptChattRequestLoadingState extends NotificationStates{}
 class AcceptChattRequestSuccessState extends NotificationStates{}
 class AcceptChattRequestErrorState extends NotificationStates{
@@ -23,19 +34,3 @@ class IgnoreChattRequestErrorState extends NotificationStates{
   IgnoreChattRequestErrorState(this.error);
 }
 
-class SendNotificationLoadingState extends NotificationStates{}
-class SendNotificationSuccessState extends NotificationStates{}
-class SendNotificationErrorState extends NotificationStates{
-  final String error;
-  SendNotificationErrorState(this.error);
-}
-
-class RemoveNotificationLoadingState extends NotificationStates{
-  final int index;
-  RemoveNotificationLoadingState(this.index);
-}
-class RemoveNotificationSuccessState extends NotificationStates{}
-class RemoveNotificationErrorState extends NotificationStates{
-  final String error;
-  RemoveNotificationErrorState(this.error);
-}

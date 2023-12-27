@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
   {
     super.initState();
 
-    SplashCubit.Firebase_init( context );
+    //SplashCubit.Firebase_init( context );
 
   }
 

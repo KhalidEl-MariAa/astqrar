@@ -95,13 +95,13 @@ class SectionMenOrWomen extends StatelessWidget
                                       Text(
                                         IS_LOGIN ? NAME! : "اهلا بك ",
                                         style: GoogleFonts.almarai(
-                                            color: WHITE, fontSize: 11.sp),
+                                            color: WHITE, fontSize: 15.sp),
                                       ),
                                       if (IS_LOGIN)
                                         Text(
                                           AGE! + " " + "عاما",
                                           style: GoogleFonts.almarai(
-                                              color: CUSTOME_GREY, fontSize: 10.sp),
+                                              color: GREY, fontSize: 13.sp),
                                         ),
                                       if (IS_LOGIN == false)
                                         Row(

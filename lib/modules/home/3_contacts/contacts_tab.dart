@@ -48,12 +48,14 @@ class _ContactsTabState extends State<ContactsTab>
           textDirection: TextDirection.rtl,
           child: Scaffold(
               backgroundColor: WHITE,
-              appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(100),
-                  child: NormalLogo(
-                    appbarTitle: "المحادثات",
-                    isBack: false,
-                  )),
+              
+              appBar: 
+                PreferredSize(
+                    preferredSize: Size.fromHeight(100),
+                    child: NormalLogo(
+                      appbarTitle: "المحادثات",
+                      isBack: false,
+                    )),
 
               body: ConditionalBuilder(
                 condition: state is GetContactsLoadingState,

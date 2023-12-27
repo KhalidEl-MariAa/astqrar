@@ -28,7 +28,7 @@ class FavouriteItem extends StatelessWidget
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2.w),
         child: Container(
-          height: 11.5.h,
+          height: 9.5.h,
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(12),
@@ -46,17 +46,9 @@ class FavouriteItem extends StatelessWidget
                   },
                   child:
                     Container(
-                      height: 7.h,
-                      width: 12.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            opacity: this.contactor.IsExpired??true ? 0.5 : 1.0,
-                            image: getUserImageByPath(
-                              imgProfilePath: this.contactor.imgProfile,
-                              gender:  this.contactor.gender),
-                            fit: BoxFit.cover,
-                      )),
+                      height: 8.h,
+                      width: 18.w,
+                      child: ClipOval(child: getUserImage(this.contactor)),
                     ),
 
                 ),

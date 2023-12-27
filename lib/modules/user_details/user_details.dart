@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:astarar/constants.dart';
+import 'package:astarar/models/user.dart';
 import 'package:astarar/shared/components/dialog_please_login.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -22,12 +23,10 @@ import 'details_widget.dart';
 class UserDetailsScreen extends StatefulWidget 
 {
   final String? otherUserId;
-  // final ReceivedAction? receivedAction;
   
   UserDetailsScreen({
       Key? key, 
       String? this.otherUserId,
-      // ReceivedAction? this.receivedAction,
     }
   ):super(key: key);
 
@@ -37,7 +36,7 @@ class UserDetailsScreen extends StatefulWidget
 
 class _UserDetailsScreenState extends State<UserDetailsScreen> 
 {  
-  late OtherUser otherUser;
+  OtherUser otherUser = new OtherUser();
 
   @override
   void initState() 

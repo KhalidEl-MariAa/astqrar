@@ -83,14 +83,14 @@ class _HomeTabState extends State<HomeTab>
                               ),
                               Text(
                                 IS_LOGIN ? NAME ?? "---------" : "اهلا بك ",
-                                style: GoogleFonts.almarai(color: WHITE, fontSize: 11.sp),
+                                style: GoogleFonts.almarai(color: WHITE, fontSize: 15.sp),
                               ),
                               if (IS_LOGIN)
                                 Text(
                                   AGE! + " " + "عاما",
                                   textAlign: TextAlign.start,
                                   style: GoogleFonts.almarai(
-                                      color: CUSTOME_GREY, fontSize: 11.sp),
+                                      color: GREY, fontSize: 13.sp),
                                 ),
                               if (IS_LOGIN == false)
                                 Row(
