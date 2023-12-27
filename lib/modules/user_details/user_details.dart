@@ -1,9 +1,7 @@
 import 'dart:developer';
 
 import 'package:astarar/constants.dart';
-import 'package:astarar/models/user.dart';
 import 'package:astarar/shared/components/dialog_please_login.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

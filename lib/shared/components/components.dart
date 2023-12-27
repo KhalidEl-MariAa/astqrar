@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
@@ -104,9 +102,10 @@ Widget getUserImage(User? usr, {bool larg=false} )
           height: double.infinity,
           width: double.infinity,
           placeholder: 'assets/loading2.gif', 
+          placeholderFit: BoxFit.contain,
           image: usr.imgProfile??"",
           fit: BoxFit.cover,
-          
+          fadeInDuration: Duration(milliseconds: 400),
         );
   }else{
     w = Image.asset(usr.gender == 1? maleImage : femaleImage); 

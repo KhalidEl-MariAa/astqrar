@@ -131,21 +131,21 @@ class _HomeTabState extends State<HomeTab>
                           elevation: 0,
                           leading: 
                               SizedBox(
-                                width: 15,
+                                width: 10.w,
                                 child: 
-                                Container(
-                                height: 7.h,
-                                width: 12.w,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: getUserImageByPath(
-                                          imgProfilePath:  IMG_PROFILE, 
-                                          gender: GENDER_USER),
-                                    fit: BoxFit.cover
-                                    )),
+                                  Container(
+                                  height: 5.h,
+                                  width: 10.w,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: getUserImageByPath(
+                                            imgProfilePath:  IMG_PROFILE, 
+                                            gender: GENDER_USER),
+                                      fit: BoxFit.cover
+                                      )),
+                                  ),
                                 ),
-                              ),
                           
                           actions: [
                             Padding(

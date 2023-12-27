@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:astarar/shared/components/components.dart';
 
 import '../../shared/components/defaultTextFormField.dart';

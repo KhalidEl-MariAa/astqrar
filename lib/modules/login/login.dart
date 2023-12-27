@@ -1,8 +1,6 @@
 import 'dart:developer';
-import 'dart:io';
 
 import '../home/6_profile/user_profile/user_profile.dart';
-import '../splash/cubit/splash_cubit.dart';
 import '../../shared/components/defaultTextFormField.dart';
 import '../../shared/components/double_infinity_material_button.dart';
 import '../../shared/network/remote.dart';

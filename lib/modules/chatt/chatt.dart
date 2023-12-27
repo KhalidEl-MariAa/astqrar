@@ -276,24 +276,13 @@ class ConversationScreenState extends State<ConversationScreen>
 
                         // صورة المستخدم
                         Container(
-                          height: 20.h,
-                          width: 30.w, 
-                          
+                          height: 8.h,
+                          width: 18.w,                           
                           child: 
                             ClipOval(child: 
                               getUserImage(this.otherUser),
                             ),
                             
-                          decoration: 
-                            BoxDecoration(
-                              shape: BoxShape.circle,
-                              // image: DecorationImage(
-                              //   alignment: Alignment.bottomCenter,
-                              //   opacity: this.otherUser?.IsExpired??true ? 0.5 : 1.0,
-                              //   image: ,
-                              //   fit: BoxFit.fitWidth)
-                                                        
-                          ),
                         ),
 
                         SizedBox(width: 1.0.h,),

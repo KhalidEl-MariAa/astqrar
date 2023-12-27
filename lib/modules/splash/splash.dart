@@ -1,7 +1,4 @@
 import 'dart:developer';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
-
 import '../../models/server_response_model.dart';
 import '../home/6_profile/user_profile/user_profile.dart';
 import '../login/not_subscribed.dart';

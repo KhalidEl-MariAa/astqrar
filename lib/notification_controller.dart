@@ -1,9 +1,7 @@
 import 'dart:developer';
 
 import 'package:astarar/main.dart';
-import 'package:astarar/modules/splash/cubit/splash_cubit.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/material.dart';
 
 class NotificationController 
 {

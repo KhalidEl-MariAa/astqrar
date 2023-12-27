@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../../shared/components/dialog_please_login.dart';
 import '../../../constants.dart';
 import '../../../shared/styles/colors.dart';
-import '../../splash/cubit/splash_cubit.dart';
 import '../0_favourites/favourites_tab.dart';
 import '../1_notifications/notifications_tab.dart';
 import '../2_home_tab/home_tab.dart';

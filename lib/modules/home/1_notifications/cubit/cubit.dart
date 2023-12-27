@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:astarar/models/server_response_model.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants.dart';

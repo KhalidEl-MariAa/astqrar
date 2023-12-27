@@ -2,14 +2,9 @@ import 'dart:developer';
 import 'package:astarar/main.dart';
 import 'package:astarar/models/get_notifications.dart';
 import 'package:astarar/modules/home/2_home_tab/cubit/cubit.dart';
-import 'package:astarar/modules/login/login.dart';
 import 'package:astarar/notification_controller.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../user_details/user_details.dart';
-import '../../../shared/components/components.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -156,7 +151,7 @@ class SplashCubit extends Cubit<SplashState>
     FirebaseMessaging.instance.getInitialMessage()
     .then((RemoteMessage? message) 
     {
-      showToast( msg: "getInitialMessage() !!! ${ message?.data.toString() }  !!!! ",  state: ToastStates.SUCCESS );
+      //showToast( msg: "getInitialMessage() !!! ${ message?.data.toString() }  !!!! ",  state: ToastStates.SUCCESS );
 
       onMessageArrived( message );
       // onMessageClicked( message ); //not working 

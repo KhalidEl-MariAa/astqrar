@@ -1,10 +1,6 @@
-import 'dart:developer';
 import 'dart:io';
-
-import 'package:astarar/modules/home/layout/layout.dart';
 import 'package:astarar/modules/login/login.dart';
 import 'package:astarar/modules/user_details/user_details.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
