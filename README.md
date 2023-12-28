@@ -90,8 +90,32 @@ https://github.com/bmatzelle/gow/releases
 
 ## Deploy to IOS (MacOS)
 
-1. Make sure that `gem` installer is ready to use.
-2. Install Flutter 
+1. Make sure that `gem` installer is ready to use(`gem --version`) or download [here](https://www.ruby-lang.org/en/downloads/).
+- brew install gpg2
+
+2. Install XCode.
+
+3. Install Flutter
+- in ~/.bashrc file: 
+```bash
+export PATH="$PATH:$HOME/Downloads/flutter/bin"
+```
+
+4. Install Android Studio
+- Android Studio > More Actions... > SDK Manager > SDK platforms > select last updated one
+- Android Studio > More Actions... > SDK Manager > SDK Tools > Android SDK Command-line tools 
+- in ~/.bashrc file
+```bash
+export ANDROID_HOME="~/Library/Android/sdk"
+
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/tools"
+export PATH="$PATH:$ANDROID_HOME/tools/bin"
+
+```
+
+
+4. Install cocoapods
 ```bash
 # install cocoapods (building tool like Gradle)
 $ sudo gem install cocoapods
@@ -99,15 +123,15 @@ $ sudo gem install cocoapods
 # check installation 
 $ gem which cocoapods
 ```
-3. Edit project configurations using XCode
+5. Edit project configurations using XCode
 
-4. Build IPA (iOS App Store package) package
+6. Build IPA (iOS App Store package) package
 ```bash
 $ flutter build ipa
 
 # find the *.ipa file in ./astqrar/build/ios/ipa
 ```
-5. Upload using Transporter, this app can be found in apple store.
+7. Upload using Transporter, this app can be found in apple store.
 
 ## Configure Firebase for (Notifications)
 1. Make sure `npm` is ready to use
